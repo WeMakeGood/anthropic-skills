@@ -23,32 +23,46 @@ Skills in this library can be used with:
 
 ### Creating Skills
 
+The easiest way to create a new skill is to use the `creating-skills` skill included in this repo:
+
+1. Open this repository in Claude Code
+2. Ask: "Help me create a new agent skill"
+3. Follow the guided workflow
+
+Or manually:
+
 ```bash
 # Clone the repository
 git clone git@github.com:WeMakeGood/anthropic-skills.git
 cd anthropic-skills
 
-# Create a new skill from template
-./scripts/new-skill.sh my-skill-name
+# Create skill directory
+mkdir skills/my-skill-name
+
+# Copy template
+cp templates/SKILL.template.md skills/my-skill-name/SKILL.md
 
 # Edit your skill
 # ... modify skills/my-skill-name/SKILL.md ...
 
-# Validate your skill
-./scripts/validate-skill.sh skills/my-skill-name
+# Validate
+python3 skills/creating-skills/scripts/validate.py skills/my-skill-name
 ```
 
 ## Repository Structure
 
 ```
 anthropic-skills/
-├── skills/              # Published skills
-├── templates/           # Skill templates
-├── scripts/             # Development tools
-│   ├── new-skill.sh     # Create new skill from template
-│   └── validate-skill.sh # Validate skill against spec
-├── docs/                # Documentation
-└── .claude/skills/      # Symlink for local testing
+├── skills/                    # Published skills
+│   └── creating-skills/       # Skill for creating new skills
+│       ├── SKILL.md           # Main workflow
+│       ├── SPEC.md            # Agent Skills specification
+│       ├── BEST-PRACTICES.md  # Writing guidelines
+│       ├── EXAMPLES.md        # Conversion examples
+│       └── scripts/           # Validation tools
+├── templates/                 # Skill templates
+├── docs/                      # Documentation
+└── .claude/skills/            # Symlink for local testing
 ```
 
 ## Skill Format
@@ -58,7 +72,7 @@ Each skill is a folder with a `SKILL.md` file containing YAML frontmatter:
 ```yaml
 ---
 name: skill-name
-description: Brief description of what the skill does and when to use it.
+description: Brief description of what the skill does and when to use it. Third person.
 ---
 
 # Skill Name
@@ -69,7 +83,7 @@ Instructions for the agent...
 ### Requirements
 
 - **name**: Max 64 characters, lowercase letters/numbers/hyphens only
-- **description**: Max 1024 characters, describes capability and trigger conditions
+- **description**: Max 1024 characters, third person, includes trigger conditions
 - **SKILL.md body**: Under 500 lines recommended (use additional files for more content)
 
 ## Contributing
@@ -79,9 +93,9 @@ We welcome contributions! Please see our [contribution guidelines](docs/CONTRIBU
 ### Basic Process
 
 1. Fork the repository
-2. Create a skill: `./scripts/new-skill.sh your-skill-name`
+2. Use the `creating-skills` skill or create manually
 3. Develop and test your skill
-4. Validate: `./scripts/validate-skill.sh --all`
+4. Validate: `python3 skills/creating-skills/scripts/validate.py skills/your-skill`
 5. Submit a pull request
 
 ### Quality Guidelines
@@ -89,8 +103,8 @@ We welcome contributions! Please see our [contribution guidelines](docs/CONTRIBU
 - Write concise instructions (agents are already smart)
 - Include concrete examples, not abstract descriptions
 - Use third person in descriptions
-- Test with multiple Claude models
-- Follow the [Agent Skills best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
+- Include trigger conditions in descriptions
+- Test with the validation scripts
 
 ## Resources
 

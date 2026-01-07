@@ -6,136 +6,80 @@ Open-source collection of Agent Skills for Claude and AI agents supporting the A
 
 - `skills/` - Published skills (each is a folder with SKILL.md)
 - `templates/` - Skill scaffolding templates
-- `scripts/` - Validation and generation tools
 - `docs/` - Human documentation
 - `.claude/skills/` - Symlink to skills/ for local testing
 - `_prompts/` - Local prompts to convert (not in git)
 
-## Developing Skills
+## Creating New Skills
 
-### Skill Specification
+**Use the `creating-skills` skill.** It provides:
+- Complete specification of how skills work
+- Best practices for writing effective skills
+- Validation and testing scripts
+- Step-by-step workflow
 
-Every skill requires a `SKILL.md` file with YAML frontmatter:
+To create a new skill:
+
+1. Invoke the creating-skills skill: "Help me create a new agent skill"
+2. Follow the guided workflow
+3. Provide your requirements and source content
+4. Review and test the generated skill
+
+The skill is located at `skills/creating-skills/` and includes:
+- `SKILL.md` - Main workflow
+- `SPEC.md` - What skills are, how they work
+- `BEST-PRACTICES.md` - Writing guidelines
+- `EXAMPLES.md` - Before/after conversion examples
+- `scripts/` - Validation and testing tools
+
+## Quick Reference
+
+### Skill Structure
+
+Every skill requires a `SKILL.md` with YAML frontmatter:
 
 ```yaml
 ---
 name: skill-name
-description: What it does and when to use it. Write in third person.
+description: What it does and when to use it. Third person. Include triggers.
 ---
+
+# Skill Title
+
+[Instructions...]
 ```
 
-**Field Requirements:**
-- `name`: Max 64 chars, lowercase letters/numbers/hyphens only, no reserved words (anthropic, claude)
-- `description`: Max 1024 chars, non-empty, third person, include trigger conditions
+**Requirements:**
+- `name`: Max 64 chars, lowercase/numbers/hyphens, no reserved words
+- `description`: Max 1024 chars, third person, includes trigger conditions
+- Body: Under 500 lines (split into files if larger)
 
-### Writing Effective Skills
+### Validation
 
-**Be concise.** Claude is already smart. Only add context Claude doesn't have:
-- Domain-specific workflows and procedures
-- Company/team conventions
-- Specialized knowledge or schemas
-
-**Set appropriate freedom:**
-- High freedom (text guidance): When multiple approaches work
-- Medium freedom (pseudocode/templates): When a preferred pattern exists
-- Low freedom (exact scripts): When operations are fragile or must be exact
-
-**Structure for progressive disclosure:**
-1. SKILL.md body: Overview and common cases (under 500 lines)
-2. Linked files: Detailed reference (REFERENCE.md, EXAMPLES.md, etc.)
-3. Scripts: Deterministic operations Claude executes via bash
-
-**Description triggers discovery.** The description is how Claude decides whether to use a skill. Include:
-- What the skill does
-- When to use it (trigger conditions, keywords)
-- Key terms for matching
-
-### Skill Content Patterns
-
-**Quick start pattern** (example structure for a skill's SKILL.md):
-```markdown
-## Quick Start
-[Most common use case with minimal code]
-
-## Detailed Instructions
-[Step-by-step for complex cases]
-
-## Reference
-See [REFERENCE.md](REFERENCE.md) for complete API details.
-```
-
-**Workflow pattern with checklist:**
-```markdown
-## Workflow
-
-Copy and track progress:
-- [ ] Step 1: Analyze input
-- [ ] Step 2: Generate output
-- [ ] Step 3: Validate result
-- [ ] Step 4: Fix errors and repeat step 3
-```
-
-**Validation loop pattern** (for skills that include utility scripts):
-```markdown
-1. Generate output
-2. Validate: `python scripts/validate.py output.json`
-3. If errors, fix and return to step 2
-4. Only proceed when validation passes
-```
-Note: The script path above is an example. Each skill defines its own scripts as needed.
-
-### Converting Prompts to Skills
-
-When converting a prompt from `_prompts/` to a skill:
-
-1. **Identify the core capability** - What task does this enable?
-2. **Extract reusable instructions** - Remove one-off context, keep procedural knowledge
-3. **Write a discovery-friendly description** - Third person, includes trigger words
-4. **Add concrete examples** - Input/output pairs, not abstract descriptions
-5. **Structure for size** - If over 500 lines, split into linked files
-6. **Remove time-sensitive content** - No dates, version numbers that will become stale
-
-### File Organization
-
-**Single-file skill** (most common):
-```
-skills/my-skill/
-└── SKILL.md
-```
-
-**Multi-file skill** (when content exceeds 500 lines):
-```
-skills/my-skill/
-├── SKILL.md           # Main instructions (under 500 lines)
-├── REFERENCE.md       # Detailed API/schema reference (optional)
-├── EXAMPLES.md        # Extended examples (optional)
-└── scripts/           # Utility scripts (optional)
-    └── *.py or *.sh
-```
-
-These are example filenames. Use names that describe your skill's content. Keep references one level deep from SKILL.md.
-
-## Development Commands
+Use the scripts in `skills/creating-skills/scripts/`:
 
 ```bash
-# Create new skill from template
-./scripts/new-skill.sh skill-name
+# Validate structure
+python3 skills/creating-skills/scripts/validate.py skills/your-skill
 
-# Validate a skill
-./scripts/validate-skill.sh skills/skill-name
+# Test description quality
+python3 skills/creating-skills/scripts/test-description.py skills/your-skill "trigger phrase"
 
-# Validate all skills
-./scripts/validate-skill.sh --all
+# Test examples
+python3 skills/creating-skills/scripts/test-examples.py skills/your-skill
+
+# Full simulation
+python3 skills/creating-skills/scripts/dry-run.py skills/your-skill "test prompt"
 ```
 
-## Quality Checklist
+### Quality Checklist
 
-Before committing a skill:
+Before committing:
 
 - [ ] Name matches folder, lowercase/hyphens only
 - [ ] Description is third person with trigger conditions
 - [ ] SKILL.md under 500 lines (or properly split)
-- [ ] Concrete examples included
+- [ ] Concrete examples included (not placeholders)
 - [ ] No time-sensitive information
-- [ ] Passes `./scripts/validate-skill.sh`
+- [ ] All validation scripts pass
 - [ ] Tested locally via `.claude/skills/` symlink

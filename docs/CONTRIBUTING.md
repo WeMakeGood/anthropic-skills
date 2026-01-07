@@ -17,17 +17,29 @@ Thank you for your interest in contributing to the Anthropic Skills Library! Thi
 
 ## Creating a New Skill
 
-### Step 1: Generate from Template
+### Option 1: Use the Creating-Skills Skill (Recommended)
+
+The easiest way to create a skill is to use the `creating-skills` skill:
+
+1. Open the repository in Claude Code
+2. Ask: "Help me create a new agent skill"
+3. Follow the guided workflow
+4. The skill will read the spec, best practices, and guide you through creation
+
+### Option 2: Create Manually
 
 ```bash
-./scripts/new-skill.sh your-skill-name
+# Create skill directory
+mkdir skills/your-skill-name
+
+# Copy template
+cp templates/SKILL.template.md skills/your-skill-name/SKILL.md
+
+# Edit the skill
+# ... modify skills/your-skill-name/SKILL.md ...
 ```
 
-This creates `skills/your-skill-name/SKILL.md` with the basic structure.
-
-### Step 2: Write Your Skill
-
-Edit `SKILL.md` following these guidelines:
+### Writing Your Skill
 
 **Frontmatter Requirements:**
 - `name`: Must match folder name, max 64 chars, lowercase/numbers/hyphens only
@@ -39,15 +51,27 @@ Edit `SKILL.md` following these guidelines:
 - Include concrete examples, not abstract descriptions
 - Use additional files for detailed reference content
 
-### Step 3: Validate
+### Validate Your Skill
+
+Use the validation scripts in `skills/creating-skills/scripts/`:
 
 ```bash
-./scripts/validate-skill.sh skills/your-skill-name
+# Structure validation
+python3 skills/creating-skills/scripts/validate.py skills/your-skill-name
+
+# Description quality
+python3 skills/creating-skills/scripts/test-description.py skills/your-skill-name "expected trigger phrase"
+
+# Example verification
+python3 skills/creating-skills/scripts/test-examples.py skills/your-skill-name
+
+# Full simulation
+python3 skills/creating-skills/scripts/dry-run.py skills/your-skill-name "test prompt"
 ```
 
 Fix any errors before submitting.
 
-### Step 4: Test Locally
+### Test Locally
 
 The `.claude/skills/` symlink allows you to test skills with Claude Code:
 
@@ -56,7 +80,7 @@ The `.claude/skills/` symlink allows you to test skills with Claude Code:
 3. Verify Claude discovers and uses the skill correctly
 4. Test with different prompts and edge cases
 
-### Step 5: Submit a Pull Request
+### Submit a Pull Request
 
 1. Commit your changes:
    ```bash
@@ -73,40 +97,42 @@ The `.claude/skills/` symlink allows you to test skills with Claude Code:
 
 Before submitting, ensure your skill:
 
-- [ ] Passes validation (`./scripts/validate-skill.sh`)
+- [ ] Passes all validation scripts
 - [ ] Has a clear, specific description in third person
-- [ ] Includes concrete examples
+- [ ] Includes trigger conditions in description
+- [ ] Includes concrete examples (not placeholders)
 - [ ] Is under 500 lines (or uses additional files appropriately)
 - [ ] Uses consistent terminology throughout
 - [ ] Contains no time-sensitive information
-- [ ] Has been tested with Claude
+- [ ] Has been tested with Claude Code
 
 ## Skill Writing Best Practices
 
-### Be Concise
+For detailed guidance, see:
+- `skills/creating-skills/SPEC.md` - How skills work
+- `skills/creating-skills/BEST-PRACTICES.md` - Writing guidelines
+- `skills/creating-skills/EXAMPLES.md` - Conversion examples
+
+### Key Principles
+
+**Be Concise**
 Claude is already intelligent. Only include context it doesn't have:
 - Domain-specific workflows
 - Company/team conventions
 - Specialized procedures
 
-### Use Progressive Disclosure
+**Use Progressive Disclosure**
 For complex skills, structure as:
 1. Main SKILL.md with overview and common cases
 2. Linked files for detailed reference (REFERENCE.md, EXAMPLES.md)
 3. Scripts for deterministic operations
 
-### Set Appropriate Freedom
+**Set Appropriate Freedom**
 - **High freedom**: General guidance when multiple approaches work
 - **Low freedom**: Specific scripts when operations are fragile
 
-### Include Feedback Loops
-For quality-critical tasks, add validation steps:
-```markdown
-1. Generate output
-2. Run validation: `./scripts/validate.py output.json`
-3. If errors, fix and repeat step 2
-4. Only proceed when validation passes
-```
+**Include Feedback Loops**
+For quality-critical tasks, add validation steps in your skill's workflow.
 
 ## Code of Conduct
 
