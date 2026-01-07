@@ -52,7 +52,7 @@ description: What it does and when to use it. Write in third person.
 
 ### Skill Content Patterns
 
-**Quick start pattern:**
+**Quick start pattern** (example structure for a skill's SKILL.md):
 ```markdown
 ## Quick Start
 [Most common use case with minimal code]
@@ -75,13 +75,14 @@ Copy and track progress:
 - [ ] Step 4: Fix errors and repeat step 3
 ```
 
-**Validation loop pattern:**
+**Validation loop pattern** (for skills that include utility scripts):
 ```markdown
 1. Generate output
 2. Validate: `python scripts/validate.py output.json`
 3. If errors, fix and return to step 2
 4. Only proceed when validation passes
 ```
+Note: The script path above is an example. Each skill defines its own scripts as needed.
 
 ### Converting Prompts to Skills
 
@@ -96,24 +97,23 @@ When converting a prompt from `_prompts/` to a skill:
 
 ### File Organization
 
-Single-file skill:
+**Single-file skill** (most common):
 ```
 skills/my-skill/
 └── SKILL.md
 ```
 
-Multi-file skill:
+**Multi-file skill** (when content exceeds 500 lines):
 ```
 skills/my-skill/
 ├── SKILL.md           # Main instructions (under 500 lines)
-├── REFERENCE.md       # Detailed API/schema reference
-├── EXAMPLES.md        # Extended examples
-└── scripts/
-    ├── validate.py    # Validation utility
-    └── process.py     # Processing utility
+├── REFERENCE.md       # Detailed API/schema reference (optional)
+├── EXAMPLES.md        # Extended examples (optional)
+└── scripts/           # Utility scripts (optional)
+    └── *.py or *.sh
 ```
 
-Keep references one level deep from SKILL.md. Avoid nested file chains.
+These are example filenames. Use names that describe your skill's content. Keep references one level deep from SKILL.md.
 
 ## Development Commands
 
