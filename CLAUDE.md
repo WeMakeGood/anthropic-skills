@@ -1,90 +1,141 @@
 # Anthropic Skills Library
 
-This repository contains a collection of reusable Agent Skills for Claude and other AI agents that support the Agent Skills standard.
+Open-source collection of Agent Skills for Claude and AI agents supporting the Agent Skills standard.
 
-## Repository Structure
+## Repository Layout
 
-```
-anthropic-skills/
-├── skills/              # Published skills (each skill is a folder with SKILL.md)
-├── templates/           # Skill templates for creating new skills
-├── scripts/             # Development tooling (validation, scaffolding)
-├── docs/                # Documentation and guides
-├── .claude/             # Claude Code configuration
-│   └── skills/          # Symlink to skills/ for local testing
-└── _prompts/            # Local prompts (not tracked in git)
-```
+- `skills/` - Published skills (each is a folder with SKILL.md)
+- `templates/` - Skill scaffolding templates
+- `scripts/` - Validation and generation tools
+- `docs/` - Human documentation
+- `.claude/skills/` - Symlink to skills/ for local testing
+- `_prompts/` - Local prompts to convert (not in git)
 
-## Skill Format
+## Developing Skills
 
-Each skill is a folder containing at minimum a `SKILL.md` file with YAML frontmatter:
+### Skill Specification
+
+Every skill requires a `SKILL.md` file with YAML frontmatter:
 
 ```yaml
 ---
 name: skill-name
-description: Brief description of what the skill does and when to use it.
+description: What it does and when to use it. Write in third person.
 ---
-
-# Skill Name
-
-Instructions for Claude...
 ```
 
-### Naming Conventions
+**Field Requirements:**
+- `name`: Max 64 chars, lowercase letters/numbers/hyphens only, no reserved words (anthropic, claude)
+- `description`: Max 1024 chars, non-empty, third person, include trigger conditions
 
-- Skill folder names: lowercase with hyphens (e.g., `pdf-processing`)
-- Skill names in frontmatter: match folder name exactly
-- Use gerund form when possible (e.g., `processing-pdfs`, `analyzing-data`)
+### Writing Effective Skills
 
-### Required Fields
+**Be concise.** Claude is already smart. Only add context Claude doesn't have:
+- Domain-specific workflows and procedures
+- Company/team conventions
+- Specialized knowledge or schemas
 
-- `name`: Max 64 chars, lowercase letters/numbers/hyphens only
-- `description`: Max 1024 chars, describes what the skill does AND when to use it
+**Set appropriate freedom:**
+- High freedom (text guidance): When multiple approaches work
+- Medium freedom (pseudocode/templates): When a preferred pattern exists
+- Low freedom (exact scripts): When operations are fragile or must be exact
 
-## Development Workflow
+**Structure for progressive disclosure:**
+1. SKILL.md body: Overview and common cases (under 500 lines)
+2. Linked files: Detailed reference (REFERENCE.md, EXAMPLES.md, etc.)
+3. Scripts: Deterministic operations Claude executes via bash
 
-### Creating a New Skill
+**Description triggers discovery.** The description is how Claude decides whether to use a skill. Include:
+- What the skill does
+- When to use it (trigger conditions, keywords)
+- Key terms for matching
 
-```bash
-# Generate a new skill from template
-./scripts/new-skill.sh my-skill-name
+### Skill Content Patterns
 
-# Or manually create
-mkdir skills/my-skill-name
-cp templates/SKILL.template.md skills/my-skill-name/SKILL.md
+**Quick start pattern:**
+```markdown
+## Quick Start
+[Most common use case with minimal code]
+
+## Detailed Instructions
+[Step-by-step for complex cases]
+
+## Reference
+See [REFERENCE.md](REFERENCE.md) for complete API details.
 ```
 
-### Validating Skills
+**Workflow pattern with checklist:**
+```markdown
+## Workflow
+
+Copy and track progress:
+- [ ] Step 1: Analyze input
+- [ ] Step 2: Generate output
+- [ ] Step 3: Validate result
+- [ ] Step 4: Fix errors and repeat step 3
+```
+
+**Validation loop pattern:**
+```markdown
+1. Generate output
+2. Validate: `python scripts/validate.py output.json`
+3. If errors, fix and return to step 2
+4. Only proceed when validation passes
+```
+
+### Converting Prompts to Skills
+
+When converting a prompt from `_prompts/` to a skill:
+
+1. **Identify the core capability** - What task does this enable?
+2. **Extract reusable instructions** - Remove one-off context, keep procedural knowledge
+3. **Write a discovery-friendly description** - Third person, includes trigger words
+4. **Add concrete examples** - Input/output pairs, not abstract descriptions
+5. **Structure for size** - If over 500 lines, split into linked files
+6. **Remove time-sensitive content** - No dates, version numbers that will become stale
+
+### File Organization
+
+Single-file skill:
+```
+skills/my-skill/
+└── SKILL.md
+```
+
+Multi-file skill:
+```
+skills/my-skill/
+├── SKILL.md           # Main instructions (under 500 lines)
+├── REFERENCE.md       # Detailed API/schema reference
+├── EXAMPLES.md        # Extended examples
+└── scripts/
+    ├── validate.py    # Validation utility
+    └── process.py     # Processing utility
+```
+
+Keep references one level deep from SKILL.md. Avoid nested file chains.
+
+## Development Commands
 
 ```bash
-# Validate a single skill
-./scripts/validate-skill.sh skills/my-skill-name
+# Create new skill from template
+./scripts/new-skill.sh skill-name
+
+# Validate a skill
+./scripts/validate-skill.sh skills/skill-name
 
 # Validate all skills
 ./scripts/validate-skill.sh --all
 ```
 
-### Testing Skills Locally
+## Quality Checklist
 
-The `.claude/skills/` directory symlinks to `skills/`, allowing Claude Code to discover and use skills from this repo during development.
+Before committing a skill:
 
-## Contributing
-
-1. Fork the repository
-2. Create a new skill in `skills/your-skill-name/`
-3. Ensure your skill passes validation
-4. Submit a pull request
-
-### Contribution Guidelines
-
-- Keep SKILL.md under 500 lines; use additional files for detailed content
-- Include concrete examples, not abstract descriptions
-- Test with multiple Claude models (Haiku, Sonnet, Opus)
-- Follow the naming conventions above
-- No time-sensitive information in instructions
-
-## Resources
-
-- [Agent Skills Overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
-- [Best Practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
-- [Agent Skills Ecosystem](https://agentskills.io)
+- [ ] Name matches folder, lowercase/hyphens only
+- [ ] Description is third person with trigger conditions
+- [ ] SKILL.md under 500 lines (or properly split)
+- [ ] Concrete examples included
+- [ ] No time-sensitive information
+- [ ] Passes `./scripts/validate-skill.sh`
+- [ ] Tested locally via `.claude/skills/` symlink
