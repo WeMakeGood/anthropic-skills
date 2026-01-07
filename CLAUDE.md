@@ -27,10 +27,10 @@ To create a new skill:
 
 The skill is located at `skills/creating-skills/` and includes:
 - `SKILL.md` - Main workflow
-- `SPEC.md` - What skills are, how they work
-- `BEST-PRACTICES.md` - Writing guidelines
-- `EXAMPLES.md` - Before/after conversion examples
-- `scripts/` - Validation and testing tools
+- `references/SPEC.md` - What skills are, how they work
+- `references/BEST-PRACTICES.md` - Writing guidelines
+- `references/EXAMPLES.md` - Before/after conversion examples
+- `scripts/` - Validation, testing, init, and packaging tools
 
 ## Quick Reference
 
@@ -49,16 +49,27 @@ description: What it does and when to use it. Third person. Include triggers.
 [Instructions...]
 ```
 
-**Requirements:**
-- `name`: Max 64 chars, lowercase/numbers/hyphens, no reserved words
-- `description`: Max 1024 chars, third person, includes trigger conditions
-- Body: Under 500 lines (split into files if larger)
+Standard directory layout:
+```
+skill-name/
+├── SKILL.md           # Required - main instructions
+├── references/        # Optional - additional documentation
+└── scripts/           # Optional - utility scripts
+```
 
-### Validation
+**Field Requirements:**
+- `name`: 1-64 chars, lowercase/numbers/hyphens, cannot start/end with hyphen, no consecutive hyphens
+- `description`: 1-1024 chars, no angle brackets, third person, includes trigger conditions
+- Body: Under 500 lines (split into references/ if larger)
+
+### Scripts
 
 Use the scripts in `skills/creating-skills/scripts/`:
 
 ```bash
+# Initialize new skill
+python3 skills/creating-skills/scripts/init_skill.py my-skill-name --path skills
+
 # Validate structure
 python3 skills/creating-skills/scripts/validate.py skills/your-skill
 
@@ -70,15 +81,20 @@ python3 skills/creating-skills/scripts/test-examples.py skills/your-skill
 
 # Full simulation
 python3 skills/creating-skills/scripts/dry-run.py skills/your-skill "test prompt"
+
+# Package for distribution
+python3 skills/creating-skills/scripts/package_skill.py skills/your-skill --output .
 ```
 
 ### Quality Checklist
 
 Before committing:
 
-- [ ] Name matches folder, lowercase/hyphens only
+- [ ] Name matches folder, lowercase/hyphens only, no consecutive hyphens
+- [ ] Name doesn't start or end with hyphen
 - [ ] Description is third person with trigger conditions
-- [ ] SKILL.md under 500 lines (or properly split)
+- [ ] Description contains no angle brackets
+- [ ] SKILL.md under 500 lines (or properly split into references/)
 - [ ] Concrete examples included (not placeholders)
 - [ ] No time-sensitive information
 - [ ] All validation scripts pass

@@ -9,8 +9,9 @@ Usage:
 Validates:
 - SKILL.md exists
 - YAML frontmatter present and valid
-- name field: format, length, reserved words
-- description field: length, third person, no XML
+- name field: format, length, hyphen rules, reserved words
+- description field: length, no angle brackets, third person
+- Only allowed frontmatter fields
 - SKILL.md line count (warning if >500)
 - File references exist
 """
@@ -19,13 +20,23 @@ import argparse
 import re
 import sys
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Set
+
+# Allowed frontmatter fields per the Agent Skills spec
+ALLOWED_FRONTMATTER_FIELDS: Set[str] = {
+    "name",
+    "description",
+    "license",
+    "compatibility",
+    "metadata",
+    "allowed-tools",
+}
 
 
 class ValidationResult:
     def __init__(self):
-        self.errors = []
-        self.warnings = []
+        self.errors: List[str] = []
+        self.warnings: List[str] = []
 
     def error(self, msg: str):
         self.errors.append(msg)
@@ -76,27 +87,44 @@ def validate_name(name: str, folder_name: str, result: ValidationResult):
         result.error("Missing required field: name")
         return
 
-    # Length check
+    # Length check (1-64 characters)
     if len(name) > 64:
         result.error(f"name exceeds 64 characters ({len(name)} chars)")
 
-    # Format check
+    if len(name) < 1:
+        result.error("name cannot be empty")
+
+    # Format check (lowercase alphanumeric and hyphens only)
     if not re.match(r"^[a-z0-9-]+$", name):
         result.error("name must contain only lowercase letters, numbers, and hyphens")
+
+    # Cannot start or end with hyphen
+    if name.startswith("-"):
+        result.error("name cannot start with a hyphen")
+
+    if name.endswith("-"):
+        result.error("name cannot end with a hyphen")
+
+    # Cannot contain consecutive hyphens
+    if "--" in name:
+        result.error("name cannot contain consecutive hyphens")
 
     # Reserved words
     if re.search(r"(anthropic|claude)", name, re.IGNORECASE):
         result.error("name cannot contain reserved words: 'anthropic', 'claude'")
 
-    # XML tags
-    if re.search(r"<[^>]+>", name):
-        result.error("name cannot contain XML tags")
-
     # Match folder name
     if name != folder_name:
         result.warning(f"name '{name}' does not match folder name '{folder_name}'")
 
-    if len(name) <= 64 and re.match(r"^[a-z0-9-]+$", name):
+    # Success message if basic format is valid
+    if (
+        1 <= len(name) <= 64
+        and re.match(r"^[a-z0-9-]+$", name)
+        and not name.startswith("-")
+        and not name.endswith("-")
+        and "--" not in name
+    ):
         result.success(f"name: {name}")
 
 
@@ -106,13 +134,16 @@ def validate_description(description: str, result: ValidationResult):
         result.error("Missing required field: description")
         return
 
-    # Length check
+    # Length check (1-1024 characters)
     if len(description) > 1024:
         result.error(f"description exceeds 1024 characters ({len(description)} chars)")
 
-    # XML tags
-    if re.search(r"<[^>]+>", description):
-        result.error("description cannot contain XML tags")
+    if len(description) < 1:
+        result.error("description cannot be empty")
+
+    # No angle brackets (XML/HTML tags)
+    if re.search(r"[<>]", description):
+        result.error("description cannot contain angle brackets (< or >)")
 
     # First/second person (warning)
     bad_patterns = [
@@ -133,6 +164,40 @@ def validate_description(description: str, result: ValidationResult):
             break
 
     result.success(f"description present ({len(description)} chars)")
+
+
+def validate_frontmatter_fields(
+    frontmatter: Dict[str, str], result: ValidationResult
+):
+    """Validate that only allowed frontmatter fields are present."""
+    unknown_fields = set(frontmatter.keys()) - ALLOWED_FRONTMATTER_FIELDS
+
+    if unknown_fields:
+        result.warning(
+            f"Unknown frontmatter fields: {', '.join(sorted(unknown_fields))}. "
+            f"Allowed fields: {', '.join(sorted(ALLOWED_FRONTMATTER_FIELDS))}"
+        )
+    else:
+        result.success("Frontmatter contains only allowed fields")
+
+
+def validate_optional_fields(
+    frontmatter: Dict[str, str], result: ValidationResult
+):
+    """Validate optional frontmatter fields if present."""
+    # Validate compatibility field (1-500 chars)
+    if "compatibility" in frontmatter:
+        compat = frontmatter["compatibility"]
+        if len(compat) > 500:
+            result.error(
+                f"compatibility exceeds 500 characters ({len(compat)} chars)"
+            )
+        else:
+            result.success(f"compatibility present ({len(compat)} chars)")
+
+    # Validate license field if present
+    if "license" in frontmatter:
+        result.success(f"license: {frontmatter['license']}")
 
 
 def validate_skill(skill_path: Path) -> ValidationResult:
@@ -162,11 +227,17 @@ def validate_skill(skill_path: Path) -> ValidationResult:
         return result
     result.success("YAML frontmatter present")
 
-    # Validate fields
+    # Validate frontmatter fields
+    validate_frontmatter_fields(frontmatter, result)
+
+    # Validate required fields
     validate_name(frontmatter.get("name", ""), skill_name, result)
     validate_description(frontmatter.get("description", ""), result)
 
-    # Line count
+    # Validate optional fields
+    validate_optional_fields(frontmatter, result)
+
+    # Line count (body should be under 5000 tokens, roughly 500 lines)
     line_count = len(content.split("\n"))
     if line_count > 500:
         result.warning(f"SKILL.md has {line_count} lines (recommended: under 500)")
@@ -179,19 +250,31 @@ def validate_skill(skill_path: Path) -> ValidationResult:
 
     # Check file references exist
     md_links = re.findall(r"\[([^\]]+)\]\(([^)]+)\)", content)
+    missing_refs = []
     for link_text, link_path in md_links:
-        if link_path.startswith("http"):
+        if link_path.startswith(("http://", "https://", "#")):
             continue
         ref_path = skill_path / link_path
         if not ref_path.exists():
-            result.warning(f"Referenced file not found: {link_path}")
+            missing_refs.append(link_path)
+
+    if missing_refs:
+        for ref in missing_refs:
+            result.warning(f"Referenced file not found: {ref}")
+    else:
+        ref_count = len([
+            lp for _, lp in md_links
+            if not lp.startswith(("http://", "https://", "#"))
+        ])
+        if ref_count > 0:
+            result.success(f"All {ref_count} file reference(s) exist")
 
     return result
 
 
 def main():
     parser = argparse.ArgumentParser(description="Validate Agent Skills")
-    parser.add_argument("path", help="Path to skill directory or --all flag")
+    parser.add_argument("path", help="Path to skill directory")
     parser.add_argument(
         "--all", action="store_true", help="Validate all skills in directory"
     )
@@ -238,7 +321,10 @@ def main():
 
         print()
         if result.errors:
-            print(f"FAILED: {len(result.errors)} error(s), {len(result.warnings)} warning(s)")
+            print(
+                f"FAILED: {len(result.errors)} error(s), "
+                f"{len(result.warnings)} warning(s)"
+            )
             sys.exit(1)
         elif result.warnings:
             print(f"PASSED with warnings: {len(result.warnings)} warning(s)")

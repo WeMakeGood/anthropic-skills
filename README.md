@@ -29,24 +29,24 @@ The easiest way to create a new skill is to use the `creating-skills` skill incl
 2. Ask: "Help me create a new agent skill"
 3. Follow the guided workflow
 
-Or manually:
+Or use the init script:
 
 ```bash
 # Clone the repository
 git clone git@github.com:WeMakeGood/anthropic-skills.git
 cd anthropic-skills
 
-# Create skill directory
-mkdir skills/my-skill-name
-
-# Copy template
-cp templates/SKILL.template.md skills/my-skill-name/SKILL.md
+# Initialize a new skill
+python3 skills/creating-skills/scripts/init_skill.py my-skill-name --path skills
 
 # Edit your skill
 # ... modify skills/my-skill-name/SKILL.md ...
 
 # Validate
 python3 skills/creating-skills/scripts/validate.py skills/my-skill-name
+
+# Package for distribution
+python3 skills/creating-skills/scripts/package_skill.py skills/my-skill-name --output .
 ```
 
 ## Repository Structure
@@ -56,10 +56,17 @@ anthropic-skills/
 ├── skills/                    # Published skills
 │   └── creating-skills/       # Skill for creating new skills
 │       ├── SKILL.md           # Main workflow
-│       ├── SPEC.md            # Agent Skills specification
-│       ├── BEST-PRACTICES.md  # Writing guidelines
-│       ├── EXAMPLES.md        # Conversion examples
-│       └── scripts/           # Validation tools
+│       ├── references/        # Documentation
+│       │   ├── SPEC.md        # Agent Skills specification
+│       │   ├── BEST-PRACTICES.md
+│       │   └── EXAMPLES.md
+│       └── scripts/           # Tools
+│           ├── init_skill.py
+│           ├── validate.py
+│           ├── test-description.py
+│           ├── test-examples.py
+│           ├── dry-run.py
+│           └── package_skill.py
 ├── templates/                 # Skill templates
 ├── docs/                      # Documentation
 └── .claude/skills/            # Symlink for local testing
@@ -80,11 +87,19 @@ description: Brief description of what the skill does and when to use it. Third 
 Instructions for the agent...
 ```
 
+Standard layout:
+```
+skill-name/
+├── SKILL.md           # Required - main instructions
+├── references/        # Optional - additional documentation
+└── scripts/           # Optional - utility scripts
+```
+
 ### Requirements
 
-- **name**: Max 64 characters, lowercase letters/numbers/hyphens only
-- **description**: Max 1024 characters, third person, includes trigger conditions
-- **SKILL.md body**: Under 500 lines recommended (use additional files for more content)
+- **name**: 1-64 characters, lowercase letters/numbers/hyphens only, cannot start/end with hyphen, no consecutive hyphens
+- **description**: 1-1024 characters, no angle brackets, third person, includes trigger conditions
+- **SKILL.md body**: Under 500 lines recommended (use references/ folder for more content)
 
 ## Contributing
 
@@ -93,7 +108,7 @@ We welcome contributions! Please see our [contribution guidelines](docs/CONTRIBU
 ### Basic Process
 
 1. Fork the repository
-2. Use the `creating-skills` skill or create manually
+2. Use the `creating-skills` skill or init script
 3. Develop and test your skill
 4. Validate: `python3 skills/creating-skills/scripts/validate.py skills/your-skill`
 5. Submit a pull request
@@ -108,10 +123,10 @@ We welcome contributions! Please see our [contribution guidelines](docs/CONTRIBU
 
 ## Resources
 
+- [Agent Skills Specification](https://agentskills.io/specification)
 - [Agent Skills Overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
 - [Best Practices Guide](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)
-- [Agent Skills Ecosystem](https://agentskills.io)
-- [Skills Cookbook](https://platform.claude.com/cookbook/skills-notebooks-01-skills-introduction)
+- [Anthropic Skills Repository](https://github.com/anthropics/skills)
 
 ## License
 

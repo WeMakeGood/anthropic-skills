@@ -54,8 +54,9 @@ Skills can bundle additional files that Claude reads only when referenced:
 ```
 processing-pdfs/
 ├── SKILL.md           # Level 2 - loaded when triggered
-├── FORMS.md           # Level 3 - loaded if form filling needed
-├── REFERENCE.md       # Level 3 - loaded for API details
+├── references/        # Level 3 - documentation folder
+│   ├── FORMS.md       # Loaded if form filling needed
+│   └── REFERENCE.md   # Loaded for API details
 └── scripts/
     └── validate.py    # Level 3 - executed, output returned
 ```
@@ -125,15 +126,18 @@ skill-name/
 └── SKILL.md
 ```
 
-Multi-file skills add resources as needed:
+Multi-file skills organize resources in standard folders:
 
 ```
 skill-name/
-├── SKILL.md
-├── REFERENCE.md
-├── EXAMPLES.md
-└── scripts/
-    └── utility.py
+├── SKILL.md           # Required - main instructions
+├── references/        # Optional - additional documentation
+│   ├── REFERENCE.md   # Detailed API/schema reference
+│   └── EXAMPLES.md    # Extended examples
+├── scripts/           # Optional - utility scripts
+│   └── utility.py
+└── assets/            # Optional - output templates, images
+    └── template.docx
 ```
 
 ### YAML Frontmatter
@@ -149,20 +153,41 @@ description: What this skill does and when to use it.
 
 ### Field Requirements
 
+#### Required Fields
+
 **name:**
-- Maximum 64 characters
+- 1-64 characters
 - Lowercase letters, numbers, and hyphens only
+- Cannot start or end with a hyphen
+- Cannot contain consecutive hyphens (`--`)
 - No spaces or underscores
 - Cannot contain reserved words: "anthropic", "claude"
-- Cannot contain XML tags
-- Should match the directory name
+- Must match the directory name
 
 **description:**
-- Maximum 1,024 characters
-- Must be non-empty
-- Cannot contain XML tags
+- 1-1,024 characters
+- Cannot contain angle brackets (`<` or `>`)
 - Must be third person (see Best Practices)
-- Should include trigger conditions
+- Should include trigger conditions and keywords for discovery
+
+#### Optional Fields
+
+**license:**
+- Specifies licensing terms for the skill
+- Example: `license: MIT` or `license: Apache-2.0`
+
+**compatibility:**
+- 1-500 characters
+- Documents environment prerequisites
+- Example: `compatibility: Requires Python 3.9+, pdfplumber package`
+
+**metadata:**
+- Arbitrary key-value string pairs for additional properties
+- Example: `metadata: { author: "Team Name", version: "1.0" }`
+
+**allowed-tools:**
+- Space-delimited list of pre-approved tools (experimental feature)
+- Example: `allowed-tools: read write bash`
 
 ### SKILL.md Body
 

@@ -11,13 +11,13 @@ This skill guides you through creating well-structured Agent Skills from prompts
 
 **You must read the reference documentation before creating any skill:**
 
-1. Read [SPEC.md](SPEC.md) to understand:
+1. Read [references/SPEC.md](references/SPEC.md) to understand:
    - What skills are and how they differ from prompts
    - The three loading levels (metadata, instructions, resources)
    - Progressive disclosure and why it matters
    - Structure requirements and field limits
 
-2. Read [BEST-PRACTICES.md](BEST-PRACTICES.md) to understand:
+2. Read [references/BEST-PRACTICES.md](references/BEST-PRACTICES.md) to understand:
    - How to write concise, effective content
    - Setting appropriate freedom levels
    - Writing discoverable descriptions
@@ -30,11 +30,12 @@ Copy this checklist and track progress:
 ```
 Skill Creation Progress:
 - [ ] Phase 1: Gather requirements
-- [ ] Phase 2: Read reference docs (SPEC.md, BEST-PRACTICES.md)
+- [ ] Phase 2: Read reference docs
 - [ ] Phase 3: Analyze source content
-- [ ] Phase 4: Draft the skill
-- [ ] Phase 5: Test and validate
-- [ ] Phase 6: User review and finalize
+- [ ] Phase 4: Initialize skill structure
+- [ ] Phase 5: Draft the skill
+- [ ] Phase 6: Test and validate
+- [ ] Phase 7: Package and finalize
 ```
 
 ### Phase 1: Gather Requirements
@@ -58,18 +59,24 @@ Propose a skill name (lowercase, hyphens, gerund form preferred):
 - `analyzing-data` not `data-analysis`
 - `generating-reports` not `report-generator`
 
+Name rules:
+- 1-64 characters
+- Lowercase letters, numbers, and hyphens only
+- Cannot start or end with hyphen
+- Cannot contain consecutive hyphens (`--`)
+
 ### Phase 2: Read Reference Documentation
 
 **This step is mandatory.** Do not skip it.
 
 Read the full content of:
-- [SPEC.md](SPEC.md) - Understanding skill architecture
-- [BEST-PRACTICES.md](BEST-PRACTICES.md) - Writing effective content
+- [references/SPEC.md](references/SPEC.md) - Understanding skill architecture
+- [references/BEST-PRACTICES.md](references/BEST-PRACTICES.md) - Writing effective content
 
 Key points to internalize:
 - Only add context you (Claude) don't already have
 - Description must be third person with trigger conditions
-- Keep SKILL.md under 500 lines; use referenced files for more
+- Keep SKILL.md under 500 lines; use references/ folder for more
 - Examples must be concrete, not abstract placeholders
 
 ### Phase 3: Analyze Source Content
@@ -88,18 +95,28 @@ If converting existing content (prompts, docs):
 
 3. **Determine structure**
    - Can it fit in under 500 lines? → Single SKILL.md
-   - Needs detailed reference? → Add REFERENCE.md
-   - Multiple domains? → Split by domain
+   - Needs detailed reference? → Add references/REFERENCE.md
+   - Multiple domains? → Split into references/ files
    - Utility operations? → Add scripts/
 
-### Phase 4: Draft the Skill
+### Phase 4: Initialize Skill Structure
 
-Create the skill directory:
+Use the init script to create the standard directory structure:
+
+```bash
+python scripts/init_skill.py <skill-name> --path skills
+```
+
+This creates:
 ```
 skills/<skill-name>/
-├── SKILL.md
-└── (additional files as needed)
+├── SKILL.md           # Main instructions (template)
+├── references/        # For additional documentation
+│   └── REFERENCE.md   # Placeholder reference file
+└── scripts/           # For utility scripts
 ```
+
+### Phase 5: Draft the Skill
 
 #### Write the Frontmatter
 
@@ -110,12 +127,19 @@ description: [Third person. What it does. When to use it. Include keywords.]
 ---
 ```
 
+Optional frontmatter fields:
+- `license`: License terms (e.g., "MIT", "Apache-2.0")
+- `compatibility`: Environment prerequisites (max 500 chars)
+- `metadata`: Arbitrary key-value pairs
+- `allowed-tools`: Pre-approved tools (experimental)
+
 Description requirements:
 - Third person ("Processes..." not "I process...")
 - States what the skill does
 - States when to use it (trigger conditions)
 - Includes keywords users might say
 - Under 1024 characters
+- No angle brackets (< or >)
 
 #### Write the Body
 
@@ -134,7 +158,7 @@ Structure for most skills:
 [Concrete input/output pairs - NOT placeholders]
 
 ## Additional Resources
-[Links to reference files if needed]
+[Links to files in references/ folder if needed]
 ```
 
 Writing guidelines:
@@ -142,9 +166,9 @@ Writing guidelines:
 - Be concise - you're smart, skip obvious explanations
 - Use appropriate freedom level (high/medium/low)
 - Include concrete examples with real values
-- Link to additional files for detailed content
+- Link to references/ files for detailed content
 
-### Phase 5: Test and Validate
+### Phase 6: Test and Validate
 
 Run all validation scripts in sequence:
 
@@ -192,14 +216,23 @@ Review:
 4. Only proceed when all tests pass
 ```
 
-### Phase 6: User Review and Finalize
+### Phase 7: Package and Finalize
 
 Present the complete skill to the user:
 - Show SKILL.md content
 - Explain any additional files
 - Note any trade-offs or decisions made
 
-Get user approval before committing.
+Get user approval, then package for distribution:
+
+```bash
+python scripts/package_skill.py /path/to/new-skill --output .
+```
+
+This creates a zip file ready for:
+- Upload to Claude.ai
+- Distribution to other users
+- Archival
 
 ## File Reference
 
@@ -207,13 +240,15 @@ This skill includes:
 
 | File | Purpose |
 |------|---------|
-| [SPEC.md](SPEC.md) | Agent Skills specification |
-| [BEST-PRACTICES.md](BEST-PRACTICES.md) | Writing effective skills |
-| [EXAMPLES.md](EXAMPLES.md) | Before/after conversion examples |
+| [references/SPEC.md](references/SPEC.md) | Agent Skills specification |
+| [references/BEST-PRACTICES.md](references/BEST-PRACTICES.md) | Writing effective skills |
+| [references/EXAMPLES.md](references/EXAMPLES.md) | Before/after conversion examples |
+| [scripts/init_skill.py](scripts/init_skill.py) | Initialize new skill directory |
 | [scripts/validate.py](scripts/validate.py) | Structure validation |
 | [scripts/test-description.py](scripts/test-description.py) | Description quality testing |
 | [scripts/test-examples.py](scripts/test-examples.py) | Example verification |
 | [scripts/dry-run.py](scripts/dry-run.py) | Full loading simulation |
+| [scripts/package_skill.py](scripts/package_skill.py) | Package skill for distribution |
 
 ## Common Issues
 
@@ -224,10 +259,13 @@ This skill includes:
 → Replace `[placeholder]` with actual values. Show real input → real output.
 
 **"SKILL.md too long"**
-→ Move detailed content to REFERENCE.md or split by domain.
+→ Move detailed content to references/ folder or split by domain.
 
 **"Skill doesn't trigger"**
 → Add more keywords to description that match how users phrase requests.
 
 **"Referenced file not found"**
 → Check path is relative to skill directory, uses forward slashes.
+
+**"Name validation failed"**
+→ Ensure name is lowercase, uses hyphens (not underscores), doesn't start/end with hyphen.
