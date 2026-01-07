@@ -1,6 +1,6 @@
 ---
 name: generating-meeting-reports
-description: Generates structured meeting reports from transcripts. Extracts attendees, topics, decisions, action items, and resources into a standardized executive summary format. Use when creating meeting reports, summarizing meeting notes, analyzing transcripts, writing meeting minutes, or when a user provides a transcript and asks for a summary or report.
+description: Generates structured meeting reports from transcripts. Extracts attendees, topics, decisions, action items, and resources into a standardized executive summary format. Use when user says create meeting report, generate meeting minutes, summarize this meeting, turn transcript into report, or document this meeting. Activates when transcript content is present via pasted text, inline content, attached file, or uploaded document, even when accompanied by additional context files or reference materials.
 ---
 
 # Generating Meeting Reports
@@ -14,6 +14,17 @@ Given a meeting transcript, generate a report:
 1. Read the transcript
 2. Extract meeting metadata, attendees, topics, decisions, and action items
 3. Generate report following the structure in [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md)
+4. **Save the report to a file** (see Output Requirements below)
+
+## Output Requirements
+
+**ALWAYS save the report to a file. Do not output the report inline in chat.**
+
+1. Generate a filename: `meeting-report-YYYY-MM-DD.md` (use the meeting date)
+2. Write the complete report to this file
+3. After saving, confirm to the user: "Report saved to `[filename]`" with a brief summary of key findings
+
+If the meeting date is unknown, use the current date or ask the user.
 
 ## Workflow
 
@@ -54,7 +65,7 @@ For each topic:
 
 ### Step 3: Generate Report
 
-Use the exact format defined in [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md).
+**ALWAYS use the exact format defined in [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md).** Do not deviate from this structure.
 
 Requirements:
 - Executive summary: 2-3 paragraphs covering purpose, key decisions, and critical next steps
@@ -62,13 +73,17 @@ Requirements:
 - Resources section with any tools, links, or documents mentioned
 - Notes section for follow-ups, open questions, and future considerations
 
-### Step 4: Review for Completeness
+**Write the report to a file, not inline.**
 
-Before delivering:
+### Step 4: Review and Save
+
+Before saving:
 - All key information captured
 - Action items are clear and assigned
 - Professional tone maintained
 - Format matches the template exactly
+
+Then save to `meeting-report-YYYY-MM-DD.md` and confirm to the user.
 
 ## Handling Challenges
 
