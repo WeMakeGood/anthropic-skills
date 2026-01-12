@@ -138,6 +138,8 @@ Description requirements:
 - States what the skill does
 - States when to use it (trigger conditions)
 - Includes keywords users might say
+- Covers content delivery variations (pasted, attached, uploaded, inline)
+- Handles accompanying context files if relevant
 - Under 1024 characters
 - No angle brackets (< or >)
 
@@ -167,6 +169,7 @@ Writing guidelines:
 - Use appropriate freedom level (high/medium/low)
 - Include concrete examples with real values
 - Link to references/ files for detailed content
+- **For skills producing reports/documents**: Add an Output Requirements section specifying file output vs inline (see BEST-PRACTICES.md)
 
 ### Phase 6: Test and Validate
 

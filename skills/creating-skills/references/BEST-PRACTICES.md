@@ -150,6 +150,35 @@ description: Analyzes Excel spreadsheets, creates pivot tables, generates charts
 description: Works with Excel.
 ```
 
+### Cover Content Delivery Variations
+
+Users provide content in different ways. Include variations in your description:
+
+```yaml
+# Good - covers delivery methods
+description: Generates meeting reports from transcripts. Activates when transcript content is present via pasted text, inline content, attached file, or uploaded document.
+
+# Bad - assumes one delivery method
+description: Generates meeting reports from attached transcripts.
+```
+
+Key delivery terms to consider:
+- pasted, inline, provided, included
+- attached, uploaded, file
+- document, content, text
+
+### Handle Accompanying Context
+
+Users often provide additional context files alongside the main input. Mention this explicitly:
+
+```yaml
+# Good - acknowledges context files
+description: Analyzes sales data and generates reports. Activates when data is provided, even when accompanied by additional context files or reference materials.
+
+# Bad - may not trigger with multiple files
+description: Analyzes sales data files.
+```
+
 ### Good vs Bad Descriptions
 
 | Bad | Good |
@@ -245,6 +274,30 @@ First, determine the task type:
 4. Validate changes
 5. Save the updated document
 ```
+
+### Output Requirements Pattern
+
+For skills that produce substantial output, explicitly specify where and how to deliver it. Without this, Claude may output inline (in chat) or to a file inconsistently.
+
+```markdown
+## Output Requirements
+
+**ALWAYS save the report to a file. Do not output inline in chat.**
+
+1. Generate filename: `analysis-YYYY-MM-DD.md` (use current date)
+2. Write the complete output to this file
+3. After saving, confirm: "Report saved to `[filename]`" with brief summary
+
+If date is unknown, use current date or ask the user.
+```
+
+When to use this pattern:
+- Reports, summaries, or documents users will want to keep
+- Structured output following a template
+- Content longer than a few paragraphs
+- Output that users may want to edit or share
+
+For short responses (answers, explanations), inline output is fine and no explicit instruction is needed.
 
 ## Progressive Disclosure in Practice
 

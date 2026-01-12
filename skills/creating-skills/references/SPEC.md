@@ -238,6 +238,8 @@ Skills work across Claude's products with some differences:
 - Upload as zip files through Settings > Features
 - Individual to each user (not shared)
 - Network access depends on user/admin settings
+- **Has filesystem access**: Skills can write output to files, not just inline chat
+- Skills may require a new conversation to load after uploading/updating
 
 ### Claude Agent SDK
 - Place skills in `.claude/skills/` directory
