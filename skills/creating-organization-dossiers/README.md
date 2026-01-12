@@ -1,0 +1,111 @@
+# Creating Organization Dossiers
+
+A skill for Claude that creates comprehensive organizational profiles through systematic research.
+
+## What It Does
+
+This skill guides Claude through a 6-phase workflow to research an organization and produce a structured dossier covering:
+
+- Executive Summary
+- Organizational Overview (mission, vision, values, history)
+- Programs & Services
+- Leadership & Governance
+- Financial Profile (from IRS 990 data for nonprofits)
+- Partnerships & Collaborations
+- Digital Presence
+- Strategic Analysis (when requester context is available)
+- Information Gaps & Next Steps
+
+## When to Use It
+
+**Trigger phrases that work well:**
+
+- "Create a dossier on [Organization Name]"
+- "I need prospect research on [Organization]"
+- "Run a due diligence report on [Organization]"
+- "Generate an organization report on [Organization]"
+- "Build an org profile for [Organization]"
+
+**Use cases:**
+
+- Prospect research before client outreach
+- Due diligence for partnerships or grants
+- Client onboarding background research
+- Preparing for meetings with new organizations
+- Evaluating potential grantees or partners
+
+## How It Works
+
+### In Claude Code (CLI)
+
+The skill includes Python scripts that automate data collection:
+
+1. **Website Scraper** (`scripts/scrape_website.py`)
+   - Discovers pages via sitemap.xml or navigation crawling
+   - Extracts content from About, Team, Board, Programs, Impact pages
+   - Outputs markdown files for each category
+
+2. **990 Fetcher** (`scripts/fetch_990.py`)
+   - Searches ProPublica Nonprofit Explorer API
+   - Retrieves 5 years of financial data
+   - Outputs formatted markdown with revenue, expenses, assets
+
+### In Claude AI (Web)
+
+When scripts aren't available, Claude uses web search and web fetch to gather equivalent information manually.
+
+## Outputs
+
+- **Dossier file:** `[org-name]-dossier.md` - comprehensive organizational profile
+- **Source files:** `tmp/[org-name]/` - raw scraped content and 990 data (in Claude Code)
+
+## Script Dependencies
+
+If using Claude Code, install Python dependencies:
+
+```bash
+pip install requests beautifulsoup4 html2text lxml
+```
+
+## Example
+
+**Input:**
+```
+Create a dossier on Community Foundation of Greater Memphis
+Website: https://cfgm.org
+Purpose: Evaluating as potential funder
+```
+
+**Output:** A 200-400 line markdown dossier with:
+- Financial trends from 990 filings
+- Board composition and leadership bios
+- Program areas and grantmaking focus
+- Strategic fit analysis based on your stated purpose
+
+## Tips for Best Results
+
+1. **Provide the website URL** - helps the scraper find the right pages
+2. **State your purpose** - enables relevant strategic analysis
+3. **Mention if it's a nonprofit** - triggers 990 data lookup
+4. **Provide EIN if known** - more reliable 990 retrieval
+
+## Limitations
+
+- 990 data lags 1-2 years behind current (IRS filing delays)
+- Website scraping depends on site structure and accessibility
+- Private companies have limited public financial data
+- Some organizations don't e-file 990s (paper filers not in ProPublica)
+
+## File Structure
+
+```
+creating-organization-dossiers/
+├── SKILL.md                 # Main skill instructions
+├── README.md                # This file
+├── references/
+│   ├── DOSSIER-TEMPLATE.md  # Output template structure
+│   └── DATA-SOURCES.md      # Additional research sources
+└── scripts/
+    ├── scrape_website.py    # Website content extraction
+    └── fetch_990.py         # IRS 990 data retrieval
+```

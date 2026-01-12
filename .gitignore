@@ -38,3 +38,10 @@ coverage/
 *.tmp
 *.temp
 .cache/
+
+# Local testing and development
+tmp/
+
+# Distribution packages (zip files for skill upload)
+dist/
+*.zip
