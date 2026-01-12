@@ -60,68 +60,48 @@ Use the questions above. If user provides organization name without other detail
 
 ### Phase 2: Collect Website Content
 
-**If scripts are available (Claude Code):**
+**ALWAYS run the scraper script first.** It produces better, more complete results than web fetch.
 
 ```bash
-python3 <skill_dir>/scripts/scrape_website.py <ORG_URL> --output ./tmp/<org-name>
+python3 scripts/scrape_website.py <ORG_URL> --output ./tmp/<org-name>
 ```
 
-**If scripts are not available (Claude AI web):**
-
-Use web_fetch or web_search to manually gather content from key pages:
-- Homepage
-- About / Our Story
-- Team / Leadership
-- Board of Directors
-- Programs / Services / What We Do
-- Impact / Outcomes / Annual Reports
-- Partners / Funders
-- Contact (for location, phone, email)
-
-The scraper auto-discovers and extracts:
-- About / Mission pages
-- Team / Leadership
-- Board / Governance
-- Programs / Services
-- Impact / Outcomes
-- Partners / Funders
+The scraper:
+- Discovers pages via sitemap.xml (preferred) or navigation crawling
+- Extracts content from About, Team, Board, Programs, Impact, Partners pages
+- Saves structured markdown files for analysis
 
 Review output in `./tmp/<org-name>/`:
 - `scrape_manifest.json` - what was found
-- `about.md`, `team.md`, etc. - extracted content
+- `homepage.md` - main page content
+- `about.md`, `team.md`, etc. - categorized content
 
-If scraper misses important pages (or if using web search), ask user for specific URLs.
+**Fallback (only if script fails):** Use web_fetch to manually gather content from key pages (Homepage, About, Team, Board, Programs, Impact, Partners, Contact).
+
+If scraper misses important pages, ask user for specific URLs or use web_fetch for those specific pages.
 
 ### Phase 3: Retrieve 990 Data (Nonprofits)
 
-**If scripts are available (Claude Code):**
+**For U.S. nonprofits, ALWAYS run the 990 script:**
 
 ```bash
-python3 <skill_dir>/scripts/fetch_990.py "<ORG_NAME>" --output ./tmp/<org-name>
+python3 scripts/fetch_990.py "<ORG_NAME>" --output ./tmp/<org-name>
 ```
 
-Or with known EIN:
+Or with known EIN (more reliable):
 ```bash
-python3 <skill_dir>/scripts/fetch_990.py --ein <EIN> --output ./tmp/<org-name>
+python3 scripts/fetch_990.py --ein <EIN> --output ./tmp/<org-name>
 ```
 
-**If scripts are not available (Claude AI web):**
-
-Search for 990 data via:
-- ProPublica Nonprofit Explorer: `https://projects.propublica.org/nonprofits/`
-- Search: "[Organization Name] 990" or "[Organization Name] EIN"
-- Fetch the ProPublica page directly for financial details
-
-This retrieves from ProPublica Nonprofit Explorer:
+The script retrieves from ProPublica Nonprofit Explorer API:
 - Recent 990 filings (up to 5 years)
 - Revenue, expenses, assets
 - Employee/volunteer counts
 - PDF links to original filings
 
-**If ProPublica returns no results:**
-- Organization may not e-file
-- Try GuideStar/Candid web search
-- Ask user if they have 990 PDFs to provide
+**If script returns no results:** Organization may not e-file. Try web search for GuideStar/Candid or ask user for 990 PDFs.
+
+**Skip this phase** for non-U.S. organizations or for-profit companies.
 
 ### Phase 4: Process Additional Materials
 
