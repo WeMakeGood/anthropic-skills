@@ -99,6 +99,59 @@ python scripts/migrate.py --verify --backup
 Do not modify flags or add parameters.
 ```
 
+## Script Paths and Execution
+
+When your skill includes utility scripts, use **relative paths from the skill directory**.
+
+### Correct Path Format
+
+```markdown
+## Run the Scraper
+
+```bash
+python3 scripts/scrape_website.py https://example.org --output ./tmp/example
+```
+```
+
+Claude executes scripts from the skill directory, so `scripts/` resolves correctly.
+
+### Incorrect Path Formats
+
+```markdown
+# Bad - placeholder that Claude must interpret
+python3 <skill_dir>/scripts/scrape.py
+
+# Bad - absolute path that won't work across systems
+python3 /Users/me/.claude/skills/my-skill/scripts/scrape.py
+
+# Bad - trying to navigate from project root
+python3 .claude/skills/my-skill/scripts/scrape.py
+```
+
+### Make Script Execution Mandatory
+
+If scripts produce better results than Claude doing the work manually, be explicit:
+
+```markdown
+# Good - directive language
+**ALWAYS run the scraper script first.** It produces better results than manual web fetching.
+
+```bash
+python3 scripts/scrape_website.py <URL> --output ./tmp/<name>
+```
+
+**Fallback (only if script fails):** Use web_fetch manually.
+
+# Bad - optional language causes Claude to skip scripts
+If scripts are available, you can run:
+```bash
+python3 scripts/scrape_website.py <URL>
+```
+Or use web_fetch instead.
+```
+
+With optional language, Claude may choose the "easier" path (web_fetch) even though the script produces better results.
+
 ### The Bridge Analogy
 
 Think of Claude navigating a path:
