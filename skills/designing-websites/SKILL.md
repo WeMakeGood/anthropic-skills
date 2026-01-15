@@ -1,0 +1,263 @@
+---
+name: designing-websites
+description: Designs website content strategy and generates all content assets before development. Creates calls-to-action, audience analysis, sitemaps, page content, form specs, and custom post type definitions. Use when planning a new website, creating website content strategy, building site architecture, or generating website copy. Triggers on website design, content strategy, sitemap creation, or website planning requests.
+---
+
+# Designing Websites
+
+Guides website content strategy from business goals to complete content files. Flips traditional design: starts with CTAs, not visuals.
+
+## Quick Start
+
+```
+Website Design Progress:
+- [ ] Phase 1: Gather requirements
+- [ ] Phase 2: Define CTAs
+- [ ] Phase 3: Analyze audience
+- [ ] Phase 4: Create sitemap
+- [ ] Phase 5: Generate content
+- [ ] Phase 6: Validate
+```
+
+## Process Overview
+
+```
+## Website Design Process
+
+This skill guides you through creating a complete content strategy and all
+content assets for your website. The process follows this order:
+
+1. **Business Goals** - Define your primary calls-to-action first
+2. **Audience Analysis** - Understand who visits and why
+3. **Conversion Strategy** - Map how interest becomes action
+4. **Sitemap** - Create a flow-based structure (no dead ends)
+5. **Content Generation** - Produce all page/post content files
+6. **Validation** - Verify completeness and consistency
+
+**Important:** We start with business goals, not design or audience.
+```
+
+## Phase 1: Gather Requirements
+
+Before writing any files, collect:
+
+**Business Context**
+- What does the organization do?
+- What industry/sector?
+- What makes them unique?
+
+**Goals and CTAs**
+- What is the PRIMARY action you want visitors to take?
+- What is the secondary action?
+- Any tertiary actions?
+
+**Audience**
+- Who are the primary users?
+- How do they typically find you?
+- Are there distinct user journeys?
+
+**Technical Requirements**
+- Custom post types needed?
+- Forms required?
+- E-commerce/donations?
+- Integrations?
+
+**Existing Content**
+- Content to migrate?
+- Brand guidelines?
+- Tone of voice?
+
+### Pre-Flight Checklist
+
+```
+## Pre-Flight Checklist
+
+Before proceeding:
+
+- [ ] Clear primary CTA defined
+- [ ] Secondary CTA defined
+- [ ] Target audience(s) identified
+- [ ] Technical requirements noted
+- [ ] Brand voice understood (if provided)
+```
+
+## Phase 2-3: Strategy
+
+Create `./tmp/<project-name>/` and generate strategy documents.
+
+See [references/STRATEGY.md](references/STRATEGY.md) for:
+- CTA definition format
+- Audience analysis template
+- Conversion strategy mapping
+
+**Core philosophy:** Every piece of content converts interest + intent into action. No "informational only" pages.
+
+## Phase 4: Sitemap
+
+Create flow-based sitemap with no dead ends.
+
+See [references/SITEMAP-TEMPLATES.md](references/SITEMAP-TEMPLATES.md) for:
+- Sitemap format and structure
+- Template specifications
+- Parent/child relationships
+
+Rules:
+- Every page has an exit toward CTA
+- Every page has assigned template
+- Every page has assigned CTA
+
+## Phase 5: Content Generation
+
+Generate one markdown file per page/post.
+
+See [references/CONTENT-FORMAT.md](references/CONTENT-FORMAT.md) for:
+- Frontmatter fields
+- Markdown conventions
+- Template syntax for non-text elements
+- Anti-hallucination patterns
+
+See [references/FORMS-CPTS.md](references/FORMS-CPTS.md) for:
+- Form specification format
+- Custom post type definitions
+- ACF field configuration
+
+### Anti-Hallucination Rules
+
+**Never invent:**
+- Company details, history, statistics
+- Contact information
+- Pricing or financials
+- Testimonials or quotes
+- Partner/client names
+
+**Use placeholders:**
+```markdown
+{{needs-input: Company founding year}}
+{{placeholder: TEAM SIZE}} professionals
+```
+
+**When in doubt, ask.**
+
+## Phase 6: Validation
+
+Run validation scripts after each major phase:
+
+```bash
+# Structure validation
+python3 scripts/validate_structure.py ./tmp/<project-name>
+
+# Sitemap vs content sync
+python3 scripts/validate_sitemap.py ./tmp/<project-name>
+
+# Find pages without CTAs
+python3 scripts/find_orphans.py ./tmp/<project-name>
+
+# Find pending/broken links
+python3 scripts/find_missing_links.py ./tmp/<project-name>
+
+# Find placeholders needing input
+python3 scripts/find_placeholders.py ./tmp/<project-name>
+
+# Generate completion checklist
+python3 scripts/generate_checklist.py ./tmp/<project-name>
+```
+
+For CPT/ACF generation from YAML:
+```bash
+python3 scripts/generate_cpt_spec.py ./tmp/<project-name>
+```
+
+## Output Structure
+
+```
+./tmp/<project-name>/
+├── strategy/
+│   ├── calls-to-action.md
+│   ├── audience-analysis.md
+│   └── conversion-strategy.md
+├── sitemap.md
+├── templates/
+│   ├── page.md
+│   ├── archive.md
+│   ├── single.md
+│   ├── search.md
+│   └── 404.md
+├── content/
+│   ├── pages/
+│   ├── posts/
+│   └── <cpt-name>/
+├── cpts/
+│   ├── source.yaml
+│   ├── spec.md
+│   └── acf-export.json
+├── forms/
+│   └── <form-name>.md
+├── globals/
+│   ├── header.md
+│   └── footer.md
+└── _validation/
+    ├── orphaned-pages.csv
+    ├── missing-links.csv
+    ├── placeholders.csv
+    └── checklist.md
+```
+
+## Phase Transitions
+
+When completing a phase, summarize and confirm:
+
+```
+## Phase Complete: Strategy
+
+Documented:
+- Primary CTA: [action]
+- Secondary CTA: [action]
+- [N] audience segments with journeys
+- Entry point → conversion mapping
+
+**Next:** Creating sitemap based on this strategy.
+
+Ready to proceed?
+```
+
+## Example: Anti-Trafficking Nonprofit
+
+**CTAs identified:**
+- Primary: Help line for victims (crisis, prominent)
+- Secondary: Volunteer sign-up
+- Tertiary: Donations
+
+**Two distinct journeys:**
+
+1. **Victim seeking help**
+   - Entry: Direct search, mobile, possibly in danger
+   - Needs: Clear, fast access to hotline
+   - Tone: Calm, reassuring
+
+2. **Potential supporter**
+   - Entry: Social share, news article
+   - Needs: Impact stories, credibility
+   - Tone: Inspiring, urgent but hopeful
+
+**Sitemap accounts for both:**
+- Homepage balances both journeys
+- "Get Help" optimized for victims
+- "Get Involved" for supporters
+- All content drives to one of three CTAs
+
+## Reference Files
+
+| File | Contents |
+|------|----------|
+| [STRATEGY.md](references/STRATEGY.md) | CTA, audience, conversion templates |
+| [SITEMAP-TEMPLATES.md](references/SITEMAP-TEMPLATES.md) | Sitemap format, template specs |
+| [CONTENT-FORMAT.md](references/CONTENT-FORMAT.md) | Content file format, markdown syntax |
+| [FORMS-CPTS.md](references/FORMS-CPTS.md) | Form specs, CPT/ACF definitions |
+
+## Technical Context
+
+- **CMS:** WordPress
+- **Page Builder:** Divi (content is builder-agnostic)
+- **Custom Fields:** ACF Pro
+- **Forms:** WS Form (primary), Gravity Forms (secondary)
+- **E-commerce:** WooCommerce with Subscriptions/Memberships
