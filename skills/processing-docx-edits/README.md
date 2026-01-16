@@ -34,6 +34,15 @@ Attach the DOCX file and say:
 Process this document to integrate all tracked changes and comments
 ```
 
+### Google Docs Users
+
+Export your Google Doc to DOCX first, then use the skill:
+
+1. In Google Docs: `File → Download → Microsoft Word (.docx)`
+2. Attach the downloaded DOCX file to Claude.ai
+
+This is necessary because Google Docs' native integration only provides a text representation of changes (with strikethrough formatting) rather than structured metadata. The DOCX export preserves tracked changes and comments in a format the skill can parse accurately.
+
 ## What's Included
 
 | File | Purpose |
