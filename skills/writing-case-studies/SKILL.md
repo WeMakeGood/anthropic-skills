@@ -161,6 +161,8 @@ Before finalizing the plan, verify:
 
 ## Phase 4: Write the Draft
 
+Write to `case-study-draft.md` in the output directory.
+
 ### Rule 1: Teach, Don't Report
 
 Every section must teach something the reader can do. If you're just describing what happened, rewrite.
@@ -237,21 +239,22 @@ Present the draft summary and ask:
 
 Only after draft approval.
 
-**Create in the output directory:**
+**Output directory structure:**
 
-`versions/`
-- `blog-post.md` - Full version
-- `linkedin-article.md` - Condensed
-- `email-version.md` - 200-300 word teaser
-
-`social/`
-- `linkedin-posts.md` - 3 posts (one per technique taught)
-- `twitter-posts.md` - 3-5 posts
-- `pull-quotes.md` - 3-5 quotes with attribution
-
-`metadata.md` - Audience, keywords, imagery
-
-`index.md` - Summary and file list
+```
+[output directory]/
+├── case-study-draft.md      # Already created in Phase 4
+├── index.md                 # Summary, file list, key results, tools referenced
+├── metadata.md              # Audience, keywords, imagery, distribution
+├── social/
+│   ├── linkedin-posts.md    # 3 posts (one per technique taught)
+│   ├── twitter-posts.md     # 3-5 posts
+│   └── pull-quotes.md       # 3-5 quotes with attribution + key statistics
+└── versions/
+    ├── blog-post.md         # Full version
+    ├── linkedin-article.md  # Condensed, ends with engagement question
+    └── email-version.md     # Subject line options + 200-300 word teaser
+```
 
 ## Quick Reference: The Questions
 

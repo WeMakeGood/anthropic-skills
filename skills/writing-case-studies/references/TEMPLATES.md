@@ -1,106 +1,289 @@
 # Output File Formats
 
-Minimal templates for generated assets. The thinking happens in the main skill—these are just output formats.
+Structure templates for generated assets. Follow user-provided style guidelines for voice and content.
 
-## Case Study Structure
+## `case-study-draft.md`
+
+Structure determined by the approved plan from Phase 3.
+
+## `index.md`
 
 ```markdown
-# [Title That Speaks to Reader Pain]
+# Case Study: [Title]
 
-[1-2 sentence hook addressing the reader's problem]
+## Summary
 
-## [Technique 1 as Header]
+[Summary paragraph]
 
-[Speak to reader's problem]
-[Teach the technique]
-[Illustrate with example]
+**Subject:**
+**Implementation Partner:**
+**Key Insight:**
 
-> "[Quote that captures the insight]"
-> — [Speaker Name], [Title]
+---
 
-## [Technique 2 as Header]
+## Files in This Package
 
-[Same pattern]
+### Core Document
+| File | Description |
+|------|-------------|
+| case-study-draft.md | Primary case study |
 
-## [Technique 3 as Header]
+### Platform Versions
+| File | Description |
+|------|-------------|
+| versions/blog-post.md | Full version |
+| versions/linkedin-article.md | Condensed version |
+| versions/email-version.md | Teaser |
 
-[Same pattern]
+### Social Media Assets
+| File | Description |
+|------|-------------|
+| social/linkedin-posts.md | 3 posts |
+| social/twitter-posts.md | 3-5 posts |
+| social/pull-quotes.md | Quotes + statistics |
 
-## What This Produces
+### Supporting Materials
+| File | Description |
+|------|-------------|
+| metadata.md | Audience, keywords, imagery |
 
-[Results - proof the techniques work]
-[Use percentages, not dollar amounts unless approved]
+---
 
-## Get Started
+## Key Results
 
-[Specific tools, resources, actions - not platitudes]
+-
+-
+-
+
+---
+
+## Tools Referenced
+
+-
+-
+
+---
+
+## Usage Notes
+
+-
+-
+
+---
+
+## Created
+
+**Date:**
+**Process:** writing-case-studies skill
+**Source:**
 ```
 
-## Platform Versions
-
-### LinkedIn Article
-- Stronger hook (must stop the scroll)
-- Condensed to ~1000 words
-- End with engagement question
-
-### Email Version
-- Subject line + preview text
-- 200-300 words max
-- Teaser, not summary
-- Clear CTA to read full version
-
-## Social Posts
-
-### LinkedIn Posts (3)
-One post per technique taught:
-- Hook: the reader's problem
-- Technique summary: 2-3 sentences
-- Proof: one metric
-- CTA: link to full case study
-
-### Twitter Posts (3-5)
-- Under 280 characters
-- Hook + key insight + link
-
-### Pull Quotes (3-5)
-Choose quotes that:
-- Capture technique insights
-- Are specific, not generic
-- Could stand alone as graphics
-- Include speaker attribution
-
-## Metadata
+## `metadata.md`
 
 ```markdown
-# Metadata
+# Case Study Metadata
 
-**Target reader:** [Specific persona]
-**Reader transformation:** From [X] to [Y]
-**Techniques taught:** [List the 3-5]
-**Primary keyword:** [For SEO]
-**Secondary keywords:** [3-5 more]
-**Suggested imagery:** [What would visualize the techniques]
+## Basic Information
+
+**Title:**
+**Subject:**
+**Implementation Partner:**
+**Date:**
+**Period Covered:**
+
+---
+
+## Target Audience
+
+### Primary
+-
+-
+
+### Secondary
+-
+-
+
+### Audience Pain Points
+1.
+2.
+3.
+
+---
+
+## Keywords
+
+### Primary
+-
+-
+
+### Secondary
+-
+-
+
+### Long-tail
+-
+-
+
+---
+
+## Key Messages
+
+### Core Thesis
+
+
+### Supporting Points
+1.
+2.
+3.
+
+### Proof Points
+-
+-
+-
+
+---
+
+## Imagery Suggestions
+
+### Hero Image Concepts
+-
+-
+
+### Supporting Visuals
+-
+-
+
+---
+
+## Distribution Strategy
+
+### Channels
+-
+-
+
+### Timing
+-
+
+---
+
+## Attribution
+
+**Quote Attribution:**
+**Results Attribution:**
+**Disclaimer:**
 ```
 
-## Index
+## `versions/blog-post.md`
+
+Full case study formatted for blog.
+
+## `versions/linkedin-article.md`
+
+Condensed version. Ends with engagement question.
+
+## `versions/email-version.md`
 
 ```markdown
-# Case Study Package
+# Email Version
 
-**Through-line:** [Reader transformation]
+**Subject line options:**
+-
+-
+-
 
-**Techniques taught:**
-1. [Technique]
-2. [Technique]
-3. [Technique]
+---
 
-**Files:**
-- draft.md
-- versions/blog-post.md
-- versions/linkedin-article.md
-- versions/email-version.md
-- social/linkedin-posts.md
-- social/twitter-posts.md
-- social/pull-quotes.md
-- metadata.md
+[Teaser content - 200-300 words]
+
+[Call to action]
+
+---
+
+*[Applicability note]*
+```
+
+## `social/linkedin-posts.md`
+
+```markdown
+# LinkedIn Posts
+
+## Post 1: [Theme]
+
+[Content]
+
+---
+
+## Post 2: [Theme]
+
+[Content]
+
+---
+
+## Post 3: [Theme]
+
+[Content]
+```
+
+## `social/twitter-posts.md`
+
+```markdown
+# Twitter/X Posts
+
+## Post 1
+
+[Content]
+
+---
+
+## Post 2
+
+[Content]
+
+---
+
+## Post 3
+
+[Content]
+
+---
+
+## Post 4
+
+[Content]
+
+---
+
+## Post 5
+
+[Content]
+```
+
+## `social/pull-quotes.md`
+
+```markdown
+# Pull Quotes
+
+## On [Theme]
+
+> "[Quote]"
+> — [Speaker], [Organization]
+
+---
+
+## On [Theme]
+
+> "[Quote]"
+> — [Speaker], [Organization]
+
+---
+
+[Repeat for 3-5 quotes]
+
+---
+
+## Key Statistics (for graphics)
+
+- **[X]%** [description]
+- **[X]%** [description]
+- **[X]%** [description]
 ```

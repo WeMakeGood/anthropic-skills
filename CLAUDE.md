@@ -86,6 +86,41 @@ python3 skills/creating-skills/scripts/dry-run.py skills/your-skill "test prompt
 python3 skills/creating-skills/scripts/package_skill.py skills/your-skill --output .
 ```
 
+## Critical Rules for Claude Code Sessions
+
+**These rules are non-negotiable. Violating them wastes user time and destroys work.**
+
+### NEVER Delete Without Explicit Permission
+
+- **NEVER** delete files or folders unless the user explicitly asks you to delete them
+- Moving a file is NOT deleting its original folder
+- If asked to "move README.md to X", move the file only—do not delete other files or folders
+- If you accidentally delete something, STOP and tell the user immediately
+
+### NEVER Recreate From Memory
+
+- If you delete or lose a file, you **cannot** recreate it from memory
+- Your memory of file contents is unreliable
+- The only valid sources are: the actual file, git history, or backups the user provides
+- If a file is lost, ask the user how to recover it
+
+### NEVER Over-Specify Templates
+
+- Template files show **structure**, not content guidance
+- If a skill's workflow determines content, the template should say "Structure determined by [workflow step]"
+- Do not add section headings, writing tips, or content instructions to structural templates
+- The LLM following the skill instructions will write well—templates just show file format
+
+### Only Do What Was Asked
+
+- Complete the requested task, nothing more
+- Do not "improve" adjacent code or files
+- Do not reorganize folders unless asked
+- Do not add features unless asked
+- If you think something else needs fixing, ask first
+
+---
+
 ### Quality Checklist
 
 Before committing:
