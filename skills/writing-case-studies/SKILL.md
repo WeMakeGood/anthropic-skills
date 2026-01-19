@@ -7,6 +7,14 @@ description: Guides users through creating comprehensive case studies from inter
 
 Case studies are **teaching documents** that show readers how to solve problems. The subject is a running illustration, not the protagonist.
 
+## Output Rules
+
+**Claude Code:** Write files to the confirmed output directory.
+
+**Claude AI (desktop/web):** Create artifacts for each document. Do not use MCP filesystem tools—artifacts are your output mechanism.
+
+**Claude API:** Return content in your response, clearly labeled by filename.
+
 ## The Fundamental Shift
 
 **Wrong mindset:** "What happened in this project that we can report?"
@@ -46,10 +54,7 @@ Ask yourself:
 
 Write 3-5 specific questions readers have. These become the backbone of the case study.
 
-**Example questions (nonprofit leader reading about campaign management):**
-- "How do I run a multi-channel campaign when I have a tiny team?"
-- "What do I do when a campaign isn't working mid-stream?"
-- "Can AI actually help, or is it just hype?"
+**Example:** If the reader is a marketing manager, their questions might be "How do I get consistent results with limited budget?" or "What do I do when something isn't working?" Derive questions from the source content and target audience.
 
 **Ask the user:** "Here are the reader questions I identified: [list]. Are these the right questions? What's missing?"
 
@@ -64,9 +69,9 @@ For each reader question, find:
 
 ### Teaching vs. Reporting
 
-**Reporting (wrong):** "The team used a multi-phase approach and built assets in one week."
+**Reporting (wrong):** "The team implemented a new system and saw improved results."
 
-**Teaching (right):** "Break your campaign design into phases: planning, scheduling, then asset creation. Each phase feeds the next. Here's how one team applied this..."
+**Teaching (right):** "Here's how to structure this type of system—and here's one team's experience applying it..."
 
 The difference: Teaching tells readers **how to do it themselves**. Reporting just describes what someone else did.
 
@@ -88,7 +93,7 @@ The case study subject trusted you with their story. Do not:
 - Name them if anonymity serves them better
 - Include dollar amounts without permission (use percentages instead)
 
-**Default to anonymization** ("a global environmental nonprofit") unless there's a clear reason to name them AND they benefit from being named.
+**Default to anonymization** unless there's a clear reason to name them AND they benefit from being named.
 
 ## Phase 3: Plan the Structure
 
@@ -127,26 +132,16 @@ Do not write:
 
 The subject appears only as illustration after you've taught the technique.
 
-### Full Structure
+### Planning the Structure
 
-```
-# [Title that speaks to reader pain]
+Propose a structure based on:
+- The reader questions identified in Phase 1
+- The techniques extracted in Phase 2
+- What the source material supports
 
-## [Technique 1 - addresses first reader question]
-[Reader's problem → Technique → Illustration from example → Quote]
+Each section should teach a technique. The structure emerges from the content—do not force a template.
 
-## [Technique 2 - addresses second reader question]
-[Reader's problem → Technique → Illustration from example → Quote]
-
-## [Technique 3 - addresses third reader question]
-[Reader's problem → Technique → Illustration from example → Quote]
-
-## What This Produces
-[Results - proof the techniques work]
-
-## Get Started
-[Concrete next steps - specific tools, resources, actions]
-```
+**Sections must connect.** A case study is one continuous narrative, not disconnected text blocks. Each section should build on the previous one. If you removed the section headers, it should still read as a coherent piece.
 
 ### Planning Questions
 
@@ -220,9 +215,9 @@ Case studies are documentation, not social media content.
 This section must give readers something **new and actionable**—not platitudes.
 
 **Bad:** "Start by defining your goals and understanding your audience."
-**Good:** "Download the context-library skill and run it on your organization's strategic plan. Upload the output to a Claude Project."
+**Good:** Specific tools, resources, or next steps the reader can take immediately.
 
-Reference specific tools, resources, or techniques by name.
+The "Get Started" content comes from the source material—reference specific tools, resources, or techniques mentioned in the case study.
 
 ## Phase 5: Review
 
@@ -239,22 +234,16 @@ Present the draft summary and ask:
 
 Only after draft approval.
 
-**Output directory structure:**
+**Create assets in this order:**
 
-```
-[output directory]/
-├── case-study-draft.md      # Already created in Phase 4
-├── index.md                 # Summary, file list, key results, tools referenced
-├── metadata.md              # Audience, keywords, imagery, distribution
-├── social/
-│   ├── linkedin-posts.md    # 3 posts (one per technique taught)
-│   ├── twitter-posts.md     # 3-5 posts
-│   └── pull-quotes.md       # 3-5 quotes with attribution + key statistics
-└── versions/
-    ├── blog-post.md         # Full version
-    ├── linkedin-article.md  # Condensed, ends with engagement question
-    └── email-version.md     # Subject line options + 200-300 word teaser
-```
+1. `metadata.md` — Audience, keywords, imagery, distribution
+2. `versions/blog-post.md` — Full version
+3. `versions/linkedin-article.md` — Condensed, ends with engagement question
+4. `versions/email-version.md` — Subject line options + 200-300 word teaser
+5. `social/linkedin-posts.md` — 3 posts (one per technique taught)
+6. `social/twitter-posts.md` — 3-5 posts
+7. `social/pull-quotes.md` — 3-5 quotes with attribution + key statistics
+8. `index.md` — **Create last.** Catalog what was actually produced.
 
 ## Quick Reference: The Questions
 
