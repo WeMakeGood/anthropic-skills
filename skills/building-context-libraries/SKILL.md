@@ -10,7 +10,7 @@ Build structured context libraries that encode organizational knowledge for AI a
 ## Critical Rules
 
 **GROUNDING (CRITICAL - READ CAREFULLY):** Every fact in the library MUST trace to a specific source document.
-- **NEVER invent details** — If a source says "LLC" don't write "Inc." If it says "Crestline" don't write "Malibu." If founding date isn't stated, don't guess.
+- **NEVER invent details** — Use exact names, dates, locations, and legal terms from sources. Do not substitute similar-sounding alternatives.
 - **NEVER fill gaps with plausible content** — Missing information is a gap to report, not a blank to fill creatively.
 - **NEVER mark invented content as [CONFIRMED]** — If you cannot point to the exact source document and quote, it is NOT confirmed.
 - **When in doubt, leave it out** — Omitting true information is recoverable; including false information damages trust permanently.
