@@ -404,6 +404,88 @@ For reference files over 100 lines, add a TOC:
 
 Claude can scan the TOC and jump to relevant sections.
 
+## Behavioral Guardrails (REQUIRED)
+
+Every skill must include behavioral guardrails to prevent common failure modes. These are not optional.
+
+### Anti-Hallucination Patterns
+
+Skills that generate content must ground Claude's responses in provided information.
+
+**Always include:**
+- What sources Claude can use: "Base content ONLY on [transcript/documents/user input]"
+- How to mark uncertainty: "Use [Inferred] for reasonable inferences"
+- When to stop: "If you don't have source material for X, ask the user"
+
+**Example Critical Rules section:**
+```markdown
+## Critical Rules
+
+**GROUNDING:** Base all content ONLY on the provided transcript. Never invent quotes, statistics, or details.
+
+**EPISTEMIC HONESTY:** If information is unclear or missing, say so. Use "[Not specified]" rather than guessing.
+```
+
+### Anti-Sycophancy Patterns
+
+Skills that advise or analyze must encourage honest, objective responses.
+
+**Always include:**
+- When to push back: "If the user's approach has problems, say so directly"
+- How to report issues: "Surface concerns in a dedicated section, not buried in prose"
+- Priority of accuracy: "Prioritize accurate information over agreeable responses"
+
+**Example Critical Rules section:**
+```markdown
+## Critical Rules
+
+**PROFESSIONAL OBJECTIVITY:** If you identify issues with the user's proposed [approach/content/plan], report them directly. Do not sanitize problems to be agreeable.
+
+**CHALLENGE ASSUMPTIONS:** If the user's [goals/requirements/inputs] are unclear or problematic, ask clarifying questions before proceeding.
+```
+
+### Instruction Adherence Patterns
+
+Skills with multi-step workflows must use strong, unambiguous language.
+
+**Use these markers:**
+- `**REQUIRED:**` — Actions that must be taken
+- `**CRITICAL:**` — Rules that must not be violated
+- `**STOP.**` — Checkpoints where Claude must wait
+- `**VERIFICATION:**` — Confirmation steps before proceeding
+- `**Do not:**` — Explicit prohibitions
+
+**Weak vs Strong Language:**
+```markdown
+# Weak (may be ignored)
+You might consider running the validation script.
+If you'd like, you can ask for approval before proceeding.
+
+# Strong (will be followed)
+**REQUIRED:** Run the validation script before proceeding.
+**STOP.** Get explicit user approval. Do not proceed until confirmed.
+```
+
+**Verification checkpoints:**
+```markdown
+**VERIFICATION:** Before proceeding to Phase 3, confirm:
+- [ ] All source documents have been read
+- [ ] Conflicts have been identified and documented
+- [ ] User has approved the proposed structure
+```
+
+### Priority Hierarchies
+
+When rules may conflict, establish clear priorities:
+
+```markdown
+## Priority Order
+
+1. **CRITICAL** rules cannot be overridden
+2. **REQUIRED** rules apply unless user explicitly requests otherwise
+3. **RECOMMENDED** rules are defaults that can be adjusted
+```
+
 ## Anti-Patterns to Avoid
 
 ### Time-Sensitive Information
@@ -472,6 +554,46 @@ Input: {"name": "Alice", "age": 30}
 Output: "Name: Alice\nAge: 30 years"
 ```
 
+### Weak Constraint Language
+
+Avoid language that can be ignored:
+
+```markdown
+# Bad - Claude may skip these
+You might want to consider...
+If you'd like, you could...
+It would be nice to...
+Feel free to...
+
+# Good - Claude will follow these
+**REQUIRED:** You must...
+**Do not** proceed until...
+Always verify...
+Never include...
+```
+
+### Missing Behavioral Guardrails
+
+Every skill needs explicit rules about hallucination, objectivity, and adherence:
+
+```markdown
+# Bad - no guardrails
+## Instructions
+1. Read the document
+2. Generate a summary
+3. Save to file
+
+# Good - includes guardrails
+## Critical Rules
+**GROUNDING:** Base the summary ONLY on document content.
+**EPISTEMIC HONESTY:** Mark inferences as "[Inferred]".
+
+## Instructions
+1. Read the document completely before summarizing
+2. Generate a summary based only on document content
+3. Save to file
+```
+
 ## Testing and Iteration
 
 ### Test Before Shipping
@@ -479,7 +601,18 @@ Output: "Name: Alice\nAge: 30 years"
 1. **Validate structure:** Run the validation script
 2. **Test description:** Does it trigger for expected phrases?
 3. **Test examples:** Are they concrete and runnable?
-4. **Dry run:** Simulate the full loading flow
+4. **Test guardrails:** Does the skill have Critical Rules? Are they specific?
+5. **Dry run:** Simulate the full loading flow
+
+### Guardrail Checklist
+
+Before shipping any skill, verify:
+
+- [ ] **Anti-hallucination:** Does the skill specify what sources Claude can use?
+- [ ] **Epistemic markers:** Does the skill require marking inferences vs facts?
+- [ ] **Professional objectivity:** Does the skill encourage surfacing problems?
+- [ ] **Instruction adherence:** Does the skill use REQUIRED/STOP/VERIFICATION markers?
+- [ ] **Checkpoints:** Does the skill require user approval at key decision points?
 
 ### Test with Multiple Models
 

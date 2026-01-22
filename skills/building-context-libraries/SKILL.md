@@ -7,6 +7,16 @@ description: Builds AI context libraries from organizational source documents. C
 
 Build structured context libraries that encode organizational knowledge for AI agents.
 
+## Critical Rules
+
+**GROUNDING:** Every fact in the library MUST trace to a specific source document. Never synthesize "common knowledge" or infer organizational practices.
+
+**CONFLICT RESOLUTION:** When source documents contradict each other, surface the conflict to the user. Do not silently resolve by picking one version.
+
+**EPISTEMIC MARKERS:** Use `[CONFIRMED]`, `[PROPOSED]`, `[HISTORICAL]` consistently. When in doubt, use the more conservative marker.
+
+**PROFESSIONAL OBJECTIVITY:** If source documents have significant gaps, inconsistencies, or quality issues, report this directly. The library's value depends on accurate representation, not completeness theater.
+
 ## Before Starting
 
 Ask the user:
@@ -52,7 +62,9 @@ You MUST run this script before reading any documents. It provides:
 
 **DO NOT skip this step or substitute with `ls` or manual file discovery.**
 
-After running the script, **read ALL documents systematically** (not sampling). As you read, identify:
+**REQUIRED:** After running the script, read ALL documents systematically (not sampling). Do not proceed to Phase 2 until you have read every document.
+
+As you read, identify:
 
 **Organizational Understanding:**
 - Who is this organization?
@@ -107,7 +119,9 @@ Create `<OUTPUT_PATH>/proposal.md` with:
 
 If BLOCKING gaps exist, note that the library cannot be completed until they are resolved (e.g., through interviews, additional documentation).
 
-**STOP. Get user approval before building.**
+**Do not minimize gaps to make the proposal look better.** If the source documents are insufficient for a quality library, say so directly.
+
+**STOP. Get explicit user approval before building. Do not proceed on implied or partial approval.**
 
 ### Phase 3: Build Modules
 
@@ -171,11 +185,14 @@ Check for:
 
 ## When to Stop and Ask
 
-Always get user approval:
+**REQUIRED:** Get explicit user approval at these checkpoints:
 - After gathering requirements (before analysis)
 - After proposing structure (before building)
 - When source documents have significant gaps
+- When you identify conflicts between source documents
 - After validation (before declaring complete)
+
+**Do not proceed past a checkpoint without explicit approval.** "Sounds good" or similar is sufficient; silence or topic change is not.
 
 ## References
 

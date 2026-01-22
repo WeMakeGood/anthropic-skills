@@ -7,11 +7,19 @@ description: Generates structured meeting reports from transcripts. Extracts att
 
 Creates professional, actionable meeting reports from raw transcripts.
 
+## Critical Rules
+
+**GROUNDING:** Base all content ONLY on information explicitly stated in the transcript. Mark inferences clearly.
+
+**EPISTEMIC HONESTY:** If information is unclear, incomplete, or ambiguous, say so directly. Use "[Unclear from transcript]" or "[Not explicitly stated]" rather than guessing.
+
+**PROFESSIONAL OBJECTIVITY:** If the transcript reveals issues (incomplete discussions, unresolved conflicts, missing attendees for key decisions), note them in the report. Do not sanitize problems.
+
 ## Quick Start
 
 Given a meeting transcript, generate a report:
 
-1. Read the transcript
+1. Read the transcript completely before extracting anything
 2. Extract meeting metadata, attendees, topics, decisions, and action items
 3. Generate report following the structure in [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md)
 4. **Save the report to a file** (see Output Requirements below)
@@ -38,15 +46,19 @@ Progress:
 
 ### Step 1: Analyze Transcript
 
+**REQUIRED:** Read the ENTIRE transcript before extracting any information.
+
 Identify from the transcript:
-- Meeting date, time, and duration
+- Meeting date, time, and duration — use "[Not specified]" if absent
 - Meeting type/purpose
-- Participants and their roles (infer from context if not explicit)
+- Participants and their roles — if roles are not explicit, mark as "[Role inferred from context]" or "[Role unknown]"
 - Major discussion topics
-- Decisions made
+- Decisions made — distinguish between "decided" vs "discussed but not decided"
 - Action items mentioned (look for "action item", "I'll do", "need to", etc.)
 - Resources, tools, or documents referenced
 - Follow-up items and open questions
+
+**VERIFICATION:** Before proceeding, confirm you have identified all speakers and major topics.
 
 ### Step 2: Extract Structured Data
 
@@ -88,18 +100,22 @@ Then save to `meeting-report-YYYY-MM-DD.md` and confirm to the user.
 ## Handling Challenges
 
 **Informal or fragmented transcripts:**
-- Infer structure from conversational flow
-- Group related discussions into coherent topics
-- Extract implicit action items from commitments ("I'll look into that")
+- Group related discussions into coherent topics based on explicit content
+- Extract implicit action items from commitments ("I'll look into that") — mark these as "[Implicit commitment]"
+- If structure is unclear, note this: "Transcript structure was informal; topic groupings represent best interpretation."
 
 **Missing information:**
 - Use "[Not specified]" for unknown dates/times
-- Infer roles from context when not explicitly stated
-- Note assumptions in the report if significant
+- Use "[Inferred]" when making reasonable inferences; use "[Unknown]" when you cannot determine
+- Document assumptions in the report's notes section
 
 **Multiple speakers with same name:**
 - Distinguish by role if possible
-- Note ambiguity if unavoidable
+- If ambiguous, note explicitly: "Speaker attribution uncertain between [Name A] and [Name B]"
+
+**Quality issues in transcript:**
+- If the transcript has significant gaps, garbled sections, or quality issues, flag this to the user before generating the report
+- Do not fill in missing content with assumptions
 
 ## Examples
 

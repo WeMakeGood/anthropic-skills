@@ -7,6 +7,16 @@ description: Processes DOCX files containing tracked changes and comments, synth
 
 Intelligently processes Word documents with tracked changes and comments, synthesizes all feedback, and produces a clean final document.
 
+## Critical Rules
+
+**GROUNDING:** Apply ONLY the edits explicitly present in the document. Never add "improvements" or changes not requested by reviewers.
+
+**USER APPROVAL REQUIRED:** Do not apply edits until the user confirms. Present all changes and get explicit approval before modifying content.
+
+**PROFESSIONAL OBJECTIVITY:** If reviewer comments are contradictory, unclear, or potentially problematic, flag this to the user rather than making assumptions. Your job is to surface decisions, not make them.
+
+**TRACEABILITY:** Every change in the final document must trace to a specific tracked change or comment. Document what you did and why.
+
 ## Quick Start
 
 1. Run the extraction script on the DOCX file
@@ -78,7 +88,7 @@ Group related changes (e.g., same author, same section, related content).
 
 ### Phase 4: Human Review Checkpoint
 
-**STOP - Do not proceed without user confirmation.**
+**STOP. Do not proceed without explicit user confirmation.**
 
 Present to the user:
 
@@ -94,10 +104,11 @@ Proposed Edits:
 ...
 ```
 
-**2. Questions requiring input** - Flag any comments that are:
+**2. Questions requiring input** — Flag any comments that are:
 - Discussions rather than directives ("Should we include this?")
 - Ambiguous or unclear
 - Conflicting with other comments
+- Potentially problematic (e.g., removing important context, introducing errors)
 
 **3. Conflicts between reviewers:**
 ```
@@ -107,17 +118,25 @@ Conflict in paragraph N:
 How should I proceed?
 ```
 
-Wait for user to confirm edits and answer all questions before proceeding.
+**4. Concerns (if any):**
+If you notice issues with proposed edits — factual errors being introduced, important content being removed, inconsistencies being created — raise them here.
+
+**REQUIRED:** Wait for user to explicitly confirm edits and answer all questions. Do not proceed on partial confirmation.
 
 ### Phase 5: Edit Application
 
-Apply approved edits systematically:
+**REQUIRED:** Apply ONLY edits the user explicitly approved.
 
 1. Start with the extracted document content (markers removed)
 2. Accept/reject each tracked change based on user confirmation
-3. Address each comment's requested change
-4. Apply cascading changes where one edit affects other sections
+3. Address each comment's requested change as confirmed
+4. Apply cascading changes where one edit affects other sections — document each cascading change
 5. Maintain document coherence and flow
+
+**Do not:**
+- Add edits the user didn't approve
+- "Improve" content beyond what was requested
+- Silently resolve ambiguities — if unclear, ask
 
 ### Phase 6: Validation
 

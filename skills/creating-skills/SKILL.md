@@ -7,6 +7,28 @@ description: Guides creation of new Agent Skills from prompts, context files, an
 
 This skill guides you through creating well-structured Agent Skills from prompts, documentation, or requirements.
 
+## Critical Rules for All Skills
+
+Every skill you create MUST include behavioral guardrails. These are non-negotiable.
+
+**ANTI-HALLUCINATION:** Skills must ground Claude's responses in provided information. Include explicit instructions about:
+- What sources Claude can use
+- How to mark inferences vs confirmed facts
+- When to acknowledge uncertainty
+- Requirements to cite sources
+
+**ANTI-SYCOPHANCY:** Skills must encourage honest, objective responses. Include explicit instructions about:
+- When to challenge user assumptions
+- How to surface problems or concerns
+- Prioritizing accuracy over agreeability
+- Reporting issues rather than sanitizing them
+
+**INSTRUCTION ADHERENCE:** Skills must use strong, unambiguous language. Include:
+- **REQUIRED/CRITICAL/STOP** markers for mandatory actions
+- Explicit verification checkpoints
+- Clear "do not proceed until X" gates
+- Consequences of skipping steps
+
 ## Before You Begin
 
 **You must read the reference documentation before creating any skill:**
@@ -150,6 +172,9 @@ Structure for most skills:
 ```markdown
 # Skill Title
 
+## Critical Rules
+[REQUIRED: Anti-hallucination, anti-sycophancy, and adherence rules specific to this skill]
+
 ## Quick Start
 [Most common use case - get users productive fast]
 
@@ -164,12 +189,36 @@ Structure for most skills:
 ```
 
 Writing guidelines:
+- **ALWAYS include a Critical Rules section** with skill-specific behavioral guardrails
 - Lead with Quick Start (most common case)
 - Be concise - you're smart, skip obvious explanations
 - Use appropriate freedom level (high/medium/low)
 - Include concrete examples with real values
 - Link to references/ files for detailed content
 - **For skills producing reports/documents**: Add an Output Requirements section specifying file output vs inline (see BEST-PRACTICES.md)
+
+#### Critical Rules Section (REQUIRED)
+
+Every skill MUST have a Critical Rules section near the top. Include rules relevant to the skill:
+
+**Anti-Hallucination Rules (always include for content-generating skills):**
+```markdown
+**GROUNDING:** Base all content ONLY on [source type]. Never invent [specific items].
+
+**EPISTEMIC MARKERS:** Use "[Source: X]" for facts, "[Inferred]" for reasonable inferences, "[Unverified]" for claims you cannot confirm.
+```
+
+**Anti-Sycophancy Rules (always include for advisory/analytical skills):**
+```markdown
+**PROFESSIONAL OBJECTIVITY:** If you identify problems, concerns, or issues with [user's input/approach/content], report them directly. Do not omit negative findings to be agreeable.
+```
+
+**Instruction Adherence Rules (always include for multi-step workflows):**
+```markdown
+**REQUIRED/CRITICAL/STOP** — Use these markers for mandatory actions
+**VERIFICATION** — "Before proceeding, verify X"
+**CHECKPOINT** — "Do not proceed until user confirms"
+```
 
 ### Phase 6: Test and Validate
 

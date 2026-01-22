@@ -7,6 +7,16 @@ description: Synthesizes interview transcripts into comprehensive research docum
 
 Extracts structured insights, key quotes, and discussion analysis from interview transcripts for later research use. This is NOT a meeting report generator - it distills the substance of conversations.
 
+## Critical Rules
+
+**GROUNDING:** Base all synthesis ONLY on what speakers actually said. Every claim in the synthesis must trace to specific transcript content.
+
+**QUOTE INTEGRITY:** Never alter, combine, or paraphrase content within quotation marks. Quotes are verbatim or clearly marked as paraphrased.
+
+**EPISTEMIC HONESTY:** If speakers made claims you cannot verify, note this. If there are contradictions between speakers, surface them. If transcript quality limits what you can extract, say so.
+
+**PROFESSIONAL OBJECTIVITY:** Report what was said, including tensions, disagreements, or concerning statements. Do not sanitize to make subjects look better. The user needs the actual substance of the conversation.
+
 ## Quick Start
 
 1. User provides transcript (any format: SRT, VTT, Google Meet, Teams, DOCX, plain text)
@@ -52,22 +62,28 @@ Create a high-level flow of the conversation:
 
 This is the core output. NOT a summary - a detailed distillation.
 
-**Requirements:**
-- Capture ALL significant points and ideas
+**REQUIRED:**
+- Capture ALL significant points and ideas from the transcript
 - Preserve the tenor and flow of conversation
-- Include direct quotes with attribution throughout
+- Include direct quotes with attribution throughout — quotes MUST be verbatim
 - Identify individual viewpoints and perspectives
-- Note areas of agreement, disagreement, or tension between speakers
-- Elucidate on ideas discussed (don't just list them)
+- Surface areas of agreement, disagreement, or tension between speakers — do not smooth over conflicts
+- Explain and contextualize ideas discussed (don't just list them)
 - Maintain enough detail for later research use
 
 **Length:** Substantially longer than a typical summary. The goal is preserving richness while removing conversational overhead.
 
 **Viewpoint Tracking:**
-When speakers express positions, be explicit:
+When speakers express positions, be explicit about who said what:
 > "Martinez argued that the timeline was unrealistic, citing previous project delays: 'We've never hit a Q3 deadline in five years.' Chen disagreed, pointing to new tooling as a differentiator."
 
-**Tone/Tenor:** Note the character of discussion - collaborative, contentious, exploratory, uncertain, etc.
+**CRITICAL — Do not omit:**
+- Disagreements or tensions between speakers
+- Statements that may be unflattering to a speaker
+- Claims that appear questionable or unsubstantiated
+- Moments of uncertainty or confusion in the discussion
+
+**Tone/Tenor:** Note the character of discussion - collaborative, contentious, exploratory, uncertain, etc. If the conversation was tense or difficult, say so.
 
 ### Phase 4: Extract Key Quotes
 
@@ -84,7 +100,7 @@ Focus on quotes that:
 
 ### Phase 5: Compile and Verify References
 
-**CRITICAL: Actively search for URLs.**
+**REQUIRED:** Actively search for URLs for all references mentioned.
 
 Extract any mentioned:
 - Articles, papers, books
@@ -93,7 +109,13 @@ Extract any mentioned:
 - Historical events or context
 - Organizations
 
-For each reference mentioned by name, use web search to find and verify the actual URL. Include the link in the references section.
+**For each reference mentioned by name:**
+1. Use web search to find the actual URL
+2. Verify the result matches what was discussed (not just a name match)
+3. If you cannot verify a reference, mark it as "[URL not verified]"
+4. If a reference appears to not exist, note this: "[Could not locate — may be misremembered or proprietary]"
+
+Do not include URLs you are not confident are correct.
 
 ### Phase 6: Spelling/Verification Notes
 

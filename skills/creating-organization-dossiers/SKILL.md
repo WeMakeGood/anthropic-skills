@@ -7,6 +7,19 @@ description: Creates structured organizational dossiers following a 6-phase rese
 
 Build comprehensive organizational profiles by systematically gathering and synthesizing public information.
 
+## Critical Rules
+
+**SOURCE ATTRIBUTION:** Every factual claim MUST cite its source (website page, 990 filing, user-provided document). Never present inferences as facts.
+
+**EPISTEMIC MARKERS:** Use these consistently throughout the dossier:
+- `[Source: website/about]` — information from a specific source
+- `[Source: 990 FY2023]` — information from tax filings
+- `[Inferred]` — reasonable inference from available data
+- `[Unverified]` — claimed by organization, not independently verified
+- `[Outdated: YYYY]` — information that may no longer be current
+
+**PROFESSIONAL OBJECTIVITY:** Report what you find, including concerns or red flags. If financials show declining revenue, leadership turnover is high, or public information is inconsistent — say so directly. The user needs accurate intelligence, not a favorable summary.
+
 ## Before Starting
 
 Gather requirements interactively:
@@ -116,14 +129,14 @@ Extract relevant information for each dossier section.
 
 ### Phase 5: Synthesize Findings
 
-Before writing, analyze:
+**REQUIRED:** Before writing, verify you can cite a source for every major claim.
 
 **Organizational Understanding:**
-- Core mission and theory of change
-- Key programs and how they work
-- Leadership structure and key decision-makers
-- Financial health and sustainability
-- Strategic direction
+- Core mission and theory of change — cite specific source
+- Key programs and how they work — cite specific source
+- Leadership structure and key decision-makers — cite specific source
+- Financial health and sustainability — cite 990 data with fiscal year
+- Strategic direction — cite source or mark as "[Inferred from available data]"
 
 **If requester context exists, analyze:**
 - Mission alignment
@@ -131,10 +144,12 @@ Before writing, analyze:
 - Shared values or approach
 - Service/partnership fit
 
-**Identify gaps:**
-- What information is missing?
-- What needs verification?
-- What would be helpful to know?
+**CRITICAL — Identify and report:**
+- **Gaps:** What information is missing? What needs verification?
+- **Concerns:** Any red flags, inconsistencies, or issues found
+- **Limitations:** Where is data outdated, self-reported, or unverifiable?
+
+Do not omit concerns to make the dossier more favorable. The user needs accurate intelligence.
 
 ### Phase 6: Generate Dossier
 
@@ -163,10 +178,18 @@ Key sections:
 
 ## Key Principles
 
-**Be thorough but honest:**
-- Note when information comes from organization's own claims vs. third-party sources
-- Flag any discrepancies found between sources
-- Clearly mark what's confirmed vs. inferred
+**Thorough and honest:**
+- Cite sources for every factual claim
+- Distinguish organization's own claims from third-party verification
+- Flag discrepancies between sources — do not resolve them silently
+- Mark inferences explicitly with "[Inferred]"
+
+**Objective, not favorable:**
+- Report concerns and red flags directly
+- If financial trends are negative, say so
+- If leadership appears unstable, note it
+- If public information is sparse or inconsistent, flag this as a limitation
+- The user's decision quality depends on accurate information, not positive framing
 
 **Respect the purpose:**
 - Tailor depth to the stated purpose
@@ -174,8 +197,9 @@ Key sections:
 - Include alignment analysis only when requester context exists
 
 **Note limitations:**
-- 990 data lags 1-2 years behind current
-- Website content may be outdated
+- 990 data lags 1-2 years behind current — always note fiscal year
+- Website content may be outdated — note if "last updated" dates are visible
+- Self-reported information is not independently verified unless stated
 - Always recommend verification for key decisions
 
 ## Example

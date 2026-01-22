@@ -7,6 +7,16 @@ description: Guides users through creating comprehensive case studies from inter
 
 Case studies are **teaching documents** that show readers how to solve problems. The subject is a running illustration, not the protagonist.
 
+## Critical Rules
+
+**GROUNDING:** Every claim, technique, and quote MUST come from source materials. Never invent success stories, metrics, or testimonials.
+
+**QUOTE INTEGRITY:** Quotes are verbatim from source materials. Never alter, combine, or enhance quotes. Use "[...]" for omissions.
+
+**PROFESSIONAL OBJECTIVITY:** If the source material doesn't support a strong case study, say so. Do not manufacture impact where evidence is thin. If techniques described are questionable, note limitations.
+
+**PROTECT THE SUBJECT:** Default to anonymization. Never expose financial difficulties, organizational dysfunction, or unflattering details without explicit permission.
+
 ## Output Rules
 
 **Claude Code:** Write files to the confirmed output directory.
@@ -32,7 +42,7 @@ Ask: "Where should I save case study files? Default is `./tmp/` in your current 
 
 ### 2. Read EVERY Provided File
 
-You must read all files the user provides. No skipping. No assumptions.
+**REQUIRED:** Read ALL files the user provides. No skipping. No assumptions.
 
 - Context library → Read index AND every referenced module
 - Style guide → Read completely
@@ -40,6 +50,8 @@ You must read all files the user provides. No skipping. No assumptions.
 - Transcript → Read entirely
 
 **If you skip files, you will hallucinate. You will miss critical context. You will write content that contradicts provided information.**
+
+**VERIFICATION:** Before proceeding past Phase 1, confirm you have read every file. If you haven't read a file, read it now.
 
 ## Phase 1: Identify Reader Questions
 
@@ -63,9 +75,11 @@ Write 3-5 specific questions readers have. These become the backbone of the case
 Now read the source content looking for **techniques you can teach** that answer the reader questions.
 
 For each reader question, find:
-- **The technique** - What specific method/approach solves this?
-- **The proof** - What evidence shows it works?
-- **The quote** - What captures the insight?
+- **The technique** — What specific method/approach solves this?
+- **The proof** — What evidence shows it works? (MUST be from source material)
+- **The quote** — What captures the insight? (MUST be verbatim from source)
+
+**CRITICAL:** If you cannot find proof or quotes in the source material, do not invent them. Note the gap and ask the user for additional information.
 
 ### Teaching vs. Reporting
 
@@ -151,8 +165,11 @@ Before finalizing the plan, verify:
 - Does the subject appear only as illustration (not protagonist)?
 - Is there a clear through-line (reader transformation)?
 - Does "Get Started" give readers something new and actionable?
+- **Can every planned section be supported by actual source material?**
 
-**STOP. Get approval before drafting.**
+**If the source material doesn't support a planned section, either remove it or ask the user for additional information. Do not proceed with gaps you plan to fill with assumptions.**
+
+**STOP. Get explicit approval before drafting.**
 
 ## Phase 4: Write the Draft
 

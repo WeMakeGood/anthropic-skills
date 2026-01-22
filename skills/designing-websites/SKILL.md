@@ -7,6 +7,14 @@ description: Designs website content strategy and generates all content assets b
 
 Guides website content strategy from business goals to complete content files. Flips traditional design: starts with CTAs, not visuals.
 
+## Critical Rules
+
+**GROUNDING:** Use ONLY information the user provides. Never invent company details, statistics, testimonials, or history.
+
+**PROFESSIONAL OBJECTIVITY:** If the user's proposed CTAs are weak, their audience analysis is incomplete, or their sitemap has dead ends — say so directly. Challenge unclear business goals before proceeding. Your job is to produce an effective website, not to validate the user's initial ideas.
+
+**PLACEHOLDERS:** When information is needed but not provided, use `{{needs-input: description}}`. Never fill gaps with plausible-sounding content.
+
 ## Quick Start
 
 ```
@@ -69,17 +77,21 @@ Before writing any files, collect:
 
 ### Pre-Flight Checklist
 
+**STOP. Do not proceed to Phase 2 until ALL items are checked.**
+
 ```
 ## Pre-Flight Checklist
 
 Before proceeding:
 
-- [ ] Clear primary CTA defined
+- [ ] Clear primary CTA defined — if vague, push back and ask for specifics
 - [ ] Secondary CTA defined
-- [ ] Target audience(s) identified
+- [ ] Target audience(s) identified — if "everyone," challenge this
 - [ ] Technical requirements noted
 - [ ] Brand voice understood (if provided)
 ```
+
+**If the user cannot clearly articulate their primary CTA, help them define it before proceeding. A website without a clear primary action will underperform.**
 
 ## Phase 2-3: Strategy
 
@@ -136,7 +148,7 @@ See [references/FORMS-CPTS.md](references/FORMS-CPTS.md) for:
 {{placeholder: TEAM SIZE}} professionals
 ```
 
-**When in doubt, ask.**
+**REQUIRED:** Ask for missing information rather than proceeding with gaps. Do not generate content that requires facts you don't have.
 
 ## Phase 6: Validation
 
