@@ -1,35 +1,53 @@
 # Context Library Architecture
 
+## Module Design Philosophy
+
+**Organize modules for USE, not for taxonomy.**
+
+Modules should be designed around how agents will use them, not around information categories. The goal is to give each agent the context it needs to make good decisions.
+
+**Wrong approach (taxonomy-based):**
+- "Organizational Identity" module with all identity facts
+- "Voice & Tone" module with all writing guidance
+- "Services" module with all service descriptions
+
+This creates many small modules that agents must combine, losing coherence.
+
+**Right approach (use-based):**
+- Fewer, richer modules organized around decision-making contexts
+- Each module gives an agent what it needs for a type of work
+- Foundation modules provide shared context; specialized modules provide depth
+
+**The test:** For each proposed module, ask: "What decision does this help an agent make?" If the answer is unclear, the module may be too abstract or taxonomic.
+
 ## Module Hierarchy
 
 Context libraries use three tiers:
 
 ### Foundation Modules
-Universal organizational context loaded by all or most agents.
+Universal organizational context loaded by all or most agents. These should be substantial (2,000-4,000 tokens each) because every agent needs this context.
 
 Typical foundation modules:
-- **Organizational Identity**: Legal entity, leadership, history, contact info
-- **Strategic Positioning**: What we do, what makes us unique, value proposition
-- **Communication Principles**: Voice, tone, terminology, words to avoid
-- **Target Market**: Who we serve, ideal client characteristics
+- **Organizational Identity**: Who we are, what we do, how we work, who leads us — rich enough for an agent to represent the organization authentically
+- **Brand & Communication**: Voice, tone, values in action — rich enough to write in the organization's voice
+- **Ethical Framework**: Principles that guide decisions — rich enough to make judgment calls
 
 ### Shared Modules
-Cross-functional knowledge used by multiple (not all) agents.
+Cross-functional knowledge used by multiple (not all) agents. Each should be substantial enough to support the decisions it informs.
 
 Typical shared modules:
-- Service/product methodology
 - Client engagement approach
-- Content development standards
-- Financial/contractual frameworks
-- Partner/vendor relationships
+- Service methodology
+- Content standards
+- Financial frameworks
 
 ### Specialized Modules
 Domain-specific knowledge for particular agent roles.
 
 Examples:
-- Sales process details (for sales agents)
-- Technical specifications (for technical agents)
-- HR policies (for HR agents)
+- Program details (for program-focused agents)
+- Technical processes (for technical agents)
+- Curriculum content (for learning agents)
 
 ## Single Source of Truth
 

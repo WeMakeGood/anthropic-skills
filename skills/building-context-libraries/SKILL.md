@@ -112,25 +112,43 @@ Look for documents that indicate strategic changes, reorganizations, or updated 
 
 ### Phase 2: Propose Structure
 
-Create `<OUTPUT_PATH>/proposal.md` with:
-- Proposed foundation modules (universal context)
-- Proposed shared modules (cross-functional)
-- Proposed specialized modules (domain-specific)
-- Module-to-agent mapping for each agent in `AGENTS`
+Create `<OUTPUT_PATH>/proposal.md` describing what you will build. **This is a structural plan, not a draft of content.**
 
-**Content Conflicts Section (REQUIRED):**
-- List all identified conflicts between source documents
-- For each conflict: what changed, which document is authoritative, how you'll handle it
-- Ask user to confirm conflict resolutions before proceeding
+**What the proposal IS:**
+- A list of proposed modules with names, purposes, and estimated tokens
+- Module-to-agent mapping showing which agents load which modules
+- Identified conflicts between source documents and proposed resolutions
+- Information gaps that may affect module quality
 
-**Information Gaps Section (REQUIRED):**
-- **Blocking gaps**: Information that MUST exist but doesn't (from gap analysis docs or missing critical content)
-- **Limiting gaps**: Information that would help but isn't essential
-- **Enhancing gaps**: Nice-to-have information
+**What the proposal is NOT:**
+- Pre-written module content (that's Phase 3)
+- An "Organization Summary" or similar content preview
+- Detailed text that will appear in modules
 
-If BLOCKING gaps exist, note that the library cannot be completed until they are resolved (e.g., through interviews, additional documentation).
+**Proposal sections:**
 
-**Do not minimize gaps to make the proposal look better.** If the source documents are insufficient for a quality library, say so directly.
+1. **Proposed Modules** — For each module:
+   - Name and ID (e.g., F1, S3, D2)
+   - One-sentence purpose
+   - Which source documents inform it
+   - Estimated token count
+   - Which agents will load it
+
+2. **Agent-Module Mapping** — Table showing each agent and its module set with total token estimate. Most agents should be 12,000-18,000 tokens.
+
+3. **Content Conflicts** (REQUIRED):
+   - List conflicts between source documents
+   - For each: what changed, which is authoritative, how you'll handle it
+   - Ask user to confirm resolutions
+
+4. **Information Gaps** (REQUIRED):
+   - **Blocking**: Cannot build without this
+   - **Limiting**: Reduces quality but not blocking
+   - **Enhancing**: Nice to have
+
+5. **Questions for Approval** — Specific decisions you need confirmed
+
+**Do not minimize gaps to make the proposal look better.** If sources are insufficient, say so.
 
 **STOP. Get explicit user approval before building. Do not proceed on implied or partial approval.**
 
