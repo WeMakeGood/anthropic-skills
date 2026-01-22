@@ -9,11 +9,18 @@ Build structured context libraries that encode organizational knowledge for AI a
 
 ## Critical Rules
 
-**GROUNDING:** Every fact in the library MUST trace to a specific source document. Never synthesize "common knowledge" or infer organizational practices.
+**GROUNDING (CRITICAL - READ CAREFULLY):** Every fact in the library MUST trace to a specific source document.
+- **NEVER invent details** — If a source says "LLC" don't write "Inc." If it says "Crestline" don't write "Malibu." If founding date isn't stated, don't guess.
+- **NEVER fill gaps with plausible content** — Missing information is a gap to report, not a blank to fill creatively.
+- **NEVER mark invented content as [CONFIRMED]** — If you cannot point to the exact source document and quote, it is NOT confirmed.
+- **When in doubt, leave it out** — Omitting true information is recoverable; including false information damages trust permanently.
 
 **CONFLICT RESOLUTION:** When source documents contradict each other, surface the conflict to the user. Do not silently resolve by picking one version.
 
-**EPISTEMIC MARKERS:** Use `[CONFIRMED]`, `[PROPOSED]`, `[HISTORICAL]` consistently. When in doubt, use the more conservative marker.
+**EPISTEMIC MARKERS:** Use `[CONFIRMED]`, `[PROPOSED]`, `[HISTORICAL]` with strict discipline:
+- `[CONFIRMED]` — You can cite the specific source document and the exact text. If you cannot, do not use this marker.
+- `[PROPOSED]` — Logical inference clearly marked as such. User should verify before relying on it.
+- `[HISTORICAL]` — Explicitly superseded by newer documents.
 
 **PROFESSIONAL OBJECTIVITY:** If source documents have significant gaps, inconsistencies, or quality issues, report this directly. The library's value depends on accurate representation, not completeness theater.
 
@@ -140,17 +147,35 @@ After approval, create folder structure:
 └── proposal.md
 ```
 
-Build modules in order:
-1. **Foundation first** → `modules/foundation/`
-2. **Shared next** → `modules/shared/`
-3. **Specialized last** → `modules/specialized/`
+**CRITICAL: Build modules SEQUENTIALLY, not in parallel.**
+
+Build modules ONE AT A TIME in this order:
+1. **Foundation modules first** → `modules/foundation/`
+2. **Shared modules next** → `modules/shared/`
+3. **Specialized modules last** → `modules/specialized/`
+
+**For EACH module, follow this sequence:**
+
+1. **Before writing:** Re-read the relevant source documents for this module's content. Do not rely on memory from Phase 1.
+
+2. **While writing:** For every fact you include:
+   - Can you name the source document?
+   - Can you quote or paraphrase the specific text?
+   - If NO to either → do not include it, or mark as `[PROPOSED]`
+
+3. **After writing:** Verify the module against sources:
+   - Re-read the module you just wrote
+   - Check each `[CONFIRMED]` statement against source documents
+   - If you cannot verify a statement, change it to `[PROPOSED]` or remove it
+
+**Do not proceed to the next module until the current one is verified.**
 
 Use formats from [references/TEMPLATES.md](references/TEMPLATES.md).
 
 Key rules:
 - Single source of truth: each fact in ONE module only
 - Explicit references: `See [Module Name]` for cross-module info
-- Mark confidence: `[CONFIRMED]`, `[PROPOSED]`, or `[HISTORICAL]`
+- Mark confidence: `[CONFIRMED]`, `[PROPOSED]`, or `[HISTORICAL]` — with `[CONFIRMED]` requiring verifiable source
 
 ### Phase 4: Create Agent Definitions
 
@@ -180,13 +205,13 @@ Check for:
 
 ## Key Principles
 
-**Richness over minimalism**: Agents need enough context to work effectively. A module with 1,500 tokens is almost certainly too thin. Most modules should be 2,000-4,000 tokens. If you find yourself writing 600-800 token modules, you're over-compressing.
+**Richness over minimalism**: Agents need enough context to work effectively. Most modules should be 2,000-4,000 tokens. BUT: Richness means *sourced* content, not invented content. A thin module with verified facts is better than a rich module with hallucinations. If sources don't support 2,000 tokens of content, report the gap rather than filling it creatively.
 
 **Don't explain what Claude knows**: Skip explanations of general concepts (what AI is, how nonprofits work). But DO include organization-specific application of those concepts.
 
 **Reference, don't repeat**: If info exists in Module A, Module B says "See [Module A]" - never duplicates.
 
-**Confidence markers**: Mark all facts as `[CONFIRMED]` (from sources), `[PROPOSED]` (inference), or `[HISTORICAL]` (may be outdated).
+**Confidence markers require verification**: `[CONFIRMED]` means you can cite the source document. If you cannot point to exactly where in the sources this information appears, use `[PROPOSED]` instead. Misusing `[CONFIRMED]` is a critical error.
 
 **Use the token budget**: The 20K guideline exists to be used, not avoided. An agent at 8,000 tokens is probably missing useful context. Target 12,000-18,000 tokens for most agents. Only go below 10,000 if the agent's role is genuinely narrow.
 
