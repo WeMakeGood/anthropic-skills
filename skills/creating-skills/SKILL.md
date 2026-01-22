@@ -29,6 +29,8 @@ Every skill you create MUST include behavioral guardrails. These are non-negotia
 - Clear "do not proceed until X" gates
 - Consequences of skipping steps
 
+**NATURAL PROSE:** Skills producing external-facing content (marketing, website copy, case studies) must avoid AI-detectable writing patterns. Include explicit bans on AI vocabulary, formulaic structures, and promotional language (see BEST-PRACTICES.md).
+
 ## Before You Begin
 
 **You must read the reference documentation before creating any skill:**

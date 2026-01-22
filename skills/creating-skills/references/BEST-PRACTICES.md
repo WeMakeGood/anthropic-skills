@@ -486,6 +486,82 @@ When rules may conflict, establish clear priorities:
 3. **RECOMMENDED** rules are defaults that can be adjusted
 ```
 
+## Natural Prose Guardrails (External-Facing Content)
+
+Skills producing marketing content, website copy, case studies, or other external-facing text must avoid AI-detectable writing patterns. LLMs have distinctive verbal tics that trained readers recognize instantly.
+
+**When to include these guardrails:**
+- Marketing/communications content → Always
+- External reports or publications → Always
+- Internal working documents → Skip (lower risk)
+
+**The core rule:** Write like a domain expert in the field, not like an AI assistant writing about the field.
+
+### Banned Vocabulary
+
+These words appear far more frequently in AI-generated text than human writing. Never use them:
+
+| Category | Banned Words |
+|----------|--------------|
+| Significance | pivotal, crucial, vital, key (adj), cornerstone, testament to, underscores, highlights (verb), reflects broader |
+| Promotional | vibrant, rich tapestry, cutting-edge, groundbreaking, nestled, in the heart of, boasts, showcases, elevate |
+| AI favorites | delve, foster, garner, leverage, landscape (figurative), tapestry (figurative), nuanced, multifaceted, holistic, synergy, robust, intricate |
+| Hedged puffery | significant, notable, remarkable, substantial (when vague) |
+
+### Banned Structures
+
+These syntactic patterns are AI tells:
+
+**Negative parallelisms:**
+- "Not only X, but also Y"
+- "It's not just about X, it's about Y"
+- "X is more than Y — it's Z"
+
+**Formulaic false balance:**
+- "Despite its [positive], faces challenges..."
+- "While [limitation], [positive spin]"
+- "Challenges remain, but [hopeful note]"
+
+**Copula avoidance:**
+- "serves as" / "stands as" / "marks a" → Use "is"
+- "represents a shift" → Use "changed" or "shifted"
+- "features" / "boasts" / "offers" → Use "has"
+
+**Superficial -ing analysis:**
+- "highlighting the importance of..."
+- "showcasing their commitment to..."
+- "emphasizing the need for..."
+- "underscoring the significance of..."
+
+**Vague attribution:**
+- "Experts argue..." → Name the expert or state directly
+- "Observers have noted..." → Who observed? Or just state the observation
+- "Industry reports suggest..." → Which report?
+
+### Required Behaviors
+
+**Repeat rather than vary:** If you're talking about "revenue," keep saying "revenue." Don't cycle through "earnings," "income," "financial returns," and "monetary gains."
+
+**Use simple verbs:** "The program is" not "The program serves as." "Shows" not "underscores." "Has" not "boasts."
+
+**Be concrete:** "Increased donations 40% in 6 months" not "substantially enhanced philanthropic engagement."
+
+**Match the domain voice:** How do actual [marketers/nonprofit leaders/tech executives] write? Use that vocabulary, not the vocabulary AI uses to write *about* them.
+
+### Example Critical Rules Section
+
+For skills producing external-facing content, add this to the Critical Rules:
+
+```markdown
+**NATURAL PROSE:** Write like a domain expert, not an AI assistant.
+
+Banned vocabulary: pivotal, crucial, vital, testament to, underscores, highlights, vibrant, tapestry, delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy
+
+Banned structures: "Not only X but Y," "serves as," "stands as," "-ing" phrases for empty analysis, vague attribution without sources
+
+Required: Use "is" not "serves as," repeat nouns rather than finding synonyms, be specific with numbers and names, match the voice of actual practitioners in this field.
+```
+
 ## Anti-Patterns to Avoid
 
 ### Time-Sensitive Information
