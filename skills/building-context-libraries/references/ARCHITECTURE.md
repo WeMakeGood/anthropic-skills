@@ -131,3 +131,52 @@ When source documents lack needed information:
 4. Mark LIMITING/ENHANCING gaps in validation report
 
 Never invent information to fill gaps.
+
+## Content Stakes Classification
+
+Not all information carries equal weight. Classify content by the consequences of errors:
+
+### Stakes Levels
+
+**HIGH STAKES** — Errors cause significant harm
+- Legal claims, compliance requirements, contractual obligations
+- Financial figures, pricing, revenue data
+- Claims about partners, clients, or third parties
+- Credentials, certifications, regulatory status
+- Public commitments or promises
+
+**MEDIUM STAKES** — Errors cause confusion or inefficiency
+- Service descriptions, methodologies, processes
+- Team roles and responsibilities
+- Timeline and milestone information
+- Technical specifications
+
+**LOW STAKES** — Errors cause minor inconvenience
+- General descriptions and overviews
+- Historical context (non-binding)
+- Internal terminology definitions
+- Process preferences (non-critical)
+
+### How Stakes Affect Module Content
+
+1. **Mark stakes explicitly** in modules containing high-stakes content:
+   ```markdown
+   [HIGH-STAKES] Annual revenue: $2.4M (FY2024 audited financials)
+   [HIGH-STAKES] SOC 2 Type II certified since 2022
+   ```
+
+2. **Source requirements by stakes level:**
+   - HIGH: Must have explicit source document citation
+   - MEDIUM: Should have source; [PROPOSED] acceptable if clearly marked
+   - LOW: [PROPOSED] acceptable based on pattern inference
+
+3. **Verification guidance:** High-stakes content should trigger verification behaviors in agents (see Agent Definition Template).
+
+### Stakes in Agent Definitions
+
+When defining agents, specify how they should handle different stakes levels:
+- Which content requires human verification before external use?
+- Which claims should the agent flag for review?
+- What should the agent do when asked to extrapolate from high-stakes data?
+
+This calibrates agent behavior to the actual risk profile of different information.

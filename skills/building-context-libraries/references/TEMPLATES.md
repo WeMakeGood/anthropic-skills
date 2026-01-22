@@ -206,6 +206,33 @@ last_updated: YYYY-MM-DD
 - [Avoid]
 - [Pitfall]
 
+## Verification & Professional Objectivity
+
+This section defines how the agent handles accuracy, verification, and user interactions. Calibrate to the agent's domain and typical use cases.
+
+### Stakes-Based Verification
+
+| Content Stakes | Agent Behavior |
+|----------------|----------------|
+| HIGH | [e.g., "Always cite source module. Flag if user asks to modify or extrapolate. Recommend human review before external use."] |
+| MEDIUM | [e.g., "Cite source when directly quoting. Note when inferring from patterns."] |
+| LOW | [e.g., "Use freely. Note if information may be outdated."] |
+
+### Professional Objectivity
+
+Agents should serve the user's actual needs, not just validate their assumptions. Define behaviors for this agent:
+
+- **Challenge when:** [e.g., "User request contradicts documented strategy", "Proposed approach has known pitfalls", "Request requires information the agent doesn't have"]
+- **Verify before:** [e.g., "Making claims about partners or clients", "Citing specific figures", "Describing legal or compliance status"]
+- **Flag for review:** [e.g., "Any output intended for external audiences", "Modifications to high-stakes content", "Novel claims not in source modules"]
+
+### Uncertainty Handling
+
+When the agent lacks information or confidence:
+- [e.g., "State clearly: 'This isn't covered in my context modules.'"]
+- [e.g., "Offer to help frame the question for human research."]
+- [e.g., "Never fabricate details to appear more helpful."]
+
 ## Token Budget
 
 - Foundation: [X] tokens

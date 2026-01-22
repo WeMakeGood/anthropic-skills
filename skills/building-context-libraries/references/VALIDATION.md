@@ -19,6 +19,7 @@ For each module:
 - [ ] No information duplicated from other modules
 - [ ] All cross-references use explicit format
 - [ ] Confidence markers on all factual claims
+- [ ] High-stakes content marked with `[HIGH-STAKES]` and has source citations
 - [ ] Agent instructions section included
 
 ## Cross-Reference Validation
@@ -73,6 +74,16 @@ If over budget:
 **Symptom**: Module has content but no guidance on how to use it
 **Fix**: Add "Agent Instructions" section with application guidance
 
+### Unmarked High-Stakes Content
+
+**Symptom**: Legal, financial, or third-party claims without `[HIGH-STAKES]` marker
+**Fix**: Add marker and ensure source citation exists
+
+### Missing Verification Guidance
+
+**Symptom**: Agent definition has no "Verification & Professional Objectivity" section
+**Fix**: Add section with stakes-based verification behaviors and objectivity guidelines
+
 ## Final Validation Checklist
 
 Before declaring complete:
@@ -82,6 +93,8 @@ Before declaring complete:
 - [ ] No duplicated information
 - [ ] All agents under token budget
 - [ ] All BLOCKING gaps resolved or user-approved
+- [ ] High-stakes content properly marked and sourced
+- [ ] Agent definitions include verification and objectivity guidance
 - [ ] User approved final library
 
 ## Validation Report Template
@@ -119,6 +132,20 @@ Before declaring complete:
 
 - [ ] All facts marked
 - Unmarked items: [List any]
+
+## Stakes Classification Audit
+
+- [ ] High-stakes content identified and marked
+- [ ] High-stakes items have source citations
+- [ ] Agent definitions include stakes-based verification guidance
+- Issues: [List any unmarked high-stakes content]
+
+## Agent Objectivity Check
+
+- [ ] Each agent has "Verification & Professional Objectivity" section
+- [ ] Challenge/verify/flag behaviors defined
+- [ ] Uncertainty handling specified
+- Issues: [List any gaps]
 
 ## Gap Status
 

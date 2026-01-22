@@ -60,6 +60,15 @@ After running the script, **read ALL documents systematically** (not sampling). 
 - How do they work?
 - Who do they serve?
 
+**Content Stakes Assessment:**
+As you read, note which content carries high stakes (errors cause significant harm):
+- Legal, compliance, or contractual claims
+- Financial figures and metrics
+- Claims about partners, clients, or third parties
+- Credentials, certifications, regulatory status
+
+This assessment informs how modules are built and how agents handle different content.
+
 **Content Conflict Detection (CRITICAL):**
 Look for documents that indicate strategic changes, reorganizations, or updated positioning. Common indicators:
 - Documents with dates (newer overrides older)
@@ -131,6 +140,8 @@ For each agent in `AGENTS`, create definition in `<OUTPUT_PATH>/agents/`:
 - List required modules
 - Estimate total tokens
 - Include behavioral guidance
+- Define verification behaviors based on content stakes
+- Specify professional objectivity guidelines (when to challenge, verify, flag)
 
 ### Phase 5: Validate
 
@@ -168,6 +179,6 @@ Always get user approval:
 
 ## References
 
-- [references/ARCHITECTURE.md](references/ARCHITECTURE.md) - Module design principles
-- [references/TEMPLATES.md](references/TEMPLATES.md) - Module and agent formats
+- [references/ARCHITECTURE.md](references/ARCHITECTURE.md) - Module design principles and content stakes classification
+- [references/TEMPLATES.md](references/TEMPLATES.md) - Module and agent formats (includes verification/objectivity guidance)
 - [references/VALIDATION.md](references/VALIDATION.md) - Validation checklist
