@@ -15,6 +15,14 @@ Guides website content strategy from business goals to complete content files. F
 
 **PLACEHOLDERS:** When information is needed but not provided, use `{{needs-input: description}}`. Never fill gaps with plausible-sounding content.
 
+**NATURAL PROSE:** Write like a domain expert, not an AI assistant.
+
+Banned vocabulary: pivotal, crucial, vital, testament to, underscores, highlights, vibrant, tapestry, delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy, cutting-edge, groundbreaking, nestled, showcases, boasts, elevate
+
+Banned structures: "Not only X but Y," "serves as," "stands as," "-ing" phrases for empty analysis ("highlighting the importance," "showcasing their commitment"), vague attribution ("experts say," "industry leaders"), formulaic balance ("Despite challenges, [positive]")
+
+Required: Use "is" not "serves as," repeat nouns rather than finding synonyms, be specific with numbers and names, match the voice of actual practitioners in the user's industry.
+
 ## Quick Start
 
 ```

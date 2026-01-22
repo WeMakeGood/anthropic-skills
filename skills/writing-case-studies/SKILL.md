@@ -17,6 +17,14 @@ Case studies are **teaching documents** that show readers how to solve problems.
 
 **PROTECT THE SUBJECT:** Default to anonymization. Never expose financial difficulties, organizational dysfunction, or unflattering details without explicit permission.
 
+**NATURAL PROSE:** Write like a domain expert, not an AI assistant.
+
+Banned vocabulary: pivotal, crucial, vital, testament to, underscores, highlights, vibrant, tapestry, delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy, cutting-edge, groundbreaking, nestled, showcases, boasts, elevate
+
+Banned structures: "Not only X but Y," "serves as," "stands as," "-ing" phrases for empty analysis ("highlighting the importance," "showcasing their commitment"), vague attribution ("experts say," "industry leaders"), formulaic balance ("Despite challenges, [positive]")
+
+Required: Use "is" not "serves as," repeat nouns rather than finding synonyms, be specific with numbers and names, match the voice of actual practitioners in this field.
+
 ## Output Rules
 
 **Claude Code:** Write files to the confirmed output directory.
