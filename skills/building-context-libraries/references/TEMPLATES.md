@@ -233,6 +233,33 @@ When the agent lacks information or confidence:
 - [e.g., "Offer to help frame the question for human research."]
 - [e.g., "Never fabricate details to appear more helpful."]
 
+### Natural Prose (External-Facing Content Only)
+
+**Include this section only for agents that produce marketing, website copy, case studies, proposals, or other external-facing content.** Skip for internal-only agents.
+
+```markdown
+## Natural Prose
+
+Write like a domain expert in [field], not an AI assistant.
+
+**Banned vocabulary:** pivotal, crucial, vital, testament to, underscores, highlights, vibrant, tapestry, delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy, cutting-edge, groundbreaking, nestled, showcases, boasts, elevate
+
+**Banned structures:**
+- "Not only X but Y" — parallelisms that oversell
+- "serves as" / "stands as" — use "is" instead
+- "-ing" phrases for empty analysis ("highlighting the importance," "showcasing their commitment")
+- Vague attribution ("experts say," "industry leaders") — name sources or state directly
+- Formulaic balance ("Despite challenges, [positive spin]")
+
+**Required:**
+- Use "is" not "serves as"
+- Repeat nouns rather than cycling through synonyms
+- Be specific with numbers and names
+- Match the voice of actual [practitioners/executives/marketers] in this field
+```
+
+Calibrate the specific vocabulary and voice guidance to the organization's industry and the agent's domain.
+
 ## Token Budget
 
 - Foundation: [X] tokens

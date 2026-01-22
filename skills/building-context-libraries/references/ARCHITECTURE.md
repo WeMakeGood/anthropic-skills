@@ -84,13 +84,25 @@ Example:
 
 ## Token Budget Management
 
-**Default limit**: 20,000 tokens per agent's complete module set.
+**Guideline**: ~20,000 tokens per agent's complete module set.
 
-Budget allocation guidance:
-- Foundation modules: ~5,000-6,000 tokens (shared across agents)
-- Shared modules: ~4,000-8,000 tokens (varies by agent needs)
-- Specialized modules: ~2,000-4,000 tokens (targeted)
-- **Buffer**: Keep 20-30% for conversation context
+This is a planning target, not a hard constraint. The goal is effective agents, not minimal agents.
+
+**Budget allocation guidance:**
+- Foundation modules: ~5,000-8,000 tokens (shared across agents)
+- Shared modules: ~4,000-10,000 tokens (varies by agent needs)
+- Specialized modules: ~2,000-5,000 tokens (targeted)
+- **Buffer**: Leave room for conversation context
+
+**When to exceed the guideline:**
+- Content is coherent and can't be meaningfully split
+- Removing content would harm agent effectiveness
+- The agent's role genuinely requires broad context
+
+**When to tighten:**
+- Agent is loading modules it rarely uses
+- Content is duplicated across modules
+- Explanatory content could be trimmed (Claude knows most concepts)
 
 Run `python scripts/count_tokens.py` to measure actual usage.
 
@@ -117,6 +129,51 @@ Agents should load:
 - All relevant foundation modules
 - Shared modules for their function
 - Specialized modules for their domain
+
+## Principles Over Prescriptions
+
+Context libraries should enable future decisions, not constrain them. Avoid encoding specific methodologies when principles would serve better.
+
+### What to Capture
+
+**Good (flexible):**
+```markdown
+## AI Tool Evaluation
+
+When selecting AI tools, we prioritize:
+- Alignment with our ethical AI principles (see F3)
+- Ability to work with organizational context
+- Transparency in how outputs are generated
+- Cost sustainability for nonprofit clients
+```
+
+**Bad (locked-in):**
+```markdown
+## AI Tool Selection
+
+We use Claude for all AI work because:
+- It handles long context well
+- It's more honest than competitors
+- Our workflows are built around it
+```
+
+The first version helps agents evaluate *any* tool. The second locks the organization into a specific choice.
+
+### Common Over-Specification Patterns
+
+**Speculative frameworks:** If a source document mentions "three types of users," ask: Is this a confirmed organizational framework, or an illustrative example? Don't encode speculation as methodology.
+
+**Illustrative examples as prescriptions:** A case study showing *one way* something was done shouldn't become *the way* it must be done.
+
+**Current state as permanent state:** "We currently use X" should become "Our criteria for selecting tools like X" unless there's strategic commitment to X specifically.
+
+### The Test
+
+Before including detailed methodology, ask:
+1. Is this grounded in source documents, or am I synthesizing?
+2. Does this enable flexibility or constrain it?
+3. Would this content still be useful if circumstances changed?
+4. Am I capturing principles or prescriptions?
 
 ## Information Gaps
 
@@ -180,3 +237,38 @@ When defining agents, specify how they should handle different stakes levels:
 - What should the agent do when asked to extrapolate from high-stakes data?
 
 This calibrates agent behavior to the actual risk profile of different information.
+
+## Natural Prose (External-Facing Agents)
+
+Agents that produce marketing content, website copy, case studies, or other external-facing text must avoid AI-detectable writing patterns. LLMs have distinctive verbal tics that trained readers recognize instantly.
+
+### When to Include
+
+- **Marketing/communications agents** → Always include Natural Prose section
+- **Content creation agents** → Always include
+- **Internal documentation agents** → Skip (lower risk)
+- **Research/analysis agents** → Skip unless output is published
+
+### What to Include
+
+The Natural Prose section in agent definitions should specify:
+
+**Banned vocabulary:** Words that appear far more frequently in AI text than human writing:
+- Significance words: pivotal, crucial, vital, cornerstone, testament to, underscores, highlights
+- Promotional language: vibrant, tapestry, cutting-edge, groundbreaking, nestled, showcases, boasts
+- AI favorites: delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy
+
+**Banned structures:**
+- Negative parallelisms: "Not only X, but Y"
+- Copula avoidance: "serves as" instead of "is"
+- Superficial -ing analysis: "highlighting the importance of..."
+- Vague attribution: "experts say," "industry leaders"
+- Formulaic false balance: "Despite challenges, [positive spin]"
+
+**Required behaviors:**
+- Use simple verbs ("is" not "serves as")
+- Repeat nouns rather than cycling through synonyms
+- Be concrete with numbers and specifics
+- Match the voice of actual practitioners in the field
+
+See [TEMPLATES.md](TEMPLATES.md) for the complete Natural Prose section to include in agent definitions.

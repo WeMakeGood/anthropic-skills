@@ -17,6 +17,10 @@ Build structured context libraries that encode organizational knowledge for AI a
 
 **PROFESSIONAL OBJECTIVITY:** If source documents have significant gaps, inconsistencies, or quality issues, report this directly. The library's value depends on accurate representation, not completeness theater.
 
+**FLEXIBILITY OVER RIGIDITY:** Capture principles and decision-making frameworks, not locked-in methodologies. If a source document describes a specific approach (e.g., "we use Claude"), extract the underlying principle (e.g., "our evaluation criteria for AI tools") rather than encoding the specific choice. The library should enable future decisions, not constrain them.
+
+**NATURAL PROSE FOR EXTERNAL-FACING AGENTS:** Agents that produce marketing, website copy, case studies, or other external-facing content must include writing style guardrails to avoid AI-detectable patterns. See [references/TEMPLATES.md](references/TEMPLATES.md) for the Natural Prose section.
+
 ## Before Starting
 
 Ask the user:
@@ -156,6 +160,7 @@ For each agent in `AGENTS`, create definition in `<OUTPUT_PATH>/agents/`:
 - Include behavioral guidance
 - Define verification behaviors based on content stakes
 - Specify professional objectivity guidelines (when to challenge, verify, flag)
+- **For agents producing external-facing content:** Include Natural Prose guardrails (banned vocabulary, banned structures, required behaviors)
 
 ### Phase 5: Validate
 
@@ -181,7 +186,9 @@ Check for:
 
 **Confidence markers**: Mark all facts as `[CONFIRMED]` (from sources), `[PROPOSED]` (inference), or `[HISTORICAL]` (may be outdated).
 
-**Token awareness**: Keep each agent's total module set under 20K tokens. Leave 20-30% buffer for conversation.
+**Token awareness**: The 20K token guideline per agent is a planning target, not a hard limit. Prioritize completeness and coherence over aggressive compression. If an agent needs 22K tokens to be effective, that's acceptable. If it needs 35K, consider whether some modules can be split or made optional.
+
+**Principles over prescriptions**: Extract decision-making frameworks, not specific methodologies. A module should help agents make good decisions in new situations, not lock them into documented past choices. Ask: "Does this content enable flexibility or constrain it?"
 
 ## When to Stop and Ask
 
