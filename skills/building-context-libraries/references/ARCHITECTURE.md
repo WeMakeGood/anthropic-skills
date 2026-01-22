@@ -86,23 +86,33 @@ Example:
 
 **Guideline**: ~20,000 tokens per agent's complete module set.
 
-This is a planning target, not a hard constraint. The goal is effective agents, not minimal agents.
+This is a planning target to be *used*, not avoided. The goal is effective agents with rich context.
+
+**Expected ranges:**
+- Most agents should land at **12,000-18,000 tokens**
+- Agents under 10,000 tokens are likely missing useful context
+- Agents over 20,000 tokens should be reviewed for unnecessary duplication
 
 **Budget allocation guidance:**
-- Foundation modules: ~5,000-8,000 tokens (shared across agents)
-- Shared modules: ~4,000-10,000 tokens (varies by agent needs)
-- Specialized modules: ~2,000-5,000 tokens (targeted)
-- **Buffer**: Leave room for conversation context
+- Foundation modules: ~6,000-10,000 tokens total (shared across agents)
+- Shared modules: ~4,000-8,000 tokens per agent's selection
+- Specialized modules: ~2,000-4,000 tokens (targeted)
 
-**When to exceed the guideline:**
-- Content is coherent and can't be meaningfully split
-- Removing content would harm agent effectiveness
-- The agent's role genuinely requires broad context
+**Individual module sizing:**
+- Most modules should be **2,000-4,000 tokens**
+- Modules under 1,000 tokens are almost certainly too thin
+- A 600-800 token module suggests over-compression
 
-**When to tighten:**
-- Agent is loading modules it rarely uses
+**Warning signs of over-compression:**
+- Multiple modules under 1,000 tokens
+- Agents totaling under 10,000 tokens
+- Module descriptions are thin bullet points rather than usable guidance
+- Agents lack context to make nuanced decisions
+
+**When to trim:**
 - Content is duplicated across modules
-- Explanatory content could be trimmed (Claude knows most concepts)
+- Explanatory content about general concepts (not organization-specific)
+- Agent is loading modules it doesn't actually use
 
 Run `python scripts/count_tokens.py` to measure actual usage.
 

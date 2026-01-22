@@ -180,13 +180,15 @@ Check for:
 
 ## Key Principles
 
-**Concise modules**: Include only organization-specific knowledge. Don't explain concepts Claude already knows.
+**Richness over minimalism**: Agents need enough context to work effectively. A module with 1,500 tokens is almost certainly too thin. Most modules should be 2,000-4,000 tokens. If you find yourself writing 600-800 token modules, you're over-compressing.
+
+**Don't explain what Claude knows**: Skip explanations of general concepts (what AI is, how nonprofits work). But DO include organization-specific application of those concepts.
 
 **Reference, don't repeat**: If info exists in Module A, Module B says "See [Module A]" - never duplicates.
 
 **Confidence markers**: Mark all facts as `[CONFIRMED]` (from sources), `[PROPOSED]` (inference), or `[HISTORICAL]` (may be outdated).
 
-**Token awareness**: The 20K token guideline per agent is a planning target, not a hard limit. Prioritize completeness and coherence over aggressive compression. If an agent needs 22K tokens to be effective, that's acceptable. If it needs 35K, consider whether some modules can be split or made optional.
+**Use the token budget**: The 20K guideline exists to be used, not avoided. An agent at 8,000 tokens is probably missing useful context. Target 12,000-18,000 tokens for most agents. Only go below 10,000 if the agent's role is genuinely narrow.
 
 **Principles over prescriptions**: Extract decision-making frameworks, not specific methodologies. A module should help agents make good decisions in new situations, not lock them into documented past choices. Ask: "Does this content enable flexibility or constrain it?"
 
