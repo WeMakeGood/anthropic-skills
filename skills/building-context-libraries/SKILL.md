@@ -9,10 +9,11 @@ Build structured context libraries that encode organizational knowledge for AI a
 
 ## Critical Rules
 
-**GROUNDING (CRITICAL - READ CAREFULLY):** Every fact in the library MUST trace to a specific source document.
+**GROUNDING (CRITICAL - READ CAREFULLY):** Every fact in the library MUST trace to a specific source document. But grounding means the INFORMATION is sourced, not that you copy the source text.
 - **NEVER invent details** — Use exact names, dates, locations, and legal terms from sources. Do not substitute similar-sounding alternatives.
 - **NEVER fill gaps with plausible content** — Missing information is a gap to report, not a blank to fill creatively.
-- **NEVER mark invented content as [CONFIRMED]** — If you cannot point to the exact source document and quote, it is NOT confirmed.
+- **NEVER mark invented content as [CONFIRMED]** — If you cannot point to the source document where you learned this fact, it is NOT confirmed.
+- **NEVER copy verbatim quotes from transcripts or interviews** — Synthesize the information into clear prose. Conversational speech is raw material, not finished content.
 - **When in doubt, leave it out** — Omitting true information is recoverable; including false information damages trust permanently.
 
 **CONFLICT RESOLUTION:** When source documents contradict each other, surface the conflict to the user. Do not silently resolve by picking one version.
@@ -49,79 +50,175 @@ Store these as:
 - `OUTPUT_PATH` - where to write library
 - `AGENTS` - list of domain agents needed
 
-## Build Process
+---
 
-### Phase 1: Analysis
+## Build Process Overview
 
-**MANDATORY FIRST STEP - Run the inventory script:**
+The build process creates persistent artifacts at each phase, enabling:
+- **Session breaks** — Stop and resume in a new session
+- **Compaction** — New sessions read artifacts, not original sources
+- **Auditability** — User can review and correct at each checkpoint
 
-First, locate this skill's directory (where this SKILL.md lives), then run:
+**Phases:**
+1. **Index** — Analyze and classify all source documents
+2. **Synthesize** — Transform complex sources into clean working documents
+3. **Propose** — Design module structure based on ready sources
+4. **Build** — Create modules from indexed sources
+5. **Validate** — Verify and get final approval
+
+**Key artifacts:**
+- `source-index.md` — Master list of all sources and their status
+- `synthesis/*.md` — Cleaned versions of complex source documents
+- `proposal.md` — Structural plan for the library
+- `modules/` — The actual context library content
+- `agents/` — Agent definitions
+
+---
+
+## Phase 1: Index Sources
+
+**Create the source index — the master manifest for the entire build.**
+
+First, run the inventory script to get file listings:
 
 ```bash
 python3 <skill_dir>/scripts/analyze_sources.py <SOURCE_PATH>
 ```
 
-For example, if this skill is at `.claude/skills/building-context-libraries/`:
-```bash
-python3 .claude/skills/building-context-libraries/scripts/analyze_sources.py ./source
+Then create `<OUTPUT_PATH>/source-index.md`:
+
+```markdown
+# Source Index
+
+**Generated:** [date]
+**Source path:** [SOURCE_PATH]
+**Status:** [indexing | synthesizing | ready | building | complete]
+
+## Source Files
+
+| File | Type | Status | Working Source | Notes |
+|------|------|--------|----------------|-------|
+| [path] | [type] | [status] | [path or "original"] | [notes] |
+
+## Conflicts Identified
+
+- [Conflict description]: [File A] vs [File B]
+
+## Gaps Identified
+
+- [Gap description]
 ```
 
-You MUST run this script before reading any documents. It provides:
-- Complete file inventory with word/token counts
-- Estimated final library size
-- Reading order guidance
+**For each source file, determine:**
 
-**DO NOT skip this step or substitute with `ls` or manual file discovery.**
+1. **Type** — How should this document be handled?
+   - `strategy` — Polished positioning, decisions (use directly)
+   - `operational` — Current processes, structures (use directly)
+   - `transcript` — Conversational, needs synthesis
+   - `interview` — Q&A format, needs synthesis
+   - `notes` — Meeting notes, may need synthesis
+   - `reference` — Supporting material (use directly)
 
-**REQUIRED:** After running the script, read ALL documents systematically (not sampling). Do not proceed to Phase 2 until you have read every document.
+2. **Status** — What state is this source in?
+   - `ready` — Can be used directly for module building
+   - `needs-synthesis` — Must be synthesized before use
+   - `synthesized` — Synthesis complete, use the synthesis file
+   - `skip` — Not needed for this library
 
-As you read, identify:
+3. **Working Source** — What file should module building use?
+   - For `ready` files: `original`
+   - For `synthesized` files: path to synthesis file
 
-**Organizational Understanding:**
-- Who is this organization?
-- What do they do?
-- How do they work?
-- Who do they serve?
+**STOP. Get user approval on source index before synthesizing.**
 
-**Content Stakes Assessment:**
-As you read, note which content carries high stakes (errors cause significant harm):
-- Legal, compliance, or contractual claims
-- Financial figures and metrics
-- Claims about partners, clients, or third parties
-- Credentials, certifications, regulatory status
+The user may:
+- Reclassify files (e.g., mark something as `skip`)
+- Identify additional conflicts or gaps
+- Approve to proceed
 
-This assessment informs how modules are built and how agents handle different content.
+---
 
-**Content Conflict Detection (CRITICAL):**
-Look for documents that indicate strategic changes, reorganizations, or updated positioning. Common indicators:
-- Documents with dates (newer overrides older)
-- Documents titled "Strategic...", "Reorganization...", "Updated..."
-- Gap analysis or interview guides (indicate missing information)
-- Requirements documents that specify what should be built
+## Phase 2: Synthesize Complex Sources
 
-**When conflicts are found between documents:**
-1. **Identify the conflict explicitly** - What does Document A say vs Document B?
-2. **Determine which is authoritative** - Usually newer strategic docs override older operational docs
-3. **Mark historical content** - Old positioning becomes `[HISTORICAL]`, not deleted
-4. **Ask the user if unclear** - Don't assume; conflicts may need human decision
+**For each file marked `needs-synthesis`, create a clean working document.**
 
-**Check for documented gaps:**
-- Look for gap analysis documents, interview guides, or TODO markers
-- These indicate information that is KNOWN to be missing
-- These become BLOCKING gaps in your proposal
+Create synthesis files in `<OUTPUT_PATH>/synthesis/`:
+- Name: `[original-filename]-synthesis.md`
+- One synthesis per source file
 
-### Phase 2: Propose Structure
+**What synthesis does:**
+- Extracts facts, decisions, and principles from messy source material
+- Removes speech artifacts, filler words, incomplete thoughts
+- Organizes information by topic
+- Preserves exact names, dates, figures — no invention
+
+**What synthesis does NOT do:**
+- Invent information not in the source
+- Interpret ambiguous statements (flag these instead)
+- Combine multiple sources (each synthesis is one source)
+
+**Synthesis format:**
+
+```markdown
+# Synthesis: [Original Filename]
+
+**Source:** [path to original]
+**Generated:** [date]
+**Status:** [draft | user-approved]
+
+---
+
+## [Topic Area]
+
+[Synthesized content — clear prose stating facts from the source]
+
+## [Topic Area]
+
+[Synthesized content]
+
+---
+
+## Flagged for Clarification
+
+- [Ambiguous statement that needs user input]
+- [Unclear reference that needs verification]
+
+---
+
+**Awaiting user review.**
+```
+
+**After creating each synthesis:**
+1. Update the source index: change status to `synthesized`, set working source to synthesis path
+2. Present to user for review
+
+**STOP. Get user approval on ALL syntheses before proposing structure.**
+
+The user may:
+- Correct errors in syntheses
+- Clarify flagged items
+- Approve to proceed
+
+**Session break point:** After all syntheses are approved, the source index and synthesis files contain everything needed to continue in a new session. A new session can read these artifacts instead of the original sources.
+
+---
+
+## Phase 3: Propose Structure
+
+**Design the module structure based on ready sources.**
+
+Read from the source index to identify working sources (either originals marked `ready` or synthesis files).
 
 Create `<OUTPUT_PATH>/proposal.md` describing what you will build. **This is a structural plan, not a draft of content.**
 
 **What the proposal IS:**
 - A list of proposed modules with names, purposes, and estimated tokens
 - Module-to-agent mapping showing which agents load which modules
-- Identified conflicts between source documents and proposed resolutions
+- Identified conflicts and proposed resolutions
 - Information gaps that may affect module quality
 
 **What the proposal is NOT:**
-- Pre-written module content (that's Phase 3)
+- Pre-written module content (that's Phase 4)
 - An "Organization Summary" or similar content preview
 - Detailed text that will appear in modules
 
@@ -130,7 +227,7 @@ Create `<OUTPUT_PATH>/proposal.md` describing what you will build. **This is a s
 1. **Proposed Modules** — For each module:
    - Name and ID (e.g., F1, S3, D2)
    - One-sentence purpose
-   - Which source documents inform it
+   - Which working sources inform it
    - Estimated token count
    - Which agents will load it
 
@@ -152,17 +249,23 @@ Create `<OUTPUT_PATH>/proposal.md` describing what you will build. **This is a s
 
 **STOP. Get explicit user approval before building. Do not proceed on implied or partial approval.**
 
-### Phase 3: Build Modules
+---
+
+## Phase 4: Build Modules
+
+**Create modules using ONLY the indexed working sources.**
 
 After approval, create folder structure:
 ```
 <OUTPUT_PATH>/
+├── source-index.md
+├── synthesis/
+├── proposal.md
 ├── modules/
 │   ├── foundation/
 │   ├── shared/
 │   └── specialized/
-├── agents/
-└── proposal.md
+└── agents/
 ```
 
 **CRITICAL: Build modules SEQUENTIALLY, not in parallel.**
@@ -174,17 +277,23 @@ Build modules ONE AT A TIME in this order:
 
 **For EACH module, follow this sequence:**
 
-1. **Before writing:** Re-read the relevant source documents for this module's content. Do not rely on memory from Phase 1.
+1. **Before writing:** Consult the source index. Identify which working sources (originals or syntheses) contain relevant information. Re-read those specific files.
 
 2. **While writing:** For every fact you include:
-   - Can you name the source document?
-   - Can you quote or paraphrase the specific text?
+   - Is this fact in one of the working sources listed in the index?
+   - Can you point to where in that source?
    - If NO to either → do not include it, or mark as `[PROPOSED]`
 
-3. **After writing:** Verify the module against sources:
-   - Re-read the module you just wrote
-   - Check each `[CONFIRMED]` statement against source documents
-   - If you cannot verify a statement, change it to `[PROPOSED]` or remove it
+   **Write for LLM consumption.** These modules are prompts, not documentation:
+   - Be direct — state facts, don't introduce them
+   - Front-load key information
+   - Use consistent terminology throughout
+   - Encode decision criteria as "If X, do Y" patterns
+   - Don't explain concepts Claude already knows
+
+3. **After writing:** Verify the module against working sources:
+   - Check each `[CONFIRMED]` statement
+   - If a statement isn't supported by working sources, change to `[PROPOSED]` or remove it
 
 **Do not proceed to the next module until the current one is verified.**
 
@@ -193,9 +302,11 @@ Use formats from [references/TEMPLATES.md](references/TEMPLATES.md).
 Key rules:
 - Single source of truth: each fact in ONE module only
 - Explicit references: `See [Module Name]` for cross-module info
-- Mark confidence: `[CONFIRMED]`, `[PROPOSED]`, or `[HISTORICAL]` — with `[CONFIRMED]` requiring verifiable source
+- Mark confidence: `[CONFIRMED]`, `[PROPOSED]`, or `[HISTORICAL]`
 
-### Phase 4: Create Agent Definitions
+---
+
+## Phase 5: Create Agent Definitions
 
 For each agent in `AGENTS`, create definition in `<OUTPUT_PATH>/agents/`:
 - List required modules
@@ -205,7 +316,9 @@ For each agent in `AGENTS`, create definition in `<OUTPUT_PATH>/agents/`:
 - Specify professional objectivity guidelines (when to challenge, verify, flag)
 - **For agents producing external-facing content:** Include Natural Prose guardrails (banned vocabulary, banned structures, required behaviors)
 
-### Phase 5: Validate
+---
+
+## Phase 6: Validate
 
 Run validation scripts from this skill's `scripts/` directory:
 ```bash
@@ -218,10 +331,17 @@ Check for:
 - Duplicated information
 - Token budget overruns (default: 20K per agent)
 - Missing required content
+- **All [CONFIRMED] facts verified against working sources**
+
+Update source index status to `complete`.
 
 **STOP. Get user approval on final library.**
 
+---
+
 ## Key Principles
+
+**Modules are prompts, not documentation**: You're writing context for LLMs, not docs for humans. Be direct and declarative. Use "If X, then Y" patterns. Front-load key information. Cut preambles and transitions. Every token costs money — make them count.
 
 **Richness over minimalism**: Agents need enough context to work effectively. Most modules should be 2,000-4,000 tokens. BUT: Richness means *sourced* content, not invented content. A thin module with verified facts is better than a rich module with hallucinations. If sources don't support 2,000 tokens of content, report the gap rather than filling it creatively.
 
@@ -235,16 +355,42 @@ Check for:
 
 **Principles over prescriptions**: Extract decision-making frameworks, not specific methodologies. A module should help agents make good decisions in new situations, not lock them into documented past choices. Ask: "Does this content enable flexibility or constrain it?"
 
+---
+
 ## When to Stop and Ask
 
 **REQUIRED:** Get explicit user approval at these checkpoints:
-- After gathering requirements (before analysis)
-- After proposing structure (before building)
-- When source documents have significant gaps
-- When you identify conflicts between source documents
-- After validation (before declaring complete)
+
+| After Phase | Checkpoint | What User Reviews |
+|-------------|------------|-------------------|
+| 1. Index | Source index approved | File classifications, identified conflicts/gaps |
+| 2. Synthesize | All syntheses approved | Each synthesis document |
+| 3. Propose | Proposal approved | Module structure, agent mapping, gap handling |
+| 6. Validate | Final library approved | Complete library with validation report |
 
 **Do not proceed past a checkpoint without explicit approval.** "Sounds good" or similar is sufficient; silence or topic change is not.
+
+**Session breaks:** After Phase 1 or Phase 2, the source index (and syntheses) contain everything needed to continue in a new session. Update the index status field to track progress:
+- `indexing` — Phase 1 in progress
+- `synthesizing` — Phase 2 in progress
+- `ready` — Phases 1-2 complete, ready for proposal
+- `building` — Phase 4 in progress
+- `complete` — All phases done
+
+---
+
+## Resuming a Previous Session
+
+If the user has an existing source index:
+
+1. Read `<OUTPUT_PATH>/source-index.md`
+2. Check the status field to determine current phase
+3. Read any existing synthesis files
+4. Continue from the appropriate phase
+
+Do NOT re-read original source documents if syntheses exist — use the synthesis files as your working sources.
+
+---
 
 ## References
 

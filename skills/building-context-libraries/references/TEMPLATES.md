@@ -1,5 +1,105 @@
 # Module and Agent Templates
 
+## Source Index Template
+
+The source index is the master manifest for the entire build. It tracks every source file, its status, and what working source to use for module building.
+
+```markdown
+# Source Index
+
+**Generated:** YYYY-MM-DD
+**Source path:** [SOURCE_PATH]
+**Output path:** [OUTPUT_PATH]
+**Status:** indexing | synthesizing | ready | building | complete
+
+---
+
+## Source Files
+
+| File | Type | Status | Working Source | Notes |
+|------|------|--------|----------------|-------|
+| [relative/path/to/file.md] | strategy | ready | original | [brief note] |
+| [relative/path/to/transcript.md] | transcript | needs-synthesis | — | [brief note] |
+| [relative/path/to/transcript.md] | transcript | synthesized | synthesis/transcript-synthesis.md | [brief note] |
+
+### Type Values
+- `strategy` — Polished positioning, decisions (use directly)
+- `operational` — Current processes, structures (use directly)
+- `transcript` — Conversational, needs synthesis
+- `interview` — Q&A format, needs synthesis
+- `notes` — Meeting notes, may need synthesis
+- `reference` — Supporting material (use directly)
+
+### Status Values
+- `ready` — Can be used directly for module building
+- `needs-synthesis` — Must be synthesized before use
+- `synthesized` — Synthesis complete, use the synthesis file
+- `skip` — Not needed for this library
+
+---
+
+## Conflicts Identified
+
+- [Description of conflict]: [File A] vs [File B]
+
+## Gaps Identified
+
+- [Description of missing information]
+
+---
+
+**Awaiting user approval to proceed.**
+```
+
+---
+
+## Synthesis Template
+
+One synthesis file per complex source document. Transforms messy source material (transcripts, interviews) into clean working documents.
+
+**CRITICAL:** Extract facts from the source. Do NOT invent information. Flag ambiguous statements for user clarification.
+
+```markdown
+# Synthesis: [Original Filename]
+
+**Source:** [path to original file]
+**Generated:** YYYY-MM-DD
+**Status:** draft | user-approved
+
+---
+
+## [Topic Area]
+
+[Clear prose stating facts extracted from the source. No filler words, speech artifacts, or incomplete thoughts.]
+
+## [Topic Area]
+
+[Additional synthesized content organized by topic.]
+
+---
+
+## Flagged for Clarification
+
+Items that need user input before this synthesis can be approved:
+
+- [Ambiguous statement — what did they mean by X?]
+- [Unclear reference — who/what is Y?]
+- [Possible error — source says Z but this seems inconsistent with...]
+
+---
+
+**Awaiting user review.**
+```
+
+**Rules for synthesis:**
+- One synthesis per source file — do not combine multiple sources
+- Extract facts, decisions, principles — not verbatim quotes
+- Preserve exact names, dates, figures from the source
+- Flag anything ambiguous — don't interpret
+- Organize by topic for clarity
+
+---
+
 ## Foundation Module Template
 
 ```markdown
@@ -270,12 +370,10 @@ Calibrate the specific vocabulary and voice guidance to the organization's indus
 
 ## Proposal Template
 
+**IMPORTANT:** The proposal describes STRUCTURE, not content. Do not pre-write module content or summarize organizational information. The proposal lists what modules you will create and why.
+
 ```markdown
 # Context Library Proposal
-
-## Organization Summary
-
-[Brief summary of what you learned from sources]
 
 ## Proposed Module Structure
 

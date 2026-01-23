@@ -1,5 +1,49 @@
 # Context Library Architecture
 
+## Modules Are Prompt Engineering, Not Documentation
+
+Context libraries exist to give LLMs organizational knowledge. This fundamentally shapes how modules should be written.
+
+**LLMs process context differently than humans:**
+- LLMs read the entire context; humans scan and skip
+- LLMs don't need explanations of concepts they already know
+- LLMs benefit from explicit decision criteria and conditional logic
+- LLMs can't follow external links or reference other documents not in context
+- LLMs work best with direct, declarative statements
+
+**Write for LLM consumption:**
+
+| Instead of... | Write... |
+|---------------|----------|
+| "It's important to understand that..." | State the fact directly |
+| "See [external document] for details" | Encode the information in the module |
+| "Our approach has evolved over time to emphasize..." | "[Topic] principles: [list]" |
+| Varied synonyms for style | Consistent terminology throughout |
+| Background context explaining why | Direct statements of what and how |
+
+**Token efficiency matters:**
+- Every token costs money and consumes context window
+- Cut preambles, transitions, and hedging language
+- Front-load the most important information
+- Use "If X, then Y" patterns for decision logic
+- Don't explain what Claude already knows (general concepts, industry basics)
+
+**Effective LLM context patterns:**
+```markdown
+## [Topic]
+
+[Category A]:
+- [Criterion 1]
+- [Criterion 2]
+- [Criterion 3]
+
+[Category B]:
+- [Criterion 1]
+- [Criterion 2]
+```
+
+Structured lists with clear categories are more useful to an LLM than narrative prose.
+
 ## Module Design Philosophy
 
 **Organize modules for USE, not for taxonomy.**
@@ -56,19 +100,19 @@ Examples:
 Wrong:
 ```markdown
 # Module A
-Our mission is to help nonprofits thrive.
+[Fact X]
 
 # Module B
-Our mission is to help nonprofits thrive.  ← DUPLICATE
+[Fact X]  ← DUPLICATE
 ```
 
 Right:
 ```markdown
 # Module A (Foundation)
-Our mission is to help nonprofits thrive.
+[Fact X]
 
 # Module B (Shared)
-> See [Organizational Identity] for mission statement.
+> See [Module A] for [Fact X].
 ```
 
 ## Cross-Reference Patterns
@@ -87,17 +131,23 @@ Use explicit references:
 
 Mark all information:
 
-- `[CONFIRMED]` - Verified from authoritative source document
+- `[CONFIRMED]` - Verified from a working source listed in the source index
 - `[PROPOSED]` - Logical inference, not explicitly stated in sources
 - `[HISTORICAL]` - Was true but may have changed
 
-Example:
+**Working sources** are either:
+- Original source files marked `ready` in the source index
+- Synthesis files for sources that were marked `needs-synthesis`
+
+A fact is only `[CONFIRMED]` if you can point to where it appears in a working source. If the fact came from a source that was synthesized, verify against the synthesis file (not the original transcript).
+
+Example format:
 ```markdown
-[CONFIRMED] Founded in 2005 as Frazier Media.
+[CONFIRMED] [Fact verified in working source]
 
-[PROPOSED] Typical project duration is 4-8 weeks based on past work.
+[PROPOSED] [Inference based on patterns — user should verify]
 
-[HISTORICAL] Previously positioned as "advocacy consultancy" (pre-2025).
+[HISTORICAL] [Fact superseded by newer information]
 ```
 
 ## Token Budget Management
@@ -166,26 +216,24 @@ Context libraries should enable future decisions, not constrain them. Avoid enco
 
 **Good (flexible):**
 ```markdown
-## AI Tool Evaluation
+## [Decision Area]
 
-When selecting AI tools, we prioritize:
-- Alignment with our ethical AI principles (see F3)
-- Ability to work with organizational context
-- Transparency in how outputs are generated
-- Cost sustainability for nonprofit clients
+When selecting [type of thing], we prioritize:
+- [Principle 1]
+- [Principle 2]
+- [Principle 3]
 ```
 
 **Bad (locked-in):**
 ```markdown
-## AI Tool Selection
+## [Decision Area]
 
-We use Claude for all AI work because:
-- It handles long context well
-- It's more honest than competitors
-- Our workflows are built around it
+We use [specific tool] because:
+- [Reason specific to that tool]
+- [Another tool-specific reason]
 ```
 
-The first version helps agents evaluate *any* tool. The second locks the organization into a specific choice.
+The first version helps agents evaluate *any* option using principles. The second locks the organization into a specific choice that may change.
 
 ### Common Over-Specification Patterns
 
@@ -205,17 +253,17 @@ Before including detailed methodology, ask:
 
 ## Information Gaps
 
-When source documents lack needed information:
+When working sources lack needed information:
 
-1. Note the gap in your proposal
-2. Classify impact:
-   - **BLOCKING**: Agent cannot function
-   - **LIMITING**: Agent works but reduced capability
-   - **ENHANCING**: Would improve but not essential
-3. Ask user for BLOCKING gaps before proceeding
-4. Mark LIMITING/ENHANCING gaps in validation report
+1. Note the gap in the source index (Phase 1)
+2. Carry gaps forward to the proposal (Phase 3)
+3. Classify impact:
+   - **BLOCKING**: Agent cannot function — must resolve before building
+   - **LIMITING**: Agent works but reduced capability — note in validation
+   - **ENHANCING**: Would improve but not essential — low priority
+4. Ask user about BLOCKING gaps before proceeding to build
 
-Never invent information to fill gaps.
+**Never invent information to fill gaps.** A thin module with verified facts is better than a rich module with hallucinations.
 
 ## Content Stakes Classification
 
@@ -246,8 +294,8 @@ Not all information carries equal weight. Classify content by the consequences o
 
 1. **Mark stakes explicitly** in modules containing high-stakes content:
    ```markdown
-   [HIGH-STAKES] Annual revenue: $2.4M (FY2024 audited financials)
-   [HIGH-STAKES] SOC 2 Type II certified since 2022
+   [HIGH-STAKES] [Financial claim from source document]
+   [HIGH-STAKES] [Certification/credential from source document]
    ```
 
 2. **Source requirements by stakes level:**
