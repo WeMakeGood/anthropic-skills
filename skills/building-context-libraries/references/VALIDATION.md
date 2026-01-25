@@ -48,7 +48,7 @@ For each module:
 - [ ] Scope defines what's included AND excluded
 - [ ] No information duplicated from other modules
 - [ ] All cross-references use explicit format
-- [ ] Confidence markers on all factual claims
+- [ ] Exception markers used appropriately (`[PROPOSED]`, `[HISTORICAL]` — unmarked = confirmed)
 - [ ] High-stakes content marked with `[HIGH-STAKES]` and has source citations
 - [ ] Agent instructions section included
 
@@ -56,13 +56,13 @@ For each module:
 
 ## Source Verification Checklist (CRITICAL)
 
-**Every [CONFIRMED] fact must pass this check:**
+**All unmarked content is confirmed by default. Every unmarked fact must pass this check:**
 
 - [ ] Is this fact in one of the working sources listed in the source index?
 - [ ] Can you point to where in that working source (original or synthesis)?
 - [ ] Does the module use the EXACT names, dates, titles, and terms from the source?
 
-**If ANY answer is NO:** Change to `[PROPOSED]` or remove the fact.
+**If ANY answer is NO:** Mark as `[PROPOSED]` or remove the fact.
 
 **Common hallucination patterns to check for:**
 - Executive names or titles not in working sources
@@ -122,10 +122,10 @@ If under 10,000 tokens:
 **Symptom**: Same fact appears in multiple modules
 **Fix**: Keep in ONE module, add references in others
 
-### Missing Confidence Markers
+### Unmarked Inferences
 
-**Symptom**: Facts without [CONFIRMED], [PROPOSED], or [HISTORICAL]
-**Fix**: Add markers; if uncertain, mark [PROPOSED]
+**Symptom**: Inferred content without `[PROPOSED]` marker
+**Fix**: Mark inferences with `[PROPOSED]` — only confirmed facts should be unmarked
 
 ### Vague Cross-References
 
@@ -203,10 +203,10 @@ Before declaring complete:
 
 ## Source Verification Audit
 
-For each module, confirm [CONFIRMED] facts were verified against working sources:
+For each module, confirm unmarked facts are verifiable in working sources:
 
-| Module | [CONFIRMED] Count | Verified | Issues |
-|--------|-------------------|----------|--------|
+| Module | Fact Count | Verified | Issues |
+|--------|------------|----------|--------|
 | F1 | [X] | Yes/No | [List any unverified claims] |
 
 ## Token Budgets
@@ -225,10 +225,12 @@ For each module, confirm [CONFIRMED] facts were verified against working sources
 - [ ] No duplicated content
 - Issues: [List any]
 
-## Confidence Audit
+## Exception Markers Audit
 
-- [ ] All facts marked
-- Unmarked items: [List any]
+- [ ] Inferences marked with `[PROPOSED]`
+- [ ] Superseded info marked with `[HISTORICAL]`
+- [ ] No unnecessary `[CONFIRMED]` markers (unmarked = confirmed)
+- Issues: [List any unmarked inferences]
 
 ## Stakes Classification Audit
 

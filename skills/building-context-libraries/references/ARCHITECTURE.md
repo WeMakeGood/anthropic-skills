@@ -129,25 +129,25 @@ Use explicit references:
 
 ## Confidence Markers
 
-Mark all information:
+**Unmarked content is confirmed by default.** Only mark exceptions to save tokens:
 
-- `[CONFIRMED]` - Verified from a working source listed in the source index
-- `[PROPOSED]` - Logical inference, not explicitly stated in sources
-- `[HISTORICAL]` - Was true but may have changed
+- **Unmarked** — Verified from working sources. No marker needed.
+- `[PROPOSED]` — Logical inference, not explicitly stated in sources. User should verify.
+- `[HISTORICAL]` — Was true but superseded by newer documents.
 
 **Working sources** are either:
 - Original source files marked `ready` in the source index
 - Synthesis files for sources that were marked `needs-synthesis`
 
-A fact is only `[CONFIRMED]` if you can point to where it appears in a working source. If the fact came from a source that was synthesized, verify against the synthesis file (not the original transcript).
+All unmarked content must be verifiable in a working source. If you can't point to where a fact appears, mark it `[PROPOSED]` or remove it.
 
-Example format:
+Example:
 ```markdown
-[CONFIRMED] [Fact verified in working source]
+The organization was founded in 2016.
 
-[PROPOSED] [Inference based on patterns — user should verify]
+[PROPOSED] Typical project duration is 4-8 weeks based on patterns in case studies.
 
-[HISTORICAL] [Fact superseded by newer information]
+[HISTORICAL] Previously positioned as an advocacy consultancy (pre-2025 strategy).
 ```
 
 ## Token Budget Management
@@ -299,9 +299,9 @@ Not all information carries equal weight. Classify content by the consequences o
    ```
 
 2. **Source requirements by stakes level:**
-   - HIGH: Must have explicit source document citation
-   - MEDIUM: Should have source; [PROPOSED] acceptable if clearly marked
-   - LOW: [PROPOSED] acceptable based on pattern inference
+   - HIGH: Must be verifiable in working sources (unmarked = confirmed)
+   - MEDIUM: Should be verifiable; `[PROPOSED]` acceptable if clearly marked
+   - LOW: `[PROPOSED]` acceptable based on pattern inference
 
 3. **Verification guidance:** High-stakes content should trigger verification behaviors in agents (see Agent Definition Template).
 

@@ -18,9 +18,9 @@ Build structured context libraries that encode organizational knowledge for AI a
 
 **CONFLICT RESOLUTION:** When source documents contradict each other, surface the conflict to the user. Do not silently resolve by picking one version.
 
-**EPISTEMIC MARKERS:** Use `[CONFIRMED]`, `[PROPOSED]`, `[HISTORICAL]` with strict discipline:
-- `[CONFIRMED]` — You can cite the specific source document and the exact text. If you cannot, do not use this marker.
-- `[PROPOSED]` — Logical inference clearly marked as such. User should verify before relying on it.
+**EPISTEMIC MARKERS:** Unmarked content is confirmed by default. Only mark exceptions:
+- **Unmarked** — Verified from working sources. This is the default; no marker needed.
+- `[PROPOSED]` — Logical inference, not explicitly stated in sources. User should verify.
 - `[HISTORICAL]` — Explicitly superseded by newer documents.
 
 **PROFESSIONAL OBJECTIVITY:** If source documents have significant gaps, inconsistencies, or quality issues, report this directly. The library's value depends on accurate representation, not completeness theater.
@@ -302,7 +302,7 @@ Use formats from [references/TEMPLATES.md](references/TEMPLATES.md).
 Key rules:
 - Single source of truth: each fact in ONE module only
 - Explicit references: `See [Module Name]` for cross-module info
-- Mark confidence: `[CONFIRMED]`, `[PROPOSED]`, or `[HISTORICAL]`
+- Mark exceptions only: `[PROPOSED]` or `[HISTORICAL]` — unmarked content is confirmed
 
 ---
 
@@ -349,7 +349,7 @@ Update source index status to `complete`.
 
 **Reference, don't repeat**: If info exists in Module A, Module B says "See [Module A]" - never duplicates.
 
-**Confidence markers require verification**: `[CONFIRMED]` means you can cite the source document. If you cannot point to exactly where in the sources this information appears, use `[PROPOSED]` instead. Misusing `[CONFIRMED]` is a critical error.
+**Unmarked = confirmed**: All unmarked content must be verifiable in working sources. Only use markers for exceptions: `[PROPOSED]` for inferences, `[HISTORICAL]` for superseded info. If you can't verify a fact, either mark it `[PROPOSED]` or remove it.
 
 **Use the token budget**: The 20K guideline exists to be used, not avoided. An agent at 8,000 tokens is probably missing useful context. Target 12,000-18,000 tokens for most agents. Only go below 10,000 if the agent's role is genuinely narrow.
 
