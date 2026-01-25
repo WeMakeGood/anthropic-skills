@@ -221,14 +221,25 @@ If you cannot point to where a fact appears in working sources, either:
 
 ## Token Budget Management
 
-**Guideline**: ~20,000 tokens per agent's complete module set.
+**Guideline**: ~20,000 tokens maximum per agent. But the goal is not to minimize tokens — it's to include all useful verified content.
 
-This is a planning target to be *used*, not avoided. The goal is effective agents with rich context.
+**DO NOT artificially compress content to "save tokens."** If the content is verified and helps the agent make better decisions, include it.
 
-**Expected ranges:**
-- Most agents should land at **12,000-18,000 tokens**
-- Agents under 10,000 tokens are likely missing useful context
-- Agents over 20,000 tokens should be reviewed for unnecessary duplication
+**What counts as waste (cut this):**
+- Preambles and introductions
+- Filler phrases
+- Explaining concepts Claude already knows
+- Duplicated content across modules
+- General industry knowledge (not org-specific)
+
+**What counts as useful content (keep this):**
+- Verified facts from sources
+- Decision frameworks and criteria
+- Organizational context and positioning
+- Specific details that inform agent behavior
+- Examples that clarify how to apply principles
+
+**The right size is determined by content, not a target number.** Some agents need more context than others. Include what's useful; cut what's wasteful. Don't compress useful content to hit an arbitrary token count.
 
 **Budget allocation guidance:**
 - Foundation modules: ~6,000-10,000 tokens total (shared across agents)

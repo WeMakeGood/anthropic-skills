@@ -198,7 +198,7 @@ Create `<OUTPUT_PATH>/proposal.md` — a structural plan, not content.
 - Organization summaries
 - Draft text
 
-**Target 12,000-18,000 tokens per agent.** If sources don't support this, report the gap.
+**Include all useful verified content.** Do not compress to hit a token target. If sources contain relevant information, include it. The right size is determined by the content available, not an arbitrary number.
 
 **STOP. Get explicit user approval before building.**
 
@@ -294,13 +294,25 @@ Update source index status to `complete`.
 
 ## Key Principles
 
-**Modules are prompts, not documentation.** Write for LLMs: direct, declarative, no preambles.
+**INCLUDE ALL USEFUL CONTENT.** Do not compress or summarize to "save tokens." If verified content would help an agent make better decisions, include it.
 
-**Verified content only.** Every fact must trace to a source. Thin modules with verified facts beat rich modules with hallucinations.
+**What to cut (wasted tokens):**
+- Preambles and introductions
+- Filler phrases ("In order to effectively...")
+- Explanations of concepts Claude already knows
+- Redundant content across modules
 
-**Reference, don't repeat.** Each fact exists in one module only.
+**What to keep (useful tokens):**
+- All verified facts from sources
+- Decision criteria and frameworks
+- Organizational context
+- Specific details that inform agent behavior
 
-**Use the token budget.** Target 12,000-18,000 tokens per agent. Under 10,000 usually means missing context.
+**Verified content only.** Every fact must trace to a source. Include all verified content that's relevant — don't artificially compress.
+
+**Modules are prompts, not documentation.** Direct, declarative, front-loaded. This style is efficient, allowing more content without waste.
+
+**Reference, don't repeat.** Each fact exists in one module only. Cross-reference instead of duplicating.
 
 **Principles over prescriptions.** Extract decision frameworks, not locked-in methodologies.
 
