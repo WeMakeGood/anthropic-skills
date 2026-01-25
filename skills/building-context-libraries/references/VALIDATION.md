@@ -168,7 +168,7 @@ Before declaring complete:
 - [ ] **All facts verified against working sources in source index**
 - [ ] No broken cross-references
 - [ ] No duplicated information
-- [ ] All agents in target token range (12,000-18,000)
+- [ ] All agents under 20,000 token maximum
 - [ ] All BLOCKING gaps resolved or user-approved
 - [ ] High-stakes content properly marked and sourced
 - [ ] Agent definitions include verification and objectivity guidance
