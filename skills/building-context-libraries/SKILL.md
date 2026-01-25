@@ -20,7 +20,40 @@ Build structured context libraries that encode organizational knowledge for AI a
 
 **CONFLICT RESOLUTION:** When source documents contradict, surface the conflict to the user. Do not silently pick one version.
 
-**SYNTHESIS, NOT TRANSCRIPTION:** Extract and synthesize information from sources. Never copy verbatim quotes from transcripts — conversational speech is raw material, not finished content.
+**SYNTHESIS, NOT TRANSCRIPTION:** Extract and synthesize information from sources. Modules contain organizational knowledge for LLM agents, not reference material for humans.
+
+---
+
+## Source Type Handling
+
+Different sources require different processing. The goal is always: **synthesized knowledge an LLM can act on.**
+
+| Source Type | Contains | Extract | Do NOT Include |
+|-------------|----------|---------|----------------|
+| **Strategy docs** | Decisions, positioning | Frameworks, principles, positioning statements | — (use directly) |
+| **Transcripts** | Conversational speech | Facts and decisions expressed | Verbatim quotes, filler words, speech patterns |
+| **Interview quotes** | Verbatim statements | The insights and meaning | The quotes themselves |
+| **Case studies** | Client examples | Methodology patterns, anonymized learnings | Client names, specific metrics, testimonials |
+| **Bios/profiles** | Personnel info | Names, roles, expertise areas | Personal details irrelevant to agents |
+| **Competitive intel** | Market analysis | Differentiators, positioning frameworks | Competitor-specific details that may change |
+| **Financial docs** | Numbers, metrics | Verified figures marked HIGH-STAKES | Unverified or dated numbers |
+| **Process docs** | Procedures | Decision criteria, "If X, do Y" patterns | Step-by-step procedures (agents adapt) |
+
+**Key principle:** A quote in a source document is evidence of what someone said — it's not content to copy into a module. Synthesize what the quote *means* for how agents should behave.
+
+**Example transformation:**
+
+Source (interview):
+> "We really try to meet clients where they are. If they're just starting with AI, we don't overwhelm them with technical stuff. We focus on quick wins first."
+
+Module content:
+```
+Client engagement adapts to AI maturity:
+- Early-stage clients: Focus on quick wins, minimize technical complexity
+- Mature clients: Deeper technical integration appropriate
+```
+
+The quote is evidence; the module contains actionable guidance.
 
 ---
 

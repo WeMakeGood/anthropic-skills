@@ -44,6 +44,82 @@ Context libraries exist to give LLMs organizational knowledge. This fundamentall
 
 Structured lists with clear categories are more useful to an LLM than narrative prose.
 
+## Content Transformation
+
+Modules contain synthesized organizational knowledge — not source material. Transform content for LLM consumption.
+
+### What Goes In vs. Stays Out
+
+**Include in modules:**
+- Decision frameworks ("If X, then Y")
+- Organizational principles and values
+- Positioning statements
+- Service/offering descriptions
+- Team structure and roles
+- Verified facts (names, dates, figures)
+
+**Do NOT include:**
+- Verbatim quotes (synthesize the meaning instead)
+- Client names or specific testimonials
+- Detailed procedures (extract the decision logic)
+- Historical context unless strategically relevant
+- Competitive details that may become outdated
+- Personal anecdotes or stories
+
+### Transforming Quotes
+
+Quotes in source documents are *evidence* — they inform what should go in modules, but aren't copied directly.
+
+**Source quote:**
+> "We always start with a discovery phase because we've learned that jumping straight to implementation usually fails."
+
+**Module content:**
+```
+Engagement starts with discovery phase before implementation.
+Rationale: Direct-to-implementation approaches have poor outcomes.
+```
+
+The quote proves the practice exists; the module states the practice.
+
+### Transforming Case Studies
+
+Case studies contain valuable methodology patterns but also client-specific details that don't belong in modules.
+
+**Extract:**
+- Methodology patterns ("We used X approach for Y situation")
+- Success criteria ("The engagement succeeded when...")
+- Lessons learned ("We learned to always...")
+
+**Leave out:**
+- Client names (anonymize: "a nonprofit client")
+- Specific metrics ("increased donations 47%")
+- Testimonials
+- Timeline details
+
+### Transforming Process Documents
+
+Process documents often contain step-by-step procedures. Agents don't need procedures — they need decision criteria.
+
+**Source (process doc):**
+```
+1. Receive client inquiry
+2. Check if client is in target market
+3. If yes, schedule discovery call
+4. If no, refer to partner
+```
+
+**Module content:**
+```
+Client qualification:
+- Target market: [criteria from source]
+- Qualified → schedule discovery
+- Not qualified → refer to partner network
+```
+
+The module encodes the *decision logic*, not the procedure.
+
+---
+
 ## Module Design Philosophy
 
 **Organize modules for USE, not for taxonomy.**

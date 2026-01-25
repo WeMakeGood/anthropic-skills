@@ -98,6 +98,12 @@ Items that need user input before this synthesis can be approved:
 - Flag anything ambiguous — don't interpret
 - Organize by topic for clarity
 
+**Handling quotes in sources:**
+- Quotes are *evidence* of what someone said — not content to copy
+- Extract the meaning/insight from the quote
+- Transform into declarative statements or decision criteria
+- Example: "We try to meet clients where they are" → "Client engagement adapts to client's current state"
+
 ---
 
 ## Foundation Module Template
