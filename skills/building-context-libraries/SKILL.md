@@ -79,28 +79,67 @@ Store these as `SOURCE_PATH`, `OUTPUT_PATH`, and `AGENTS`.
 python3 <skill_dir>/scripts/create_source_index.py <SOURCE_PATH> <OUTPUT_PATH>
 ```
 
-This creates `<OUTPUT_PATH>/source-index.md` with:
-- Every source file listed (the script finds ALL files — none are skipped)
-- Automatic type classification (strategy, transcript, operational, etc.)
-- Initial status (ready or needs-synthesis)
-- A reading checklist you must complete
+This creates `<OUTPUT_PATH>/source-index.md` — your working checklist for the entire build.
 
-**YOU MUST READ EVERY FILE IN THE INDEX.** The script has already determined which files exist. Do not skip files or decide they are "unimportant."
+**HOW TO USE THE INDEX:**
 
-After reading all files, update the index with:
-- Conflicts identified between documents
-- Information gaps discovered
-- Any reclassifications needed
+1. **Read the index first.** It lists every file you must process.
 
-**STOP. Get user approval on source index before proceeding.**
+2. **Work through files in order.** For each file in the index:
+   - Read the file
+   - Update the index: mark it read, note any issues
+   - Do NOT proceed to the next file until you've updated the index
+
+3. **Update the index as you go.** The index has a "Reading Checklist" section:
+   ```markdown
+   ## Reading Checklist
+   - [ ] 1. strategy-doc.md
+   - [ ] 2. interview-transcript.md
+   - [ ] 3. team-bios.md
+   ```
+
+   After reading each file, mark it complete:
+   ```markdown
+   - [x] 1. strategy-doc.md — read, ready to use
+   - [x] 2. interview-transcript.md — read, needs synthesis
+   - [ ] 3. team-bios.md
+   ```
+
+4. **Add notes as you discover them:**
+   - Conflicts between documents → add to "Conflicts Identified" section
+   - Missing information → add to "Gaps Identified" section
+   - Reclassifications needed → update the file's Type/Status in the table
+
+5. **The index is your source of truth.** When building modules later, you will reference this index to know which files to consult. If a file isn't marked as read in the index, you haven't processed it.
+
+**DO NOT:**
+- Skip files because they seem unimportant
+- Read files without updating the index
+- Proceed to Phase 2 until every file is marked read
+
+**STOP. Get user approval on completed source index before proceeding.**
 
 ---
 
 ### Phase 2: Synthesize Complex Sources
 
-For each file marked `needs-synthesis`, create a clean working document.
+For each file marked `needs-synthesis` in the source index, create a clean working document.
 
-Create synthesis files in `<OUTPUT_PATH>/synthesis/`:
+**HOW TO DO SYNTHESIS:**
+
+1. **Check the source index** — find all files with status `needs-synthesis`
+
+2. **For each file that needs synthesis:**
+   a. Read the original file
+   b. Create synthesis file in `<OUTPUT_PATH>/synthesis/[filename]-synthesis.md`
+   c. **Update the source index immediately:**
+      - Change status from `needs-synthesis` to `synthesized`
+      - Add the synthesis path to the "Working Source" column
+   d. Present synthesis to user for review
+
+3. **Do not batch syntheses** — complete and update index for each file before starting the next
+
+**Synthesis file format:**
 
 ```markdown
 # Synthesis: [Original Filename]
@@ -132,7 +171,10 @@ Create synthesis files in `<OUTPUT_PATH>/synthesis/`:
 - Extract facts, decisions, principles — not verbatim quotes
 - Preserve exact names, dates, figures
 - Flag ambiguities — don't interpret them
-- Update source index when complete (status → `synthesized`)
+
+**After completing ALL syntheses:**
+1. Update source index status to `ready`
+2. Present completed index showing all syntheses to user
 
 **STOP. Get user approval on ALL syntheses before proposing structure.**
 
@@ -177,18 +219,33 @@ Create folder structure:
 └── agents/
 ```
 
-**Build modules SEQUENTIALLY:**
-1. Foundation modules first
-2. Shared modules next
-3. Specialized modules last
+Update source index status to `building`.
+
+**HOW TO BUILD MODULES:**
+
+1. **Consult the source index** before writing each module:
+   - Check which files have status `ready` (use originals)
+   - Check which files have status `synthesized` (use the synthesis file path)
+   - The "Working Source" column tells you which file to read
+
+2. **For each module in the proposal:**
+   a. Identify which working sources contain relevant content (from index)
+   b. Re-read those specific working sources
+   c. Write the module using only facts from those sources
+   d. Verify before proceeding to next module
+
+3. **Build SEQUENTIALLY:**
+   - Foundation modules first
+   - Shared modules next
+   - Specialized modules last
 
 **For each module:**
 
-1. **Before writing:** Re-read the relevant working sources (originals or syntheses)
+1. **Before writing:** Check the source index. Read the working sources listed for this module's content.
 
-2. **While writing:** Every fact must be in a working source. If you cannot point to where a fact appears, do not include it (or mark `[PROPOSED]` if user has approved inferences).
+2. **While writing:** Every fact must be in a working source from the index. If you cannot point to where a fact appears, do not include it (or mark `[PROPOSED]` if user has approved inferences).
 
-3. **After writing:** Verify against sources before proceeding to the next module.
+3. **After writing:** Verify against working sources before proceeding to the next module.
 
 **Writing for LLM consumption:**
 - Be direct — state facts, don't introduce them
