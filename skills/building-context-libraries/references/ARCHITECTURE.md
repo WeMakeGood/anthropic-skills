@@ -127,28 +127,21 @@ Use explicit references:
 > **Related:** [Module Name] covers [complementary topic].
 ```
 
-## Confidence Markers
+## Content Verification
 
-**Unmarked content is confirmed by default.** Only mark exceptions to save tokens:
+**All content must be verified.** Every fact must trace to a working source.
 
-- **Unmarked** — Verified from working sources. No marker needed.
-- `[PROPOSED]` — Logical inference, not explicitly stated in sources. User should verify.
-- `[HISTORICAL]` — Was true but superseded by newer documents.
-
-**Working sources** are either:
+**Working sources** are:
 - Original source files marked `ready` in the source index
-- Synthesis files for sources that were marked `needs-synthesis`
+- Synthesis files for sources that needed synthesis
 
-All unmarked content must be verifiable in a working source. If you can't point to where a fact appears, mark it `[PROPOSED]` or remove it.
+**The only marker:** `[PROPOSED]` — Use this for inferences or recommendations that the user has approved including. Everything else is verified fact from sources.
 
-Example:
-```markdown
-The organization was founded in 2016.
+If you cannot point to where a fact appears in working sources, either:
+1. Remove it, or
+2. Mark it `[PROPOSED]` (only if user has approved including inferences)
 
-[PROPOSED] Typical project duration is 4-8 weeks based on patterns in case studies.
-
-[HISTORICAL] Previously positioned as an advocacy consultancy (pre-2025 strategy).
-```
+**Superseded information:** If newer documents override older ones, use the newer information. Do not include outdated content — it wastes tokens and confuses agents.
 
 ## Token Budget Management
 
@@ -299,7 +292,7 @@ Not all information carries equal weight. Classify content by the consequences o
    ```
 
 2. **Source requirements by stakes level:**
-   - HIGH: Must be verifiable in working sources (unmarked = confirmed)
+   - HIGH: Must be verifiable in working sources
    - MEDIUM: Should be verifiable; `[PROPOSED]` acceptable if clearly marked
    - LOW: `[PROPOSED]` acceptable based on pattern inference
 

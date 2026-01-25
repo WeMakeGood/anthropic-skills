@@ -42,12 +42,19 @@ This skill guides Claude through a 6-phase workflow to analyze source documents 
 
 ### Phase 1: Index Sources
 
-Claude analyzes your source folder and creates a **source index** — a master manifest that:
+A Python script creates the **source index** — a master manifest of ALL source files:
 
-- Lists every source file with type (strategy, transcript, operational, etc.)
-- Marks each file's status (ready to use, needs synthesis, skip)
-- Identifies conflicts between documents
-- Notes information gaps
+```bash
+python3 scripts/create_source_index.py ./source ./context-library
+```
+
+The script:
+- Finds ALL markdown/text files (none are skipped)
+- Classifies each by type (strategy, transcript, operational, etc.)
+- Sets initial status (ready or needs-synthesis)
+- Creates a reading checklist
+
+Claude then reads EVERY file in the index and updates it with conflicts and gaps.
 
 You approve the index before proceeding.
 
@@ -253,7 +260,8 @@ building-context-libraries/
 │   ├── TEMPLATES.md            # Index, synthesis, module, and agent templates
 │   └── VALIDATION.md           # Phase-by-phase validation checklists
 └── scripts/
-    ├── analyze_sources.py      # Source document inventory
+    ├── create_source_index.py  # Creates source-index.md (run first)
+    ├── analyze_sources.py      # Source document inventory (detailed analysis)
     ├── validate_library.py     # Cross-reference and structure checks
     └── count_tokens.py         # Token budget calculator
 ```

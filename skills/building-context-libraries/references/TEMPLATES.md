@@ -127,7 +127,7 @@ last_updated: YYYY-MM-DD
 
 ## [Content Section]
 
-[Information from source documents — unmarked content is confirmed by default]
+[Verified information from source documents]
 
 ### [Subsection]
 
@@ -179,7 +179,7 @@ last_updated: YYYY-MM-DD
 
 > **Requires [Foundation Module]** for organizational context.
 
-[Information from sources — unmarked = confirmed]
+[Verified information from sources]
 
 ### [Subsection]
 
@@ -240,7 +240,7 @@ last_updated: YYYY-MM-DD
 > **Requires [Shared Module]** for methodology.
 > **Requires [Foundation Module]** for org context.
 
-[Domain-specific information — unmarked = confirmed]
+[Verified domain-specific information]
 
 ---
 

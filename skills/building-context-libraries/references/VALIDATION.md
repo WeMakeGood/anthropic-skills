@@ -48,7 +48,7 @@ For each module:
 - [ ] Scope defines what's included AND excluded
 - [ ] No information duplicated from other modules
 - [ ] All cross-references use explicit format
-- [ ] Exception markers used appropriately (`[PROPOSED]`, `[HISTORICAL]` — unmarked = confirmed)
+- [ ] `[PROPOSED]` used only for user-approved inferences (all other content is verified)
 - [ ] High-stakes content marked with `[HIGH-STAKES]` and has source citations
 - [ ] Agent instructions section included
 
@@ -56,7 +56,7 @@ For each module:
 
 ## Source Verification Checklist (CRITICAL)
 
-**All unmarked content is confirmed by default. Every unmarked fact must pass this check:**
+**All content must be verified. Every fact must pass this check:**
 
 - [ ] Is this fact in one of the working sources listed in the source index?
 - [ ] Can you point to where in that working source (original or synthesis)?
@@ -74,7 +74,7 @@ For each module:
 - Certifications, credentials, or regulatory status
 
 **Verification process:**
-1. Read each [CONFIRMED] statement in the module
+1. Read each factual statement in the module
 2. Consult source index to identify relevant working sources
 3. Search working sources for supporting text
 4. If not found: change marker to [PROPOSED] or remove
@@ -122,10 +122,10 @@ If under 10,000 tokens:
 **Symptom**: Same fact appears in multiple modules
 **Fix**: Keep in ONE module, add references in others
 
-### Unmarked Inferences
+### Unverified Content
 
-**Symptom**: Inferred content without `[PROPOSED]` marker
-**Fix**: Mark inferences with `[PROPOSED]` — only confirmed facts should be unmarked
+**Symptom**: Content that cannot be traced to a working source
+**Fix**: Remove it, or mark with `[PROPOSED]` if user has approved including inferences
 
 ### Vague Cross-References
 
@@ -142,7 +142,7 @@ If under 10,000 tokens:
 **Symptom**: Module has content but no guidance on how to use it
 **Fix**: Add "Agent Instructions" section with application guidance
 
-### Unmarked High-Stakes Content
+### High-Stakes Content Without Source
 
 **Symptom**: Legal, financial, or third-party claims without `[HIGH-STAKES]` marker
 **Fix**: Add marker and ensure source citation exists
@@ -154,7 +154,7 @@ If under 10,000 tokens:
 
 ### Facts Not in Working Sources
 
-**Symptom**: Module contains [CONFIRMED] facts not found in source index working sources
+**Symptom**: Module contains facts not found in source index working sources
 **Fix**: Either locate the working source and verify, or change to [PROPOSED]
 
 ---
@@ -165,7 +165,7 @@ Before declaring complete:
 
 - [ ] Source index status updated to `complete`
 - [ ] All modules pass quality checklist
-- [ ] **All [CONFIRMED] facts verified against working sources in source index**
+- [ ] **All facts verified against working sources in source index**
 - [ ] No broken cross-references
 - [ ] No duplicated information
 - [ ] All agents in target token range (12,000-18,000)
@@ -203,7 +203,7 @@ Before declaring complete:
 
 ## Source Verification Audit
 
-For each module, confirm unmarked facts are verifiable in working sources:
+For each module, confirm all facts are verifiable in working sources:
 
 | Module | Fact Count | Verified | Issues |
 |--------|------------|----------|--------|
@@ -225,19 +225,18 @@ For each module, confirm unmarked facts are verifiable in working sources:
 - [ ] No duplicated content
 - Issues: [List any]
 
-## Exception Markers Audit
+## Proposed Content Audit
 
-- [ ] Inferences marked with `[PROPOSED]`
-- [ ] Superseded info marked with `[HISTORICAL]`
-- [ ] No unnecessary `[CONFIRMED]` markers (unmarked = confirmed)
-- Issues: [List any unmarked inferences]
+- [ ] `[PROPOSED]` used only for user-approved inferences
+- [ ] No unverified content without `[PROPOSED]` marker
+- Issues: [List any unverified content]
 
 ## Stakes Classification Audit
 
 - [ ] High-stakes content identified and marked
 - [ ] High-stakes items have source citations
 - [ ] Agent definitions include stakes-based verification guidance
-- Issues: [List any unmarked high-stakes content]
+- Issues: [List any high-stakes content without source]
 
 ## Agent Objectivity Check
 
