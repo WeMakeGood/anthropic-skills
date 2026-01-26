@@ -36,12 +36,11 @@ def find_references(content: str) -> list:
     return refs
 
 
-def find_confidence_markers(content: str) -> dict:
-    """Count confidence markers in content."""
+def find_content_markers(content: str) -> dict:
+    """Count content markers in content."""
     markers = {
-        'CONFIRMED': len(re.findall(r'\[CONFIRMED\]', content)),
         'PROPOSED': len(re.findall(r'\[PROPOSED\]', content)),
-        'HISTORICAL': len(re.findall(r'\[HISTORICAL\]', content))
+        'HIGH-STAKES': len(re.findall(r'\[HIGH-STAKES\]', content))
     }
     return markers
 
@@ -87,7 +86,7 @@ def analyze_module(filepath: Path) -> dict:
             'purpose': frontmatter.get('purpose'),
             'confidence': frontmatter.get('confidence'),
             'references': find_references(body),
-            'markers': find_confidence_markers(body),
+            'markers': find_content_markers(body),
             'phrases': extract_key_phrases(body),
             'has_agent_instructions': 'agent instructions' in body.lower(),
             'content': content,
@@ -199,18 +198,16 @@ def main():
     if not duplicates_found:
         print("  OK: No obvious duplications detected")
 
-    # 4. Confidence markers
-    print("\n4. Confidence Markers")
+    # 4. Content markers check
+    print("\n4. Content Markers")
     for m in modules:
         if m.get('error'):
             continue
         markers = m.get('markers', {})
-        total = sum(markers.values())
-        if total == 0:
-            issues.append(f"  {m['filename']}: No confidence markers")
-            print(f"  WARN: {m['filename']} has no confidence markers")
-        else:
-            print(f"  OK: {m['filename']} ({markers['CONFIRMED']}C, {markers['PROPOSED']}P, {markers['HISTORICAL']}H)")
+        proposed = markers.get('PROPOSED', 0)
+        high_stakes = markers.get('HIGH-STAKES', 0)
+        print(f"  {m['filename']}: {proposed} [PROPOSED], {high_stakes} [HIGH-STAKES]")
+        # Note: Having no markers is fine - it means all content is verified
 
     # 5. Agent instructions
     print("\n5. Agent Instructions Section")

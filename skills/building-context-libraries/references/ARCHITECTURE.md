@@ -66,6 +66,78 @@ Modules contain synthesized organizational knowledge — not source material. Tr
 - Competitive details that may become outdated
 - Personal anecdotes or stories
 
+### Transforming Transcripts and Interviews
+
+Transcripts are the messiest source type. Machine transcription adds errors. Conversational speech includes filler words, false starts, tangents, and incomplete thoughts. Your job is to extract the *meaning* and discard the mess.
+
+**What transcripts contain (discard or transform all of this):**
+- Filler words: "um," "uh," "you know," "like," "I mean"
+- False starts: "We usually — well, actually we sometimes —"
+- Tangents and digressions
+- Conversational hedging: "I think maybe," "sort of," "kind of"
+- Repetition and restarts
+- Transcription errors and artifacts
+- Speaker attributions for routine statements
+- **Time spans** — Convert to dates (see below)
+
+**What to extract (keep only this):**
+- Facts and decisions stated
+- Principles and values expressed
+- Processes and approaches described
+- Organizational positions and stances
+
+**Example transformation:**
+
+**Source (transcript):**
+```
+Yeah so we, um, we really try to — I mean, it's something we've always believed in —
+meeting clients where they are, you know? Like if they're just starting out with AI
+stuff, we don't want to, like, overwhelm them with all the technical, you know,
+jargon and complexity. We focus on quick wins first. That's been our approach.
+```
+
+**Synthesis output:**
+```
+Client Engagement Principles:
+- Adapt approach to client's current AI maturity level
+- Early-stage clients: prioritize quick wins, minimize technical complexity
+- Avoid overwhelming clients with jargon
+```
+
+**NOT this (wrong — preserves conversational structure):**
+```
+The team mentioned that they "really try to meet clients where they are" and
+believe in not "overwhelming them with technical jargon." They noted that
+"quick wins" are prioritized for clients "just starting out with AI."
+```
+
+The wrong example is useless to an LLM agent — it's just transcription with quotation marks. The correct example provides actionable guidance.
+
+**The test:** Would an LLM agent reading your synthesis be able to make decisions? Or would it be confused by conversational artifacts?
+
+### Converting Time Spans to Dates
+
+Time spans become outdated the moment the calendar changes. Always convert relative time references to absolute dates or years.
+
+**Wrong (becomes outdated):**
+- "25 years of experience"
+- "Founded over two decades ago"
+- "We've been doing this for 15 years"
+- "A 10-year track record"
+
+**Right (remains accurate):**
+- "Founded in 1999" or "Working in industry since 1999"
+- "Founded in 2003"
+- "Operating since 2009"
+- "Track record from 2014 to present"
+
+**When you can't determine the exact date:**
+- If the source says "25 years" and was written in 2024, calculate: "since 1999" or "founded approximately 1999"
+- If the source date is unknown, flag for clarification rather than guessing
+- Mark calculated dates: "Founded approximately 1999 [calculated from '25 years' in 2024 source]"
+
+**Why this matters:** A module stating "25 years of experience" is wrong by year 2 and increasingly wrong thereafter. "Since 1999" remains accurate indefinitely.
+
 ### Transforming Quotes
 
 Quotes in source documents are *evidence* — they inform what should go in modules, but aren't copied directly.
@@ -218,6 +290,41 @@ If you cannot point to where a fact appears in working sources, either:
 2. Mark it `[PROPOSED]` (only if user has approved including inferences)
 
 **Superseded information:** If newer documents override older ones, use the newer information. Do not include outdated content — it wastes tokens and confuses agents.
+
+## Write-Time Source Protocol
+
+Modules must be written with sources open, not from memory.
+
+**The problem:** Reading many files creates blurred impressions. By writing time, the agent "remembers" facts incorrectly but writes them with confidence.
+
+**The solution:** Re-read specific sources immediately before writing each module, in the same context turn.
+
+**Required process:**
+1. Identify which source files inform this module (from proposal)
+2. Read those files (even if read earlier)
+3. Write the module with sources visible
+4. For HIGH-STAKES content (legal entity, EIN, addresses, titles, credentials): copy exact text
+
+**What counts as HIGH-STAKES (must be copied exactly):**
+- Legal entity names and structure
+- EIN, tax status, formation details
+- Email addresses, phone numbers, physical addresses
+- Leadership titles
+- Dates (founding, milestones)
+- Financial figures
+- Credentials and certifications
+
+**Verification log format:**
+
+Every module draft should include (can be removed in final):
+
+```markdown
+<!-- VERIFICATION
+| Fact | Source | Exact Text |
+|------|--------|------------|
+| California LLC | Organization Information.md | "Entity Type: California Limited Liability Company" |
+-->
+```
 
 ## Token Budget Management
 
@@ -385,46 +492,35 @@ Not all information carries equal weight. Classify content by the consequences o
 
 3. **Verification guidance:** High-stakes content should trigger verification behaviors in agents (see Agent Definition Template).
 
-### Stakes in Agent Definitions
+## Standard Guardrail Modules
 
-When defining agents, specify how they should handle different stakes levels:
-- Which content requires human verification before external use?
-- Which claims should the agent flag for review?
-- What should the agent do when asked to extrapolate from high-stakes data?
+Every context library includes two standard guardrail modules, copied from `templates/guardrails/` during Phase 4:
 
-This calibrates agent behavior to the actual risk profile of different information.
+### F_agent_behavioral_standards (Foundation)
 
-## Natural Prose (External-Facing Agents)
+**All agents load this module.** It defines:
+- Anti-hallucination requirements and source grounding
+- Epistemic honesty and confidence calibration
+- HIGH-STAKES content verification behaviors
+- Professional objectivity rules
+- Uncertainty handling
 
-Agents that produce marketing content, website copy, case studies, or other external-facing text must avoid AI-detectable writing patterns. LLMs have distinctive verbal tics that trained readers recognize instantly.
+### S_natural_prose_standards (Shared)
 
-### When to Include
+**External-facing agents load this module.** It defines:
+- Banned AI-detectable vocabulary (pivotal, crucial, delve, leverage, etc.)
+- Banned syntactic patterns (parallelisms, copula avoidance, vague attribution)
+- Required writing behaviors (simple verbs, noun repetition, specificity)
+- Context-specific guidance by content type
+- Revision checklist
 
-- **Marketing/communications agents** → Always include Natural Prose section
-- **Content creation agents** → Always include
-- **Internal documentation agents** → Skip (lower risk)
-- **Research/analysis agents** → Skip unless output is published
+### When to Load Each Module
 
-### What to Include
+| Agent Type | F_agent_behavioral_standards | S_natural_prose_standards |
+|------------|------------------------------|---------------------------|
+| Marketing/communications | Required | Required |
+| Content creation | Required | Required |
+| Internal documentation | Required | Skip |
+| Research/analysis | Required | Skip (unless published) |
 
-The Natural Prose section in agent definitions should specify:
-
-**Banned vocabulary:** Words that appear far more frequently in AI text than human writing:
-- Significance words: pivotal, crucial, vital, cornerstone, testament to, underscores, highlights
-- Promotional language: vibrant, tapestry, cutting-edge, groundbreaking, nestled, showcases, boasts
-- AI favorites: delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy
-
-**Banned structures:**
-- Negative parallelisms: "Not only X, but Y"
-- Copula avoidance: "serves as" instead of "is"
-- Superficial -ing analysis: "highlighting the importance of..."
-- Vague attribution: "experts say," "industry leaders"
-- Formulaic false balance: "Despite challenges, [positive spin]"
-
-**Required behaviors:**
-- Use simple verbs ("is" not "serves as")
-- Repeat nouns rather than cycling through synonyms
-- Be concrete with numbers and specifics
-- Match the voice of actual practitioners in the field
-
-See [TEMPLATES.md](TEMPLATES.md) for the complete Natural Prose section to include in agent definitions.
+**Do not write custom guardrail sections in agent definitions.** Load the standard modules and add only domain-specific extensions if needed.

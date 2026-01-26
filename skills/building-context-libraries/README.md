@@ -8,6 +8,8 @@ This skill guides Claude through a 6-phase workflow to analyze source documents 
 
 **The core insight:** AI agents work better when they have structured, organization-specific context rather than trying to derive everything from raw documents or general knowledge.
 
+**Critical distinction:** Context modules are **prompts for LLM agents**, not documentation for humans. Transcripts and interviews must be *transformed* into clean, actionable knowledge — not transcribed or lightly edited. If a module reads like the source document, the skill has failed.
+
 ## Why Use It
 
 **Without a context library:**
@@ -89,8 +91,8 @@ Claude creates the module structure with:
 
 - Single source of truth (each fact in ONE place)
 - Explicit cross-references between modules
-- Confidence markers (`[CONFIRMED]`, `[PROPOSED]`, `[HISTORICAL]`)
-- High-stakes markers with source citations
+- `[PROPOSED]` markers for user-approved inferences (all other content is verified by default)
+- `[HIGH-STAKES]` markers with source citations for sensitive content
 
 All facts must trace to working sources in the source index.
 
@@ -98,11 +100,13 @@ All facts must trace to working sources in the source index.
 
 For each domain agent, Claude creates:
 
-- Module loading list and token budget
+- Module loading list (all agents load `F#_agent_behavioral_standards`)
+- External-facing agents also load `S#_natural_prose_standards`
+- Token budget estimate
 - Role description and responsibilities
-- **Stakes-based verification guidance** — how to handle high/medium/low stakes content
-- **Professional objectivity guidance** — when to challenge, verify, or flag for review
-- **Uncertainty handling** — what to do when information is missing
+- Domain-specific guidance (beyond standard guardrails, if needed)
+
+**Standard guardrails are loaded as modules, not duplicated in agent definitions.**
 
 ### Phase 6: Validate
 
@@ -192,6 +196,9 @@ python3 scripts/validate_library.py ./context-library/modules
 
 # Check token budgets per agent
 python3 scripts/count_tokens.py ./context-library/modules ./context-library/agents
+
+# Verify module facts against sources
+python3 scripts/verify_module.py ./context-library/modules/F1_identity.md ./sources
 ```
 
 **Dependencies:** `tiktoken` (for token counting)
@@ -259,9 +266,34 @@ building-context-libraries/
 │   ├── ARCHITECTURE.md         # Module design, stakes classification
 │   ├── TEMPLATES.md            # Index, synthesis, module, and agent templates
 │   └── VALIDATION.md           # Phase-by-phase validation checklists
+├── templates/
+│   └── guardrails/
+│       ├── F_agent_behavioral_standards.md   # Required: anti-hallucination, epistemic honesty
+│       └── S_natural_prose_standards.md      # Required for external-facing agents
 └── scripts/
     ├── create_source_index.py  # Creates source-index.md (run first)
     ├── analyze_sources.py      # Source document inventory (detailed analysis)
     ├── validate_library.py     # Cross-reference and structure checks
-    └── count_tokens.py         # Token budget calculator
+    ├── count_tokens.py         # Token budget calculator
+    └── verify_module.py        # Check module facts against sources
 ```
+
+## Guardrail Modules
+
+Every context library includes two standard guardrail modules (copied from `templates/guardrails/`):
+
+**F_agent_behavioral_standards.md** (Foundation, all agents)
+- Anti-hallucination requirements and source grounding
+- Epistemic honesty and confidence calibration
+- HIGH-STAKES content verification
+- Professional objectivity rules
+- Uncertainty handling
+
+**S_natural_prose_standards.md** (Shared, external-facing agents)
+- Banned AI-detectable vocabulary
+- Banned syntactic patterns
+- Required writing behaviors
+- Context-specific guidance
+- Revision checklist
+
+These modules prevent the most common failure modes: hallucination, sycophancy, and AI-detectable writing patterns.

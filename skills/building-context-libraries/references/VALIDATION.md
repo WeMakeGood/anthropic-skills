@@ -19,23 +19,44 @@ Before proceeding to synthesis:
 Before proceeding to proposal:
 
 - [ ] Synthesis file created for each `needs-synthesis` source
-- [ ] Each synthesis extracts facts, not verbatim quotes
+- [ ] **Content is transformed, not transcribed** — no "they said X" patterns
+- [ ] **No verbatim quotes** — facts stated directly, not attributed
+- [ ] **No speech artifacts** — no filler words, false starts, or conversational fragments
+- [ ] **Organized by topic** — not by speaker or document order
 - [ ] Exact names, dates, figures preserved from sources
 - [ ] Ambiguous items flagged for clarification (not interpreted)
 - [ ] Source index updated: status → `synthesized`, working source → synthesis path
+- [ ] **LLM agent test:** Would an agent find this synthesis useful and actionable?
 - [ ] User approved ALL synthesis files
+
+### Phase 2.5: Pre-Synthesis Evaluation
+
+Before synthesizing each file marked `needs-synthesis`:
+
+- [ ] Read the file first
+- [ ] Evaluate whether it actually needs synthesis (messy/conversational) or is already clean
+- [ ] If already clean: Update index to `ready`, skip synthesis
+- [ ] If synthesis file already exists: Read it, update index to `synthesized`, skip re-synthesis
 
 ### Phase 3: Proposal Validation
 
 Before proceeding to build:
 
-- [ ] Proposal describes structure only (no pre-written content)
+- [ ] **NO CONTENT** — Proposal describes structure only, not organizational information
+- [ ] **NO FABRICATION** — Every detail traces to a working source you actually read
+- [ ] **NO COMPRESSION** — Token estimates reflect source richness, not arbitrary low targets
 - [ ] Each module has: ID, name, purpose, source references, token estimate
-- [ ] Agent-module mapping with token totals (target: 12,000-18,000 per agent)
+- [ ] Agent-module mapping with token totals (maximum: 20,000 per agent)
 - [ ] Conflicts listed with proposed resolutions
 - [ ] Gaps classified (blocking/limiting/enhancing)
 - [ ] Questions for user clearly stated
 - [ ] User approved the proposal
+
+**Red flags — STOP if you find yourself writing:**
+- "The organization focuses on..." → That's content, not structure
+- "Key services include..." → That's content
+- "Their approach emphasizes..." → That's content
+- Any specific organizational details not from sources → That's fabrication
 
 ---
 
@@ -43,7 +64,7 @@ Before proceeding to build:
 
 For each module:
 
-- [ ] Has correct YAML frontmatter (module_id, name, tier, purpose, confidence, last_updated)
+- [ ] Has correct YAML frontmatter (module_id, name, tier, purpose, last_updated)
 - [ ] Purpose clearly states what question it answers
 - [ ] Scope defines what's included AND excluded
 - [ ] No information duplicated from other modules
@@ -99,8 +120,8 @@ Check for:
 Run: `python scripts/count_tokens.py ./modules ./agents`
 
 For each agent, verify:
-- Total tokens under 20,000
-- Target range: 12,000-18,000 tokens
+- Total tokens under 20,000 maximum
+- Include all useful verified content (don't compress to hit a target)
 - Foundation modules not over-weighted
 
 If over budget:
@@ -109,13 +130,36 @@ If over budget:
 3. Consider splitting large modules
 4. Review if agent needs all assigned modules
 
-If under 10,000 tokens:
-- Review if agent is missing useful context
-- Only accept if agent's role is genuinely narrow
+If agent seems thin:
+- Review if agent is missing useful verified content from sources
+- Check if sources contain more relevant information
+- Only accept sparse context if sources genuinely lack content for this agent's role
 
 ---
 
 ## Common Issues
+
+### Transcription Instead of Synthesis
+
+**Symptom**: Content reads like the source — "John said X," verbatim quotes, conversational fragments, speech artifacts
+**Fix**: Rewrite completely. Extract the *meaning* and state it directly. "X is true" not "John mentioned that X." Remove all filler words, false starts, and conversational structure.
+
+**Wrong:**
+```
+The CEO mentioned that they "try to meet clients where they are" and emphasized
+the importance of "quick wins" for new clients.
+```
+
+**Right:**
+```
+Client engagement adapts to maturity level:
+- New clients: prioritize quick wins, minimize complexity
+```
+
+### Time Spans Instead of Dates
+
+**Symptom**: Content includes relative time references like "25 years of experience," "over a decade," "for 15 years"
+**Fix**: Convert to absolute dates. "25 years of experience" → "since 1999" (calculate from source document date). If source date unknown, flag for clarification.
 
 ### Duplicated Information
 

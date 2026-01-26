@@ -7,6 +7,21 @@ description: Builds AI context libraries from organizational source documents. C
 
 Build structured context libraries that encode organizational knowledge for AI agents.
 
+## Core Purpose
+
+**You are creating prompts for LLM agents, not documentation for humans.**
+
+Context modules must be:
+- **Actionable** — An agent can use this to make decisions or produce output
+- **Direct** — State facts and principles, not quotes or transcriptions
+- **Clean** — No filler words, speech artifacts, incomplete thoughts, or conversational rambling
+
+**The test:** If you pasted this module into an LLM's context, would it help the agent work effectively? Or would the agent be confused by messy transcription artifacts, verbatim quotes, and unprocessed source material?
+
+**Raw source material is NOT a module.** Transcripts, interviews, and messy documents must be transformed into clean, structured knowledge. If your output reads like the source input, you have not done your job.
+
+---
+
 ## Critical Rules
 
 **ALL CONTENT MUST BE VERIFIED.** Every fact in the library must trace to a source document. This is non-negotiable.
@@ -15,12 +30,13 @@ Build structured context libraries that encode organizational knowledge for AI a
 - **NEVER fill gaps** — Missing information is a gap to report, not a blank to fill.
 - **NEVER skip source documents** — Read every file in the source index.
 - **When in doubt, leave it out** — Omitting true information is recoverable; including false information is not.
+- **Convert time spans to dates** — "25 years of experience" becomes "Founded in 1999" or "Working in industry since 1999." Time spans become outdated; dates remain accurate.
 
 **PROPOSED CONTENT:** If the user approves including inferences or recommendations, mark them with `[PROPOSED]`. This is the only marker needed — all other content is verified by default.
 
 **CONFLICT RESOLUTION:** When source documents contradict, surface the conflict to the user. Do not silently pick one version.
 
-**SYNTHESIS, NOT TRANSCRIPTION:** Extract and synthesize information from sources. Modules contain organizational knowledge for LLM agents, not reference material for humans.
+**TRANSFORM, DON'T TRANSCRIBE:** Your job is to extract meaning and create actionable guidance. Never copy verbatim quotes, speech patterns, or conversational text into modules. A quote is evidence that something is true — the module states what is true.
 
 ---
 
@@ -59,7 +75,17 @@ The quote is evidence; the module contains actionable guidance.
 
 ## Before Starting
 
-Ask the user:
+**FIRST: Read all reference files before doing anything else:**
+
+1. [references/ARCHITECTURE.md](references/ARCHITECTURE.md) — Module design, content transformation, token management, stakes classification
+2. [references/TEMPLATES.md](references/TEMPLATES.md) — Templates for source index, synthesis, modules, agents, proposal
+3. [references/VALIDATION.md](references/VALIDATION.md) — Phase-by-phase validation checklists
+
+**Do not proceed until you have read all three reference files.**
+
+---
+
+**THEN: Ask the user:**
 
 1. **"Where are your source documents?"**
 2. **"Where should I create the context library?"** (default: `./context-library/`)
@@ -123,21 +149,33 @@ This creates `<OUTPUT_PATH>/source-index.md` — your working checklist for the 
 
 ### Phase 2: Synthesize Complex Sources
 
-For each file marked `needs-synthesis` in the source index, create a clean working document.
+The script marks files as `needs-synthesis` based on file type, but this is only a **preliminary classification**. You must evaluate each file before processing.
 
-**HOW TO DO SYNTHESIS:**
+**EVALUATE BEFORE SYNTHESIZING:**
 
-1. **Check the source index** — find all files with status `needs-synthesis`
+For each file marked `needs-synthesis` in the index:
 
-2. **For each file that needs synthesis:**
-   a. Read the original file
-   b. Create synthesis file in `<OUTPUT_PATH>/synthesis/[filename]-synthesis.md`
-   c. **Update the source index immediately:**
+1. **Read the file first**
+2. **Decide if it actually needs synthesis:**
+   - YES if: Contains filler words, speech artifacts, conversational rambling, verbatim quotes, unstructured content
+   - NO if: Already clean, well-organized, directly usable by an LLM agent
+3. **If NO synthesis needed:** Update the index (change status to `ready`, note "reviewed - already clean")
+4. **If YES synthesis needed:** Proceed with synthesis below
+
+**Also check for existing synthesis files:**
+- If `<OUTPUT_PATH>/synthesis/[filename]-synthesis.md` exists, read it instead of re-synthesizing
+- Update the index (status → `synthesized`, add working source path)
+
+**HOW TO DO SYNTHESIS (only for files that actually need it):**
+
+1. **For each file that genuinely needs synthesis:**
+   a. Create synthesis file in `<OUTPUT_PATH>/synthesis/[filename]-synthesis.md`
+   b. **Update the source index immediately:**
       - Change status from `needs-synthesis` to `synthesized`
       - Add the synthesis path to the "Working Source" column
-   d. Present synthesis to user for review
+   c. Present synthesis to user for review
 
-3. **Do not batch syntheses** — complete and update index for each file before starting the next
+2. **Do not batch syntheses** — complete and update index for each file before starting the next
 
 **Synthesis file format:**
 
@@ -172,6 +210,35 @@ For each file marked `needs-synthesis` in the source index, create a clean worki
 - Preserve exact names, dates, figures
 - Flag ambiguities — don't interpret them
 
+**CRITICAL: What synthesis IS and IS NOT:**
+
+Synthesis IS:
+- Extracting the *meaning* from messy source material
+- Stating facts in clean, direct prose
+- Organizing information by topic
+- Creating content an LLM agent can act on
+
+Synthesis is NOT:
+- Copying quotes with "they said X"
+- Preserving conversational structure
+- Including filler words, false starts, or rambling
+- Transcription with light editing
+
+**Example — WRONG (transcription):**
+```
+John mentioned that "we've always tried to, you know, meet clients where they are"
+and emphasized that the team believes in "starting with quick wins."
+```
+
+**Example — RIGHT (synthesis):**
+```
+Client Engagement Approach:
+- Adapt to client's current state and capabilities
+- Start with quick wins before complex implementations
+```
+
+The first example is useless to an LLM agent. The second is actionable guidance.
+
 **After completing ALL syntheses:**
 1. Update source index status to `ready`
 2. Present completed index showing all syntheses to user
@@ -184,21 +251,38 @@ For each file marked `needs-synthesis` in the source index, create a clean worki
 
 ### Phase 3: Propose Structure
 
-Create `<OUTPUT_PATH>/proposal.md` — a structural plan, not content.
+Create `<OUTPUT_PATH>/proposal.md` — a structural plan describing WHAT you will build, not the content itself.
 
-**Proposal includes:**
-1. Proposed modules (name, purpose, source references, estimated tokens)
-2. Agent-module mapping (which agents load which modules, total tokens per agent)
-3. Content conflicts and proposed resolutions
-4. Information gaps (blocking / limiting / enhancing)
-5. Questions requiring user decision
+**CRITICAL: NO CONTENT IN PROPOSALS**
 
-**Proposal does NOT include:**
-- Pre-written module content
-- Organization summaries
-- Draft text
+The proposal describes structure. It does NOT contain:
+- Summaries of organizational information
+- Draft module text
+- Descriptions of what the organization does/believes/offers
+- Any content that would go IN a module
 
-**Include all useful verified content.** Do not compress to hit a token target. If sources contain relevant information, include it. The right size is determined by the content available, not an arbitrary number.
+If you find yourself writing sentences like "The organization focuses on..." or "Key services include..." — STOP. That's content, not structure.
+
+**CRITICAL: NO FABRICATION**
+
+Every fact in the proposal must come from working sources. If you haven't read it in a source file, don't write it. This includes:
+- Organization names, descriptions, or positioning
+- Service offerings or methodologies
+- Team information or credentials
+- Any specific details about the organization
+
+**Proposal structure:**
+
+1. **Module list** — ID, name, purpose (what question it answers), which sources inform it, estimated tokens
+2. **Agent-module mapping** — Which agents load which modules, total tokens per agent
+3. **Conflicts** — Contradictions found in sources, proposed resolution
+4. **Gaps** — Missing information classified as blocking/limiting/enhancing
+5. **Questions** — Decisions requiring user input
+
+**Token estimates:**
+- Base estimates on source content richness, not arbitrary targets
+- 20,000 tokens maximum per agent, but include all useful verified content
+- Do NOT compress to hit a low number — sparse modules are worse than rich ones
 
 **STOP. Get explicit user approval before building.**
 
@@ -221,7 +305,46 @@ Create folder structure:
 
 Update source index status to `building`.
 
+**FIRST: Copy standard guardrail modules.**
+
+Before building organization-specific modules, copy the guardrail templates:
+
+1. Copy `<skill_dir>/templates/guardrails/F_agent_behavioral_standards.md` to `<OUTPUT_PATH>/modules/foundation/`
+2. Copy `<skill_dir>/templates/guardrails/S_natural_prose_standards.md` to `<OUTPUT_PATH>/modules/shared/`
+3. Update the module IDs and dates in the copied files
+4. Customize organization-specific references (e.g., module cross-references)
+
+These modules are **required**:
+- **F_agent_behavioral_standards** — All agents load this. Defines anti-hallucination, epistemic honesty, and professional objectivity rules.
+- **S_natural_prose_standards** — External-facing agents load this. Defines writing standards that avoid AI-detectable patterns.
+
+**Do not skip or significantly modify these modules.** They prevent the most common and damaging failure modes.
+
+---
+
 **HOW TO BUILD MODULES:**
+
+**CRITICAL: Write-Time Verification**
+
+Do NOT write from memory. For each module:
+
+1. **Re-read sources in the same turn you write.** Even if you read files in Phase 1, re-read the specific sources for this module immediately before writing.
+
+2. **Copy exact facts.** Legal names, EINs, emails, titles, dates — copy verbatim from source. Do not paraphrase.
+
+3. **Create a verification log** as you write:
+
+   | Fact | Source File | Exact Source Text |
+   |------|-------------|-------------------|
+   | [fact you're including] | [filename] | [exact quote from source] |
+
+4. **If you can't point to the source, don't include it.** No gap-filling. No "plausible" information.
+
+5. **One module at a time.** Complete and verify each module before starting the next.
+
+---
+
+**Module Building Steps:**
 
 1. **Consult the source index** before writing each module:
    - Check which files have status `ready` (use originals)
@@ -247,6 +370,20 @@ Update source index status to `building`.
 
 3. **After writing:** Verify against working sources before proceeding to the next module.
 
+**After writing each module:**
+
+Run verification:
+```bash
+python3 <skill_dir>/scripts/verify_module.py <module_path> <SOURCE_PATH>
+```
+
+If any facts are flagged as unverified:
+1. Check the source files
+2. Either find the source and confirm, or remove the fact
+3. Do not proceed to next module until verification passes
+
+---
+
 **Writing for LLM consumption:**
 - Be direct — state facts, don't introduce them
 - Front-load key information
@@ -264,11 +401,12 @@ Update source index status to `building`.
 ### Phase 5: Create Agent Definitions
 
 For each agent, create a definition in `<OUTPUT_PATH>/agents/`:
-- List required modules
+- List required modules (all agents must include F#_agent_behavioral_standards)
+- External-facing agents must also include S#_natural_prose_standards
 - Estimate total tokens
-- Include behavioral guidance
-- Define verification behaviors for high-stakes content
-- For external-facing agents: Include Natural Prose guardrails
+- Add domain-specific guidance if needed (beyond standard guardrails)
+
+**Do not duplicate guardrail content in agent definitions.** The standard guardrail modules handle anti-hallucination, epistemic honesty, professional objectivity, and natural prose. Agent definitions should only add domain-specific extensions.
 
 ---
 
@@ -340,11 +478,3 @@ If `<OUTPUT_PATH>/source-index.md` exists:
 4. Continue from the appropriate phase
 
 Use synthesis files as working sources — do not re-read original transcripts.
-
----
-
-## References
-
-- [references/ARCHITECTURE.md](references/ARCHITECTURE.md) - Module design, content stakes
-- [references/TEMPLATES.md](references/TEMPLATES.md) - Templates for all artifacts
-- [references/VALIDATION.md](references/VALIDATION.md) - Validation checklist
