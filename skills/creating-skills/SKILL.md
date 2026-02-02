@@ -331,7 +331,7 @@ Present the complete skill to the user:
 Get user approval, then package for distribution:
 
 ```bash
-python scripts/package_skill.py /path/to/new-skill --output .
+python scripts/package_skill.py /path/to/new-skill --output dist
 ```
 
 This creates a zip file ready for:
