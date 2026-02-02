@@ -672,7 +672,9 @@ Every skill needs explicit rules about hallucination, objectivity, and adherence
 
 ## Testing and Iteration
 
-### Test Before Shipping
+Testing happens in two stages: **structural validation** (automated) and **functional testing** (manual, with real prompts).
+
+### Stage 1: Structural Validation
 
 1. **Validate structure:** Run the validation script
 2. **Test description:** Does it trigger for expected phrases?
@@ -689,6 +691,98 @@ Before shipping any skill, verify:
 - [ ] **Professional objectivity:** Does the skill encourage surfacing problems?
 - [ ] **Instruction adherence:** Does the skill use REQUIRED/STOP/VERIFICATION markers?
 - [ ] **Checkpoints:** Does the skill require user approval at key decision points?
+
+### Stage 2: Functional Testing (Parallel Sessions)
+
+Structural validation confirms the skill is well-formed. Functional testing confirms it **produces quality output** when actually used.
+
+#### The Parallel Session Method
+
+Use two Claude sessions simultaneously:
+
+1. **Skill-building session** — Where you create and refine the skill
+2. **Testing session** — Where you run the skill with test prompts
+
+This allows you to:
+- Run the skill in a clean context (testing session)
+- Review output and iterate (skill-building session)
+- Keep full conversation history for both activities
+
+#### Designing Test Prompts
+
+Create 2-3 test prompts that exercise the skill progressively:
+
+| Test | Purpose | What to Include |
+|------|---------|-----------------|
+| **Simple** | Verify basic workflow | Single input, happy path, minimal complexity |
+| **Complex** | Test multi-step logic | Multiple inputs, edge cases, decision points |
+| **Boundary** | Test ambiguous situations | Incomplete info, unclear requirements, missing context |
+
+**Good test prompts are realistic.** Use the kind of input actual users would provide—don't over-specify to make the skill's job easier.
+
+**Example progression for a curriculum-building skill:**
+
+1. **Simple:** "Create a single lesson about AI ethics"
+2. **Complex:** "Create a 2-lesson course comparing sycophantic and objective AI"
+3. **Boundary:** "Create a 4-lesson course from this organizational document" (with real doc that wasn't designed as curriculum)
+
+#### Running the Test
+
+In the testing session:
+
+1. Start a fresh conversation
+2. Provide the test prompt
+3. Let the skill run to completion (or checkpoint)
+4. Save/note the output location
+
+**Don't intervene** unless the skill explicitly asks for input. You're testing what happens with minimal user guidance.
+
+#### Reviewing Output
+
+In the skill-building session, read all output files and evaluate:
+
+**Workflow adherence:**
+- Did the skill follow its own documented phases?
+- Did it stop at checkpoints for approval?
+- Did it document decisions as instructed?
+
+**Output quality:**
+- Is the content accurate and complete?
+- Does it follow the expected format?
+- Are there obvious errors or omissions?
+
+**Decision-making:**
+- Did it handle ambiguous situations appropriately?
+- Did it ask for clarification when needed?
+- Were its choices reasonable and documented?
+
+**Edge case handling:**
+- What happened with incomplete input?
+- Did it fail gracefully or produce garbage?
+- What guidance would have helped?
+
+#### The Iteration Loop
+
+```
+1. Run test prompt in testing session
+2. Review output in skill-building session
+3. Identify issues or improvements
+4. Update the skill
+5. Re-run structural validation
+6. Return to step 1 with next test prompt
+```
+
+Continue until all test types pass with acceptable output quality.
+
+#### Documenting Test Results
+
+After testing, note:
+- What was tested (test prompts used)
+- What issues were found
+- What changes were made
+- Any remaining limitations or edge cases
+
+This helps future maintainers understand the skill's tested boundaries.
 
 ### Test with Multiple Models
 

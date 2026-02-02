@@ -224,15 +224,19 @@ Every skill MUST have a Critical Rules section near the top. Include rules relev
 
 ### Phase 6: Test and Validate
 
+Testing happens in two stages: **structural validation** (automated scripts) and **functional testing** (parallel session testing with real prompts).
+
+#### Stage 1: Structural Validation
+
 Run all validation scripts in sequence:
 
-#### 1. Structure Validation
+**1. Structure Validation**
 ```bash
 python scripts/validate.py /path/to/new-skill
 ```
 Fix any errors before proceeding.
 
-#### 2. Description Quality
+**2. Description Quality**
 ```bash
 python scripts/test-description.py /path/to/new-skill "expected trigger phrase"
 ```
@@ -241,7 +245,7 @@ Verify:
 - Trigger conditions present
 - Keywords match expected phrases
 
-#### 3. Example Verification
+**3. Example Verification**
 ```bash
 python scripts/test-examples.py /path/to/new-skill
 ```
@@ -250,7 +254,7 @@ Ensure:
 - No placeholder patterns
 - Concrete input/output pairs
 
-#### 4. Full Simulation
+**4. Full Simulation**
 ```bash
 python scripts/dry-run.py /path/to/new-skill "test prompt"
 ```
@@ -259,15 +263,62 @@ Review:
 - File references exist
 - Trigger matching works
 
+#### Stage 2: Functional Testing (Parallel Sessions)
+
+Structural validation checks that the skill is well-formed. Functional testing checks that it **produces quality output**.
+
+**The process:**
+
+1. **Create test prompts** — Design 2-3 prompts that exercise the skill:
+   - Simple case: The most common use case
+   - Complex case: Edge cases, multiple inputs, or advanced features
+   - Boundary case: Ambiguous inputs that test decision-making
+
+2. **Run in parallel session** — Open a separate Claude session and run the skill with your test prompts. Keep the skill-building session open.
+
+3. **Review output** — In the skill-building session, read and audit the output:
+   - Did the skill follow the workflow correctly?
+   - Is the output quality acceptable?
+   - Were decisions documented appropriately?
+   - What's missing or could be improved?
+
+4. **Iterate** — Based on findings, update the skill and re-test:
+   ```
+   Test → Review → Fix → Re-test
+   ```
+
+5. **Document test results** — Note what was tested and what changes were made.
+
+**Test prompt design tips:**
+
+| Test Type | What It Validates | Example |
+|-----------|-------------------|---------|
+| Simple | Basic workflow executes correctly | Single input, happy path |
+| Complex | Multi-step workflows, edge cases | Multiple inputs, dependencies |
+| Boundary | Decision-making under ambiguity | Incomplete info, unclear requirements |
+
+**What to look for during review:**
+
+- Did the skill ask for clarification when needed?
+- Did it follow checkpoints and get approval?
+- Is the output format correct?
+- Are decisions documented appropriately?
+- Did it handle edge cases gracefully?
+- What guidance would have prevented any issues?
+
+See [references/BEST-PRACTICES.md](references/BEST-PRACTICES.md) for detailed functional testing methodology.
+
 #### Validation Loop
 
 ```
-1. Run validation scripts
-2. Review all output
-3. If errors or warnings:
-   - Fix the issues
+1. Run structural validation scripts
+2. Fix any errors
+3. Run functional tests in parallel session
+4. Review output in skill-building session
+5. If issues found:
+   - Update skill
    - Return to step 1
-4. Only proceed when all tests pass
+6. Only proceed when both stages pass
 ```
 
 ### Phase 7: Package and Finalize
