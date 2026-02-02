@@ -328,16 +328,31 @@ Present the complete skill to the user:
 - Explain any additional files
 - Note any trade-offs or decisions made
 
-Get user approval, then package for distribution:
+Get user approval, then package for distribution.
 
+**Option 1: Package a single skill**
 ```bash
-python scripts/package_skill.py /path/to/new-skill --output .
+python scripts/package_skill.py skills/new-skill --output dist
 ```
 
-This creates a zip file ready for:
-- Upload to Claude.ai
+**Option 2: Use the repo packaging script (preferred)**
+```bash
+./scripts/package-skills.sh new-skill
+```
+
+This packages the skill to `dist/new-skill.zip`.
+
+**Option 3: Package all skills**
+```bash
+./scripts/package-skills.sh
+```
+
+This packages all skills in `skills/` to `dist/`.
+
+The zip files are ready for:
+- Upload to Claude.ai (Settings > Features > Skills)
 - Distribution to other users
-- Archival
+- Extraction to `~/.claude/skills/` for local use
 
 ## File Reference
 
