@@ -149,6 +149,35 @@ Both Courses and Lessons can have Topics assigned.
 
 When creating curriculum content, output in these formats:
 
+### Folder Structure
+
+```
+_leaderspath/[course-name]/
+├── course-tracker.md
+├── course-metadata.md
+└── EN/
+    ├── Course Materials/
+    │   └── [shared resources]
+    ├── context/
+    │   └── [shared-context-files].md
+    └── lessons/
+        └── ##-[slug]/
+            ├── Lesson-Plan.md
+            ├── Chatbot Configuration/
+            │   ├── system-prompt.md
+            │   ├── api-settings.md
+            │   └── model-selection.md
+            ├── Context Files/
+            ├── lesson-text.md
+            ├── Assessment/
+            │   └── self-assessment.md
+            ├── Resources/
+            │   └── Additional Reading/
+            ├── Facilitator Notes/
+            │   └── facilitator-guide.md
+            └── Skills/
+```
+
 ### Course Metadata (`course-metadata.md`)
 
 ```markdown
@@ -167,43 +196,77 @@ When creating curriculum content, output in these formats:
 - [Topic 1]
 - [Topic 2]
 
+## Languages
+- EN (primary)
+
 ## Lessons
 1. [Lesson 1 Title]
 2. [Lesson 2 Title]
 ...
 ```
 
-### Lesson Metadata (`lesson-metadata.md`)
+### Lesson Plan (`Lesson-Plan.md`)
+
+See [LESSON-PLAN-TEMPLATE.md](LESSON-PLAN-TEMPLATE.md) for the complete template.
+
+The Lesson Plan replaces the previous `lesson-metadata.md` and includes:
+- Lesson Information (number, title, course, version, author)
+- Learning Objectives
+- Duration with breakdown
+- Directions (step-by-step learner instructions)
+- Model Specifications (model choice, capabilities, rationale)
+- Chatbot Configuration overview
+- Context Files overview
+- Skills overview
+- Resources overview
+- Assessment overview
+- Notes for Facilitators
+- Related Content
+- Technical Requirements
+
+### API Settings (`Chatbot Configuration/api-settings.md`)
 
 ```markdown
-# Lesson: [Title]
+# API Settings
 
-## AI State
-[Brief description of how the AI is configured for this lesson and what behavior it demonstrates]
-
-## Duration
-[X] minutes
-
-## Objectives
-1. [Objective 1]
-2. [Objective 2]
-
-## Prerequisites
-- [Prerequisite lesson, if any]
-
-## References
-- [Title](URL) — [Description]
-
-## Chatbot Configuration
-- **Model:** [sonnet/haiku/opus-4.5]
-- **Allow Model Switch:** [yes/no]
-- **Max Tokens:** [number]
+## Model Configuration
+- **Model:** [sonnet / haiku / opus-4.5]
+- **Model String:** [claude-sonnet-4-5-20250929 / claude-haiku-4-5-20251001 / claude-opus-4-5-20251101]
+- **Max Tokens:** [number, 256-16384]
 - **Temperature:** [0-1]
-- **Context Files:** [list with paths, e.g., context/filename.md]
-- **Skills:** [list, if any]
+- **Allow Model Switch:** [yes/no]
+
+## Context Files
+- [context/filename.md] — [brief description]
+- [Context Files/filename.md] — [brief description]
+
+## Skills
+- [skill-name] — [brief description]
 ```
 
-### System Prompt (`system-prompt.md`)
+### Model Selection (`Chatbot Configuration/model-selection.md`)
+
+```markdown
+# Model Selection Rationale
+
+## Why [Model Name]
+
+[Explanation of why this specific model was chosen for this lesson]
+
+## Capabilities Demonstrated
+- [Capability 1]
+- [Capability 2]
+- [Capability 3]
+
+## Trade-offs Considered
+- [Trade-off 1: e.g., "Sonnet provides faster responses than Opus while maintaining quality for this task"]
+- [Trade-off 2]
+
+## Alternative Considerations
+[If applicable, why other models were not chosen]
+```
+
+### System Prompt (`Chatbot Configuration/system-prompt.md`)
 
 ```markdown
 [The complete system prompt content, ready to paste into chatbot_system_prompt field]
@@ -213,6 +276,76 @@ When creating curriculum content, output in these formats:
 
 ```markdown
 [The complete lesson content, ready to paste into post_content field]
+```
+
+### Self-Assessment (`Assessment/self-assessment.md`)
+
+```markdown
+# Self-Assessment: [Lesson Title]
+
+## Comprehension Checks
+
+1. [Question testing understanding of concept 1]
+2. [Question testing understanding of concept 2]
+3. [Question testing practical application]
+
+## Reflection Prompts
+
+- How could you apply this in your organization?
+- What challenges might you encounter?
+- What additional support or resources would you need?
+
+## Feedback
+
+We value your input! After completing this lesson:
+- Share what worked well
+- Identify what could be improved
+- Ask questions or raise concerns
+
+**Feedback Options:**
+- LeadersPath community discussion forum
+- Cohort session discussions
+```
+
+### Facilitator Guide (`Facilitator Notes/facilitator-guide.md`)
+
+```markdown
+# Facilitator Guide: [Lesson Title]
+
+## Common Learner Questions
+
+**Q: [Anticipated question]**
+A: [Suggested response]
+
+**Q: [Anticipated question]**
+A: [Suggested response]
+
+## Potential Challenges
+
+### [Challenge 1]
+**Issue:** [Description of challenge]
+**Resolution:** [How to address it]
+
+### [Challenge 2]
+**Issue:** [Description of challenge]
+**Resolution:** [How to address it]
+
+## Timing Considerations
+
+- **Introduction:** [Notes about pacing]
+- **Hands-on Practice:** [Areas where learners may need more time]
+- **Wrap-up:** [Timing notes]
+
+## Discussion Prompts
+
+Use these to spark discussion in cohort settings:
+- [Question 1]
+- [Question 2]
+- [Question 3]
+
+## Tips for Live Facilitation
+
+[Additional notes for facilitators leading this lesson in a cohort setting]
 ```
 
 ### Context File (`[name]-context.md`)

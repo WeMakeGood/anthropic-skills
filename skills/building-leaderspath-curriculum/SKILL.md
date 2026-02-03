@@ -15,16 +15,21 @@ LeadersPath is an experiential AI learning platform where each lesson is a confi
 
 ## What This Skill Creates
 
-For each lesson:
-1. **System prompt** (`chatbot_system_prompt`) — Configures the AI sandbox behavior
-2. **Context files** — Background knowledge loaded into configured sessions (reusable across lessons)
-3. **Lesson text** (`post_content`) — User-facing instructions explaining what to try and observe
-4. **Metadata** — Duration, objectives, prerequisites, references
+For each lesson, a complete folder with:
+1. **Lesson Plan** (`Lesson-Plan.md`) — Comprehensive planning document with metadata, objectives, directions, model specs, and facilitator notes
+2. **Chatbot Configuration/** — System prompt, API settings, and model selection rationale
+3. **Context Files/** — Lesson-specific context (if needed)
+4. **Lesson Text** (`lesson-text.md`) — User-facing instructions explaining what to try and observe
+5. **Assessment/** — Self-assessment questions and reflection prompts
+6. **Resources/** — Additional reading and references
+7. **Facilitator Notes/** — Discussion prompts, common questions, timing guidance
+8. **Skills/** — Skill requests if agentic processes are needed
 
 For courses:
-- Course metadata and structure
+- Course metadata and structure with language folder support (EN/, ES/, etc.)
 - Lesson sequence with dependencies
-- Shared context file mapping
+- Shared context file mapping at course level
+- Course-wide materials folder
 
 ---
 
@@ -37,10 +42,12 @@ For courses:
 **CONTEXT FILE REUSE:** Track context files across lessons. Before creating a new context file, check if an existing one serves the purpose. Document reuse in the course tracker.
 
 **ARTIFACT OUTPUT:** Never output content inline. Always save to files:
-- Claude Code: Save to `_leaderspath/[course-name]/` directory
+- Claude Code: Save to `_leaderspath/[course-name]/EN/` directory
 - Claude AI: Create as artifacts
 - Cowork: Save to assigned working folder
 - If environment unclear: Ask the user
+
+**FOLDER STRUCTURE:** Always create the complete folder structure for each lesson, even if some subfolders will initially be empty. This ensures consistency and shows the curriculum team where to add content later.
 
 **SKILL BOUNDARIES:** This skill does NOT create Agent Skills. If a lesson requires a new skill, output a prompt for the `/creating-skills` workflow instead.
 
@@ -50,67 +57,13 @@ For courses:
 
 ## Tips for Curriculum Designers
 
-These guidelines help you write prompts that produce better curriculum output.
-
-### 1. Describe Lesson Concepts Clearly
-
-The more specific your lesson concept, the better the output.
-
-**Weak:** "A lesson about AI ethics"
-
-**Strong:** "AI configured with anti-sycophancy guardrails. Learner presents flawed ideas and receives honest pushback. Demonstrates professional objectivity vs. the sycophancy experienced in Lesson 1."
-
-Include:
-- What AI behavior the learner should experience
-- Whether it's a limitation, capability, or flaw being demonstrated
-- How this lesson relates to others (comparison pair, prerequisite, standalone)
-
-### 2. Identify Source Document Types
-
-When providing source material, indicate what type it is:
-
-| Type | Description | How It's Used |
-|------|-------------|---------------|
-| **Curriculum document** | Learning objectives, lesson plans, course outlines | Direct extraction of structure and objectives |
-| **Organizational context** | Internal docs, frameworks, guidelines | Adapted and transformed for AI consumption |
-| **Reference material** | Background reading, research papers | Informs content but not used directly |
-
-Example: "The attached F3_ethical_ai_framework.md is an organizational context file—extract relevant principles for the lessons."
-
-### 3. Flag Comparison Pairs
-
-When lessons are meant to be compared, explicitly state:
-- Which lessons form the comparison pair
-- What contrast the learner should notice
-- Whether to use the same prompts across both lessons
-
-Example: "Lessons 1 and 2 are a comparison pair. Lesson 2 should use the same 'Try This' prompts as Lesson 1 so learners can directly compare responses."
-
-### 4. Specify Roleplay Lessons
-
-For persona/simulation lessons, provide:
-- Character name and role
-- Specific behaviors or traits to exhibit
-- How traits should emerge (naturally through conversation vs. stated upfront)
-- What the learner's role is (consultant, interviewer, manager, etc.)
-
-Example: "Lesson 3 is a roleplay. AI plays 'Jordan,' an Executive Director with red flags: unclear mission, wants no-work solution, internal conflict about AI. Learner plays a consultant assessing fit. Red flags should emerge naturally through questioning, not be stated upfront."
-
-### 5. Hint at Context File Needs
-
-If you know whether a lesson needs a context file, say so. If unsure, describe the behavior and the skill will determine:
-
-- Behavior from **instructions** (be agreeable, be brief, play a role) → system prompt only
-- Behavior from **knowledge** (organizational context, domain expertise) → context file needed
-- Behavior from **guardrails** (anti-sycophancy rules, epistemic standards) → context file needed
-
-Example: "Lesson 1 probably doesn't need a context file—tech-first behavior comes from instructions. Lesson 2 needs the ethical framework as a context file since it requires knowledge to apply."
-
-### 6. Note Reuse Opportunities
-
-If multiple lessons should share a context file, mention it:
-
-Example: "Lessons 2 and 4 should share the ethical AI framework context file. Lesson 2 applies it as an advisor; Lesson 4 applies it with additional capability-transfer instructions."
+See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) for detailed guidance on writing effective prompts, including:
+- Describing lesson concepts clearly
+- Identifying source document types
+- Flagging comparison pairs
+- Specifying roleplay lessons
+- Hinting at context file needs
+- Noting reuse opportunities
 
 ---
 
@@ -119,9 +72,11 @@ Example: "Lessons 2 and 4 should share the ethical AI framework context file. Le
 **FIRST: Read the reference files:**
 
 1. [references/LEADERSPATH-SCHEMA.md](references/LEADERSPATH-SCHEMA.md) — Data model, field requirements, metadata specs
-2. [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) — How to create system prompts, context files, and lesson text
+2. [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) — How to create system prompts, context files, lesson text, facilitator guides, and assessments
+3. [references/LESSON-PLAN-TEMPLATE.md](references/LESSON-PLAN-TEMPLATE.md) — Complete template for Lesson-Plan.md files
+4. [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) — Guidelines for curriculum designers writing prompts
 
-**Do not proceed until you have read both reference files.**
+**Do not proceed until you have read all four reference files.**
 
 ---
 
@@ -129,10 +84,11 @@ Example: "Lessons 2 and 4 should share the ethical AI framework context file. Le
 
 1. **"Where are your curriculum source documents?"** (file paths or attached files)
 2. **"What is the course name?"** (used for output directory and tracker)
-3. **"Are there existing context files I should reference?"** (for reuse identification)
+3. **"What is the primary language?"** (defaults to EN; used for language folder)
+4. **"Are there existing context files I should reference?"** (for reuse identification)
 
 Determine the output location based on environment:
-- If working directory is accessible → `_leaderspath/[course-name]/`
+- If working directory is accessible → `_leaderspath/[course-name]/EN/`
 - If Claude AI artifacts available → use artifacts
 - If Cowork session → use assigned working folder
 - If unclear → ask the user
@@ -162,7 +118,7 @@ Phase 4: Validate and Finalize
 When creating a single lesson without a course:
 - **Skip Phases 1-2** (no tracker needed)
 - **Complete the Analysis step below** before creating any files
-- **Output files directly** to the user-specified directory
+- **Create the full folder structure** (same as course lessons)
 - **Include a process log** documenting decisions made
 
 ### Analysis Step (REQUIRED for single lessons)
@@ -178,14 +134,26 @@ Before creating any files, answer these questions and document in your process l
 - **Context files:** Background knowledge that shapes AI outputs (organizational info, domain knowledge, guardrails)
 - **Both:** System prompt sets the mode, context files provide the knowledge
 
-**3. What files do we need to create?**
+**3. What folder structure do we create?**
 
-| Always Required | When Needed |
-|-----------------|-------------|
-| lesson-metadata.md | context files — if AI behavior requires background knowledge or guardrails |
-| system-prompt.md | |
-| lesson-text.md | |
-| process-log.md | |
+```
+[lesson-name]/
+├── Lesson-Plan.md              # Always required
+├── Chatbot Configuration/      # Always required
+│   ├── system-prompt.md
+│   ├── api-settings.md
+│   └── model-selection.md
+├── Context Files/              # If AI needs background knowledge
+├── lesson-text.md              # Always required
+├── Assessment/                 # Always created
+│   └── self-assessment.md
+├── Resources/                  # Always created
+│   └── Additional Reading/
+├── Facilitator Notes/          # Always created
+│   └── facilitator-guide.md
+├── Skills/                     # Always created
+└── process-log.md              # Always required for single lessons
+```
 
 **4. Context file decision:**
 - If the desired behavior comes from **instructions** (be agreeable, be brief, play a role) → system prompt only
@@ -208,6 +176,7 @@ Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 **Created:** [date]
 **Last Updated:** [date]
 **Current Phase:** 1 - Initialization
+**Primary Language:** EN
 
 ## Course Metadata
 - **Title:** [pending]
@@ -217,9 +186,9 @@ Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 
 ## Lesson Checklist
 
-| # | Lesson Title | AI State | Metadata | Context Files | System Prompt | Lesson Text | Status |
-|---|--------------|----------|----------|---------------|---------------|-------------|--------|
-| 1 | [title]      | [brief description of AI configuration] | [ ] | [ ] | [ ] | [ ] | pending |
+| # | Lesson Title | AI State | Lesson Plan | Chatbot Config | Context Files | Lesson Text | Assessment | Facilitator Notes | Status |
+|---|--------------|----------|-------------|----------------|---------------|-------------|------------|-------------------|--------|
+| 1 | [title]      | [brief description] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | pending |
 
 ## Outcome-to-State Mapping
 
@@ -227,7 +196,7 @@ Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 |------------------|-------------------|----------|
 | [What learner should understand] | [How AI is configured] | [#] |
 
-## Context Files
+## Context Files (Course-Level)
 
 | File Name | Used By Lessons | Status |
 |-----------|-----------------|--------|
@@ -298,51 +267,92 @@ For each learning objective in the curriculum, identify:
 
 Work through lessons sequentially. For each lesson:
 
-### 3a: Define Lesson Metadata
+### 3a: Create Lesson Folder Structure
 
-Extract from source materials:
-- **Title** — Clear, specific to the learning concept
-- **Duration** — Minutes (1-480)
-- **Objectives** — What the learner will be able to do (max 10)
-- **Prerequisites** — Other lessons that must be completed first
-- **References** — External resources (title, URL, description)
+Create the complete folder structure for the lesson:
 
-**Update tracker:** Mark metadata complete for this lesson.
+```
+_leaderspath/[course-name]/EN/lessons/##-[slug]/
+├── Lesson-Plan.md
+├── Chatbot Configuration/
+│   ├── system-prompt.md
+│   ├── api-settings.md
+│   └── model-selection.md
+├── Context Files/
+├── lesson-text.md
+├── Assessment/
+│   └── self-assessment.md
+├── Resources/
+│   └── Additional Reading/
+├── Facilitator Notes/
+│   └── facilitator-guide.md
+└── Skills/
+```
 
-### 3b: Identify/Create Context Files
+**Always create all folders**, even if some will initially be empty.
+
+### 3b: Draft Lesson Plan
+
+Create `Lesson-Plan.md` with all sections. Extract from source materials:
+- **Lesson Information** — Number, title, course, version, author
+- **Learning Objectives** — What the learner will be able to do (max 10)
+- **Duration** — Estimated time with breakdown
+- **Directions** — Step-by-step learner instructions
+- **Model Specifications** — Model choice, capabilities demonstrated, rationale
+- **Technical Requirements** — Prerequisites, account requirements
+
+See [references/LESSON-PLAN-TEMPLATE.md](references/LESSON-PLAN-TEMPLATE.md) for the full template.
+
+**Update tracker:** Mark Lesson Plan complete for this lesson.
+
+### 3c: Identify/Create Context Files
 
 **First, check for reuse opportunities:**
-1. Review the tracker's context file list
+1. Review the tracker's course-level context file list
 2. Check any existing context files the user provided
 3. Determine if existing files serve this lesson's needs
 
-**If new context file needed:**
-1. Draft the context file following the format in [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md)
-2. Save to `_leaderspath/[course-name]/context/[filename].md`
-3. Add to tracker's context file list with lesson associations
+**Course-level context files** (shared across lessons):
+- Save to `_leaderspath/[course-name]/EN/context/[filename].md`
+- Add to tracker's context file list with lesson associations
+
+**Lesson-specific context files** (unique to this lesson):
+- Save to `_leaderspath/[course-name]/EN/lessons/##-[slug]/Context Files/[filename].md`
 
 **Context file naming:** `[topic]-context.md` (e.g., `llm-basics-context.md`, `prompt-engineering-context.md`)
 
-**Update tracker:** Mark context files complete, note which files this lesson uses.
+See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for context file patterns.
 
-### 3c: Draft System Prompt
+**Update tracker:** Mark Context Files complete, note which files this lesson uses.
 
-The system prompt configures the AI sandbox to demonstrate the lesson concept.
+### 3d: Create Chatbot Configuration
 
-**Key questions:**
+Create three files in the `Chatbot Configuration/` folder:
+
+**system-prompt.md** — The complete system prompt for the AI sandbox
 - What AI behavior should the learner experience?
-- What configuration creates that behavior? (limited context, specific persona, particular constraints)
+- What configuration creates that behavior?
 - What should the AI do/not do to illustrate the learning point?
 
-See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for system prompt patterns.
+**api-settings.md** — Technical configuration
+- Model (sonnet/haiku/opus-4.5)
+- Max tokens
+- Temperature
+- Context files to load
+- Skills to enable
 
-Save to `_leaderspath/[course-name]/lessons/[lesson-number]-[slug]/system-prompt.md`
+**model-selection.md** — Rationale for model choice
+- Why this model was selected
+- What capabilities are being demonstrated
+- Trade-offs considered
 
-**Update tracker:** Mark system prompt complete.
+See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for patterns.
 
-### 3d: Draft Lesson Text
+**Update tracker:** Mark Chatbot Config complete.
 
-The lesson text appears on the lesson page. It tells the learner:
+### 3e: Draft Lesson Text
+
+The lesson text (`lesson-text.md`) appears on the lesson page. It tells the learner:
 - What they're about to experience
 - What tasks to try in the AI sandbox
 - What to observe and compare
@@ -352,9 +362,34 @@ This is NOT the system prompt. This is user-facing instructions.
 
 See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for lesson text patterns.
 
-Save to `_leaderspath/[course-name]/lessons/[lesson-number]-[slug]/lesson-text.md`
+**Update tracker:** Mark Lesson Text complete.
 
-**Update tracker:** Mark lesson text complete, update lesson status to "complete."
+### 3f: Create Assessment
+
+Create `Assessment/self-assessment.md` with:
+- **Comprehension Checks** — Questions testing understanding (3-5 questions)
+- **Reflection Prompts** — How could you apply this? What challenges might arise?
+- **Feedback Mechanism** — How to provide feedback on the lesson
+
+**Update tracker:** Mark Assessment complete.
+
+### 3g: Create Facilitator Notes
+
+Create `Facilitator Notes/facilitator-guide.md` with:
+- **Common Learner Questions** — Anticipated questions with suggested responses
+- **Potential Challenges** — Technical or conceptual issues and how to address them
+- **Timing Considerations** — Pacing notes, areas needing more time
+- **Discussion Prompts** — Questions to spark discussion in cohort settings
+
+See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for facilitator guide patterns.
+
+**Update tracker:** Mark Facilitator Notes complete, update lesson status to "complete."
+
+### 3h: Add Resources (if applicable)
+
+If the lesson has external resources:
+- Add links to `Resources/Additional Reading/`
+- Include article titles, URLs, and brief descriptions
 
 **Present completed lesson to user for review before proceeding to next lesson.**
 
@@ -374,18 +409,30 @@ After all lessons are complete:
 _leaderspath/[course-name]/
 ├── course-tracker.md
 ├── course-metadata.md
-├── context/
-│   ├── [shared-context-1].md
-│   └── [shared-context-2].md
-└── lessons/
-    ├── 01-[slug]/
-    │   ├── lesson-metadata.md
-    │   ├── system-prompt.md
-    │   └── lesson-text.md
-    └── 02-[slug]/
-        ├── lesson-metadata.md
-        ├── system-prompt.md
-        └── lesson-text.md
+└── EN/
+    ├── Course Materials/
+    │   └── [shared resources]
+    ├── context/
+    │   ├── [shared-context-1].md
+    │   └── [shared-context-2].md
+    └── lessons/
+        ├── 01-[slug]/
+        │   ├── Lesson-Plan.md
+        │   ├── Chatbot Configuration/
+        │   │   ├── system-prompt.md
+        │   │   ├── api-settings.md
+        │   │   └── model-selection.md
+        │   ├── Context Files/
+        │   ├── lesson-text.md
+        │   ├── Assessment/
+        │   │   └── self-assessment.md
+        │   ├── Resources/
+        │   │   └── Additional Reading/
+        │   ├── Facilitator Notes/
+        │   │   └── facilitator-guide.md
+        │   └── Skills/
+        └── 02-[slug]/
+            └── [same structure]
 ```
 
 **STOP. Get user approval on complete curriculum before finalizing.**
@@ -394,44 +441,13 @@ _leaderspath/[course-name]/
 
 ## Handling Skill Requirements
 
-If a lesson requires an Agent Skill that doesn't exist:
-
-1. **Do not attempt to create the skill**
-2. **Document the requirement** in the lesson metadata
-3. **Generate a prompt** for the `/creating-skills` workflow:
-
-```markdown
-## Skill Request for LeadersPath
-
-**Lesson:** [lesson title]
-**Skill Purpose:** [what the skill should do]
-**Why Needed:** [how it supports the learning experience]
-**Inputs:** [what the skill would receive]
-**Outputs:** [what the skill would produce]
-
-Use `/creating-skills` with these requirements to build the skill.
-```
-
-Save this to `_leaderspath/[course-name]/skill-requests/[skill-name]-request.md`
+If a lesson requires an Agent Skill that doesn't exist: do NOT create it. Instead, save a skill request to `_leaderspath/[course-name]/skill-requests/[skill-name]-request.md` with lesson title, skill purpose, why needed, inputs, and outputs. Reference `/creating-skills` for the actual skill creation.
 
 ---
 
 ## Resuming a Previous Session
 
-If `_leaderspath/[course-name]/course-tracker.md` exists:
-
-1. Read the tracker file
-2. Check "Current Phase" and "Last Updated"
-3. Review the lesson checklist for incomplete items
-4. Review the session log for context
-5. Continue from the next incomplete step
-
-**Always update the session log** when resuming:
-```markdown
-### [date] - Session [n]
-- Resumed from: [last completed step]
-- [actions taken]
-```
+If `course-tracker.md` exists: read it, check current phase and incomplete items, review session log, then continue from next incomplete step. Always update the session log when resuming.
 
 ---
 
@@ -451,20 +467,13 @@ If `_leaderspath/[course-name]/course-tracker.md` exists:
 ## Examples
 
 See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for complete examples including:
-
 - System prompt patterns (bare, role-constrained, context-rich, deliberately flawed, task-constrained)
-- Lesson text structure with "Try This" and "What to Notice" sections
-- Complete lesson package (The Naked LLM) with all four components:
-  - `lesson-metadata.md`
-  - `system-prompt.md`
-  - `lesson-text.md`
-  - Context file associations
+- Complete lesson folder with all files (Lesson-Plan.md, Chatbot Configuration/, Assessment/, etc.)
 
 **Quick Example — Lesson Concept to Sandbox Configuration:**
 
 | Lesson Concept | System Prompt Strategy | What Learner Experiences |
 |----------------|------------------------|--------------------------|
-| "AI without context" | Minimal config: "You are a helpful assistant" | Generic, non-specific responses |
-| "Role definition matters" | Role-specific but no org context | Relevant but not tailored advice |
-| "Context transforms output" | Full context library loaded | Specific, aligned, actionable responses |
-| "Sycophancy risks" | "Always agree, be positive!" | Unreliable, over-agreeable responses |
+| "AI without context" | Minimal: "You are a helpful assistant" | Generic responses |
+| "Context transforms output" | Full context library loaded | Specific, aligned responses |
+| "Sycophancy risks" | "Always agree, be positive!" | Unreliable responses |

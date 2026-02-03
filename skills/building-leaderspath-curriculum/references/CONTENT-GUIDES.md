@@ -434,47 +434,474 @@ For roleplay lessons where the AI plays a character, slightly higher temperature
 
 ---
 
+## API Settings
+
+The `api-settings.md` file documents the technical configuration for the lesson's AI sandbox.
+
+### Purpose
+
+Provide clear documentation of:
+- Model selection and parameters
+- Context files loaded
+- Skills enabled
+- Configuration rationale
+
+### API Settings Structure
+
+```markdown
+# API Settings
+
+## Model Configuration
+- **Model:** [sonnet / haiku / opus-4.5]
+- **Model String:** [claude-sonnet-4-5-20250929 / claude-haiku-4-5-20251001 / claude-opus-4-5-20251101]
+- **Max Tokens:** [number, 256-16384]
+- **Temperature:** [0-1]
+- **Allow Model Switch:** [yes/no]
+
+## Context Files
+- [path/filename.md] — [brief description of what this context provides]
+
+## Skills
+- [skill-name] — [what this skill enables]
+
+## Configuration Notes
+[Any specific choices and their rationale]
+```
+
+### Writing API Settings
+
+**DO:**
+- Include the full model string for technical accuracy
+- Explain why specific parameter values were chosen
+- List all context files with brief descriptions
+- Note any special configuration considerations
+
+**DON'T:**
+- Use default values without considering lesson needs
+- Omit context files that are loaded
+- Leave the Configuration Notes empty for non-standard settings
+
+---
+
+## Model Selection Rationale
+
+The `model-selection.md` file explains why a particular model was chosen for the lesson.
+
+### Purpose
+
+Document the reasoning behind model choice so that:
+- Curriculum team understands trade-offs
+- Future updates can make informed decisions
+- Learners understand what they're experiencing (via transparency principle)
+
+### Model Selection Structure
+
+```markdown
+# Model Selection Rationale
+
+## Why [Model Name]
+
+[Explanation of why this specific model was chosen]
+
+## Capabilities Demonstrated
+- [Capability 1]
+- [Capability 2]
+
+## Trade-offs Considered
+- [Trade-off 1]
+- [Trade-off 2]
+
+## Alternative Considerations
+[Why other models were not chosen, if relevant]
+```
+
+### Model Guidelines
+
+| Lesson Type | Recommended Model | Rationale |
+|-------------|-------------------|-----------|
+| Standard experiential | Sonnet | Good balance of quality and speed |
+| Complex reasoning | Opus 4.5 | Best for nuanced, multi-step tasks |
+| Quick demonstrations | Haiku | Fast responses for simple interactions |
+| Roleplay/persona | Sonnet or Opus | Higher temperature benefits from quality |
+| Task-constrained | Sonnet or Haiku | Consistent output, speed matters |
+
+---
+
+## Facilitator Guides
+
+The `facilitator-guide.md` file provides support for cohort facilitators leading the lesson.
+
+### Purpose
+
+Help facilitators:
+- Anticipate and address learner questions
+- Handle technical or conceptual challenges
+- Pace the lesson appropriately
+- Spark meaningful discussion
+
+### Facilitator Guide Structure
+
+```markdown
+# Facilitator Guide: [Lesson Title]
+
+## Common Learner Questions
+
+**Q: [Anticipated question]**
+A: [Suggested response]
+
+## Potential Challenges
+
+### [Challenge Name]
+**Issue:** [Description]
+**Resolution:** [How to address]
+
+## Timing Considerations
+
+- **Introduction:** [Pacing notes]
+- **Hands-on Practice:** [Where learners need more time]
+- **Wrap-up:** [Timing notes]
+
+## Discussion Prompts
+
+- [Question to spark discussion]
+- [Question to spark discussion]
+
+## Tips for Live Facilitation
+
+[Additional guidance]
+```
+
+### Writing Facilitator Guides
+
+**DO:**
+- Base questions on actual confusion points in the lesson concept
+- Provide specific, actionable resolutions for challenges
+- Include discussion prompts that connect to learner work
+- Note where the lesson typically runs long or short
+
+**DON'T:**
+- Include generic questions unrelated to the lesson
+- Provide vague resolutions ("just explain it better")
+- Skip timing considerations
+- Forget to address technical troubleshooting
+
+### Common Question Patterns
+
+| Lesson Type | Likely Questions |
+|-------------|------------------|
+| Bare/limited config | "Why can't it remember what I just said?" |
+| Context-rich | "How do I create context files for my org?" |
+| Deliberately flawed | "Is this how AI always works?" |
+| Roleplay | "How realistic should I treat the character?" |
+| Comparison (second lesson) | "Why is this so different from the last one?" |
+
+---
+
+## Self-Assessment
+
+The `self-assessment.md` file provides learners with reflection opportunities.
+
+### Purpose
+
+Help learners:
+- Check their understanding of key concepts
+- Reflect on practical application
+- Provide feedback to improve the lesson
+
+### Self-Assessment Structure
+
+```markdown
+# Self-Assessment: [Lesson Title]
+
+## Comprehension Checks
+
+1. [Question testing understanding of concept 1]
+2. [Question testing understanding of concept 2]
+3. [Question testing practical application]
+
+## Reflection Prompts
+
+- How could you apply this in your organization?
+- What challenges might you encounter?
+- What additional support or resources would you need?
+
+## Feedback
+
+We value your input! After completing this lesson:
+- Share what worked well
+- Identify what could be improved
+- Ask questions or raise concerns
+
+**Feedback Options:**
+- LeadersPath community discussion forum
+- Cohort session discussions
+```
+
+### Writing Comprehension Checks
+
+**Good comprehension questions:**
+- Ask about observable differences the learner experienced
+- Connect to the lesson's learning objectives
+- Can be answered based on the hands-on experience
+
+**Bad comprehension questions:**
+- Test memorization of definitions
+- Ask about concepts not covered in the lesson
+- Require external research to answer
+
+**Example questions by lesson type:**
+
+| Lesson Type | Example Questions |
+|-------------|-------------------|
+| Bare config | "What did you notice about the specificity of the AI's responses?" |
+| Context-rich | "How did the AI's responses change compared to the unconfigured version?" |
+| Sycophancy demo | "Did the AI push back on any of your ideas? Why or why not?" |
+| Roleplay | "What techniques did the AI use to stay in character?" |
+
+---
+
 ## Examples
 
 ### Complete Lesson Package
 
 **Lesson: Starting from Zero**
 
-**lesson-metadata.md:**
+**Folder structure:**
+```
+01-starting-from-zero/
+├── Lesson-Plan.md
+├── Chatbot Configuration/
+│   ├── system-prompt.md
+│   ├── api-settings.md
+│   └── model-selection.md
+├── Context Files/
+├── lesson-text.md
+├── Assessment/
+│   └── self-assessment.md
+├── Resources/
+│   └── Additional Reading/
+├── Facilitator Notes/
+│   └── facilitator-guide.md
+└── Skills/
+```
+
+**Lesson-Plan.md:**
 ```markdown
-# Lesson: Starting from Zero
+# Lesson Plan
 
-## AI State
-Bare/minimal configuration — no role definition, no context, no constraints. Demonstrates the baseline behavior of an unconfigured LLM.
+## Lesson Information
 
-## Duration
-20 minutes
+* **Lesson Number:** 01
+* **Lesson Title:** Starting from Zero
+* **Course:** AI Foundations
+* **Version:** 1.0
+* **Last Updated:** 2026-01-15
+* **Author:** LeadersPath Curriculum Team
 
-## Objectives
+---
+
+## Learning Objectives
+
+**By the end of this lesson, learners will be able to:**
+
 1. Experience how an unconfigured LLM responds to work-related questions
 2. Identify the limitations of generic AI responses
 3. Recognize the gap that context and configuration fill
 
-## Prerequisites
-None (first lesson in course)
+---
 
-## References
-- [Anthropic Claude Documentation](https://docs.anthropic.com/) — Official model documentation
+## Duration
+
+**Estimated Time:** 20 minutes
+
+**Breakdown:**
+* Introduction: 3 min
+* Main content: 5 min
+* Hands-on practice: 10 min
+* Wrap-up: 2 min
+
+---
+
+## Directions
+
+### How to Proceed Through This Lesson
+
+**Step 1: Read the Overview**
+Read the lesson text to understand what you're about to experience.
+
+**Step 2: Try the Suggested Prompts**
+Enter each of the suggested prompts and observe the AI's responses.
+
+**Step 3: Experiment Freely**
+Try your own work-related questions to see how the AI responds.
+
+**Step 4: Reflect**
+Consider what's missing from the AI's responses and what would make them more useful.
+
+---
+
+## Model Specifications
+
+### AI Models Used in This Lesson
+
+**Primary Model:** Claude Sonnet
+
+**Why This Model:**
+Sonnet provides a good balance of capability and response speed for demonstrating baseline LLM behavior.
+
+**Model Capabilities Demonstrated:**
+* General knowledge and reasoning
+* Natural language generation
+* Task comprehension
+
+### API Configuration
+
+**Model String:** claude-sonnet-4-5-20250929
+**Max Tokens:** 4096
+**Temperature:** 0.7
+
+---
 
 ## Chatbot Configuration
-- **Model:** sonnet
-- **Allow Model Switch:** no
-- **Max Tokens:** 4096
-- **Temperature:** 0.7
-- **Context Files:** none
-- **Skills:** none
+
+### Overview
+
+This lesson uses a deliberately minimal chatbot configuration to demonstrate what AI lacks without proper setup.
+
+### Configuration Files
+
+**Location:** `Chatbot Configuration/` folder
+
+**Files Included:**
+* `system-prompt.md` - Minimal "helpful assistant" prompt
+* `api-settings.md` - Standard parameters
+* `model-selection.md` - Why Sonnet was chosen
+
+### Transparency Principle
+
+All configuration details are visible to learners. This allows them to understand exactly how limited the setup is.
+
+---
+
+## Context Files
+
+### Purpose
+
+This lesson deliberately uses NO context files to demonstrate baseline AI behavior.
+
+### Files Included
+
+None — this is intentional.
+
+### Demonstration Approach
+
+Learners experience the AI without any organizational context, observing the generic, non-specific nature of responses.
+
+---
+
+## Skills (Agentic Processes)
+
+No agentic skills required for this lesson.
+
+---
+
+## Resources
+
+### Additional Reading
+
+**Location:** `Resources/Additional Reading/` folder
+
+**External Resources:**
+* [Anthropic Claude Documentation](https://docs.anthropic.com/) — Official model documentation
+
+---
+
+## Assessment and Feedback
+
+### Comprehension Checks
+
+**Location:** `Assessment/` folder
+
+See `self-assessment.md` for comprehension questions and reflection prompts.
+
+---
+
+## Technical Requirements
+
+### Prerequisites
+
+**Prior Knowledge:**
+* None (first lesson in course)
+
+**Account Requirements:**
+* LeadersPath learner account (logged in)
+
+---
+
+## Notes for Facilitators
+
+**Location:** `Facilitator Notes/` folder
+
+See `facilitator-guide.md` for discussion prompts, common questions, and timing considerations.
+
+---
+
+## Related Content
+
+### Prerequisites
+None (first lesson in course)
+
+### Follow-Up Lessons
+* Lesson 02 - Context Makes the Difference
 ```
 
-**system-prompt.md:**
+**Chatbot Configuration/system-prompt.md:**
 ```markdown
 You are a helpful AI assistant.
 
 Respond to user questions to the best of your ability. Be friendly and informative.
+```
+
+**Chatbot Configuration/api-settings.md:**
+```markdown
+# API Settings
+
+## Model Configuration
+- **Model:** sonnet
+- **Model String:** claude-sonnet-4-5-20250929
+- **Max Tokens:** 4096
+- **Temperature:** 0.7
+- **Allow Model Switch:** no
+
+## Context Files
+None — this lesson deliberately omits context to demonstrate baseline behavior.
+
+## Skills
+None
+
+## Configuration Notes
+This minimal configuration is intentional. The lesson demonstrates what AI lacks without proper context and configuration.
+```
+
+**Chatbot Configuration/model-selection.md:**
+```markdown
+# Model Selection Rationale
+
+## Why Sonnet
+
+Sonnet provides the best balance of capability and response speed for this demonstration. It's capable enough to show what a modern LLM can do, while fast enough for responsive interaction.
+
+## Capabilities Demonstrated
+- General knowledge and reasoning
+- Natural language generation
+- Task comprehension without specific context
+
+## Trade-offs Considered
+- **Haiku:** Faster but might seem artificially limited; we want learners to see capable AI, just unconfigured AI
+- **Opus 4.5:** More capable but slower; overkill for demonstrating baseline behavior
+
+## Alternative Considerations
+Haiku could work for this lesson, but Sonnet ensures learners see that the limitation is configuration, not capability.
 ```
 
 **lesson-text.md:**
@@ -501,4 +928,77 @@ This is Claude with minimal configuration—no company context, no specialized i
 A "naked" LLM—one without context or configuration—produces generic outputs. It has broad capability but no company knowledge. Every response requires significant human editing to become usable.
 
 This is the starting point. Subsequent lessons show how context and configuration transform generic capability into company-specific competence.
+```
+
+**Assessment/self-assessment.md:**
+```markdown
+# Self-Assessment: Starting from Zero
+
+## Comprehension Checks
+
+1. What did you notice about the specificity of the AI's responses to your work questions?
+2. When you asked about "your team" or "your company," how did the AI handle the lack of context?
+3. How much editing would the AI's outputs need before you could use them in your actual work?
+
+## Reflection Prompts
+
+- How could you apply this understanding when evaluating AI tools for your organization?
+- What specific information would the AI need to provide more useful responses?
+- What challenges might arise if staff use unconfigured AI for organization-specific work?
+
+## Feedback
+
+We value your input! After completing this lesson:
+- Share what worked well
+- Identify what could be improved
+- Ask questions or raise concerns
+
+**Feedback Options:**
+- LeadersPath community discussion forum
+- Cohort session discussions
+```
+
+**Facilitator Notes/facilitator-guide.md:**
+```markdown
+# Facilitator Guide: Starting from Zero
+
+## Common Learner Questions
+
+**Q: Is this really the same AI that powers [impressive demo they've seen]?**
+A: Yes! The difference is configuration. Those demos have extensive system prompts, context, and often curated examples. This lesson shows the baseline before any of that.
+
+**Q: Why would anyone use AI without context?**
+A: Many people do—and get frustrated by generic results. This lesson helps learners understand WHY their past AI experiences may have been disappointing.
+
+**Q: Can I make it remember my company information during this session?**
+A: You can tell it information in your prompts, but it won't persist. That's what context files solve in later lessons.
+
+## Potential Challenges
+
+### Learner Already Has AI Experience
+**Issue:** Learners who use ChatGPT or similar tools may feel this is too basic.
+**Resolution:** Acknowledge their experience and frame this as understanding the baseline. Ask: "How often do you get outputs you can use without editing?"
+
+### Responses Seem Pretty Good
+**Issue:** Sometimes the AI produces decent generic advice, which undercuts the lesson.
+**Resolution:** Push for specificity: "Ask it about YOUR specific project or YOUR company's values. Notice how it can't actually reference those."
+
+## Timing Considerations
+
+- **Introduction:** Keep brief (2-3 min) — let the experience teach
+- **Hands-on Practice:** This is the core — give learners 10+ minutes to explore
+- **Wrap-up:** Important to solidify the insight before moving to next lesson
+
+## Discussion Prompts
+
+Use these to spark discussion in cohort settings:
+- "What surprised you about the AI's responses?"
+- "How is this different from what you expected?"
+- "Where do you see this kind of generic AI advice in your current work?"
+
+## Tips for Live Facilitation
+
+- Resist the urge to over-explain upfront. The "aha" moment comes from experience.
+- If learners ask "why is it doing that?" — turn it back: "What do you think is missing?"
+- This lesson pairs well with Lesson 2 (Context Makes the Difference) — consider running them back-to-back for maximum contrast.
 ```
