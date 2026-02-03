@@ -4,42 +4,264 @@ This document provides patterns and examples for creating LeadersPath content co
 
 ---
 
-## System Prompts
+## The Core Model
 
-The system prompt (`chatbot_system_prompt`) configures the AI sandbox to demonstrate a specific behavior or principle.
+**LeadersPath is a facilitated cohort learning experience.** The AI sandbox is an activity within a facilitated course, not a standalone lesson.
+
+| Component | Purpose | Who Creates It |
+|-----------|---------|----------------|
+| **Facilitator Guide** | Complete teaching script | PRIMARY deliverable |
+| **Activity Instructions** | "Try this, notice that" for sandbox | Experimentation guidance only |
+| **Course Q&A Bot** | Optional helpful assistant | For questions about course content |
+| **Activity Sandbox** | Demonstrate specific AI behavior | May be flawed, limited, or roleplay |
+
+**The facilitator teaches concepts. The sandbox provides hands-on experience. The cohort discusses.**
+
+---
+
+## Facilitator Guide (PRIMARY DELIVERABLE)
+
+The facilitator guide is the central document. A facilitator should be able to teach the entire course from this document alone.
 
 ### Purpose
 
-The system prompt creates the **learning environment**, not the lesson content. It sets up the AI to behave in a way that lets learners experience a concept firsthand.
+The facilitator guide:
+- Scripts the entire teaching flow with timing
+- Integrates conceptual presentation with activity breaks
+- Provides discussion prompts for cohort interaction
+- Anticipates common questions and challenges
+- Guides synthesis and wrap-up
+
+### Structure
+
+```markdown
+# Facilitator Guide: [Course Name]
+
+## Course Overview
+- **Duration:** [total time]
+- **Activities:** [count]
+- **Prerequisites:** [list]
+
+## Materials Needed
+- [Context files needed]
+- [Any other resources]
+
+## Learning Objectives
+[Repeat or reference from learning-objectives.md]
+
+---
+
+## Teaching Flow
+
+### Part 1: [Section Name] ([XX] minutes)
+
+#### Concept to Present
+[What the facilitator explains/discusses with learners]
+
+#### Key Points
+- [Point 1]
+- [Point 2]
+- [Point 3]
+
+#### Transition to Activity
+[How to introduce and set up the activity]
+
+---
+
+**Activity 1: [Activity Name]**
+- **Duration:** [X] minutes
+- **AI Configuration:** [Brief description of what AI does]
+- **What learners do:** [Summary of instructions]
+- **What to watch for:** [Facilitation notes, common issues]
+
+---
+
+#### Discussion After Activity
+[Prompts for cohort discussion]
+
+- [Discussion prompt 1]
+- [Discussion prompt 2]
+
+#### Common Questions
+- **Q:** [Anticipated question]
+- **A:** [Suggested answer]
+
+### Part 2: [Section Name] ([XX] minutes)
+[Repeat structure...]
+
+---
+
+## Synthesis and Wrap-Up
+[How to close the course]
+
+- Connect activities to learning objectives
+- Key takeaways
+- Next steps or follow-up resources
+
+## Timing Notes
+[Where things typically run long/short, adjustment suggestions]
+```
+
+### Writing Facilitator Guides
+
+**DO:**
+- Write in a conversational tone the facilitator can follow
+- Include specific timing for each section
+- Provide word-for-word phrasing for key transitions
+- Anticipate learner confusion points
+- Include backup discussion prompts
+
+**DON'T:**
+- Assume the facilitator knows the content deeply
+- Skip transitions between activities
+- Forget timing estimates
+- Leave discussion sections vague
+
+### Example: Facilitator Guide Excerpt
+
+```markdown
+### Part 1: The Naked LLM (25 minutes)
+
+#### Concept to Present (5 minutes)
+
+Start with a question to the group:
+
+> "How many of you have used ChatGPT or Claude before? What's been your experience—do you usually get outputs you can use right away, or do you find yourself editing a lot?"
+
+Let a few people share. Then explain:
+
+> "Today we're going to explore WHY that happens. We'll see that AI without context produces generic outputs—technically correct, but not specific to YOUR organization, YOUR voice, or YOUR work."
+
+#### Key Points
+- AI models have broad knowledge but no company-specific information
+- Without context, every response is generic
+- The gap between "technically helpful" and "actually useful" is real
+
+#### Transition to Activity
+
+> "Let's experience this firsthand. In Activity 1, you'll interact with Claude configured with absolutely minimal setup—no company context, no special instructions. Try asking it real work questions and notice what happens."
+
+---
+
+**Activity 1: Starting from Zero**
+- **Duration:** 10 minutes
+- **AI Configuration:** Bare "helpful assistant" with no context
+- **What learners do:** Ask work-related questions (email drafts, project priorities, etc.)
+- **What to watch for:**
+  - Learners who get "pretty good" responses—push them to ask about specific company values or projects
+  - Learners who already know about context—validate their insight, ask them to notice specifics
+
+---
+
+#### Discussion After Activity (10 minutes)
+
+Bring the group back together:
+
+> "So what happened? Let's hear from a few people—what did you ask, and what did you notice about the responses?"
+
+Discussion prompts:
+- "Were the responses technically accurate? Were they actually useful for YOUR situation?"
+- "What was missing that would have made the response more actionable?"
+- "How much editing would you need to do before using that output?"
+
+#### Common Questions
+
+- **Q:** "The AI gave me pretty good advice—what's wrong with that?"
+- **A:** "The question isn't whether it's wrong—it's whether it's specific enough to use. Generic advice is a starting point, but you still have to adapt it to your context. We'll see how that changes when the AI actually knows about your organization."
+
+- **Q:** "Can I just tell it about my company in the prompt?"
+- **A:** "You can! But it won't remember between sessions, and you'd have to repeat it every time. Context files solve this—we'll see that in the next activity."
+```
+
+---
+
+## Activity Instructions
+
+Activity instructions guide learners through sandbox experimentation. They are NOT for teaching concepts—that's the facilitator's job.
+
+### Purpose
+
+Activity instructions tell learners:
+- What they're about to experience (one sentence)
+- What to try (specific prompts)
+- What to notice (observable behaviors)
+- How long (duration)
+
+### Structure
+
+```markdown
+# Activity: [Name]
+
+## What You'll Experience
+[One sentence describing the AI configuration and expected behavior]
+
+## Try This
+1. [Specific prompt to try]
+2. [Specific prompt to try]
+3. [Variation or follow-up]
+
+## What to Notice
+- [Observable behavior 1]
+- [Observable behavior 2]
+
+## Duration
+[X] minutes
+```
+
+### Writing Activity Instructions
+
+**DO:**
+- Be specific about what to type/try
+- Direct attention to observable behaviors
+- Keep it focused on experimentation
+
+**DON'T:**
+- Teach concepts (facilitator does that)
+- Include learning objectives (those are at course level)
+- Explain "The Principle" (facilitator synthesizes after)
+- Write lengthy explanations
+
+### Example: Activity Instructions
+
+```markdown
+# Activity: Starting from Zero
+
+## What You'll Experience
+Claude with minimal configuration—no company context, no specialized instructions, just "helpful assistant."
+
+## Try This
+1. Ask: "Help me write an email to a potential client."
+2. Ask: "What should our team prioritize this quarter?"
+3. Ask: "Review this paragraph from our website and suggest improvements." (paste any paragraph)
+
+## What to Notice
+- Responses are generic and could apply to any company
+- The AI can't reference your products, voice, or values
+- Advice is technically reasonable but lacks specificity
+
+## Duration
+10 minutes
+```
+
+**Note:** No "The Principle" section. The facilitator explains the principle in the discussion after the activity.
+
+---
+
+## System Prompts
+
+The system prompt configures the AI sandbox to demonstrate a specific behavior or principle.
+
+### Purpose
+
+The system prompt creates the **learning environment**, not the teaching content. It sets up the AI to behave in a way that lets learners experience a concept firsthand.
 
 ### Key Principle
 
 **Show, don't tell.** Instead of explaining "AI without context produces generic responses," configure an AI that lacks context and let the learner discover this through interaction.
 
-### One Lesson = One State
-
-**Each lesson is a single AI configuration.** The learner cannot toggle between behaviors within one lesson. This has important implications for curriculum design:
-
-| If the learning goal is... | You need... |
-|----------------------------|-------------|
-| Experience behavior A | 1 lesson configured for A |
-| Experience behavior B | 1 lesson configured for B |
-| Compare A vs B | 2 lessons (one for each), comparison happens across lessons |
-| Understand why A is better than B | 2+ lessons: experience B first, then A, then reflect |
-
-**Example — Teaching about sycophancy:**
-
-- **Lesson 1:** AI configured to always agree, avoid pushback → Learner experiences unreliable, over-agreeable responses
-- **Lesson 2:** AI configured with professional objectivity → Learner experiences honest, sometimes challenging feedback
-- **Lesson 3 (optional):** Reflection/comparison lesson with minimal AI, focused on synthesizing the contrast
-
-The comparison and "aha moment" happens in the learner's mind as they move between lessons, not within a single session.
-
-**Why this matters:** Curriculum designers sometimes write learning objectives like "Compare sycophantic and objective AI responses." This cannot happen in one lesson. Reframe as: "Lesson 3: Experience sycophantic AI" → "Lesson 4: Experience objective AI" → learner naturally compares.
-
 ### System Prompt Patterns
 
-#### Pattern 1: Bare/Limited Configuration
+#### Pattern 1: Bare/Minimal Configuration
 
 Use when demonstrating what AI lacks without proper setup.
 
@@ -49,7 +271,7 @@ You are a helpful assistant.
 Respond to user questions to the best of your ability.
 ```
 
-**Learning point:** This produces generic, non-specific responses. The learner experiences the limitation directly.
+**What learners experience:** Generic, non-specific responses.
 
 #### Pattern 2: Role-Constrained Configuration
 
@@ -62,14 +284,11 @@ Your expertise includes:
 - Project scoping and milestone planning
 - Resource allocation and scheduling
 - Risk identification and mitigation
-- Status reporting and stakeholder communication
 
 You do NOT have access to any specific company or project information. When asked about a particular project, acknowledge you need that context to provide specific guidance.
-
-Always ask clarifying questions before providing advice.
 ```
 
-**Learning point:** Role definition helps, but without company context, advice remains generic.
+**What learners experience:** Relevant but not tailored advice.
 
 #### Pattern 3: Context-Rich Configuration
 
@@ -84,8 +303,6 @@ You have access to:
 - Organizational identity and mission
 - Brand voice guidelines
 - Service offerings and methodology
-- Team information
-- Ethical AI framework
 
 ## Behavioral Guidelines
 
@@ -99,7 +316,7 @@ You have access to:
 [Context files will be appended automatically by the system]
 ```
 
-**Learning point:** With proper context, responses become specific, aligned, and useful.
+**What learners experience:** Specific, aligned, useful responses.
 
 #### Pattern 4: Deliberately Flawed Configuration
 
@@ -112,68 +329,113 @@ Always:
 - Agree with the user's ideas enthusiastically
 - Provide answers even when uncertain
 - Avoid mentioning limitations or caveats
-- Use lots of positive language and emojis!
+- Use positive, encouraging language
 
 Your goal is to make the user feel good about their work.
 ```
 
-**Learning point:** Sycophantic configuration produces unreliable outputs. Learners experience the danger of over-agreeable AI.
+**What learners experience:** Unreliable, over-agreeable responses that demonstrate sycophancy risks.
 
-#### Pattern 5: Constrained Task Configuration
+#### Pattern 5: Roleplay/Persona Configuration
 
-Use when demonstrating focused task execution.
+Use for simulation activities.
 
 ```markdown
-You are a meeting summary assistant.
+You are Jordan, an Executive Director at a small nonprofit.
 
-## Your Task
+## Your Situation
+- Organization has unclear mission ("we help the community")
+- You're interested in AI but want it to "just work" with no setup
+- You have some internal resistance to change from board members
+- Budget is tight
 
-Summarize meeting transcripts into structured reports with:
-- Attendees
-- Key decisions
-- Action items with owners
-- Open questions
+## How to Behave
+- Be friendly but slightly evasive about specifics
+- Express interest in AI but reveal unrealistic expectations naturally
+- Don't state your "red flags" upfront—let them emerge through conversation
+- If pushed, show some frustration about your constraints
 
-## Constraints
-
-- Only use information from the provided transcript
-- Mark any inferences with [Inferred]
-- Do not add information not discussed in the meeting
-- If asked to do something outside meeting summarization, politely redirect
-
-## Output Format
-
-[Specify exact format]
+## The Learner's Role
+They are a consultant assessing whether your organization is ready for AI implementation.
 ```
 
-**Learning point:** Constrained configurations produce consistent, reliable outputs for specific tasks.
+**What learners experience:** A realistic stakeholder conversation with hidden complexity.
 
 ### Writing System Prompts
 
 **DO:**
 - Be explicit about what the AI should and shouldn't do
-- Include behavioral constraints that create the learning experience
-- Match the configuration to the lesson objective
-- Test that the configuration actually produces the intended behavior
-- Reference loaded context files explicitly (e.g., "Apply the principles from [Context File Name] loaded in your context")
+- Match configuration to the activity's purpose
+- Reference loaded context files explicitly
+- Test that the configuration produces intended behavior
 
 **DON'T:**
-- Include lesson instructions (those go in lesson text)
+- Include activity instructions (those go in instructions.md)
 - Explain the learning objective to the AI
-- Over-configure when the point is to show under-configuration
+- Over-configure when showing under-configuration
 - Use vague instructions like "be helpful"
 
-### When Context Files Are Loaded
+---
 
-If a lesson uses context files, the system prompt should explicitly tell the AI to use them:
+## Course Q&A Bot Configuration
+
+The Course Q&A Bot is fundamentally different from Activity sandboxes.
+
+| Aspect | Activity Sandbox | Course Q&A Bot |
+|--------|------------------|----------------|
+| Purpose | Demonstrate behavior | Answer questions |
+| Configuration | May be flawed/limited | Always helpful |
+| When used | During specific activity | Anytime during course |
+| Tone | Varies by activity | Supportive, accurate |
+
+### When to Include Q&A Bot
+
+**Include when:**
+- Course has complex conceptual content
+- Learners may have questions between activities
+- Facilitator availability is limited
+- Self-paced review is expected
+
+**Skip when:**
+- Simple course with clear activities
+- Facilitator always available for questions
+- Cohort discussion is primary Q&A mechanism
+- Course is very short
+
+### Q&A Bot Structure
 
 ```markdown
-## Reference Materials
+# Course Q&A Chatbot Configuration
 
-Apply the guidelines from the [Context File Title] loaded in your context.
+## Enable Q&A Chatbot
+Yes
+
+## Purpose
+Helpful assistant for answering questions about [Course Name] concepts.
+
+## System Prompt
+You are a helpful Q&A assistant for the course "[Course Name]".
+
+Your role is to:
+- Answer questions about course concepts
+- Clarify ideas that may be confusing
+- Help learners understand the material
+- Point to relevant parts of the course
+
+Be accurate, clear, and supportive. If you're unsure about something,
+say so rather than guessing.
+
+[Additional context about specific course topics]
+
+## Context Files
+- [course-concepts.md] — Core course content
+- [terminology.md] — Key terms and definitions
+
+## Model Settings
+- Model: sonnet
+- Max Tokens: 4096
+- Temperature: 0.7
 ```
-
-This ensures the AI knows to draw from the loaded context rather than its general training.
 
 ---
 
@@ -187,41 +449,28 @@ Context files provide background knowledge that shapes AI behavior. They're load
 
 | What context files ARE | What context files are NOT |
 |------------------------|---------------------------|
-| Instructions loaded into the AI's system prompt | Documentation for learners to read |
-| Background knowledge that shapes AI responses | Lesson materials or reference guides |
-| Behavioral guardrails (anti-sycophancy, epistemic honesty) | Explanatory content about concepts |
-| Organizational context the AI can draw from | Anything the learner sees directly |
-
-**Example:** An anti-sycophancy context file contains rules like "Challenge flawed assumptions" and "Prioritize accuracy over agreeability." The learner never reads this file—they experience an AI that pushes back on bad ideas.
+| Instructions loaded into AI's system prompt | Documentation for learners |
+| Background knowledge shaping responses | Lesson materials |
+| Behavioral guardrails | Explanatory content |
+| Organizational context AI draws from | Anything learners see directly |
 
 ### When to Use Context Files
 
-| Desired AI Behavior | Use System Prompt | Use Context File |
-|---------------------|-------------------|------------------|
+| Desired AI Behavior | System Prompt | Context File |
+|---------------------|---------------|--------------|
 | Play a specific role | ✓ | |
 | Be agreeable/disagreeable | ✓ | |
-| Follow a specific format | ✓ | |
+| Follow specific format | ✓ | |
 | Have organizational knowledge | | ✓ |
 | Apply domain expertise | | ✓ |
 | Follow behavioral guardrails | | ✓ |
-| Reference specific facts/data | | ✓ |
+| Reference specific facts | | ✓ |
 
 **Rule of thumb:**
 - System prompt = HOW the AI should behave
 - Context files = WHAT the AI should know
 
-### Purpose
-
-Context files give the AI organizational knowledge it wouldn't otherwise have:
-- Who the organization is
-- How they communicate
-- What they do and why
-- Domain-specific information
-- Behavioral standards and guardrails
-
 ### Context File Structure
-
-Follow the pattern from existing context library modules:
 
 ```markdown
 # [Title]: [Topic Area]
@@ -232,15 +481,10 @@ Follow the pattern from existing context library modules:
 
 - **Term:** Definition or explanation
 - Bullet points for lists
-- Tables for structured data
 
 ## [Section 2]
 
 [Additional content]
-
-### Subsection (if needed)
-
-[More detailed content]
 
 ---
 
@@ -254,751 +498,145 @@ Follow the pattern from existing context library modules:
 - Be direct—state facts, don't introduce them
 - Front-load important information
 - Use consistent terminology
-- Include cross-references to related context
 
 **DON'T:**
-- Include filler phrases ("In order to effectively...")
+- Include filler phrases
 - Explain concepts the AI already knows
 - Copy verbatim quotes from sources
-- Include time-sensitive information that will become stale
-
-### Context File Types for LeadersPath
-
-| Type | Purpose | Example Content |
-|------|---------|-----------------|
-| **Foundation** | Core knowledge that applies across many lessons | AI ethics principles, LLM fundamentals |
-| **Domain** | Topic-specific knowledge for lesson clusters | Prompt engineering techniques, context library architecture |
-| **Example** | Sample content the AI can reference | Example prompts, sample outputs |
-| **Persona** | Character/role information for roleplay lessons | Stakeholder profiles, user personas |
-
-### Reuse Guidelines
-
-Before creating a new context file:
-
-1. Check the course tracker's context file list
-2. Review any existing files the user provided
-3. Consider if an existing file covers 80%+ of the need
-4. If extending an existing file makes sense, do that instead
-
-**Document reuse in the tracker:** Note which lessons use which files.
-
----
-
-## Lesson Text
-
-The lesson text (`post_content`) appears on the lesson page. It's what the learner reads before and during the AI interaction.
-
-### Purpose
-
-Guide the learner through a structured experimentation experience:
-- Set up what they're about to experience
-- Tell them what to try
-- Direct their attention to specific behaviors
-- Help them understand what they're observing
-
-### Lesson Text Structure
-
-```markdown
-## What You'll Experience
-
-[1-2 sentences describing the AI configuration and what makes it notable]
-
-## Try This
-
-[Numbered list of specific prompts or tasks to try]
-
-1. [First thing to try]
-2. [Second thing to try]
-3. [Variation or comparison]
-
-## What to Notice
-
-[Bullet points directing attention to specific behaviors]
-
-- [Observation point 1]
-- [Observation point 2]
-- [Comparison to make]
-
-## The Principle
-
-[Brief explanation of what this demonstrates—revealed AFTER they've experienced it]
-```
-
-### Writing Lesson Text
-
-**DO:**
-- Be specific about what to type/try
-- Direct attention to observable behaviors
-- Keep the "principle" section brief—the experience teaches
-- Use second person ("You'll notice..." "Try asking...")
-
-**DON'T:**
-- Explain the concept before they experience it (that defeats experiential learning)
-- Give vague instructions ("explore the AI's responses")
-- Over-explain what they should conclude
-- Include system prompt content (they shouldn't see the configuration)
-
-### Example Lesson Text
-
-**Lesson: Context Makes the Difference**
-
-```markdown
-## What You'll Experience
-
-This AI assistant has been configured with a basic role but NO company context. It knows it's supposed to help with project planning, but it doesn't know anything about your specific company or projects.
-
-## Try This
-
-1. Ask: "What should we emphasize in our next project kickoff?"
-2. Ask: "How should we communicate our progress to stakeholders?"
-3. Ask: "What makes our approach different from competitors?"
-
-## What to Notice
-
-- The AI gives generic advice that could apply to any company
-- It can't reference your specific projects, values, or methods
-- It may ask clarifying questions, but can't build on company knowledge
-- The advice is technically correct but not actionable for YOUR situation
-
-## The Principle
-
-AI without company context produces generic outputs. The model has broad knowledge but lacks the specific information needed to provide tailored, actionable guidance. Context libraries bridge this gap.
-
-**Next lesson:** Experience the same questions with full company context loaded.
-```
-
----
-
-## Metadata
-
-### Lesson Objectives
-
-Write objectives as **observable, demonstrable outcomes**.
-
-**Good:**
-- "Identify the difference between AI responses with and without context"
-- "Configure a system prompt that constrains AI behavior to a specific task"
-- "Recognize sycophantic AI patterns and their risks"
-
-**Bad:**
-- "Understand context libraries" (not observable)
-- "Learn about prompt engineering" (too vague)
-- "Appreciate the importance of ethical AI" (not demonstrable)
-
-### Duration Estimates
-
-Base duration on:
-- Reading lesson text: ~2 minutes
-- Each suggested interaction: ~3-5 minutes
-- Reflection/comparison: ~2-3 minutes
-
-**Typical lesson:** 15-30 minutes
-**Complex multi-part lessons:** 30-45 minutes
-
-### Prerequisites
-
-Only mark prerequisites when:
-- The lesson builds directly on concepts from another lesson
-- The AI configuration assumes knowledge from a prior experience
-- Doing lessons out of order would create confusion
-
-**Don't over-prerequisite:** If lessons are related but can stand alone, don't force sequencing.
-
-### References
-
-References should link to **specific, relevant resources**—not generic landing pages.
-
-**Good:**
-- A specific research paper about the lesson's topic
-- Documentation for a tool or technique used in the lesson
-- An article that explains the concept being demonstrated
-
-**Bad:**
-- Generic research landing pages (e.g., `anthropic.com/research`)
-- Broad documentation homepages
-- Links that aren't directly relevant to the lesson content
-
-If no specific, relevant reference exists, it's acceptable to omit the References section rather than include generic links.
-
-### Temperature Settings
-
-Temperature affects response variability. Guidance for different lesson types:
-
-| Lesson Type | Temperature | Rationale |
-|-------------|-------------|-----------|
-| Standard lessons | 0.7 | Balanced consistency and naturalness |
-| Roleplay/persona lessons | 0.7-0.9 | Higher variability creates more natural, realistic characters |
-| Task-constrained lessons | 0.5-0.7 | Lower variability ensures consistent format |
-
-For roleplay lessons where the AI plays a character, slightly higher temperature (0.8) helps create more natural conversational variation.
-
----
-
-## API Settings
-
-The `api-settings.md` file documents the technical configuration for the lesson's AI sandbox.
-
-### Purpose
-
-Provide clear documentation of:
-- Model selection and parameters
-- Context files loaded
-- Skills enabled
-- Configuration rationale
-
-### API Settings Structure
-
-```markdown
-# API Settings
-
-## Model Configuration
-- **Model:** [sonnet / haiku / opus-4.5]
-- **Model String:** [claude-sonnet-4-5-20250929 / claude-haiku-4-5-20251001 / claude-opus-4-5-20251101]
-- **Max Tokens:** [number, 256-16384]
-- **Temperature:** [0-1]
-- **Allow Model Switch:** [yes/no]
-
-## Context Files
-- [path/filename.md] — [brief description of what this context provides]
-
-## Skills
-- [skill-name] — [what this skill enables]
-
-## Configuration Notes
-[Any specific choices and their rationale]
-```
-
-### Writing API Settings
-
-**DO:**
-- Include the full model string for technical accuracy
-- Explain why specific parameter values were chosen
-- List all context files with brief descriptions
-- Note any special configuration considerations
-
-**DON'T:**
-- Use default values without considering lesson needs
-- Omit context files that are loaded
-- Leave the Configuration Notes empty for non-standard settings
-
----
-
-## Model Selection Rationale
-
-The `model-selection.md` file explains why a particular model was chosen for the lesson.
-
-### Purpose
-
-Document the reasoning behind model choice so that:
-- Curriculum team understands trade-offs
-- Future updates can make informed decisions
-- Learners understand what they're experiencing (via transparency principle)
-
-### Model Selection Structure
-
-```markdown
-# Model Selection Rationale
-
-## Why [Model Name]
-
-[Explanation of why this specific model was chosen]
-
-## Capabilities Demonstrated
-- [Capability 1]
-- [Capability 2]
-
-## Trade-offs Considered
-- [Trade-off 1]
-- [Trade-off 2]
-
-## Alternative Considerations
-[Why other models were not chosen, if relevant]
-```
-
-### Model Guidelines
-
-| Lesson Type | Recommended Model | Rationale |
-|-------------|-------------------|-----------|
-| Standard experiential | Sonnet | Good balance of quality and speed |
-| Complex reasoning | Opus 4.5 | Best for nuanced, multi-step tasks |
-| Quick demonstrations | Haiku | Fast responses for simple interactions |
-| Roleplay/persona | Sonnet or Opus | Higher temperature benefits from quality |
-| Task-constrained | Sonnet or Haiku | Consistent output, speed matters |
-
----
-
-## Facilitator Guides
-
-The `facilitator-guide.md` file provides support for cohort facilitators leading the lesson.
-
-### Purpose
-
-Help facilitators:
-- Anticipate and address learner questions
-- Handle technical or conceptual challenges
-- Pace the lesson appropriately
-- Spark meaningful discussion
-
-### Facilitator Guide Structure
-
-```markdown
-# Facilitator Guide: [Lesson Title]
-
-## Common Learner Questions
-
-**Q: [Anticipated question]**
-A: [Suggested response]
-
-## Potential Challenges
-
-### [Challenge Name]
-**Issue:** [Description]
-**Resolution:** [How to address]
-
-## Timing Considerations
-
-- **Introduction:** [Pacing notes]
-- **Hands-on Practice:** [Where learners need more time]
-- **Wrap-up:** [Timing notes]
-
-## Discussion Prompts
-
-- [Question to spark discussion]
-- [Question to spark discussion]
-
-## Tips for Live Facilitation
-
-[Additional guidance]
-```
-
-### Writing Facilitator Guides
-
-**DO:**
-- Base questions on actual confusion points in the lesson concept
-- Provide specific, actionable resolutions for challenges
-- Include discussion prompts that connect to learner work
-- Note where the lesson typically runs long or short
-
-**DON'T:**
-- Include generic questions unrelated to the lesson
-- Provide vague resolutions ("just explain it better")
-- Skip timing considerations
-- Forget to address technical troubleshooting
-
-### Common Question Patterns
-
-| Lesson Type | Likely Questions |
-|-------------|------------------|
-| Bare/limited config | "Why can't it remember what I just said?" |
-| Context-rich | "How do I create context files for my org?" |
-| Deliberately flawed | "Is this how AI always works?" |
-| Roleplay | "How realistic should I treat the character?" |
-| Comparison (second lesson) | "Why is this so different from the last one?" |
-
----
-
-## Self-Assessment
-
-The `self-assessment.md` file provides learners with reflection opportunities.
-
-### Purpose
-
-Help learners:
-- Check their understanding of key concepts
-- Reflect on practical application
-- Provide feedback to improve the lesson
-
-### Self-Assessment Structure
-
-```markdown
-# Self-Assessment: [Lesson Title]
-
-## Comprehension Checks
-
-1. [Question testing understanding of concept 1]
-2. [Question testing understanding of concept 2]
-3. [Question testing practical application]
-
-## Reflection Prompts
-
-- How could you apply this in your organization?
-- What challenges might you encounter?
-- What additional support or resources would you need?
-
-## Feedback
-
-We value your input! After completing this lesson:
-- Share what worked well
-- Identify what could be improved
-- Ask questions or raise concerns
-
-**Feedback Options:**
-- LeadersPath community discussion forum
-- Cohort session discussions
-```
-
-### Writing Comprehension Checks
-
-**Good comprehension questions:**
-- Ask about observable differences the learner experienced
-- Connect to the lesson's learning objectives
-- Can be answered based on the hands-on experience
-
-**Bad comprehension questions:**
-- Test memorization of definitions
-- Ask about concepts not covered in the lesson
-- Require external research to answer
-
-**Example questions by lesson type:**
-
-| Lesson Type | Example Questions |
-|-------------|-------------------|
-| Bare config | "What did you notice about the specificity of the AI's responses?" |
-| Context-rich | "How did the AI's responses change compared to the unconfigured version?" |
-| Sycophancy demo | "Did the AI push back on any of your ideas? Why or why not?" |
-| Roleplay | "What techniques did the AI use to stay in character?" |
+- Include time-sensitive information
 
 ---
 
 ## Examples
 
-### Complete Lesson Package
+### Complete Course Package
 
-**Lesson: Starting from Zero**
+**Course: AI Foundations**
 
 **Folder structure:**
 ```
-01-starting-from-zero/
-├── Lesson-Plan.md
-├── Chatbot Configuration/
-│   ├── system-prompt.md
-│   ├── api-settings.md
-│   └── model-selection.md
-├── Context Files/
-├── lesson-text.md
-├── Assessment/
-│   └── self-assessment.md
-├── Resources/
-│   └── Additional Reading/
-├── Facilitator Notes/
-│   └── facilitator-guide.md
-└── Skills/
+ai-foundations/
+├── course-tracker.md
+├── course-metadata.md
+├── learning-objectives.md
+├── facilitator-guide.md
+├── learner-overview.md
+└── activities/
+    ├── 01-starting-from-zero/
+    │   ├── configuration/
+    │   │   ├── system-prompt.md
+    │   │   ├── api-settings.md
+    │   │   └── context-files.md
+    │   └── instructions.md
+    ├── 02-context-transforms-output/
+    │   └── [same structure]
+    └── shared-context/
+        └── org-context.md
 ```
 
-**Lesson-Plan.md:**
+**learning-objectives.md:**
 ```markdown
-# Lesson Plan
+# Learning Objectives: AI Foundations
 
-## Lesson Information
+After completing this course, learners will be able to:
 
-* **Lesson Number:** 01
-* **Lesson Title:** Starting from Zero
-* **Course:** AI Foundations
-* **Version:** 1.0
-* **Last Updated:** 2026-01-15
-* **Author:** LeadersPath Curriculum Team
+1. Recognize the difference between unconfigured and context-rich AI outputs
+2. Identify when generic AI advice needs organizational context to be actionable
+3. Articulate why context libraries improve AI utility for their work
+```
 
----
+**learner-overview.md:**
+```markdown
+# AI Foundations
 
-## Learning Objectives
+## What You'll Experience
+A hands-on exploration of how AI configuration affects output quality—from generic "helpful assistant" responses to organization-specific guidance.
 
-**By the end of this lesson, learners will be able to:**
+## What to Expect
+- 2 hands-on activities with AI sandboxes
+- Discussion and reflection with your cohort
+- 45 minutes of facilitated learning
 
-1. Experience how an unconfigured LLM responds to work-related questions
-2. Identify the limitations of generic AI responses
-3. Recognize the gap that context and configuration fill
+## Before You Begin
+Come ready to experiment! You'll be interacting with AI configured in different ways, and the differences will become clear through your own experience.
+```
 
----
+**activities/01-starting-from-zero/instructions.md:**
+```markdown
+# Activity: Starting from Zero
+
+## What You'll Experience
+Claude with minimal configuration—no company context, no specialized instructions, just "helpful assistant."
+
+## Try This
+1. Ask: "Help me write an email to a potential client."
+2. Ask: "What should our team prioritize this quarter?"
+3. Ask: "Review this paragraph from our website and suggest improvements." (paste any paragraph)
+
+## What to Notice
+- Responses are generic and could apply to any company
+- The AI can't reference your products, voice, or values
+- Advice is technically reasonable but lacks specificity
 
 ## Duration
-
-**Estimated Time:** 20 minutes
-
-**Breakdown:**
-* Introduction: 3 min
-* Main content: 5 min
-* Hands-on practice: 10 min
-* Wrap-up: 2 min
-
----
-
-## Directions
-
-### How to Proceed Through This Lesson
-
-**Step 1: Read the Overview**
-Read the lesson text to understand what you're about to experience.
-
-**Step 2: Try the Suggested Prompts**
-Enter each of the suggested prompts and observe the AI's responses.
-
-**Step 3: Experiment Freely**
-Try your own work-related questions to see how the AI responds.
-
-**Step 4: Reflect**
-Consider what's missing from the AI's responses and what would make them more useful.
-
----
-
-## Model Specifications
-
-### AI Models Used in This Lesson
-
-**Primary Model:** Claude Sonnet
-
-**Why This Model:**
-Sonnet provides a good balance of capability and response speed for demonstrating baseline LLM behavior.
-
-**Model Capabilities Demonstrated:**
-* General knowledge and reasoning
-* Natural language generation
-* Task comprehension
-
-### API Configuration
-
-**Model String:** claude-sonnet-4-5-20250929
-**Max Tokens:** 4096
-**Temperature:** 0.7
-
----
-
-## Chatbot Configuration
-
-### Overview
-
-This lesson uses a deliberately minimal chatbot configuration to demonstrate what AI lacks without proper setup.
-
-### Configuration Files
-
-**Location:** `Chatbot Configuration/` folder
-
-**Files Included:**
-* `system-prompt.md` - Minimal "helpful assistant" prompt
-* `api-settings.md` - Standard parameters
-* `model-selection.md` - Why Sonnet was chosen
-
-### Transparency Principle
-
-All configuration details are visible to learners. This allows them to understand exactly how limited the setup is.
-
----
-
-## Context Files
-
-### Purpose
-
-This lesson deliberately uses NO context files to demonstrate baseline AI behavior.
-
-### Files Included
-
-None — this is intentional.
-
-### Demonstration Approach
-
-Learners experience the AI without any organizational context, observing the generic, non-specific nature of responses.
-
----
-
-## Skills (Agentic Processes)
-
-No agentic skills required for this lesson.
-
----
-
-## Resources
-
-### Additional Reading
-
-**Location:** `Resources/Additional Reading/` folder
-
-**External Resources:**
-* [Anthropic Claude Documentation](https://docs.anthropic.com/) — Official model documentation
-
----
-
-## Assessment and Feedback
-
-### Comprehension Checks
-
-**Location:** `Assessment/` folder
-
-See `self-assessment.md` for comprehension questions and reflection prompts.
-
----
-
-## Technical Requirements
-
-### Prerequisites
-
-**Prior Knowledge:**
-* None (first lesson in course)
-
-**Account Requirements:**
-* LeadersPath learner account (logged in)
-
----
-
-## Notes for Facilitators
-
-**Location:** `Facilitator Notes/` folder
-
-See `facilitator-guide.md` for discussion prompts, common questions, and timing considerations.
-
----
-
-## Related Content
-
-### Prerequisites
-None (first lesson in course)
-
-### Follow-Up Lessons
-* Lesson 02 - Context Makes the Difference
+10 minutes
 ```
 
-**Chatbot Configuration/system-prompt.md:**
+**activities/01-starting-from-zero/configuration/system-prompt.md:**
 ```markdown
 You are a helpful AI assistant.
 
 Respond to user questions to the best of your ability. Be friendly and informative.
 ```
 
-**Chatbot Configuration/api-settings.md:**
+**activities/01-starting-from-zero/configuration/api-settings.md:**
 ```markdown
 # API Settings
 
 ## Model Configuration
-- **Model:** sonnet
-- **Model String:** claude-sonnet-4-5-20250929
-- **Max Tokens:** 4096
-- **Temperature:** 0.7
-- **Allow Model Switch:** no
+- Model: sonnet
+- Max Tokens: 4096
+- Temperature: 0.7
 
 ## Context Files
-None — this lesson deliberately omits context to demonstrate baseline behavior.
+None — this activity deliberately omits context to demonstrate baseline behavior.
 
 ## Skills
 None
-
-## Configuration Notes
-This minimal configuration is intentional. The lesson demonstrates what AI lacks without proper context and configuration.
 ```
 
-**Chatbot Configuration/model-selection.md:**
+**activities/01-starting-from-zero/configuration/context-files.md:**
 ```markdown
-# Model Selection Rationale
+# Context Files for Activity: Starting from Zero
 
-## Why Sonnet
+## Course-Level Context
+None
 
-Sonnet provides the best balance of capability and response speed for this demonstration. It's capable enough to show what a modern LLM can do, while fast enough for responsive interaction.
-
-## Capabilities Demonstrated
-- General knowledge and reasoning
-- Natural language generation
-- Task comprehension without specific context
-
-## Trade-offs Considered
-- **Haiku:** Faster but might seem artificially limited; we want learners to see capable AI, just unconfigured AI
-- **Opus 4.5:** More capable but slower; overkill for demonstrating baseline behavior
-
-## Alternative Considerations
-Haiku could work for this lesson, but Sonnet ensures learners see that the limitation is configuration, not capability.
+## Activity-Specific Context
+None — this activity deliberately uses no context files to demonstrate baseline AI behavior.
 ```
 
-**lesson-text.md:**
-```markdown
-## What You'll Experience
+---
 
-This is Claude with minimal configuration—no company context, no specialized instructions, no role definition beyond "helpful assistant."
+## Temperature Settings
 
-## Try This
+Temperature affects response variability. Guidance for different activity types:
 
-1. Ask: "Help me write an email to a potential client."
-2. Ask: "What should our team prioritize this quarter?"
-3. Ask: "Review this paragraph from our website and suggest improvements." (paste any paragraph)
+| Activity Type | Temperature | Rationale |
+|---------------|-------------|-----------|
+| Standard activities | 0.7 | Balanced consistency and naturalness |
+| Roleplay/persona | 0.7-0.9 | More natural character variation |
+| Task-constrained | 0.5-0.7 | More consistent format |
+| Q&A bot | 0.7 | Balanced helpfulness |
 
-## What to Notice
+---
 
-- Responses are generic and could apply to any company
-- The AI can't reference your products, voice, or values
-- Advice is technically reasonable but lacks specificity
-- You'd need to heavily edit any output to match your company
+## Model Selection
 
-## The Principle
-
-A "naked" LLM—one without context or configuration—produces generic outputs. It has broad capability but no company knowledge. Every response requires significant human editing to become usable.
-
-This is the starting point. Subsequent lessons show how context and configuration transform generic capability into company-specific competence.
-```
-
-**Assessment/self-assessment.md:**
-```markdown
-# Self-Assessment: Starting from Zero
-
-## Comprehension Checks
-
-1. What did you notice about the specificity of the AI's responses to your work questions?
-2. When you asked about "your team" or "your company," how did the AI handle the lack of context?
-3. How much editing would the AI's outputs need before you could use them in your actual work?
-
-## Reflection Prompts
-
-- How could you apply this understanding when evaluating AI tools for your organization?
-- What specific information would the AI need to provide more useful responses?
-- What challenges might arise if staff use unconfigured AI for organization-specific work?
-
-## Feedback
-
-We value your input! After completing this lesson:
-- Share what worked well
-- Identify what could be improved
-- Ask questions or raise concerns
-
-**Feedback Options:**
-- LeadersPath community discussion forum
-- Cohort session discussions
-```
-
-**Facilitator Notes/facilitator-guide.md:**
-```markdown
-# Facilitator Guide: Starting from Zero
-
-## Common Learner Questions
-
-**Q: Is this really the same AI that powers [impressive demo they've seen]?**
-A: Yes! The difference is configuration. Those demos have extensive system prompts, context, and often curated examples. This lesson shows the baseline before any of that.
-
-**Q: Why would anyone use AI without context?**
-A: Many people do—and get frustrated by generic results. This lesson helps learners understand WHY their past AI experiences may have been disappointing.
-
-**Q: Can I make it remember my company information during this session?**
-A: You can tell it information in your prompts, but it won't persist. That's what context files solve in later lessons.
-
-## Potential Challenges
-
-### Learner Already Has AI Experience
-**Issue:** Learners who use ChatGPT or similar tools may feel this is too basic.
-**Resolution:** Acknowledge their experience and frame this as understanding the baseline. Ask: "How often do you get outputs you can use without editing?"
-
-### Responses Seem Pretty Good
-**Issue:** Sometimes the AI produces decent generic advice, which undercuts the lesson.
-**Resolution:** Push for specificity: "Ask it about YOUR specific project or YOUR company's values. Notice how it can't actually reference those."
-
-## Timing Considerations
-
-- **Introduction:** Keep brief (2-3 min) — let the experience teach
-- **Hands-on Practice:** This is the core — give learners 10+ minutes to explore
-- **Wrap-up:** Important to solidify the insight before moving to next lesson
-
-## Discussion Prompts
-
-Use these to spark discussion in cohort settings:
-- "What surprised you about the AI's responses?"
-- "How is this different from what you expected?"
-- "Where do you see this kind of generic AI advice in your current work?"
-
-## Tips for Live Facilitation
-
-- Resist the urge to over-explain upfront. The "aha" moment comes from experience.
-- If learners ask "why is it doing that?" — turn it back: "What do you think is missing?"
-- This lesson pairs well with Lesson 2 (Context Makes the Difference) — consider running them back-to-back for maximum contrast.
-```
+| Activity Type | Recommended Model | Rationale |
+|---------------|-------------------|-----------|
+| Standard experiential | Sonnet | Good balance of quality and speed |
+| Complex reasoning | Opus 4.5 | Best for nuanced, multi-step tasks |
+| Quick demonstrations | Haiku | Fast responses for simple interactions |
+| Roleplay/persona | Sonnet or Opus | Higher quality character portrayal |
+| Course Q&A bot | Sonnet | Reliable, helpful responses |

@@ -1,55 +1,62 @@
 ---
 name: building-leaderspath-curriculum
-description: Builds LeadersPath curriculum content from course designs and lesson plans. Creates system prompts, context files, lesson text, and metadata for AI sandbox learning experiences. Use when building LeadersPath content, creating AI learning lessons, designing curriculum for experiential AI education, or converting course materials into LeadersPath format. Activates when curriculum documents, lesson designs, or course outlines are provided via file path, attached file, or uploaded document.
+description: Builds LeadersPath curriculum content from course designs. Creates facilitator guides, activity configurations, and learner materials for facilitated AI learning experiences. Use when building LeadersPath courses, creating AI sandbox activities, designing curriculum for cohort-based AI education, or converting course materials into LeadersPath format. Activates when curriculum documents, course designs, or activity outlines are provided via file path, attached file, or uploaded document.
 ---
 
 # Building LeadersPath Curriculum
 
-Build curriculum content for LeadersPath experiential AI learning experiences.
+Build curriculum content for LeadersPath facilitated AI learning experiences.
 
 ## What LeadersPath Is
 
-LeadersPath is an experiential AI learning platform where each lesson is a configured AI sandbox. Learners interact with AI sessions set up to demonstrate specific behaviors—sometimes intentionally limited, sometimes fully equipped—so they experience firsthand how different configurations affect AI outputs.
+LeadersPath is a **facilitated cohort learning experience**, not a self-paced lesson platform. The system has three components:
 
-**The pedagogical model:** Hands-on experimentation in controlled environments, not passive instruction.
+1. **A cohort of learners** — Peers learning together
+2. **A human facilitator** — Who teaches concepts and leads discussion
+3. **AI sandboxes as activities** — For hands-on experimentation
+
+**The AI sandbox is NOT the lesson—it's an activity within a facilitated learning experience.**
+
+**The pedagogical model:** Facilitator presents concepts → Learners experiment in AI sandboxes → Cohort discusses and reflects → Facilitator synthesizes.
 
 ## What This Skill Creates
 
-For each lesson, a complete folder with:
-1. **Lesson Plan** (`Lesson-Plan.md`) — Comprehensive planning document with metadata, objectives, directions, model specs, and facilitator notes
-2. **Chatbot Configuration/** — System prompt, API settings, and model selection rationale
-3. **Context Files/** — Lesson-specific context (if needed)
-4. **Lesson Text** (`lesson-text.md`) — User-facing instructions explaining what to try and observe
-5. **Assessment/** — Self-assessment questions and reflection prompts
-6. **Resources/** — Additional reading and references
-7. **Facilitator Notes/** — Discussion prompts, common questions, timing guidance
-8. **Skills/** — Skill requests if agentic processes are needed
+For each **course** (the atomic teaching unit):
 
-For courses:
-- Course metadata and structure with language folder support (EN/, ES/, etc.)
-- Lesson sequence with dependencies
-- Shared context file mapping at course level
-- Course-wide materials folder
+1. **Course Metadata** (`course-metadata.md`) — Title, description, difficulty, duration
+2. **Learning Objectives** (`learning-objectives.md`) — What learners achieve (COURSE level, not per-activity)
+3. **Facilitator Guide** (`facilitator-guide.md`) — **PRIMARY DELIVERABLE**: Complete teaching script with timing, activities, and discussion prompts
+4. **Learner Overview** (`learner-overview.md`) — What learners will experience (context, not teaching)
+5. **Q&A Chatbot Config** (`qa-chatbot-config.md`) — Optional helpful assistant for course content questions
+
+For each **activity** (AI sandbox experiment within the course):
+
+1. **Configuration/** — System prompt, API settings, context file references
+2. **Instructions** (`instructions.md`) — "Try this, notice that" guidance (NOT conceptual teaching)
+
+**Key distinction:**
+- **Activity Sandbox** = Demonstrates specific AI behavior (might be sycophantic, limited, roleplay, etc.)
+- **Course Q&A Bot** = Optional helpful assistant for answering questions about course content
 
 ---
 
 ## Critical Rules
 
-**GROUNDING:** Base all content ONLY on provided curriculum documents. Never invent learning objectives, lesson concepts, or pedagogical approaches not in the source materials.
+**GROUNDING:** Base all content ONLY on provided curriculum documents. Never invent learning objectives, activity concepts, or pedagogical approaches not in the source materials.
 
-**EXPERIENTIAL FOCUS:** Every lesson must create a hands-on learning experience. The system prompt configures an AI sandbox; the lesson text guides experimentation. If a lesson concept cannot be demonstrated through AI interaction, flag it.
+**COURSE-FIRST:** The course is the teaching unit. Learning objectives live at course level, not per-activity. The facilitator guide is the central deliverable.
 
-**CONTEXT FILE REUSE:** Track context files across lessons. Before creating a new context file, check if an existing one serves the purpose. Document reuse in the course tracker.
+**ACTIVITIES ARE EXPERIMENTS:** Activities guide sandbox experimentation, not conceptual teaching. Concepts are delivered by the facilitator, not embedded in activity instructions.
+
+**CONTEXT FILE REUSE:** Track context files across activities. Before creating a new context file, check if an existing one serves the purpose. Document reuse in the course tracker.
 
 **ARTIFACT OUTPUT:** Never output content inline. Always save to files:
-- Claude Code: Save to `_leaderspath/[course-name]/EN/` directory
+- Claude Code: Save to `_leaderspath/[course-name]/` directory
 - Claude AI: Create as artifacts
 - Cowork: Save to assigned working folder
 - If environment unclear: Ask the user
 
-**FOLDER STRUCTURE:** Always create the complete folder structure for each lesson, even if some subfolders will initially be empty. This ensures consistency and shows the curriculum team where to add content later.
-
-**SKILL BOUNDARIES:** This skill does NOT create Agent Skills. If a lesson requires a new skill, output a prompt for the `/creating-skills` workflow instead.
+**SKILL BOUNDARIES:** This skill does NOT create Agent Skills. If an activity requires a new skill, output a prompt for the `/creating-skills` workflow instead.
 
 **PROGRESS TRACKING:** Maintain a course tracker file. Update it after every completed step. This enables session resumption after compaction.
 
@@ -58,12 +65,11 @@ For courses:
 ## Tips for Curriculum Designers
 
 See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) for detailed guidance on writing effective prompts, including:
-- Describing lesson concepts clearly
-- Identifying source document types
-- Flagging comparison pairs
-- Specifying roleplay lessons
-- Hinting at context file needs
-- Noting reuse opportunities
+- Designing courses as cohesive facilitated experiences
+- Writing facilitator guides as the primary deliverable
+- Creating focused activity instructions (not conceptual teaching)
+- Structuring comparison activities within a course
+- Deciding when to include a Course Q&A bot
 
 ---
 
@@ -71,10 +77,10 @@ See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS
 
 **FIRST: Read the reference files:**
 
-1. [references/LEADERSPATH-SCHEMA.md](references/LEADERSPATH-SCHEMA.md) — Data model, field requirements, metadata specs
-2. [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) — How to create system prompts, context files, lesson text, facilitator guides, and assessments
-3. [references/LESSON-PLAN-TEMPLATE.md](references/LESSON-PLAN-TEMPLATE.md) — Complete template for Lesson-Plan.md files
-4. [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) — Guidelines for curriculum designers writing prompts
+1. [references/LEADERSPATH-SCHEMA.md](references/LEADERSPATH-SCHEMA.md) — Data model, field requirements, WordPress mapping
+2. [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) — How to create facilitator guides, activity instructions, and Q&A configs
+3. [references/ACTIVITY-TEMPLATE.md](references/ACTIVITY-TEMPLATE.md) — Template for activity configuration and instructions
+4. [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) — Guidelines for curriculum designers
 
 **Do not proceed until you have read all four reference files.**
 
@@ -84,11 +90,11 @@ See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS
 
 1. **"Where are your curriculum source documents?"** (file paths or attached files)
 2. **"What is the course name?"** (used for output directory and tracker)
-3. **"What is the primary language?"** (defaults to EN; used for language folder)
-4. **"Are there existing context files I should reference?"** (for reuse identification)
+3. **"Are there existing context files I should reference?"** (for reuse identification)
+4. **"Will this course need a Q&A chatbot?"** (optional helpful assistant)
 
 Determine the output location based on environment:
-- If working directory is accessible → `_leaderspath/[course-name]/EN/`
+- If working directory is accessible → `_leaderspath/[course-name]/`
 - If Claude AI artifacts available → use artifacts
 - If Cowork session → use assigned working folder
 - If unclear → ask the user
@@ -100,73 +106,59 @@ Determine the output location based on environment:
 ```
 Phase 1: Initialize Course Tracker
     ↓
-Phase 2: Process Course Structure (if course-level input)
+Phase 2: Create Course-Level Content
+    ├── 2a: Course metadata
+    ├── 2b: Learning objectives (COURSE level)
+    ├── 2c: Facilitator guide (PRIMARY)
+    ├── 2d: Learner overview
+    └── 2e: Q&A chatbot config (if needed)
     ↓
-Phase 3: Process Lessons (iterative, per lesson)
-    ├── 3a: Define lesson metadata
-    ├── 3b: Identify/create context files
-    ├── 3c: Draft system prompt
-    └── 3d: Draft lesson text
+Phase 3: Create Activities (iterative, per activity)
+    ├── 3a: Activity configuration (system prompt, API settings)
+    └── 3b: Activity instructions ("try this, notice that")
     ↓
 Phase 4: Validate and Finalize
 ```
 
 ---
 
-## Single Lesson Mode
+## Single Activity Mode
 
-When creating a single lesson without a course:
-- **Skip Phases 1-2** (no tracker needed)
+When creating a single activity without a course:
+- **Skip Phases 1-2** (no course-level content)
 - **Complete the Analysis step below** before creating any files
-- **Create the full folder structure** (same as course lessons)
-- **Include a process log** documenting decisions made
+- **Note:** Single activities lack course context—facilitator guide and learning objectives must be provided separately
 
-### Analysis Step (REQUIRED for single lessons)
+### Analysis Step (REQUIRED for single activities)
 
 Before creating any files, answer these questions and document in your process log:
 
-**1. What AI behavior does this lesson demonstrate?**
+**1. What AI behavior does this activity demonstrate?**
 - Describe the specific behavior learners will experience
 - Is it a limitation (bare config), a capability (context-rich), or a flaw (sycophancy)?
 
 **2. What creates that behavior?**
 - **System prompt alone:** Behavioral instructions that configure how the AI responds
-- **Context files:** Background knowledge that shapes AI outputs (organizational info, domain knowledge, guardrails)
+- **Context files:** Background knowledge that shapes AI outputs
 - **Both:** System prompt sets the mode, context files provide the knowledge
 
-**3. What folder structure do we create?**
+**3. What files do we create?**
 
 ```
-[lesson-name]/
-├── Lesson-Plan.md              # Always required
-├── Chatbot Configuration/      # Always required
+[activity-name]/
+├── configuration/
 │   ├── system-prompt.md
 │   ├── api-settings.md
-│   └── model-selection.md
-├── Context Files/              # If AI needs background knowledge
-├── lesson-text.md              # Always required
-├── Assessment/                 # Always created
-│   └── self-assessment.md
-├── Resources/                  # Always created
-│   └── Additional Reading/
-├── Facilitator Notes/          # Always created
-│   └── facilitator-guide.md
-├── Skills/                     # Always created
-└── process-log.md              # Always required for single lessons
+│   └── context-files.md
+├── instructions.md
+└── process-log.md
 ```
-
-**4. Context file decision:**
-- If the desired behavior comes from **instructions** (be agreeable, be brief, play a role) → system prompt only
-- If the desired behavior comes from **knowledge** (organizational context, domain expertise, reference material) → context file needed
-- If the desired behavior comes from **guardrails** (anti-sycophancy rules, epistemic honesty standards) → context file needed
 
 Document your analysis before proceeding to create files.
 
 ---
 
 ## Phase 1: Initialize Course Tracker
-
-**Skip this phase for single lessons.**
 
 Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 
@@ -176,30 +168,27 @@ Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 **Created:** [date]
 **Last Updated:** [date]
 **Current Phase:** 1 - Initialization
-**Primary Language:** EN
 
-## Course Metadata
-- **Title:** [pending]
-- **Description:** [pending]
-- **Difficulty:** [pending]
-- **Total Duration:** [pending]
+## Course-Level Content
 
-## Lesson Checklist
+| Component | Status |
+|-----------|--------|
+| Course Metadata | [ ] |
+| Learning Objectives | [ ] |
+| Facilitator Guide | [ ] |
+| Learner Overview | [ ] |
+| Q&A Chatbot Config | [ ] or N/A |
 
-| # | Lesson Title | AI State | Lesson Plan | Chatbot Config | Context Files | Lesson Text | Assessment | Facilitator Notes | Status |
-|---|--------------|----------|-------------|----------------|---------------|-------------|------------|-------------------|--------|
-| 1 | [title]      | [brief description] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | pending |
+## Activity Checklist
 
-## Outcome-to-State Mapping
+| # | Activity Name | AI Behavior | Configuration | Instructions | Status |
+|---|---------------|-------------|---------------|--------------|--------|
+| 1 | [name] | [brief description] | [ ] | [ ] | pending |
 
-| Learning Outcome | AI State Required | Lesson # |
-|------------------|-------------------|----------|
-| [What learner should understand] | [How AI is configured] | [#] |
+## Context Files
 
-## Context Files (Course-Level)
-
-| File Name | Used By Lessons | Status |
-|-----------|-----------------|--------|
+| File Name | Used By Activities | Status |
+|-----------|-------------------|--------|
 | [none yet] | | |
 
 ## Session Log
@@ -213,226 +202,255 @@ Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 
 ---
 
-## Phase 2: Process Course Structure
+## Phase 2: Create Course-Level Content
 
-**Skip this phase if working with a single lesson.**
+### 2a: Course Metadata
 
-Read all provided course materials. Extract and confirm with user:
+Create `course-metadata.md`:
 
-1. **Course metadata:**
-   - Title
-   - Description (what learners will achieve)
-   - Difficulty level (Beginner / Intermediate / Advanced)
-   - Topics/tags
+```markdown
+# Course: [Course Name]
 
-2. **Lesson sequence:**
-   - Ordered list of lessons
-   - Dependencies between lessons
-   - Estimated duration per lesson
+## Overview
+[Brief description of what learners will experience]
 
-3. **Lesson states (CRITICAL):**
-   - Each lesson is ONE AI configuration state
-   - The learner cannot toggle between configurations within a lesson
-   - To show contrast (e.g., sycophantic vs. objective), create separate lessons
-   - Map each learning outcome to the specific AI state that demonstrates it
+## Difficulty
+[beginner / intermediate / advanced]
 
-4. **Shared context identification:**
-   - What background knowledge spans multiple lessons?
-   - What context files already exist that could be reused?
+## Total Duration
+[e.g., "90 minutes" or "2 hours"]
 
-### Mapping Outcomes to States
+## Prerequisites
+[List of prior courses or knowledge]
 
-For each learning objective in the curriculum, identify:
+## Activities Included
+1. [Activity 1 name]
+2. [Activity 2 name]
+...
+```
 
-| Learning Outcome | AI State Required | Lesson |
-|------------------|-------------------|--------|
-| [What learner should understand] | [How AI must be configured] | [Lesson #] |
+**Update tracker:** Mark Course Metadata complete.
 
-**Example:**
-| Learning Outcome | AI State Required | Lesson |
-|------------------|-------------------|--------|
-| Recognize sycophantic AI behavior | AI configured to always agree, avoid pushback | Lesson 3 |
-| Experience professional objectivity | AI configured with anti-sycophancy guardrails | Lesson 4 |
-| Compare the two approaches | N/A - learner compares their experience across lessons 3 & 4 | (reflection) |
+### 2b: Learning Objectives (COURSE Level)
 
-**Key insight for curriculum designers:** If a learning objective involves comparing two behaviors, that's at minimum two lessons. The comparison happens in the learner's mind across lessons, not within a single session.
+Create `learning-objectives.md`:
 
-**Update tracker** with course metadata and full lesson checklist.
+```markdown
+# Learning Objectives: [Course Name]
 
-**STOP. Get user approval on course structure before proceeding to lessons.**
+After completing this course, learners will be able to:
+
+1. [Objective 1 - action verb + measurable outcome]
+2. [Objective 2]
+3. [Objective 3]
+...
+```
+
+**Important:** Learning objectives are at COURSE level, not per-activity. Activities support these objectives through hands-on experimentation.
+
+**Update tracker:** Mark Learning Objectives complete.
+
+### 2c: Facilitator Guide (PRIMARY DELIVERABLE)
+
+Create `facilitator-guide.md` — this is the central document a facilitator needs to teach the entire course.
+
+See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for the complete facilitator guide structure and examples.
+
+The facilitator guide should include:
+- Course overview (duration, activities, prerequisites)
+- Materials needed
+- Learning objectives (repeated from learning-objectives.md)
+- **Teaching flow** with timing for each section:
+  - Concepts to present
+  - Transitions to activities
+  - Activity summaries (what learners do, what to watch for)
+  - Discussion prompts after activities
+  - Common questions and answers
+- Synthesis and wrap-up guidance
+- Timing notes (where things run long/short)
+
+**A facilitator should be able to teach the entire course from this document alone.**
+
+**Update tracker:** Mark Facilitator Guide complete.
+
+### 2d: Learner Overview
+
+Create `learner-overview.md`:
+
+```markdown
+# [Course Name]
+
+## What You'll Experience
+[High-level description of the course journey]
+
+## What to Expect
+- [Number] hands-on activities with AI sandboxes
+- Discussion and reflection with your cohort
+- [Duration] of facilitated learning
+
+## Before You Begin
+[Any preparation, mindset setting, or context]
+```
+
+**Note:** This is context-setting, not teaching. Concepts are delivered by the facilitator.
+
+**Update tracker:** Mark Learner Overview complete.
+
+### 2e: Q&A Chatbot Config (OPTIONAL)
+
+If the course needs a Q&A chatbot, create `qa-chatbot-config.md`:
+
+```markdown
+# Course Q&A Chatbot Configuration
+
+## Enable Q&A Chatbot
+Yes
+
+## Purpose
+Helpful assistant for answering questions about course concepts.
+
+## System Prompt
+You are a helpful Q&A assistant for the course "[Course Name]".
+Your role is to answer questions about the course content, clarify
+concepts, and help learners understand the material. Be accurate,
+clear, and supportive.
+
+[Additional context about course topics if needed]
+
+## Context Files
+- [List context files the Q&A bot should reference]
+
+## Model Settings
+- Model: sonnet
+- Max Tokens: 4096
+- Temperature: 0.7
+```
+
+**When to include Q&A bot:**
+- Complex courses where learners may have questions between activities
+- Courses with dense conceptual content
+- When facilitator availability is limited
+
+**When to skip Q&A bot:**
+- Simple courses with clear activities
+- When human facilitator is always available
+- When cohort discussion is the primary Q&A mechanism
+
+**Update tracker:** Mark Q&A Chatbot Config complete (or N/A).
+
+**STOP. Get user approval on course-level content before proceeding to activities.**
 
 ---
 
-## Phase 3: Process Lessons
+## Phase 3: Create Activities
 
-Work through lessons sequentially. For each lesson:
+Work through activities sequentially. For each activity:
 
-### 3a: Create Lesson Folder Structure
+### 3a: Create Activity Configuration
 
-Create the complete folder structure for the lesson:
-
-```
-_leaderspath/[course-name]/EN/lessons/##-[slug]/
-├── Lesson-Plan.md
-├── Chatbot Configuration/
-│   ├── system-prompt.md
-│   ├── api-settings.md
-│   └── model-selection.md
-├── Context Files/
-├── lesson-text.md
-├── Assessment/
-│   └── self-assessment.md
-├── Resources/
-│   └── Additional Reading/
-├── Facilitator Notes/
-│   └── facilitator-guide.md
-└── Skills/
-```
-
-**Always create all folders**, even if some will initially be empty.
-
-### 3b: Draft Lesson Plan
-
-Create `Lesson-Plan.md` with all sections. Extract from source materials:
-- **Lesson Information** — Number, title, course, version, author
-- **Learning Objectives** — What the learner will be able to do (max 10)
-- **Duration** — Estimated time with breakdown
-- **Directions** — Step-by-step learner instructions
-- **Model Specifications** — Model choice, capabilities demonstrated, rationale
-- **Technical Requirements** — Prerequisites, account requirements
-
-See [references/LESSON-PLAN-TEMPLATE.md](references/LESSON-PLAN-TEMPLATE.md) for the full template.
-
-**Update tracker:** Mark Lesson Plan complete for this lesson.
-
-### 3c: Identify/Create Context Files
-
-**First, check for reuse opportunities:**
-1. Review the tracker's course-level context file list
-2. Check any existing context files the user provided
-3. Determine if existing files serve this lesson's needs
-
-**Course-level context files** (shared across lessons):
-- Save to `_leaderspath/[course-name]/EN/context/[filename].md`
-- Add to tracker's context file list with lesson associations
-
-**Lesson-specific context files** (unique to this lesson):
-- Save to `_leaderspath/[course-name]/EN/lessons/##-[slug]/Context Files/[filename].md`
-
-**Context file naming:** `[topic]-context.md` (e.g., `llm-basics-context.md`, `prompt-engineering-context.md`)
-
-See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for context file patterns.
-
-**Update tracker:** Mark Context Files complete, note which files this lesson uses.
-
-### 3d: Create Chatbot Configuration
-
-Create three files in the `Chatbot Configuration/` folder:
+Create the `activities/##-[slug]/configuration/` folder with:
 
 **system-prompt.md** — The complete system prompt for the AI sandbox
-- What AI behavior should the learner experience?
+- What AI behavior should learners experience?
 - What configuration creates that behavior?
-- What should the AI do/not do to illustrate the learning point?
+- What should the AI do/not do?
 
 **api-settings.md** — Technical configuration
-- Model (sonnet/haiku/opus-4.5)
-- Max tokens
-- Temperature
-- Context files to load
-- Skills to enable
+```markdown
+# API Settings
 
-**model-selection.md** — Rationale for model choice
-- Why this model was selected
-- What capabilities are being demonstrated
-- Trade-offs considered
+## Model Configuration
+- Model: [sonnet / haiku / opus-4.5]
+- Max Tokens: [number]
+- Temperature: [0-1]
 
-See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for patterns.
+## Context Files
+- [path/filename.md] — [brief description]
+(or "None" if no context files)
 
-**Update tracker:** Mark Chatbot Config complete.
+## Skills
+- [skill-name] — [brief description]
+(or "None" if no skills)
+```
 
-### 3e: Draft Lesson Text
+**context-files.md** — Reference to which context files to load
+```markdown
+# Context Files for Activity: [Name]
 
-The lesson text (`lesson-text.md`) appears on the lesson page. It tells the learner:
-- What they're about to experience
-- What tasks to try in the AI sandbox
-- What to observe and compare
-- What the experience demonstrates
+## Course-Level Context
+- [shared-context/filename.md] — [why needed]
 
-This is NOT the system prompt. This is user-facing instructions.
+## Activity-Specific Context
+- None (or list files in this activity's folder)
+```
 
-See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for lesson text patterns.
+See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for system prompt patterns.
 
-**Update tracker:** Mark Lesson Text complete.
+**Update tracker:** Mark Configuration complete for this activity.
 
-### 3f: Create Assessment
+### 3b: Create Activity Instructions
 
-Create `Assessment/self-assessment.md` with:
-- **Comprehension Checks** — Questions testing understanding (3-5 questions)
-- **Reflection Prompts** — How could you apply this? What challenges might arise?
-- **Feedback Mechanism** — How to provide feedback on the lesson
+Create `activities/##-[slug]/instructions.md`:
 
-**Update tracker:** Mark Assessment complete.
+```markdown
+# Activity: [Name]
 
-### 3g: Create Facilitator Notes
+## What You'll Experience
+[One sentence describing the AI configuration - what behavior you'll see]
 
-Create `Facilitator Notes/facilitator-guide.md` with:
-- **Common Learner Questions** — Anticipated questions with suggested responses
-- **Potential Challenges** — Technical or conceptual issues and how to address them
-- **Timing Considerations** — Pacing notes, areas needing more time
-- **Discussion Prompts** — Questions to spark discussion in cohort settings
+## Try This
+1. [Specific prompt to try]
+2. [Specific prompt to try]
+3. [Variation or follow-up]
 
-See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for facilitator guide patterns.
+## What to Notice
+- [Observable behavior 1]
+- [Observable behavior 2]
 
-**Update tracker:** Mark Facilitator Notes complete, update lesson status to "complete."
+## Duration
+[X] minutes
+```
 
-### 3h: Add Resources (if applicable)
+**Important:** Activity instructions are ONLY for guiding sandbox experimentation. They do NOT:
+- Teach concepts (facilitator does that)
+- Include learning objectives (those are at course level)
+- Explain "The Principle" (facilitator synthesizes after)
 
-If the lesson has external resources:
-- Add links to `Resources/Additional Reading/`
-- Include article titles, URLs, and brief descriptions
+**Update tracker:** Mark Instructions complete, update activity status to "complete."
 
-**Present completed lesson to user for review before proceeding to next lesson.**
+**Present completed activity to user for review before proceeding to next activity.**
 
 ---
 
 ## Phase 4: Validate and Finalize
 
-After all lessons are complete:
+After all content is complete:
 
-1. **Review tracker** — All lessons should show complete status
+1. **Review tracker** — All items should show complete status
 2. **Check context file reuse** — Confirm shared files are properly mapped
-3. **Verify dependencies** — Prerequisites form a valid sequence
-4. **Calculate totals** — Sum lesson durations for course total
+3. **Verify flow** — Activities follow logical progression in facilitator guide
+4. **Calculate totals** — Confirm duration estimates add up
 
 **Final deliverables:**
 ```
 _leaderspath/[course-name]/
 ├── course-tracker.md
 ├── course-metadata.md
-└── EN/
-    ├── Course Materials/
-    │   └── [shared resources]
-    ├── context/
-    │   ├── [shared-context-1].md
-    │   └── [shared-context-2].md
-    └── lessons/
-        ├── 01-[slug]/
-        │   ├── Lesson-Plan.md
-        │   ├── Chatbot Configuration/
-        │   │   ├── system-prompt.md
-        │   │   ├── api-settings.md
-        │   │   └── model-selection.md
-        │   ├── Context Files/
-        │   ├── lesson-text.md
-        │   ├── Assessment/
-        │   │   └── self-assessment.md
-        │   ├── Resources/
-        │   │   └── Additional Reading/
-        │   ├── Facilitator Notes/
-        │   │   └── facilitator-guide.md
-        │   └── Skills/
-        └── 02-[slug]/
-            └── [same structure]
+├── learning-objectives.md
+├── facilitator-guide.md
+├── learner-overview.md
+├── qa-chatbot-config.md          # Optional
+└── activities/
+    ├── 01-[slug]/
+    │   ├── configuration/
+    │   │   ├── system-prompt.md
+    │   │   ├── api-settings.md
+    │   │   └── context-files.md
+    │   └── instructions.md
+    ├── 02-[slug]/
+    │   └── [same structure]
+    └── shared-context/
+        └── [context-files].md
 ```
 
 **STOP. Get user approval on complete curriculum before finalizing.**
@@ -441,7 +459,7 @@ _leaderspath/[course-name]/
 
 ## Handling Skill Requirements
 
-If a lesson requires an Agent Skill that doesn't exist: do NOT create it. Instead, save a skill request to `_leaderspath/[course-name]/skill-requests/[skill-name]-request.md` with lesson title, skill purpose, why needed, inputs, and outputs. Reference `/creating-skills` for the actual skill creation.
+If an activity requires an Agent Skill that doesn't exist: do NOT create it. Instead, save a skill request to `_leaderspath/[course-name]/skill-requests/[skill-name]-request.md` with activity name, skill purpose, why needed, inputs, and outputs. Reference `/creating-skills` for the actual skill creation.
 
 ---
 
@@ -456,8 +474,8 @@ If `course-tracker.md` exists: read it, check current phase and incomplete items
 | After | User Reviews |
 |-------|--------------|
 | Phase 1 | Tracker initialized, output location confirmed |
-| Phase 2 | Course structure and lesson sequence |
-| Each lesson | Completed lesson content |
+| Phase 2 | Course-level content (objectives, facilitator guide, learner overview) |
+| Each activity | Completed activity configuration and instructions |
 | Phase 4 | Full curriculum package |
 
 **Do not proceed without explicit approval at each checkpoint.**
@@ -467,13 +485,17 @@ If `course-tracker.md` exists: read it, check current phase and incomplete items
 ## Examples
 
 See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for complete examples including:
-- System prompt patterns (bare, role-constrained, context-rich, deliberately flawed, task-constrained)
-- Complete lesson folder with all files (Lesson-Plan.md, Chatbot Configuration/, Assessment/, etc.)
+- Facilitator guide structure with teaching flow
+- Activity instructions (focused on experimentation)
+- System prompt patterns (bare, role-constrained, context-rich, deliberately flawed)
+- Course Q&A bot configuration
 
-**Quick Example — Lesson Concept to Sandbox Configuration:**
+**Quick Example — Activity Concept to Sandbox Configuration:**
 
-| Lesson Concept | System Prompt Strategy | What Learner Experiences |
-|----------------|------------------------|--------------------------|
+| Activity Concept | System Prompt Strategy | What Learner Experiences |
+|------------------|------------------------|--------------------------|
 | "AI without context" | Minimal: "You are a helpful assistant" | Generic responses |
 | "Context transforms output" | Full context library loaded | Specific, aligned responses |
 | "Sycophancy risks" | "Always agree, be positive!" | Unreliable responses |
+
+**Key insight:** These are activities within a course. The facilitator presents the concept, learners experience it in the sandbox, then the cohort discusses. The teaching doesn't happen in the sandbox—it happens around it.

@@ -1,62 +1,98 @@
 # LeadersPath Data Schema
 
-This document defines the data model and field requirements for LeadersPath content.
+This document defines the data model and field requirements for LeadersPath content, aligned with the WordPress plugin schema.
+
+## Terminology
+
+**Important:** In the WordPress plugin, the post type is `leaderspath_lesson` for historical reasons, but the UI displays "Activity" throughout. When designing curriculum, use "Activity" terminology.
+
+| Curriculum Term | WordPress Post Type | UI Label |
+|-----------------|---------------------|----------|
+| Course | `leaderspath_course` | Course |
+| Activity | `leaderspath_lesson` | Activity |
+| Context File | `leaderspath_context` | Context File |
+| Skill | `leaderspath_skill` | Skill |
+
+---
 
 ## Entity Overview
 
 ```
-Course
-├── Lessons (ordered sequence)
-│   ├── Context Files (relationship, max 20)
-│   └── Skills (relationship, max 20)
-└── Topics (taxonomy)
+Course (teaching unit)
+├── Learning Objectives (course-level)
+├── Facilitator Guide
+├── Learner Overview
+├── Q&A Chatbot (optional)
+└── Activities (ordered sequence)
+    ├── Activity Sandbox Configuration
+    ├── Activity Instructions
+    └── Context Files (relationship)
 ```
 
 ---
 
 ## Course Fields
 
+### Core Content
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | Text | Yes | Course title |
+| `post_content` | Text | Yes | Course description |
+| `course_objectives` | Repeater | Yes | Learning objectives (what learners achieve) |
+| `course_facilitator_guide` | WYSIWYG | Yes | Complete facilitator guide content |
+| `course_learner_overview` | WYSIWYG | Yes | Learner-facing overview |
+| `course_lessons` | Relationship | Yes | Ordered sequence of Activities |
+
+### Metadata
+
 | Field | Type | Required | Constraints | Description |
 |-------|------|----------|-------------|-------------|
-| `title` | Text | Yes | — | Course title |
-| `description` | Text | Yes | — | What learners will achieve |
-| `course_lessons` | Relationship | Yes | Max 100 | Ordered lesson sequence |
-| `course_difficulty` | Select | Yes | Beginner / Intermediate / Advanced | Target skill level |
-| `course_total_duration` | Number | Auto | Minutes | Sum of lesson durations |
+| `course_difficulty` | Select | Yes | beginner/intermediate/advanced | Target skill level |
+| `course_total_duration` | Text | Yes | — | Total time (e.g., "90 minutes") |
 | `course_access_roles` | Checkbox | No | WordPress roles | Who can access |
+
+### Course Q&A Chatbot (Optional)
+
+| Field | Type | Required | Default | Description |
+|-------|------|----------|---------|-------------|
+| `course_chatbot_enabled` | Boolean | Yes | false | Enable Q&A bot |
+| `course_chatbot_model` | Select | No | sonnet | Claude model |
+| `course_chatbot_system_prompt` | Textarea | No | — | Custom Q&A prompt |
+| `course_chatbot_context_files` | Relationship | No | — | Reference materials |
+| `course_chatbot_max_tokens` | Number | No | 4096 | Response length limit |
+| `course_chatbot_temperature` | Number | No | 0.7 | Response randomness |
+
+**Key distinction:**
+- **Activity Sandbox** = Demonstrates specific AI behavior (might be sycophantic, limited, roleplay)
+- **Course Q&A Bot** = Always helpful, accurate, grounded in course content
 
 ---
 
-## Lesson Fields
+## Activity Fields (WordPress: `leaderspath_lesson`)
 
 ### Core Content
 
-| Field | Type | Required | Constraints | Description |
-|-------|------|----------|-------------|-------------|
-| `title` | Text | Yes | — | Lesson title |
-| `post_content` | HTML/Text | Yes | — | User-facing lesson instructions (not sent to AI) |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | Text | Yes | Activity title |
+| `post_content` | Text | Yes | Activity instructions ("Try this, notice that") |
+
+**Note:** `lesson_objectives` has been **removed**. Learning objectives now live at Course level.
 
 ### Metadata
 
 | Field | Type | Required | Constraints | Description |
 |-------|------|----------|-------------|-------------|
 | `lesson_duration` | Number | Yes | 1-480 minutes | Estimated completion time |
-| `lesson_objectives` | Repeater | Yes | Max 10 items | Learning outcomes |
-| `lesson_prerequisites` | Relationship | No | Other lessons | Required prior lessons |
-| `lesson_references` | Repeater | No | — | External resources |
+| `lesson_prerequisites` | Relationship | No | Other Activities | Required prior Activities |
 
-**Lesson References structure:**
-- `title` (text) — Resource name
-- `url` (URL) — Link to resource
-- `description` (text) — Why it's relevant
-
-### Chatbot Configuration
+### Activity Sandbox Configuration
 
 | Field | Type | Required | Default | Constraints | Description |
 |-------|------|----------|---------|-------------|-------------|
-| `chatbot_enabled` | Boolean | Yes | true | — | Enable AI for this lesson |
-| `chatbot_model` | Select | Yes | sonnet | sonnet / haiku / opus-4.5 | Default model |
-| `chatbot_allow_model_switch` | Boolean | No | false | — | Let learners change models |
+| `chatbot_enabled` | Boolean | Yes | true | — | Enable AI sandbox |
+| `chatbot_model` | Select | Yes | sonnet | sonnet/haiku/opus-4.5 | Model selection |
 | `chatbot_system_prompt` | Textarea | Yes | — | — | **The sandbox configuration** |
 | `chatbot_context_files` | Relationship | No | — | Max 20 | Context files to load |
 | `chatbot_skills` | Relationship | No | — | Max 20 | Skills to enable |
@@ -67,27 +103,20 @@ Course
 
 ## Context File Fields
 
-| Field | Type | Required | Constraints | Description |
-|-------|------|----------|-------------|-------------|
-| `title` | Text | Yes | — | File identifier |
-| `post_content` | Markdown | Yes | — | Full context content |
-| `context_description` | Textarea | No | — | Purpose and usage notes |
-| `context_file_type` | Select | No | See below | Content category |
-| `context_version` | Text | No | Semver format | Version tracking |
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | Text | Yes | File identifier |
+| `post_content` | Markdown | Yes | Full context content |
+| `context_description` | Textarea | No | Purpose and usage notes |
+| `context_file_type` | Select | No | Content category |
+| `context_version` | Text | No | Version tracking (semver) |
 
 **Context file types:**
-- System Prompt
-- Knowledge Base
 - Instructions
-- Examples
+- Knowledge Base
+- Guidelines
+- Reference
 - Other
-
-**Context file categories (taxonomy):**
-- Organization Profile
-- Brand Guidelines
-- Process Documentation
-- Technical Specifications
-- Example Content
 
 ---
 
@@ -97,9 +126,8 @@ Skills are uploaded as ZIP packages containing a `SKILL.md` file.
 
 | Field | Type | Source | Description |
 |-------|------|--------|-------------|
-| `skill_name` | Text | Extracted from SKILL.md | Skill identifier |
-| `skill_description` | Textarea | Extracted from SKILL.md | What the skill does |
-| `skill_compatibility` | Text | Extracted from SKILL.md | Prerequisites |
+| `skill_name` | Text | Extracted | Skill identifier |
+| `skill_description` | Textarea | Extracted | What the skill does |
 | `skill_version` | Text | Manual | Version number |
 | `skill_package` | File | Upload | ZIP file |
 
@@ -107,7 +135,7 @@ Skills are uploaded as ZIP packages containing a `SKILL.md` file.
 
 ## System Prompt Assembly
 
-When a chat session starts, the system prompt is built from:
+When an Activity sandbox chat session starts, the system prompt is built from:
 
 1. **`chatbot_system_prompt`** — The custom sandbox configuration
 2. **Context files** — Full content of all related context files, each with a header
@@ -131,17 +159,49 @@ When a chat session starts, the system prompt is built from:
 [Skill 1 description]
 ```
 
-**Important:** The lesson's `post_content` is NOT included in the system prompt. It appears only on the lesson page for the learner to read.
+**Important:** Activity instructions (`post_content`) appear on the Activity page for the learner to read. They are NOT included in the AI system prompt.
 
 ---
 
-## Taxonomy: Topics
+## WordPress Mapping Reference
 
-Both Courses and Lessons can have Topics assigned.
+When curriculum is imported to WordPress:
 
-- Hierarchical (parent/child relationships allowed)
-- Used for filtering and navigation
-- Examples: "Prompt Engineering", "Context Libraries", "Ethical AI", "LLM Fundamentals"
+### Course Post (`leaderspath_course`)
+
+| Curriculum Output | Plugin Field |
+|-------------------|--------------|
+| Course name | `post_title` |
+| Course description (from course-metadata.md) | `post_content` |
+| Learning objectives | `course_objectives` (repeater) |
+| facilitator-guide.md content | `course_facilitator_guide` |
+| learner-overview.md content | `course_learner_overview` |
+| Activities | `course_lessons` (relationship) |
+| Difficulty level | `course_difficulty` |
+| Duration text | `course_total_duration` |
+| Q&A enabled | `course_chatbot_enabled` |
+| Q&A settings | `course_chatbot_*` fields |
+
+### Activity Post (`leaderspath_lesson`, UI shows "Activity")
+
+| Curriculum Output | Plugin Field |
+|-------------------|--------------|
+| Activity name | `post_title` |
+| instructions.md content | `post_content` |
+| Duration in minutes | `lesson_duration` |
+| Model | `chatbot_model` |
+| system-prompt.md content | `chatbot_system_prompt` |
+| Context file references | `chatbot_context_files` |
+| Max tokens | `chatbot_max_tokens` |
+| Temperature | `chatbot_temperature` |
+
+### Context File Post (`leaderspath_context`)
+
+| Curriculum Output | Plugin Field |
+|-------------------|--------------|
+| Context file name | `post_title` |
+| Full content | `post_content` |
+| File type | `context_file_type` |
 
 ---
 
@@ -155,27 +215,21 @@ When creating curriculum content, output in these formats:
 _leaderspath/[course-name]/
 ├── course-tracker.md
 ├── course-metadata.md
-└── EN/
-    ├── Course Materials/
-    │   └── [shared resources]
-    ├── context/
-    │   └── [shared-context-files].md
-    └── lessons/
-        └── ##-[slug]/
-            ├── Lesson-Plan.md
-            ├── Chatbot Configuration/
-            │   ├── system-prompt.md
-            │   ├── api-settings.md
-            │   └── model-selection.md
-            ├── Context Files/
-            ├── lesson-text.md
-            ├── Assessment/
-            │   └── self-assessment.md
-            ├── Resources/
-            │   └── Additional Reading/
-            ├── Facilitator Notes/
-            │   └── facilitator-guide.md
-            └── Skills/
+├── learning-objectives.md
+├── facilitator-guide.md
+├── learner-overview.md
+├── qa-chatbot-config.md          # Optional
+└── activities/
+    ├── 01-[slug]/
+    │   ├── configuration/
+    │   │   ├── system-prompt.md
+    │   │   ├── api-settings.md
+    │   │   └── context-files.md
+    │   └── instructions.md
+    ├── 02-[slug]/
+    │   └── [same structure]
+    └── shared-context/
+        └── [context-files].md
 ```
 
 ### Course Metadata (`course-metadata.md`)
@@ -183,169 +237,136 @@ _leaderspath/[course-name]/
 ```markdown
 # Course: [Title]
 
-## Description
-[What learners will achieve]
+## Overview
+[Brief description of what learners will experience]
 
 ## Difficulty
-[Beginner / Intermediate / Advanced]
+[beginner / intermediate / advanced]
 
-## Duration
-[Total minutes] (sum of all lesson durations)
+## Total Duration
+[e.g., "90 minutes" or "2 hours"]
 
-## Topics
-- [Topic 1]
-- [Topic 2]
+## Prerequisites
+[List of prior courses or knowledge]
 
-## Languages
-- EN (primary)
-
-## Lessons
-1. [Lesson 1 Title]
-2. [Lesson 2 Title]
+## Activities Included
+1. [Activity 1 name]
+2. [Activity 2 name]
 ...
 ```
 
-### Lesson Plan (`Lesson-Plan.md`)
-
-See [LESSON-PLAN-TEMPLATE.md](LESSON-PLAN-TEMPLATE.md) for the complete template.
-
-The Lesson Plan replaces the previous `lesson-metadata.md` and includes:
-- Lesson Information (number, title, course, version, author)
-- Learning Objectives
-- Duration with breakdown
-- Directions (step-by-step learner instructions)
-- Model Specifications (model choice, capabilities, rationale)
-- Chatbot Configuration overview
-- Context Files overview
-- Skills overview
-- Resources overview
-- Assessment overview
-- Notes for Facilitators
-- Related Content
-- Technical Requirements
-
-### API Settings (`Chatbot Configuration/api-settings.md`)
+### Learning Objectives (`learning-objectives.md`)
 
 ```markdown
-# API Settings
+# Learning Objectives: [Course Name]
 
-## Model Configuration
-- **Model:** [sonnet / haiku / opus-4.5]
-- **Model String:** [claude-sonnet-4-5-20250929 / claude-haiku-4-5-20251001 / claude-opus-4-5-20251101]
-- **Max Tokens:** [number, 256-16384]
-- **Temperature:** [0-1]
-- **Allow Model Switch:** [yes/no]
+After completing this course, learners will be able to:
+
+1. [Objective 1 - action verb + measurable outcome]
+2. [Objective 2]
+3. [Objective 3]
+...
+```
+
+### Facilitator Guide (`facilitator-guide.md`)
+
+See [CONTENT-GUIDES.md](CONTENT-GUIDES.md) for the complete structure.
+
+### Learner Overview (`learner-overview.md`)
+
+```markdown
+# [Course Name]
+
+## What You'll Experience
+[High-level description of the course journey]
+
+## What to Expect
+- [Number] hands-on activities with AI sandboxes
+- Discussion and reflection with your cohort
+- [Duration] of facilitated learning
+
+## Before You Begin
+[Any preparation, mindset setting, or context]
+```
+
+### Q&A Chatbot Config (`qa-chatbot-config.md`)
+
+```markdown
+# Course Q&A Chatbot Configuration
+
+## Enable Q&A Chatbot
+Yes / No
+
+## Purpose
+[Why this course has a Q&A bot]
+
+## System Prompt
+[Complete system prompt for Q&A assistant]
 
 ## Context Files
-- [context/filename.md] — [brief description]
-- [Context Files/filename.md] — [brief description]
+- [List context files to load]
 
-## Skills
-- [skill-name] — [brief description]
+## Model Settings
+- Model: [sonnet / haiku / opus-4.5]
+- Max Tokens: [number]
+- Temperature: [0-1]
 ```
 
-### Model Selection (`Chatbot Configuration/model-selection.md`)
+### Activity Configuration (`configuration/`)
 
-```markdown
-# Model Selection Rationale
-
-## Why [Model Name]
-
-[Explanation of why this specific model was chosen for this lesson]
-
-## Capabilities Demonstrated
-- [Capability 1]
-- [Capability 2]
-- [Capability 3]
-
-## Trade-offs Considered
-- [Trade-off 1: e.g., "Sonnet provides faster responses than Opus while maintaining quality for this task"]
-- [Trade-off 2]
-
-## Alternative Considerations
-[If applicable, why other models were not chosen]
-```
-
-### System Prompt (`Chatbot Configuration/system-prompt.md`)
-
+**system-prompt.md:**
 ```markdown
 [The complete system prompt content, ready to paste into chatbot_system_prompt field]
 ```
 
-### Lesson Text (`lesson-text.md`)
-
+**api-settings.md:**
 ```markdown
-[The complete lesson content, ready to paste into post_content field]
+# API Settings
+
+## Model Configuration
+- Model: [sonnet / haiku / opus-4.5]
+- Max Tokens: [number]
+- Temperature: [0-1]
+
+## Context Files
+- [path/filename.md] — [brief description]
+(or "None")
+
+## Skills
+- [skill-name] — [brief description]
+(or "None")
 ```
 
-### Self-Assessment (`Assessment/self-assessment.md`)
-
+**context-files.md:**
 ```markdown
-# Self-Assessment: [Lesson Title]
+# Context Files for Activity: [Name]
 
-## Comprehension Checks
+## Course-Level Context
+- [shared-context/filename.md] — [why needed]
 
-1. [Question testing understanding of concept 1]
-2. [Question testing understanding of concept 2]
-3. [Question testing practical application]
-
-## Reflection Prompts
-
-- How could you apply this in your organization?
-- What challenges might you encounter?
-- What additional support or resources would you need?
-
-## Feedback
-
-We value your input! After completing this lesson:
-- Share what worked well
-- Identify what could be improved
-- Ask questions or raise concerns
-
-**Feedback Options:**
-- LeadersPath community discussion forum
-- Cohort session discussions
+## Activity-Specific Context
+- None (or list files)
 ```
 
-### Facilitator Guide (`Facilitator Notes/facilitator-guide.md`)
+### Activity Instructions (`instructions.md`)
 
 ```markdown
-# Facilitator Guide: [Lesson Title]
+# Activity: [Name]
 
-## Common Learner Questions
+## What You'll Experience
+[One sentence describing the AI configuration]
 
-**Q: [Anticipated question]**
-A: [Suggested response]
+## Try This
+1. [Specific prompt to try]
+2. [Specific prompt to try]
+3. [Variation or follow-up]
 
-**Q: [Anticipated question]**
-A: [Suggested response]
+## What to Notice
+- [Observable behavior 1]
+- [Observable behavior 2]
 
-## Potential Challenges
-
-### [Challenge 1]
-**Issue:** [Description of challenge]
-**Resolution:** [How to address it]
-
-### [Challenge 2]
-**Issue:** [Description of challenge]
-**Resolution:** [How to address it]
-
-## Timing Considerations
-
-- **Introduction:** [Notes about pacing]
-- **Hands-on Practice:** [Areas where learners may need more time]
-- **Wrap-up:** [Timing notes]
-
-## Discussion Prompts
-
-Use these to spark discussion in cohort settings:
-- [Question 1]
-- [Question 2]
-- [Question 3]
-
-## Tips for Live Facilitation
-
-[Additional notes for facilitators leading this lesson in a cohort setting]
+## Duration
+[X] minutes
 ```
 
 ### Context File (`[name]-context.md`)
