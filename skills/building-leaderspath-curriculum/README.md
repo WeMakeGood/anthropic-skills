@@ -116,6 +116,17 @@ The skill determines whether activities need context files based on:
 
 Multiple activities can share context files. The skill tracks reuse opportunities.
 
+## Context File Installation
+
+After creating curriculum, the skill can automatically install context files to your shared Contexts library:
+
+- Reads `Curriculum/Contexts/README.md` to learn folder structure
+- Copies files from `activities/shared-context/` to appropriate subfolders
+- Updates `Curriculum/Registry/context-registry.md` with new entries
+- Skips files that already exist (no overwrites)
+
+This step is environment-dependent—if the Contexts folder doesn't exist, it gracefully skips and notes manual installation is needed.
+
 ## Files in This Skill
 
 | File | Purpose |

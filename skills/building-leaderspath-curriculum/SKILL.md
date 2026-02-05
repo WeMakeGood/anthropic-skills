@@ -127,7 +127,7 @@ See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS
 
 4. **"Are there existing context files I should reference?"** (for reuse identification)
 
-5. **"Do you have an existing context-file-registry.md?"** (optional, for CTX### numbering)
+5. **"Do you have an existing context-registry.md?"** (optional, for CTX### numbering)
 
 6. **"Will this course need a Q&A chatbot?"** (optional helpful assistant)
 
@@ -164,6 +164,8 @@ Phase 3: Create Activities (iterative, per activity)
     └── 3b: Activity instructions ("try this, notice that")
     ↓
 Phase 4: Validate and Finalize
+    ├── 4a: Install context files to library (if Contexts folder exists)
+    └── 4b: Validate and confirm
 ```
 
 ---
@@ -178,6 +180,8 @@ When creating a single activity without a course:
 ### Analysis Step (REQUIRED for single activities)
 
 Before creating any files, answer these questions and document in your process log:
+
+**Note:** If creating context files for a single activity, Phase 4a (context file installation) still applies if the Curriculum/Contexts/ structure exists.
 
 **1. What AI behavior does this activity demonstrate?**
 - Describe the specific behavior learners will experience
@@ -238,9 +242,9 @@ Activity folder names use format: `TOPIC-LEVEL-ACT-{slug}`
 
 ## Context Files
 
-| File ID | Description | Used By Activities | Status |
-|---------|-------------|-------------------|--------|
-| [CTX###-slug.md] | | | |
+| File ID | Description | Used By Activities | Status | Location |
+|---------|-------------|-------------------|--------|----------|
+| [CTX###-slug.md] | | | | |
 
 ## Session Log
 
@@ -491,7 +495,7 @@ See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for system prom
 
 If the activity needs a new context file:
 
-1. Check if context-file-registry.md was provided
+1. Check if context-registry.md was provided
 2. If yes: find next available CTX number
 3. If no: start from CTX001 or next available in the course
 
@@ -549,6 +553,78 @@ Create `activities/TOPIC-LEVEL-ACT-[slug]/instructions.md`:
 <phase_finalize>
 
 ## Phase 4: Validate and Finalize
+
+### 4a: Install Context Files to Library
+
+This step installs context files created during curriculum development into the shared Contexts library. It is environment-dependent and gracefully skips if the library structure is not present.
+
+**Check Prerequisites:**
+
+1. Look for `Curriculum/Contexts/README.md` relative to the working directory root
+2. If it exists, read it to learn:
+   - The folder structure and subfolder purposes
+   - Context ID ranges for each subfolder
+   - Any naming conventions
+3. Also read `Curriculum/Registry/README.md` if it exists to learn registry conventions
+4. **If neither README exists:** Skip this entire step and note in the course tracker:
+   - Add to Context Files Location column: "Manual — Contexts folder not found"
+   - Log in Session Log: "Context installation skipped — Curriculum/Contexts/ not found. Install context files manually."
+   - Proceed directly to step 4b (validation)
+
+**If Contexts README exists, preview and install context files:**
+
+**Preview installation plan:**
+
+For each file in the course tracker's "Context Files" table, determine:
+- Source path (activities/shared-context/ or external)
+- Destination subfolder (based on README's folder structure)
+- Whether file already exists at destination
+
+**GATE:** Before copying any files, write:
+- "Files to install: [count]"
+- "Destination folders: [list unique subfolders]"
+- "Will skip (already exist): [count]"
+
+**Install each context file:**
+
+For each file in the course tracker's "Context Files" table:
+
+1. **Determine destination subfolder** based on:
+   - The file's type/purpose (demo org, standard, course-specific, etc.)
+   - The README's documented folder structure (do NOT hardcode subfolder names — read them from README each time)
+
+2. **Copy the file:**
+   - Source: `activities/shared-context/CTX###-slug.md` (or external source path if referenced)
+   - Destination: `Curriculum/Contexts/[subfolder]/CTX###-slug.md`
+   - Use simple file copy (`cp`), NOT read-process-write — these are plain copies, not transformations
+   - **Skip files that already exist at destination** (don't overwrite)
+
+3. **Update course tracker Location column:**
+   - If installed: `Contexts/[subfolder]/`
+   - If skipped (already exists): "Skipped — already exists"
+
+**Update Context Registry:**
+
+After installing files, update `Curriculum/Registry/context-registry.md`:
+
+1. Read the registry first to understand current format and entries
+2. Add entries for any new context files that don't already exist in the registry
+3. Include the correct Location value matching the subfolder where the file was installed
+4. Update the "Next Available IDs" section if present
+
+**Update Course Tracker:**
+
+- Update the Location column for each context file showing where it was installed
+- Log installation results in the Session Log
+
+**GATE:** Before proceeding to validation, write:
+- "Context files installed: [count] of [total]"
+- "Skipped (already exist): [count]"
+- "Registry updated: Yes/No/N/A"
+
+---
+
+### 4b: Validate and Confirm
 
 After all content is complete:
 
@@ -617,7 +693,8 @@ If `course-tracker.md` exists: read it, check current phase and incomplete items
 | Phase 1 | Tracker initialized, output location confirmed |
 | Phase 2 | Course-level content (objectives, facilitator guide, learner overview) |
 | Each activity | Completed activity configuration and instructions |
-| Phase 4 | Full curriculum package |
+| Phase 4a | Context files installed to library (if applicable) |
+| Phase 4b | Full curriculum package validated |
 
 **Do not proceed without explicit approval at each checkpoint.**
 

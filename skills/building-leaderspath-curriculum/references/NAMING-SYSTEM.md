@@ -194,7 +194,7 @@ Tracks Course ID assignments to avoid conflicts and find available IDs.
 
 **Status values:** `Design`, `Development`, `Review`, `Published`, `Archived`
 
-### context-file-registry.md
+### context-registry.md
 
 Tracks assigned Context File IDs.
 
