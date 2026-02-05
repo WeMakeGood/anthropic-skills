@@ -174,14 +174,38 @@ Structure for most skills:
 ```markdown
 # Skill Title
 
+<purpose>
+[Why this skill exists - what Claude tendency it addresses or what capability it provides]
+</purpose>
+
 ## Critical Rules
 [REQUIRED: Anti-hallucination, anti-sycophancy, and adherence rules specific to this skill]
 
 ## Quick Start
 [Most common use case - get users productive fast]
 
-## Instructions
-[Core procedures and workflows]
+## Workflow
+
+<phase_gather>
+### Phase 1: [Name]
+[Instructions]
+
+**GATE:** Before proceeding, write: "[commitment statement]"
+</phase_gather>
+
+<phase_execute>
+### Phase 2: [Name]
+[Instructions]
+
+**GATE:** [Next commitment or checkpoint]
+</phase_execute>
+
+## Anti-Patterns
+
+<failed_attempts>
+What DOESN'T work:
+- **[Wrong approach]:** [Why it fails]
+</failed_attempts>
 
 ## Examples
 [Concrete input/output pairs - NOT placeholders]
@@ -192,12 +216,18 @@ Structure for most skills:
 
 Writing guidelines:
 - **ALWAYS include a Critical Rules section** with skill-specific behavioral guardrails
+- **Use `<purpose>` tags** for skills that counteract Claude's default behaviors
+- **Use XML tags for phase boundaries** (`<phase_name>`) in multi-step workflows
+- **Use commitment gates** that require Claude to write a statement before proceeding
+- **Include `<failed_attempts>` section** documenting what doesn't work
 - Lead with Quick Start (most common case)
 - Be concise - you're smart, skip obvious explanations
 - Use appropriate freedom level (high/medium/low)
 - Include concrete examples with real values
 - Link to references/ files for detailed content
-- **For skills producing reports/documents**: Add an Output Requirements section specifying file output vs inline (see BEST-PRACTICES.md)
+- **For skills producing reports/documents**: Add an Output Requirements section specifying file output vs inline
+
+See [references/BEST-PRACTICES.md](references/BEST-PRACTICES.md) for detailed guidance on structured patterns, commitment gates, and XML boundaries.
 
 #### Critical Rules Section (REQUIRED)
 
@@ -217,9 +247,19 @@ Every skill MUST have a Critical Rules section near the top. Include rules relev
 
 **Instruction Adherence Rules (always include for multi-step workflows):**
 ```markdown
-**REQUIRED/CRITICAL/STOP** — Use these markers for mandatory actions
+**REQUIRED/CRITICAL** — Use these markers for mandatory actions
+**GATE:** — Commitment checkpoints requiring Claude to write a statement before proceeding
+**STOP.** — Hard stops requiring explicit user approval
 **VERIFICATION** — "Before proceeding, verify X"
-**CHECKPOINT** — "Do not proceed until user confirms"
+```
+
+**Destructive Action Gates (for skills that delete or overwrite):**
+```markdown
+**GATE:** Before [action], write:
+- "I am about to [action]: [specifics]"
+- "This is intentional because: [reason]"
+
+**STOP.** Get explicit user confirmation before executing.
 ```
 
 ### Phase 6: Test and Validate

@@ -1,0 +1,287 @@
+---
+name: auditing-skills
+description: Audits existing Agent Skills against current best practices and suggests improvements. Reviews structure, behavioral guardrails, phase boundaries, commitment gates, and anti-patterns documentation. Use when user says audit skill, review skill, check skill quality, improve skill, or update skill to best practices. Activates when a skill path is provided or when working in a skills directory.
+---
+
+# Auditing Skills
+
+<purpose>
+Skills evolve as best practices improve. This skill exists because older skills may lack
+structured patterns (XML boundaries, commitment gates, purpose statements) that improve
+Claude's adherence to workflows. The skill audits existing skills against current standards
+and produces actionable improvement recommendations.
+</purpose>
+
+## Critical Rules
+
+**GROUNDING:** Base all assessments on actual skill content. Do not assume problems exist—verify by reading the skill files.
+
+**NON-DESTRUCTIVE:** This skill produces audit reports and recommendations. It does NOT modify skills directly. Changes require explicit user approval and should use the creating-skills workflow.
+
+**PROFESSIONAL OBJECTIVITY:** Report all gaps found, even if the skill is otherwise well-written. Do not minimize issues to avoid criticism.
+
+## Quick Start
+
+1. User provides skill path (e.g., `skills/my-skill`)
+2. Read SKILL.md and all referenced files
+3. Audit against checklist
+4. Generate improvement report
+5. Optionally generate updated skill draft
+
+## Workflow
+
+<phase_read>
+### Phase 1: Read Skill Content
+
+**REQUIRED:** Read ALL files in the skill directory:
+- SKILL.md (required)
+- All files in references/ (if present)
+- All scripts in scripts/ (if present)
+
+**GATE:** Before proceeding, write:
+- "I have read [N] files: [list them]"
+- "Total lines in SKILL.md: [count]"
+
+Do not proceed until you have listed every file read.
+</phase_read>
+
+<phase_audit>
+### Phase 2: Audit Against Checklist
+
+Evaluate the skill against each criterion. Mark as:
+- ✅ Present and well-implemented
+- ⚠️ Present but could be improved
+- ❌ Missing or inadequate
+
+#### Structure Checklist
+
+| Criterion | Status | Notes |
+|-----------|--------|-------|
+| **Frontmatter valid** | | name, description present and valid |
+| **Description third-person** | | No "I" or "you" |
+| **Description has triggers** | | "Use when..." or "Activates when..." |
+| **Under 500 lines** | | Or properly split into references/ |
+
+#### Behavioral Guardrails Checklist
+
+| Criterion | Status | Notes |
+|-----------|--------|-------|
+| **Critical Rules section** | | Near top of skill |
+| **Anti-hallucination rules** | | GROUNDING, sources specified |
+| **Anti-sycophancy rules** | | PROFESSIONAL OBJECTIVITY or similar |
+| **Instruction adherence markers** | | REQUIRED, CRITICAL, STOP, GATE |
+
+#### Structured Patterns Checklist
+
+| Criterion | Status | Notes |
+|-----------|--------|-------|
+| **Purpose statement** | | `<purpose>` tag explaining why skill exists |
+| **XML phase boundaries** | | `<phase_name>` tags for multi-step workflows |
+| **Commitment gates** | | GATE markers requiring written statements |
+| **Anti-patterns documented** | | `<failed_attempts>` section |
+
+#### Content Quality Checklist
+
+| Criterion | Status | Notes |
+|-----------|--------|-------|
+| **Concrete examples** | | Real input/output, not placeholders |
+| **Output requirements** | | File vs inline specified (if applicable) |
+| **Destructive action gates** | | For skills that delete/overwrite |
+| **Natural prose guardrails** | | For external-facing content skills |
+
+**GATE:** Before proceeding, write:
+- "Audit complete. Found [N] issues requiring attention."
+- "Most critical gap: [description]"
+</phase_audit>
+
+<phase_report>
+### Phase 3: Generate Audit Report
+
+Create a structured report with:
+
+```markdown
+# Skill Audit: [skill-name]
+
+**Audited:** [date]
+**Skill path:** [path]
+**Files reviewed:** [list]
+
+## Summary
+
+**Overall assessment:** [Strong / Adequate / Needs Work]
+
+**Critical gaps:** [count]
+**Improvements suggested:** [count]
+
+## Detailed Findings
+
+### Structure
+[Findings with specific line references]
+
+### Behavioral Guardrails
+[Findings with specific recommendations]
+
+### Structured Patterns
+[Findings with examples of what to add]
+
+### Content Quality
+[Findings with specific suggestions]
+
+## Recommended Changes
+
+### High Priority (Critical Gaps)
+
+1. **[Gap]:** [What to add/change]
+   - Current: [what exists]
+   - Recommended: [what should exist]
+   - Example:
+   ```markdown
+   [concrete example of the fix]
+   ```
+
+### Medium Priority (Improvements)
+
+1. **[Improvement]:** [What to enhance]
+
+### Low Priority (Polish)
+
+1. **[Polish item]:** [Nice to have]
+
+## Next Steps
+
+To implement these changes:
+1. [First step]
+2. [Second step]
+3. Run validation: `python scripts/validate.py [path]`
+```
+
+**Save to:** `[skill-name]-audit-report.md` in current directory or user-specified location.
+</phase_report>
+
+<phase_draft>
+### Phase 4: Generate Updated Draft (Optional)
+
+If user requests, generate an updated version of the skill incorporating recommendations.
+
+**GATE:** Before generating draft, write:
+- "I will generate an updated draft incorporating [N] changes"
+- "The following sections will be modified: [list]"
+
+**STOP.** Get explicit user approval before generating the draft.
+
+When generating:
+- Preserve all existing functionality
+- Add missing structural patterns
+- Do not remove content unless it violates best practices
+- Mark all additions with `<!-- ADDED -->` comments for easy review
+
+**Save to:** `[skill-name]-updated-draft.md`
+</phase_draft>
+
+## Audit Priorities
+
+When multiple issues exist, prioritize:
+
+1. **Critical (blocks effectiveness):**
+   - Missing Critical Rules section
+   - No anti-hallucination guardrails for content-generating skills
+   - No gates for destructive actions
+
+2. **High (significantly improves quality):**
+   - Missing phase boundaries in multi-step workflows
+   - No commitment gates at key decision points
+   - Missing purpose statement for counter-intuitive skills
+
+3. **Medium (improves adherence):**
+   - Weak language (should → REQUIRED)
+   - Missing anti-patterns documentation
+   - Vague examples
+
+4. **Low (polish):**
+   - Could add more trigger keywords to description
+   - Could improve organization
+
+<failed_attempts>
+What DOESN'T work:
+
+- **Auditing without reading all files:** You'll miss context in references/ that explains why SKILL.md is structured a certain way.
+- **Recommending changes that break functionality:** Always preserve what works. Add structure, don't replace content.
+- **Generic recommendations:** "Add better examples" is useless. Show the specific example to add.
+- **Auditing against outdated standards:** Always reference current BEST-PRACTICES.md patterns.
+</failed_attempts>
+
+## Examples
+
+### Example: Audit Request
+
+**User:** "Audit skills/synthesizing-interviews"
+
+**Phase 1 output:**
+```
+I have read 1 files: SKILL.md
+Total lines in SKILL.md: 283
+```
+
+**Phase 2 output:**
+```
+Audit complete. Found 3 issues requiring attention.
+Most critical gap: No XML phase boundaries despite 7-phase workflow.
+```
+
+**Phase 3 output:** (excerpt)
+```markdown
+# Skill Audit: synthesizing-interviews
+
+## Summary
+
+**Overall assessment:** Adequate
+
+**Critical gaps:** 0
+**Improvements suggested:** 3
+
+## Detailed Findings
+
+### Structured Patterns
+
+- ❌ **Purpose statement:** Missing. This skill addresses Claude's tendency to
+  summarize rather than synthesize—a purpose statement would reinforce this.
+
+- ❌ **XML phase boundaries:** The skill has 7 phases (Process → Outline →
+  Synthesis → Quotes → References → Verification → Save) but uses only
+  markdown headers. XML boundaries would create harder phase separation.
+
+- ⚠️ **Commitment gates:** Has output requirements ("ALWAYS save to file")
+  but no commitment gates between phases.
+
+## Recommended Changes
+
+### High Priority
+
+1. **Add purpose statement:**
+   ```markdown
+   <purpose>
+   Claude's default is to summarize—to compress information into brief
+   overviews. Interview synthesis requires the opposite: preserving richness
+   while removing only conversational overhead. This skill exists to enforce
+   detailed distillation over compression.
+   </purpose>
+   ```
+
+2. **Add XML phase boundaries:**
+   ```markdown
+   <phase_process>
+   ### Phase 1: Process Transcript
+   [existing content]
+
+   **GATE:** Before proceeding, write:
+   - "Transcript format: [format identified]"
+   - "Speakers identified: [list]"
+   </phase_process>
+   ```
+```
+
+## Reference
+
+This skill audits against patterns documented in:
+- [BEST-PRACTICES.md](../creating-skills/references/BEST-PRACTICES.md) - Structured patterns, behavioral guardrails
+- [SPEC.md](../creating-skills/references/SPEC.md) - Structure requirements, field limits

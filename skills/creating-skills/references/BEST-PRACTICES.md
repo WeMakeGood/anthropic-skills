@@ -404,6 +404,133 @@ For reference files over 100 lines, add a TOC:
 
 Claude can scan the TOC and jump to relevant sections.
 
+## Structured Skill Patterns
+
+Skills benefit from explicit structure that creates hard boundaries between phases and forces commitment before proceeding. Markdown alone can be too loose—Claude may skip steps or blur phase boundaries.
+
+### Purpose Statement Pattern
+
+For skills that address a specific Claude failure mode, open with a `<purpose>` tag explaining why the skill exists:
+
+```markdown
+<purpose>
+Claude's default behavior is to [problematic pattern]. This skill exists because
+[why that pattern causes problems]. The skill addresses this by [how].
+</purpose>
+```
+
+This metacognitive framing helps Claude understand not just *what* to do, but *why* it needs to override its defaults.
+
+**Example:**
+```markdown
+<purpose>
+Claude generates content by pattern-matching on training data. Something can look
+polished and professional while being factually hollow. This skill exists because
+case studies require verifiable proof, not plausible-sounding narratives. The skill
+addresses this by requiring source citations for every claim.
+</purpose>
+```
+
+**When to use:** Skills that counteract Claude's natural tendencies (verification, skepticism, restraint).
+
+### XML Tags for Phase Boundaries
+
+Use XML tags to create hard boundaries between workflow phases. Claude treats tagged sections as distinct units, reducing the tendency to blur phases together or skip ahead.
+
+```markdown
+<phase_gather>
+## Phase 1: Gather Requirements
+
+[Instructions for this phase]
+
+**GATE:** Do not proceed until [specific condition].
+</phase_gather>
+
+<phase_analyze>
+## Phase 2: Analyze Content
+
+[Instructions for this phase]
+
+**GATE:** Do not proceed until [specific condition].
+</phase_analyze>
+```
+
+**When to use:** Multi-phase workflows where order matters and skipping steps causes problems.
+
+**Naming convention:** Use `<phase_[name]>` for workflow phases, `<[domain]_[type]>` for other bounded sections (e.g., `<technical_honesty>`, `<failed_attempts>`).
+
+### Commitment Gates
+
+Gates that require Claude to write a specific statement before proceeding are more effective than simple "STOP" markers. Writing creates commitment.
+
+**Weak gate (may be skipped):**
+```markdown
+**STOP.** Get user approval before proceeding.
+```
+
+**Strong gate (requires commitment):**
+```markdown
+**GATE:** Before proceeding, write the following:
+
+"Problem statement: When I [action], I expect [expected], but instead [actual]."
+
+Do not proceed until you have written this statement.
+```
+
+**Gate patterns:**
+
+| Gate Type | When to Use | Example Commitment |
+|-----------|-------------|-------------------|
+| Problem definition | Before investigating | "The issue is [X] because [evidence]" |
+| Plan confirmation | Before implementing | "I will [action] which addresses [requirement]" |
+| Verification | Before declaring done | "Verified: [what was tested] showed [result]" |
+| Destructive action | Before deleting/overwriting | "I am about to delete [X]. This is intentional because [reason]" |
+
+### Anti-Patterns Section (Failed Attempts)
+
+Document what doesn't work. This is especially valuable for skills addressing counter-intuitive problems.
+
+```markdown
+<failed_attempts>
+What DOESN'T work:
+
+- **[Wrong approach]:** [Why it fails]
+- **[Common mistake]:** [What happens when Claude does this]
+- **[Tempting shortcut]:** [Why it causes problems]
+</failed_attempts>
+```
+
+**Example:**
+```markdown
+<failed_attempts>
+What DOESN'T work:
+
+- **"I'll verify later":** Later never comes. Verification must happen immediately.
+- **"It looks correct":** Pattern-matching is not verification. Code that looks perfect can be wrong.
+- **Trusting compilation:** Types compile doesn't mean logic is correct.
+- **Testing only happy path:** The bug is in the edge case you didn't test.
+</failed_attempts>
+```
+
+**When to use:** Skills where Claude's intuitive approach is wrong, or where common shortcuts cause failures.
+
+### Emotional/Linguistic Triggers in Descriptions
+
+Descriptions can match on user emotional state, not just task keywords:
+
+```markdown
+description: |
+  When debugging frustration appears ("why isn't this working?", "it should work",
+  "I don't understand"), [what the skill does].
+```
+
+This improves discovery for users who are stuck, not just users who know what they need.
+
+**Trigger phrase categories:**
+- Frustration: "why isn't this working", "it should work", "I don't understand"
+- Uncertainty: "I'm not sure if", "should I", "what's the best way"
+- Caution: "I don't want to break", "is it safe to", "before I delete"
+
 ## Behavioral Guardrails (REQUIRED)
 
 Every skill must include behavioral guardrails to prevent common failure modes. These are not optional.
@@ -446,12 +573,13 @@ Skills that advise or analyze must encourage honest, objective responses.
 
 ### Instruction Adherence Patterns
 
-Skills with multi-step workflows must use strong, unambiguous language.
+Skills with multi-step workflows must use strong, unambiguous language and commitment mechanisms.
 
 **Use these markers:**
 - `**REQUIRED:**` — Actions that must be taken
 - `**CRITICAL:**` — Rules that must not be violated
-- `**STOP.**` — Checkpoints where Claude must wait
+- `**GATE:**` — Checkpoints requiring written commitment before proceeding
+- `**STOP.**` — Hard stops requiring user approval
 - `**VERIFICATION:**` — Confirmation steps before proceeding
 - `**Do not:**` — Explicit prohibitions
 
@@ -466,12 +594,33 @@ If you'd like, you can ask for approval before proceeding.
 **STOP.** Get explicit user approval. Do not proceed until confirmed.
 ```
 
+**Commitment gates (strongest):**
+```markdown
+**GATE:** Before proceeding, write:
+- "I have read all [N] source files: [list them]"
+- "The main conflict identified is: [describe]"
+
+Do not proceed until you have written these statements.
+```
+
+Writing creates commitment. A gate that requires Claude to write a specific statement is harder to skip than a simple "STOP" instruction.
+
 **Verification checkpoints:**
 ```markdown
 **VERIFICATION:** Before proceeding to Phase 3, confirm:
 - [ ] All source documents have been read
 - [ ] Conflicts have been identified and documented
 - [ ] User has approved the proposed structure
+```
+
+**Destructive action gates:**
+```markdown
+**GATE:** Before deleting any files, write:
+- "I am about to delete: [file list]"
+- "This is intentional because: [reason]"
+- "This action is: [reversible/irreversible]"
+
+**STOP.** Get explicit user confirmation before executing deletion.
 ```
 
 ### Priority Hierarchies
