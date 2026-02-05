@@ -3,6 +3,14 @@ name: building-leaderspath-curriculum
 description: Builds LeadersPath curriculum content from course designs. Creates facilitator guides, activity configurations, and learner materials for facilitated AI learning experiences. Use when building LeadersPath courses, creating AI sandbox activities, designing curriculum for cohort-based AI education, or converting course materials into LeadersPath format. Activates when curriculum documents, course designs, or activity outlines are provided via file path, attached file, or uploaded document.
 ---
 
+<purpose>
+Curriculum designers default to lesson-centric thinking: each lesson teaches, the AI
+delivers content, learners consume independently. LeadersPath inverts this. The facilitator
+teaches; the AI sandbox demonstrates. This skill exists to enforce that inversion—producing
+facilitator guides as the primary deliverable, with activities as hands-on experiments
+rather than self-contained lessons.
+</purpose>
+
 # Building LeadersPath Curriculum
 
 Build curriculum content for LeadersPath facilitated AI learning experiences.
@@ -158,6 +166,8 @@ Document your analysis before proceeding to create files.
 
 ---
 
+<phase_initialize>
+
 ## Phase 1: Initialize Course Tracker
 
 Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
@@ -200,7 +210,15 @@ Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 
 **Update the tracker after EVERY completed step.** This is non-negotiable.
 
+**GATE:** Before proceeding, write:
+- "Course tracker created at: [path]"
+- "Activities identified: [count] — [list names]"
+
+</phase_initialize>
+
 ---
+
+<phase_course_content>
 
 ## Phase 2: Create Course-Level Content
 
@@ -338,9 +356,17 @@ clear, and supportive.
 
 **Update tracker:** Mark Q&A Chatbot Config complete (or N/A).
 
-**STOP. Get user approval on course-level content before proceeding to activities.**
+**GATE:** Before proceeding to Phase 3, write:
+- "Phase 2 complete. Files created: [list]"
+- "User approval received: Yes"
+
+**STOP.** Get user approval on course-level content before proceeding to activities.
+
+</phase_course_content>
 
 ---
+
+<phase_activities>
 
 ## Phase 3: Create Activities
 
@@ -420,7 +446,16 @@ Create `activities/##-[slug]/instructions.md`:
 
 **Present completed activity to user for review before proceeding to next activity.**
 
+**GATE (per activity):** Before proceeding to next activity, write:
+- "Activity [N] complete: [name]"
+- "Files created: configuration/, instructions.md"
+- "User approval received: Yes"
+
+</phase_activities>
+
 ---
+
+<phase_finalize>
 
 ## Phase 4: Validate and Finalize
 
@@ -453,7 +488,14 @@ _leaderspath/[course-name]/
         └── [context-files].md
 ```
 
-**STOP. Get user approval on complete curriculum before finalizing.**
+**GATE:** Before declaring complete, write:
+- "All activities complete: [count]"
+- "All tracker items show complete status: Yes"
+- "User approval received on full curriculum: Yes"
+
+**STOP.** Get user approval on complete curriculum before finalizing.
+
+</phase_finalize>
 
 ---
 
@@ -499,3 +541,23 @@ See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for complete ex
 | "Sycophancy risks" | "Always agree, be positive!" | Unreliable responses |
 
 **Key insight:** These are activities within a course. The facilitator presents the concept, learners experience it in the sandbox, then the cohort discusses. The teaching doesn't happen in the sandbox—it happens around it.
+
+---
+
+<failed_attempts>
+
+## What Doesn't Work
+
+- **Putting learning objectives in activities:** Objectives live at course level. Activities support objectives through experimentation, not through their own objectives. If you add objectives per activity, you're reverting to the old lesson-centric model.
+
+- **Teaching concepts in activity instructions:** "The Principle" sections belong in the facilitator guide, not in activity instructions. Activities say "try this, notice that"—the facilitator synthesizes meaning afterward.
+
+- **Creating Q&A bots for every course:** The Course Q&A Bot is optional. Simple courses with present facilitators don't need one. Adding unnecessary Q&A bots creates maintenance burden and confuses the distinction between activity sandboxes (which demonstrate behavior) and Q&A bots (which are always helpful).
+
+- **Bare system prompts that imply knowledge:** If the AI needs organizational knowledge (not just behavioral instructions), that knowledge must be in context files. A system prompt saying "You are an expert in our methodology" without a context file providing that methodology will produce hallucinated content.
+
+- **Skipping the facilitator guide:** The facilitator guide is the primary deliverable, not an optional add-on. Without it, activities become disconnected experiments rather than a cohesive learning experience.
+
+- **Designing activities as standalone lessons:** Each activity is part of a course flow. If an activity makes sense without the preceding facilitator presentation and subsequent discussion, it's probably over-teaching in the sandbox.
+
+</failed_attempts>
