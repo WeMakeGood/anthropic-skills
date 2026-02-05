@@ -5,6 +5,14 @@ description: Designs LeadersPath cohort curricula from source materials (intervi
 
 # Designing LeadersPath Cohorts
 
+<purpose>
+Claude's default when given curriculum design tasks is to jump straight to creating
+course content. This skill exists because cohort design requires upstream analysis—
+understanding learning themes, searching for reusable courses, and sequencing before
+any course content is written. The skill enforces this separation by producing
+curriculum prompts (design documents) rather than curriculum content.
+</purpose>
+
 Design cohort curricula for LeadersPath facilitated learning experiences.
 
 ## What This Skill Does
@@ -95,6 +103,7 @@ Phase 5: Validate and Finalize
 
 ---
 
+<phase_initialize>
 ## Phase 1: Initialize & Analyze Sources
 
 ### 1a: Create Cohort Tracker
@@ -142,8 +151,14 @@ Document findings in the tracker under "Learning Themes Identified."
 
 **Update tracker:** Mark source materials as analyzed.
 
+**GATE:** Before proceeding to Phase 2, write:
+- "I have analyzed [N] source files: [list them]"
+- "Learning themes identified: [list themes]"
+</phase_initialize>
+
 ---
 
+<phase_search>
 ## Phase 2: Search for Existing Courses
 
 **REQUIRED:** Before creating new courses, search for existing ones.
@@ -186,10 +201,16 @@ Create `[cohort-name]/course-reuse-report.md`:
 
 **Update tracker:** Add course plan with existing/new designations.
 
-**STOP. Get user approval on course reuse plan before proceeding.**
+**GATE:** Before proceeding to Phase 3, write:
+- "Courses to reuse: [list or 'none']"
+- "Courses to create new: [list]"
+
+**STOP.** Present course reuse report and get user approval before proceeding.
+</phase_search>
 
 ---
 
+<phase_design>
 ## Phase 3: Design Cohort Structure
 
 ### 3a: Create Cohort Curriculum
@@ -257,8 +278,14 @@ Work course-by-course for best results.
 
 **Update tracker:** Mark cohort curriculum complete.
 
+**GATE:** Before proceeding to Phase 4, write:
+- "Cohort structure: [number] courses over [duration]"
+- "Course sequence: [brief list]"
+</phase_design>
+
 ---
 
+<phase_prompts>
 ## Phase 4: Create Course Curriculum Prompts
 
 For each NEW course (not reused), create a curriculum prompt file.
@@ -365,8 +392,14 @@ After completing this course, learners will be able to:
 
 **Present each course for review before proceeding to next.**
 
+**GATE:** Before proceeding to Phase 5, write:
+- "Course curriculum prompts created: [list files]"
+- "All courses approved: [yes/pending]"
+</phase_prompts>
+
 ---
 
+<phase_validate>
 ## Phase 5: Validate and Finalize
 
 After all content is complete:
@@ -388,7 +421,13 @@ After all content is complete:
     └── ...
 ```
 
-**STOP. Get user approval on complete package before finalizing.**
+**GATE:** Before finalizing, write:
+- "All deliverables created: [list files]"
+- "Atomicity verified: [yes/issues found]"
+- "Theme coverage: [all themes addressed / gaps]"
+
+**STOP.** Present complete package and get user approval before finalizing.
+</phase_validate>
 
 ---
 
@@ -403,6 +442,18 @@ After all content is complete:
 | Phase 5 | Complete cohort package |
 
 **Do not proceed without explicit approval at each checkpoint.**
+
+---
+
+<failed_attempts>
+What DOESN'T work:
+
+- **Creating course content instead of curriculum prompts:** This skill outputs design documents, not facilitator guides or activity instructions. Those are created by `building-leaderspath-curriculum`.
+- **Courses that reference each other:** "Builds on Course 2" breaks atomicity. Courses must be self-contained. Express dependencies as prerequisites in the course overview, not cross-references.
+- **Skipping the course reuse search:** Even when no library exists, document that you searched. Otherwise future cohorts lose reuse opportunities.
+- **Generating learning themes without sources:** All themes must trace back to provided materials. No invented pedagogy or assumed learning objectives.
+- **Specifying implementation details:** System prompts, activity instructions, folder structures—these belong in `building-leaderspath-curriculum`, not curriculum prompts.
+</failed_attempts>
 
 ---
 
