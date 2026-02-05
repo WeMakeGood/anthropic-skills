@@ -60,3 +60,12 @@ This is necessary because Google Docs' native integration only provides a text r
 
 - Python 3.x (uses standard library only: zipfile, xml.etree)
 - No external packages required
+
+## Changelog
+
+### 2026-02-05
+
+- Added `<purpose>` statement explaining traceability enforcement
+- Added XML phase boundaries for all 7 workflow phases
+- Added commitment gates at extraction and review phases
+- Added `<failed_attempts>` section documenting common mistakes

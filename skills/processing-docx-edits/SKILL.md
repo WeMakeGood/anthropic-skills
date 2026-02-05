@@ -7,6 +7,13 @@ description: Processes DOCX files containing tracked changes and comments, synth
 
 Intelligently processes Word documents with tracked changes and comments, synthesizes all feedback, and produces a clean final document.
 
+<purpose>
+Claude's default when editing is to "improve" content—adding polish, fixing adjacent issues,
+making things "better." Document review requires the opposite: strict fidelity to reviewer
+intent. This skill exists to enforce traceability, where every change maps to a specific
+tracked change or comment, and no unauthorized improvements slip in.
+</purpose>
+
 ## Critical Rules
 
 **GROUNDING:** Apply ONLY the edits explicitly present in the document. Never add "improvements" or changes not requested by reviewers.
@@ -39,6 +46,7 @@ Progress:
 - [ ] Phase 7: Save final document
 ```
 
+<phase_extraction>
 ### Phase 1: Document Extraction
 
 **ALWAYS run the extraction script first.** It reliably extracts tracked changes, comments, and document structure.
@@ -63,6 +71,12 @@ The script outputs JSON with:
 - Not a valid DOCX
 - Corrupted file
 
+**GATE:** Before proceeding, write:
+- "Extraction complete: [N] tracked changes, [M] comments from [authors]"
+- "Document has [P] paragraphs"
+</phase_extraction>
+
+<phase_analysis>
 ### Phase 2: Full Document Analysis
 
 **Read the ENTIRE extracted document content before making any changes.**
@@ -73,7 +87,9 @@ This enables:
 - Identifying related content that may need coordinated changes
 
 Build a mental model of the document's purpose, structure, and content relationships.
+</phase_analysis>
 
+<phase_synthesis>
 ### Phase 3: Edit Synthesis
 
 Using the extracted data, build a unified edit list.
@@ -85,7 +101,9 @@ For each tracked change and comment, determine:
 4. Are there conflicts with other edits?
 
 Group related changes (e.g., same author, same section, related content).
+</phase_synthesis>
 
+<phase_review>
 ### Phase 4: Human Review Checkpoint
 
 **STOP. Do not proceed without explicit user confirmation.**
@@ -123,6 +141,15 @@ If you notice issues with proposed edits — factual errors being introduced, im
 
 **REQUIRED:** Wait for user to explicitly confirm edits and answer all questions. Do not proceed on partial confirmation.
 
+**GATE:** Before applying edits, write:
+- "User approved: [list of approved changes]"
+- "User rejected: [list, or 'none']"
+- "Questions resolved: [summary of answers]"
+
+Do not proceed until you have written these statements.
+</phase_review>
+
+<phase_application>
 ### Phase 5: Edit Application
 
 **REQUIRED:** Apply ONLY edits the user explicitly approved.
@@ -137,7 +164,9 @@ If you notice issues with proposed edits — factual errors being introduced, im
 - Add edits the user didn't approve
 - "Improve" content beyond what was requested
 - Silently resolve ambiguities — if unclear, ask
+</phase_application>
 
+<phase_validation>
 ### Phase 6: Validation
 
 Review the final document to verify:
@@ -147,7 +176,9 @@ Review the final document to verify:
 - Document logic and flow remain coherent
 
 If issues found, flag them for the user before output.
+</phase_validation>
 
+<phase_output>
 ### Phase 7: Output
 
 **Save the final document to `./tmp/`. Do not output full document content inline.**
@@ -165,6 +196,16 @@ Summary:
 - Resolved N comments
 - Made M additional updates where changes affected other sections
 ```
+</phase_output>
+
+<failed_attempts>
+What DOESN'T work:
+
+- **Skipping extraction script:** Manual parsing of DOCX XML is error-prone. The script handles edge cases (nested changes, overlapping comments) reliably.
+- **"Improving" while editing:** Adding grammar fixes, rewording for clarity, or any edit not explicitly in the tracked changes violates traceability.
+- **Resolving conflicts without asking:** When two reviewers contradict each other, always surface the conflict. Never silently pick one.
+- **Partial confirmation:** "Proceed with most edits" is not explicit approval. Get specific approval for each contested item.
+</failed_attempts>
 
 ## Scripts
 
