@@ -16,7 +16,7 @@ and produces actionable improvement recommendations.
 
 **GROUNDING:** Base all assessments on actual skill content. Do not assume problems exist—verify by reading the skill files.
 
-**NON-DESTRUCTIVE:** This skill produces audit reports and recommendations. It does NOT modify skills directly. Changes require explicit user approval and should use the creating-skills workflow.
+**EDITS REQUIRE APPROVAL:** After presenting the audit report, ask if the user wants changes applied. Do not edit skill files without explicit approval.
 
 **PROFESSIONAL OBJECTIVITY:** Report all gaps found, even if the skill is otherwise well-written. Do not minimize issues to avoid criticism.
 
@@ -26,7 +26,7 @@ and produces actionable improvement recommendations.
 2. Read SKILL.md and all referenced files
 3. Audit against checklist
 4. Generate improvement report
-5. Optionally generate updated skill draft
+5. If user approves, apply changes directly to skill files
 
 ## Workflow
 
@@ -158,25 +158,28 @@ To implement these changes:
 **Save to:** `[skill-name]-audit-report.md` in current directory or user-specified location.
 </phase_report>
 
-<phase_draft>
-### Phase 4: Generate Updated Draft (Optional)
+<phase_apply>
+### Phase 4: Apply Changes (On Approval)
 
-If user requests, generate an updated version of the skill incorporating recommendations.
+After presenting the audit report, ask: "Would you like me to apply these changes to the skill?"
 
-**GATE:** Before generating draft, write:
-- "I will generate an updated draft incorporating [N] changes"
-- "The following sections will be modified: [list]"
+If user approves:
 
-**STOP.** Get explicit user approval before generating the draft.
+**GATE:** Before editing, write:
+- "I will apply [N] changes to [file path]"
+- "Changes: [brief list of what will be modified]"
 
-When generating:
+**STOP.** Wait for explicit user confirmation.
+
+When applying changes:
+- Edit the skill files directly (no draft files)
 - Preserve all existing functionality
 - Add missing structural patterns
 - Do not remove content unless it violates best practices
-- Mark all additions with `<!-- ADDED -->` comments for easy review
+- Run validation after changes: `python scripts/validate.py [path]`
 
-**Save to:** `[skill-name]-updated-draft.md`
-</phase_draft>
+After applying, summarize what was changed.
+</phase_apply>
 
 ## Audit Priorities
 
@@ -208,6 +211,8 @@ What DOESN'T work:
 - **Recommending changes that break functionality:** Always preserve what works. Add structure, don't replace content.
 - **Generic recommendations:** "Add better examples" is useless. Show the specific example to add.
 - **Auditing against outdated standards:** Always reference current BEST-PRACTICES.md patterns.
+- **Creating draft files instead of editing directly:** Extra files create friction. After approval, edit the skill directly.
+- **Adding marker comments:** `<!-- ADDED -->` comments waste context tokens and clutter the skill.
 </failed_attempts>
 
 ## Examples
