@@ -5,6 +5,13 @@ description: Generates structured meeting reports from transcripts. Extracts att
 
 # Generating Meeting Reports
 
+<purpose>
+Meetings contain valuable decisions and commitments buried in conversational noise.
+Claude's default summarization compresses too aggressively, losing actionable details.
+This skill extracts structured, actionable information while preserving attribution
+and marking uncertainty explicitly.
+</purpose>
+
 Creates professional, actionable meeting reports from raw transcripts.
 
 ## Critical Rules
@@ -44,6 +51,7 @@ Progress:
 - [ ] Step 4: Review for completeness
 ```
 
+<phase_analyze>
 ### Step 1: Analyze Transcript
 
 **REQUIRED:** Read the ENTIRE transcript before extracting any information.
@@ -58,8 +66,13 @@ Identify from the transcript:
 - Resources, tools, or documents referenced
 - Follow-up items and open questions
 
-**VERIFICATION:** Before proceeding, confirm you have identified all speakers and major topics.
+**GATE:** Before proceeding, write:
+- "Speakers identified: [list all speakers]"
+- "Major topics: [list 2-5 topics]"
+- "Meeting date/time: [date or 'Not specified']"
+</phase_analyze>
 
+<phase_extract>
 ### Step 2: Extract Structured Data
 
 For each action item, capture:
@@ -75,6 +88,12 @@ For each topic:
 - Decisions made
 - Implementation details
 
+**GATE:** Before proceeding, write:
+- "Action items found: [count]"
+- "Decisions documented: [count]"
+</phase_extract>
+
+<phase_generate>
 ### Step 3: Generate Report
 
 **ALWAYS use the exact format defined in [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md).** Do not deviate from this structure.
@@ -86,16 +105,18 @@ Requirements:
 - Notes section for follow-ups, open questions, and future considerations
 
 **Write the report to a file, not inline.**
+</phase_generate>
 
+<phase_review>
 ### Step 4: Review and Save
 
-Before saving:
-- All key information captured
-- Action items are clear and assigned
-- Professional tone maintained
-- Format matches the template exactly
+**GATE:** Before saving, write:
+- "Action items: [count] items with [count] owners assigned"
+- "Format check: Matches template exactly: [yes/no]"
+- "Gaps documented: [list any '[Not specified]' or '[Inferred]' markers used, or 'None']"
 
 Then save to `meeting-report-YYYY-MM-DD.md` and confirm to the user.
+</phase_review>
 
 ## Handling Challenges
 
@@ -117,9 +138,19 @@ Then save to `meeting-report-YYYY-MM-DD.md` and confirm to the user.
 - If the transcript has significant gaps, garbled sections, or quality issues, flag this to the user before generating the report
 - Do not fill in missing content with assumptions
 
-## Examples
+<failed_attempts>
+What DOESN'T work:
 
-### Input: Transcript Fragment
+- **Inventing action items:** If no one said "I'll do X," don't create an action item. Only extract explicit commitments.
+- **Guessing speaker roles:** If the transcript doesn't say "Sarah, our CTO," don't infer titles. Use "[Role unknown]".
+- **Filling gaps with plausible content:** A missing date is "[Not specified]," not a reasonable guess.
+- **Summarizing instead of structuring:** The goal is extraction, not compression. Keep the detail; remove only filler words.
+- **Attributing to wrong speakers:** When attribution is unclear, mark it explicitly rather than guessing.
+</failed_attempts>
+
+## Example
+
+### Sample Transcript Fragment
 
 ```
 [Sarah Chen]
@@ -135,33 +166,23 @@ They're saying 3 weeks for mockups. I'll send you the project brief by Friday.
 Perfect. Action item for me - I need to get the brand guidelines doc to Sarah before she briefs the team.
 ```
 
-### Output: Extracted Report Section
+### Expected Extraction
 
-**Discussion Topic:**
-```markdown
-### Website Redesign
+From this fragment, extract:
 
-- **Background/Context:** Planning phase for website redesign project
-- **Key Points Discussed:**
-  - Design team available to start next week
-  - Timeline: 3 weeks for mockups
-- **Decisions Made:** Proceed with design team engagement
-- **Implementation Details:** Project brief to be shared Friday
-```
+**Speakers:** Sarah Chen, Mike Torres
+
+**Topic:** Website Redesign
+- Design team available next week
+- 3-week timeline for mockups
+- Decision: Proceed with design team engagement
 
 **Action Items:**
-```markdown
-- [ ] Send project brief to Mike
-   * Owner: Sarah Chen
-   * Due: Friday
-   * Priority: High
+1. Send project brief to Mike — Owner: Sarah Chen, Due: Friday
+2. Share brand guidelines doc with Sarah — Owner: Mike Torres, Due: Before Friday, Dependency: Needed before design team briefing
 
-- [ ] Share brand guidelines doc with Sarah
-   * Owner: Mike Torres
-   * Due: Before Friday
-   * Dependencies: Needed before design team briefing
-```
+**REQUIRED:** Format the final report using the exact structure in [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md). That file is the authoritative template for all output formatting.
 
-## Resources
+## Reference
 
-- [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md) - Complete report template and structure
+- [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md) — **Authoritative template.** Use this exact structure for all reports.
