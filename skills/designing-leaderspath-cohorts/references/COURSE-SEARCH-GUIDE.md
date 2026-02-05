@@ -21,8 +21,8 @@ Creating courses is expensive—both in design time and in the curriculum-buildi
 
 Look for course curriculum files in these patterns:
 - `**/Courses/*-curriculum.md`
-- `**/_leaderspath/*/course-metadata.md`
-- `**/Cohort Design/Courses/*.md`
+- `**/course-metadata.md`
+- `**/*-curriculum.md`
 
 ### User-Specified Locations
 

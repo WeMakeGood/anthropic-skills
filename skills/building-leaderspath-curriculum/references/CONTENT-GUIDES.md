@@ -511,27 +511,28 @@ Context files provide background knowledge that shapes AI behavior. They're load
 
 ### Complete Course Package
 
-**Course: AI Foundations**
+**Course: AI Foundations** (Course ID: FUND-101-ai-basics)
 
 **Folder structure:**
 ```
-ai-foundations/
+[working-folder]/
 ├── course-tracker.md
 ├── course-metadata.md
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
+├── course-id-log.md
 └── activities/
-    ├── 01-starting-from-zero/
+    ├── FUND-101-ACT-starting-from-zero/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── 02-context-transforms-output/
+    ├── FUND-101-ACT-context-transforms-output/
     │   └── [same structure]
     └── shared-context/
-        └── org-context.md
+        └── CTX005-org-context.md
 ```
 
 **learning-objectives.md:**
@@ -561,7 +562,7 @@ A hands-on exploration of how AI configuration affects output quality—from gen
 Come ready to experiment! You'll be interacting with AI configured in different ways, and the differences will become clear through your own experience.
 ```
 
-**activities/01-starting-from-zero/instructions.md:**
+**activities/FUND-101-ACT-starting-from-zero/instructions.md:**
 ```markdown
 # Activity: Starting from Zero
 
@@ -582,14 +583,14 @@ Claude with minimal configuration—no company context, no specialized instructi
 10 minutes
 ```
 
-**activities/01-starting-from-zero/configuration/system-prompt.md:**
+**activities/FUND-101-ACT-starting-from-zero/configuration/system-prompt.md:**
 ```markdown
 You are a helpful AI assistant.
 
 Respond to user questions to the best of your ability. Be friendly and informative.
 ```
 
-**activities/01-starting-from-zero/configuration/api-settings.md:**
+**activities/FUND-101-ACT-starting-from-zero/configuration/api-settings.md:**
 ```markdown
 # API Settings
 
@@ -605,7 +606,7 @@ None — this activity deliberately omits context to demonstrate baseline behavi
 None
 ```
 
-**activities/01-starting-from-zero/configuration/context-files.md:**
+**activities/FUND-101-ACT-starting-from-zero/configuration/context-files.md:**
 ```markdown
 # Context Files for Activity: Starting from Zero
 

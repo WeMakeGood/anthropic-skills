@@ -58,15 +58,13 @@ For each **activity** (AI sandbox experiment within the course):
 
 **CONTEXT FILE REUSE:** Track context files across activities. Before creating a new context file, check if an existing one serves the purpose. Document reuse in the course tracker.
 
-**ARTIFACT OUTPUT:** Never output content inline. Always save to files:
-- Claude Code: Save to `_leaderspath/[course-name]/` directory
-- Claude AI: Create as artifacts
-- Cowork: Save to assigned working folder
-- If environment unclear: Ask the user
+**ARTIFACT OUTPUT:** Never output content inline. Always save to files in the working folder. No wrapper folders like `_leaderspath/`—output directly to the assigned location.
 
 **SKILL BOUNDARIES:** This skill does NOT create Agent Skills. If an activity requires a new skill, output a prompt for the `/creating-skills` workflow instead.
 
 **PROGRESS TRACKING:** Maintain a course tracker file. Update it after every completed step. This enables session resumption after compaction.
+
+**PROFESSIONAL OBJECTIVITY:** If curriculum source materials contain unclear or contradictory guidance, surface the issue rather than inventing a resolution. Ask for clarification rather than making assumptions.
 
 ---
 
@@ -89,20 +87,60 @@ See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS
 2. [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) — How to create facilitator guides, activity instructions, and Q&A configs
 3. [references/ACTIVITY-TEMPLATE.md](references/ACTIVITY-TEMPLATE.md) — Template for activity configuration and instructions
 4. [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) — Guidelines for curriculum designers
+5. [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) — Course ID, Activity ID, and Context File naming conventions
 
-**Do not proceed until you have read all four reference files.**
+**Do not proceed until you have read all five reference files.**
 
 ---
 
 **THEN: Gather information from the user:**
 
 1. **"Where are your curriculum source documents?"** (file paths or attached files)
-2. **"What is the course name?"** (used for output directory and tracker)
-3. **"Are there existing context files I should reference?"** (for reuse identification)
-4. **"Will this course need a Q&A chatbot?"** (optional helpful assistant)
 
-Determine the output location based on environment:
-- If working directory is accessible → `_leaderspath/[course-name]/`
+2. **"What is the Course ID?"**
+
+   Course ID format: `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`)
+
+   If user provides full ID: validate format, extract topic, level, and slug.
+
+   If user provides partial info, ask for:
+
+   **Topic code:**
+   - `FUND` - Fundamentals (how AI works, capabilities, limitations)
+   - `PRMPT` - Prompting (interaction techniques, effective prompting)
+   - `CTX` - Context & Knowledge (context libraries, organizational knowledge)
+   - `ETH` - Ethics & Responsibility (bias, transparency, responsible use)
+   - `APP` - Applications (writing, research, analysis, communication)
+
+   **Level code:**
+   - `101-199` - Foundations/Beginner
+   - `201-299` - Intermediate
+   - `301-399` - Advanced
+   - `401+` - Specialized/Expert
+
+   **Slug:** Auto-generate from course name (kebab-case, 3-50 chars, starts with letter)
+
+3. **"Do you have an existing course-id-log.md?"** (optional)
+
+   If provided: check for conflicts, find available IDs.
+   If not: skill will output new log entries.
+
+4. **"Are there existing context files I should reference?"** (for reuse identification)
+
+5. **"Do you have an existing context-file-registry.md?"** (optional, for CTX### numbering)
+
+6. **"Will this course need a Q&A chatbot?"** (optional helpful assistant)
+
+**Output Location:**
+
+Output directly to the working folder. No wrapper folders.
+
+- `[working-folder]/course-tracker.md`
+- `[working-folder]/course-metadata.md`
+- `[working-folder]/activities/TOPIC-LEVEL-ACT-slug/`
+
+Determine working folder based on environment:
+- If working directory is accessible → use it directly
 - If Claude AI artifacts available → use artifacts
 - If Cowork session → use assigned working folder
 - If unclear → ask the user
@@ -170,11 +208,12 @@ Document your analysis before proceeding to create files.
 
 ## Phase 1: Initialize Course Tracker
 
-Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
+Create the tracker file at `[working-folder]/course-tracker.md`:
 
 ```markdown
 # Course Tracker: [Course Name]
 
+**Course ID:** [TOPIC-LEVEL-slug]
 **Created:** [date]
 **Last Updated:** [date]
 **Current Phase:** 1 - Initialization
@@ -191,15 +230,17 @@ Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 
 ## Activity Checklist
 
-| # | Activity Name | AI Behavior | Configuration | Instructions | Status |
-|---|---------------|-------------|---------------|--------------|--------|
-| 1 | [name] | [brief description] | [ ] | [ ] | pending |
+| Activity Slug | AI Behavior | Configuration | Instructions | Status |
+|---------------|-------------|---------------|--------------|--------|
+| [slug] | [brief description] | [ ] | [ ] | pending |
+
+Activity folder names use format: `TOPIC-LEVEL-ACT-{slug}`
 
 ## Context Files
 
-| File Name | Used By Activities | Status |
-|-----------|-------------------|--------|
-| [none yet] | | |
+| File ID | Description | Used By Activities | Status |
+|---------|-------------|-------------------|--------|
+| [CTX###-slug.md] | | | |
 
 ## Session Log
 
@@ -210,9 +251,22 @@ Create the tracker file at `_leaderspath/[course-name]/course-tracker.md`:
 
 **Update the tracker after EVERY completed step.** This is non-negotiable.
 
+**Log Course ID Assignment:**
+
+Output a course-id-log entry (append to provided log or create new `course-id-log.md`):
+
+```markdown
+## [TOPIC] - [Topic Name]
+
+| ID | Slug | Title | Date Assigned | Status | Notes |
+|----|------|-------|---------------|--------|-------|
+| TOPIC-LEVEL | slug | Course Title | [date] | Development | |
+```
+
 **GATE:** Before proceeding, write:
+- "Course ID: [TOPIC-LEVEL-slug]"
 - "Course tracker created at: [path]"
-- "Activities identified: [count] — [list names]"
+- "Activities identified: [count] — [list slugs]"
 
 </phase_initialize>
 
@@ -229,6 +283,8 @@ Create `course-metadata.md`:
 ```markdown
 # Course: [Course Name]
 
+**Course ID:** [TOPIC-LEVEL-slug]
+
 ## Overview
 [Brief description of what learners will experience]
 
@@ -242,8 +298,8 @@ Create `course-metadata.md`:
 [List of prior courses or knowledge]
 
 ## Activities Included
-1. [Activity 1 name]
-2. [Activity 2 name]
+1. [TOPIC-LEVEL-ACT-slug] — [Activity name]
+2. [TOPIC-LEVEL-ACT-slug] — [Activity name]
 ...
 ```
 
@@ -312,6 +368,8 @@ Create `learner-overview.md`:
 
 **Note:** This is context-setting, not teaching. Concepts are delivered by the facilitator.
 
+**NATURAL PROSE:** This content is learner-facing. Write like a facilitator, not an AI assistant. Avoid: "delve," "explore," "it's important to note," formulaic structures like "Not only X but Y." Use simple verbs ("is" not "serves as"), be concrete, and match the voice of actual learning facilitators.
+
 **Update tracker:** Mark Learner Overview complete.
 
 ### 2e: Q&A Chatbot Config (OPTIONAL)
@@ -372,9 +430,19 @@ clear, and supportive.
 
 Work through activities sequentially. For each activity:
 
+### Activity Naming
+
+Generate the activity folder name using the Course ID:
+
+1. Take the activity name: "Starting from Zero"
+2. Convert to slug: `starting-from-zero`
+3. Prepend Course ID + ACT: `FUND-101-ACT-starting-from-zero`
+
+Activity folder: `activities/FUND-101-ACT-starting-from-zero/`
+
 ### 3a: Create Activity Configuration
 
-Create the `activities/##-[slug]/configuration/` folder with:
+Create the `activities/TOPIC-LEVEL-ACT-[slug]/configuration/` folder with:
 
 **system-prompt.md** — The complete system prompt for the AI sandbox
 - What AI behavior should learners experience?
@@ -403,20 +471,41 @@ Create the `activities/##-[slug]/configuration/` folder with:
 ```markdown
 # Context Files for Activity: [Name]
 
-## Course-Level Context
-- [shared-context/filename.md] — [why needed]
+## Shared Global Context
+- [CTX###-slug.md] — [why needed]
+
+## Course-Specific Context
+- [CTX###-slug.md] — [why needed]
 
 ## Activity-Specific Context
 - None (or list files in this activity's folder)
 ```
 
+Reference context files by filename only (`CTX###-slug.md`), not by path.
+
 See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for system prompt patterns.
 
 **Update tracker:** Mark Configuration complete for this activity.
 
+### Context File Naming (if creating new context files)
+
+If the activity needs a new context file:
+
+1. Check if context-file-registry.md was provided
+2. If yes: find next available CTX number
+3. If no: start from CTX001 or next available in the course
+
+**Filename format:** `CTX###-slug.md`
+
+**Location:**
+- Shared global: User specifies (outside working folder)
+- Course-specific: `activities/shared-context/CTX###-slug.md`
+
+Output registry entries for any new context files created.
+
 ### 3b: Create Activity Instructions
 
-Create `activities/##-[slug]/instructions.md`:
+Create `activities/TOPIC-LEVEL-ACT-[slug]/instructions.md`:
 
 ```markdown
 # Activity: [Name]
@@ -442,6 +531,8 @@ Create `activities/##-[slug]/instructions.md`:
 - Include learning objectives (those are at course level)
 - Explain "The Principle" (facilitator synthesizes after)
 
+**NATURAL PROSE:** Activity instructions are learner-facing. Write direct, conversational guidance. Avoid AI-like phrasing ("Let's explore...", "You'll discover..."). Use imperative voice: "Ask:", "Try:", "Notice:".
+
 **Update tracker:** Mark Instructions complete, update activity status to "complete."
 
 **Present completed activity to user for review before proceeding to next activity.**
@@ -466,26 +557,34 @@ After all content is complete:
 3. **Verify flow** — Activities follow logical progression in facilitator guide
 4. **Calculate totals** — Confirm duration estimates add up
 
+**WordPress Import Mapping:**
+
+When importing to WordPress LeadersPath plugin:
+- Course post slug: `TOPIC-LEVEL-slug` (e.g., `fund-101-ai-basics`)
+- Activity post slug: `TOPIC-LEVEL-ACT-slug` (e.g., `fund-101-act-starting-from-zero`)
+- Context file post slug: `CTX###-slug` (e.g., `ctx001-org-identity`)
+
 **Final deliverables:**
 ```
-_leaderspath/[course-name]/
+[working-folder]/
 ├── course-tracker.md
 ├── course-metadata.md
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
-├── qa-chatbot-config.md          # Optional
+├── qa-chatbot-config.md              # Optional
+├── course-id-log.md                  # New/updated entries
 └── activities/
-    ├── 01-[slug]/
+    ├── TOPIC-LEVEL-ACT-first-activity/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── 02-[slug]/
+    ├── TOPIC-LEVEL-ACT-second-activity/
     │   └── [same structure]
     └── shared-context/
-        └── [context-files].md
+        └── CTX###-slug.md
 ```
 
 **GATE:** Before declaring complete, write:
@@ -501,7 +600,7 @@ _leaderspath/[course-name]/
 
 ## Handling Skill Requirements
 
-If an activity requires an Agent Skill that doesn't exist: do NOT create it. Instead, save a skill request to `_leaderspath/[course-name]/skill-requests/[skill-name]-request.md` with activity name, skill purpose, why needed, inputs, and outputs. Reference `/creating-skills` for the actual skill creation.
+If an activity requires an Agent Skill that doesn't exist: do NOT create it. Instead, save a skill request to `skill-requests/[skill-name]-request.md` with activity name, skill purpose, why needed, inputs, and outputs. Reference `/creating-skills` for the actual skill creation.
 
 ---
 
@@ -531,6 +630,36 @@ See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for complete ex
 - Activity instructions (focused on experimentation)
 - System prompt patterns (bare, role-constrained, context-rich, deliberately flawed)
 - Course Q&A bot configuration
+
+**Quick Example — Naming Structure:**
+
+```
+Course ID: FUND-101-ai-basics
+
+[working-folder]/
+├── course-tracker.md
+├── course-metadata.md
+├── learning-objectives.md
+├── facilitator-guide.md
+├── learner-overview.md
+├── course-id-log.md
+└── activities/
+    ├── FUND-101-ACT-starting-from-zero/
+    │   ├── configuration/
+    │   │   ├── system-prompt.md
+    │   │   ├── api-settings.md
+    │   │   └── context-files.md
+    │   └── instructions.md
+    ├── FUND-101-ACT-context-transforms/
+    │   └── [same structure]
+    └── shared-context/
+        └── CTX005-foundations-terminology.md
+
+Context files referenced:
+- CTX001-org-identity.md (shared global, provided by user)
+- CTX002-brand-voice.md (shared global, provided by user)
+- CTX005-foundations-terminology.md (course-specific, created by skill)
+```
 
 **Quick Example — Activity Concept to Sandbox Configuration:**
 

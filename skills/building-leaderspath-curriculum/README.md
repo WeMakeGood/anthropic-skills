@@ -71,25 +71,28 @@ When providing source material, indicate what type:
 ## Output Structure
 
 ```
-_leaderspath/[course-name]/
+[working-folder]/
 ├── course-tracker.md          # Progress tracking, decisions log
 ├── course-metadata.md         # Course-level metadata
 ├── learning-objectives.md     # Course-level learning objectives
 ├── facilitator-guide.md       # PRIMARY DELIVERABLE
 ├── learner-overview.md        # Context for learners
 ├── qa-chatbot-config.md       # Optional Q&A assistant
+├── course-id-log.md           # New/updated Course ID entries
 └── activities/
-    ├── 01-[slug]/
+    ├── TOPIC-LEVEL-ACT-first-activity/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── 02-[slug]/
+    ├── TOPIC-LEVEL-ACT-second-activity/
     │   └── [same structure]
     └── shared-context/
-        └── [context-files].md
+        └── CTX###-slug.md
 ```
+
+Activity folders use the naming convention `TOPIC-LEVEL-ACT-slug` (e.g., `FUND-101-ACT-starting-from-zero`). See [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) for complete naming conventions.
 
 ## Activity Types
 
@@ -122,6 +125,7 @@ Multiple activities can share context files. The skill tracks reuse opportunitie
 | [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) | Content creation patterns and examples |
 | [references/ACTIVITY-TEMPLATE.md](references/ACTIVITY-TEMPLATE.md) | Template for activity configuration |
 | [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) | Guidelines for curriculum designers |
+| [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) | Course ID, Activity ID, and Context File naming |
 
 ## Platform Notes
 

@@ -2,9 +2,35 @@
 
 This document explains how to write effective curriculum prompts that work well with `building-leaderspath-curriculum`.
 
+## Course ID Assignment
+
+Every course curriculum prompt must include a Course ID in the format `TOPIC-LEVEL-slug`.
+
+**Topic codes:**
+- `FUND` - Fundamentals (how AI works, capabilities, limitations)
+- `PRMPT` - Prompting (interaction techniques, effective prompting)
+- `CTX` - Context & Knowledge (context libraries, organizational knowledge)
+- `ETH` - Ethics & Responsibility (bias, transparency, responsible use)
+- `APP` - Applications (writing, research, analysis, communication)
+
+**Level codes:**
+- `101-199` - Foundations/Beginner
+- `201-299` - Intermediate
+- `301-399` - Advanced
+- `401+` - Specialized/Expert
+
+**Slug rules:** kebab-case, 3-50 characters, starts with letter
+
+**Example:** "AI Foundations" for beginners → `FUND-101-ai-foundations`
+
+If a course doesn't fit neatly into a topic, use the closest match or ask the user.
+
+---
+
 ## The Purpose of Curriculum Prompts
 
 Curriculum prompts are **design documents** that tell the curriculum-building skill what to create. They specify:
+- Course ID (TOPIC-LEVEL-slug)
 - What learners should achieve (learning objectives)
 - What experiences they should have
 - What source materials to use
@@ -233,7 +259,8 @@ The good version grounds in source material. The poor version invents explanatio
 
 ## Complete Example
 
-See `01-AI-Foundations-curriculum.md` for a complete example that demonstrates:
+See `FUND-101-ai-foundations-curriculum.md` for a complete example that demonstrates:
+- Course ID assignment (FUND-101-ai-foundations)
 - Clear learning objectives at course level
 - Source document references
 - Q&A bot specification

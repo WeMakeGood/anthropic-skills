@@ -4,10 +4,24 @@ This template defines the structure for Activity configuration and instructions.
 
 ---
 
+## Activity Naming
+
+Activity folders use the naming convention: `TOPIC-LEVEL-ACT-slug`
+
+- **TOPIC-LEVEL:** Matches the parent course (e.g., `FUND-101`)
+- **ACT:** Literal string indicating this is an activity
+- **slug:** Kebab-case activity name (e.g., `starting-from-zero`)
+
+**Example:** Course `FUND-101-ai-basics` with activity "Starting from Zero" → `FUND-101-ACT-starting-from-zero`
+
+See [NAMING-SYSTEM.md](NAMING-SYSTEM.md) for complete naming conventions.
+
+---
+
 ## Activity Folder Structure
 
 ```
-activities/##-[activity-slug]/
+activities/TOPIC-LEVEL-ACT-slug/
 ├── configuration/
 │   ├── system-prompt.md      # AI sandbox configuration
 │   ├── api-settings.md       # Model, tokens, temperature
@@ -130,11 +144,11 @@ See [CONTENT-GUIDES.md](CONTENT-GUIDES.md) for detailed patterns and examples.
 
 ## Example: Complete Activity
 
-**Activity: Starting from Zero**
+**Activity: Starting from Zero** (in course FUND-101-ai-basics)
 
 **Folder structure:**
 ```
-activities/01-starting-from-zero/
+activities/FUND-101-ACT-starting-from-zero/
 ├── configuration/
 │   ├── system-prompt.md
 │   ├── api-settings.md

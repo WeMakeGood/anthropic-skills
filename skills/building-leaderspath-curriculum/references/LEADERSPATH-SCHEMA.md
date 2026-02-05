@@ -205,6 +205,17 @@ When curriculum is imported to WordPress:
 
 ---
 
+## Naming System
+
+See [NAMING-SYSTEM.md](NAMING-SYSTEM.md) for complete naming conventions.
+
+**Quick reference:**
+- **Course ID:** `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`)
+- **Activity ID:** `TOPIC-LEVEL-ACT-slug` (e.g., `FUND-101-ACT-starting-from-zero`)
+- **Context File:** `CTX###-slug.md` (e.g., `CTX001-org-identity.md`)
+
+---
+
 ## Output File Formats
 
 When creating curriculum content, output in these formats:
@@ -212,30 +223,33 @@ When creating curriculum content, output in these formats:
 ### Folder Structure
 
 ```
-_leaderspath/[course-name]/
+[working-folder]/
 ├── course-tracker.md
 ├── course-metadata.md
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
-├── qa-chatbot-config.md          # Optional
+├── qa-chatbot-config.md              # Optional
+├── course-id-log.md                  # New/updated entries
 └── activities/
-    ├── 01-[slug]/
+    ├── TOPIC-LEVEL-ACT-first-activity/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── 02-[slug]/
+    ├── TOPIC-LEVEL-ACT-second-activity/
     │   └── [same structure]
     └── shared-context/
-        └── [context-files].md
+        └── CTX###-slug.md
 ```
 
 ### Course Metadata (`course-metadata.md`)
 
 ```markdown
 # Course: [Title]
+
+**Course ID:** [TOPIC-LEVEL-slug]
 
 ## Overview
 [Brief description of what learners will experience]
@@ -250,8 +264,8 @@ _leaderspath/[course-name]/
 [List of prior courses or knowledge]
 
 ## Activities Included
-1. [Activity 1 name]
-2. [Activity 2 name]
+1. [TOPIC-LEVEL-ACT-slug] — [Activity name]
+2. [TOPIC-LEVEL-ACT-slug] — [Activity name]
 ...
 ```
 

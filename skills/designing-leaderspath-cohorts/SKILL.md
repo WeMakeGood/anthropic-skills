@@ -48,6 +48,8 @@ Source Materials → [THIS SKILL] → Cohort Design + Course Curriculum Prompts
 
 **PROGRESS TRACKING:** Maintain a cohort tracker file. Update after every completed step.
 
+**PROFESSIONAL OBJECTIVITY:** If source materials contain unclear or contradictory learning goals, surface the issue rather than inventing a resolution. Ask for clarification rather than making assumptions.
+
 ---
 
 ## Additional Resources
@@ -55,6 +57,7 @@ Source Materials → [THIS SKILL] → Cohort Design + Course Curriculum Prompts
 For detailed guidance, see:
 - [references/CURRICULUM-PROMPT-GUIDE.md](references/CURRICULUM-PROMPT-GUIDE.md) — How to write effective course curriculum prompts
 - [references/COURSE-SEARCH-GUIDE.md](references/COURSE-SEARCH-GUIDE.md) — How to search for and evaluate existing courses
+- [../building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) — Course ID, Activity ID, and Context File naming conventions
 
 ---
 
@@ -63,16 +66,45 @@ For detailed guidance, see:
 **FIRST: Gather information from the user:**
 
 1. **"Where are your source materials?"** (interview transcripts, design docs, organizational materials)
-2. **"What is the cohort name?"** (used for output directory)
+2. **"What is the cohort name?"** (used for tracker and curriculum files)
 3. **"Who is the target audience?"** (nonprofit leaders, developers, executives, etc.)
 4. **"What is the desired duration?"** (number of sessions, weeks, hours)
 5. **"Are there existing courses I should check for reuse?"** (file paths or course library location)
+6. **"Do you have an existing course-id-log.md?"** (optional)
+
+   If provided:
+   - Read to check existing Course IDs and avoid conflicts
+   - Note which topic-level combinations are already used
+
+   If not provided:
+   - Skill will create a new log as part of output
+
+**Topic and Level Code Reference** (for assigning Course IDs):
+
+When assigning Course IDs in Phase 4, use these codes:
+
+**Topic codes:**
+- `FUND` - Fundamentals (how AI works, capabilities, limitations)
+- `PRMPT` - Prompting (interaction techniques, effective prompting)
+- `CTX` - Context & Knowledge (context libraries, organizational knowledge)
+- `ETH` - Ethics & Responsibility (bias, transparency, responsible use)
+- `APP` - Applications (writing, research, analysis, communication)
+
+**Level codes:**
+- `101-199` - Foundations/Beginner
+- `201-299` - Intermediate
+- `301-399` - Advanced
+- `401+` - Specialized/Expert
+
+If a course doesn't fit neatly, use the closest match or ask user.
 
 **THEN: Identify working folder:**
 - Look for a mounted/selected folder in the environment
 - If Cowork: use assigned working folder
 - If Claude Code: use current directory
 - If unclear: ask the user
+
+Output directly to the working folder. No wrapper folders.
 
 ---
 
@@ -108,7 +140,7 @@ Phase 5: Validate and Finalize
 
 ### 1a: Create Cohort Tracker
 
-Create `[cohort-name]/cohort-tracker.md`:
+Create `cohort-tracker.md` in the working folder:
 
 ```markdown
 # Cohort Tracker: [Cohort Name]
@@ -127,9 +159,9 @@ Create `[cohort-name]/cohort-tracker.md`:
 2. ...
 
 ## Course Plan
-| # | Course | Source | Status |
-|---|--------|--------|--------|
-| 1 | [name] | [existing/new] | [ ] |
+| Course ID | Course Name | Source | Status |
+|-----------|-------------|--------|--------|
+| TOPIC-LEVEL-slug | [name] | [existing/new] | [ ] |
 
 ## Session Log
 ### [date] - Session 1
@@ -215,7 +247,7 @@ Create `[cohort-name]/course-reuse-report.md`:
 
 ### 3a: Create Cohort Curriculum
 
-Create `[cohort-name]/cohort-curriculum.md`:
+Create `cohort-curriculum.md` in the working folder:
 
 ```markdown
 # Cohort Curriculum: [Cohort Name]
@@ -241,10 +273,10 @@ After completing this cohort, learners will be able to:
 
 ## Course Sequence
 
-| Week | Course | Focus | Source |
-|------|--------|-------|--------|
-| 1 | [Course Name] | [Brief focus] | [existing/new] |
-| 2 | [Course Name] | [Brief focus] | [existing/new] |
+| Week | Course ID | Course Name | Focus | Source |
+|------|-----------|-------------|-------|--------|
+| 1 | FUND-101-ai-basics | AI Foundations | Conceptual grounding | new |
+| 2 | PRMPT-101-intro-prompting | Introduction to Prompting | Prompting basics | new |
 ...
 
 ---
@@ -252,16 +284,16 @@ After completing this cohort, learners will be able to:
 ## Demo Context (if applicable)
 
 **Organization:** [Name]
-**Location:** [path]
+**Context files:** [list CTX###-slug.md files]
 **Used in:** [which courses]
 
 ---
 
 ## Curriculum Files
 
-| Course | File |
-|--------|------|
-| [Name] | `Courses/##-[slug]-curriculum.md` |
+| Course ID | File |
+|-----------|------|
+| FUND-101-ai-basics | `Courses/FUND-101-ai-basics-curriculum.md` |
 ...
 
 ---
@@ -269,7 +301,7 @@ After completing this cohort, learners will be able to:
 ## Using building-leaderspath-curriculum
 
 1. Invoke the skill
-2. Provide the course curriculum file
+2. Provide the course curriculum file and Course ID
 3. Provide any referenced context files
 4. The skill creates facilitator guides, activities, learner materials
 
@@ -290,12 +322,26 @@ Work course-by-course for best results.
 
 For each NEW course (not reused), create a curriculum prompt file.
 
+### Assign Course ID
+
+For each new course:
+
+1. **Select Topic Code:** FUND, PRMPT, CTX, ETH, or APP (closest match)
+2. **Select Level:** 101-199 (beginner), 201-299 (intermediate), 301-399 (advanced), 401+ (specialized)
+3. **Generate Slug:** From course name, kebab-case, 3-50 chars
+
+**Example:** "AI Foundations" for beginners → `FUND-101-ai-foundations`
+
+If course-id-log.md was provided, check for conflicts before assigning.
+
 ### Course Curriculum Prompt Template
 
-Create `[cohort-name]/Courses/##-[slug]-curriculum.md`:
+Create `Courses/TOPIC-LEVEL-slug-curriculum.md`:
 
 ```markdown
-# Course [#]: [Course Name] — Curriculum Prompt
+# Course: [Course Name] — Curriculum Prompt
+
+**Course ID:** [TOPIC-LEVEL-slug]
 
 ## Course Overview
 
@@ -390,10 +436,23 @@ After completing this course, learners will be able to:
 
 **Update tracker:** Mark each course curriculum prompt complete.
 
+**Log Course ID assignments:**
+
+After creating each curriculum prompt, output a course-id-log entry (append to provided log or create new `course-id-log.md`):
+
+```markdown
+## [TOPIC] - [Topic Name]
+
+| ID | Slug | Title | Date Assigned | Status | Notes |
+|----|------|-------|---------------|--------|-------|
+| TOPIC-LEVEL | slug | Course Title | [date] | Design | Part of [Cohort Name] |
+```
+
 **Present each course for review before proceeding to next.**
 
 **GATE:** Before proceeding to Phase 5, write:
-- "Course curriculum prompts created: [list files]"
+- "Course curriculum prompts created: [list files with Course IDs]"
+- "Course IDs logged: [count]"
 - "All courses approved: [yes/pending]"
 </phase_prompts>
 
@@ -411,13 +470,14 @@ After all content is complete:
 
 **Final deliverables:**
 ```
-[cohort-name]/
+[working-folder]/
 ├── cohort-tracker.md
 ├── cohort-curriculum.md
 ├── course-reuse-report.md
+├── course-id-log.md              # New/updated entries
 └── Courses/
-    ├── 01-[slug]-curriculum.md
-    ├── 02-[slug]-curriculum.md
+    ├── FUND-101-ai-basics-curriculum.md
+    ├── PRMPT-101-intro-prompting-curriculum.md
     └── ...
 ```
 
@@ -492,16 +552,18 @@ Recommendation: Create 6 new courses
 ```markdown
 ## Course Sequence
 
-| Week | Course | Focus | Source |
-|------|--------|-------|--------|
-| 1 | AI Foundations | Conceptual grounding | new |
-| 2 | Behavioral Training | Sycophancy, prose quality | new |
-| 3 | Context Libraries | Organizational knowledge | new |
+| Week | Course ID | Course Name | Focus | Source |
+|------|-----------|-------------|-------|--------|
+| 1 | FUND-101-ai-foundations | AI Foundations | Conceptual grounding | new |
+| 2 | FUND-102-behavioral-training | Behavioral Training | Sycophancy, prose quality | new |
+| 3 | CTX-101-context-libraries | Context Libraries | Organizational knowledge | new |
 ```
 
 **Phase 4 output (course curriculum prompt excerpt):**
 ```markdown
-# Course 1: AI Foundations — Curriculum Prompt
+# Course: AI Foundations — Curriculum Prompt
+
+**Course ID:** FUND-101-ai-foundations
 
 ## Course Learning Objectives
 
