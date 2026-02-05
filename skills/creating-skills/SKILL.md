@@ -5,6 +5,13 @@ description: Guides creation of new Agent Skills from prompts, context files, an
 
 # Creating Skills
 
+<purpose>
+Claude's default when creating skills is to be verbose—adding explanations, options, and
+context that waste tokens. This skill exists because effective skills are concise, structured,
+and grounded in concrete examples. The skill enforces these patterns by requiring reference
+doc reading, validation scripts, and explicit workflow phases with commitment gates.
+</purpose>
+
 This skill guides you through creating well-structured Agent Skills from prompts, documentation, or requirements.
 
 ## Critical Rules for All Skills
@@ -59,9 +66,11 @@ Skill Creation Progress:
 - [ ] Phase 4: Initialize skill structure
 - [ ] Phase 5: Draft the skill
 - [ ] Phase 6: Test and validate
-- [ ] Phase 7: Package and finalize
+- [ ] Phase 7: Create README
+- [ ] Phase 8: Package and finalize
 ```
 
+<phase_gather>
 ### Phase 1: Gather Requirements
 
 Ask the user for:
@@ -89,6 +98,13 @@ Name rules:
 - Cannot start or end with hyphen
 - Cannot contain consecutive hyphens (`--`)
 
+**GATE:** Before proceeding, write:
+- "Skill name: [proposed-name]"
+- "Purpose: [one sentence]"
+- "Source materials: [list or 'none - creating from scratch']"
+</phase_gather>
+
+<phase_reference>
 ### Phase 2: Read Reference Documentation
 
 **This step is mandatory.** Do not skip it.
@@ -101,8 +117,12 @@ Key points to internalize:
 - Only add context you (Claude) don't already have
 - Description must be third person with trigger conditions
 - Keep SKILL.md under 500 lines; use references/ folder for more
-- Examples must be concrete, not abstract placeholders
+- Examples must show structure/format, not locked-in details
 
+**GATE:** Before proceeding, confirm: "I have read SPEC.md and BEST-PRACTICES.md."
+</phase_reference>
+
+<phase_analyze>
 ### Phase 3: Analyze Source Content
 
 If converting existing content (prompts, docs):
@@ -123,6 +143,13 @@ If converting existing content (prompts, docs):
    - Multiple domains? → Split into references/ files
    - Utility operations? → Add scripts/
 
+**GATE:** Before proceeding, write:
+- "Reusable patterns: [list]"
+- "Content to remove: [list or 'N/A - no source content']"
+- "Structure: [single file / split into references]"
+</phase_analyze>
+
+<phase_init>
 ### Phase 4: Initialize Skill Structure
 
 Use the init script to create the standard directory structure:
@@ -139,7 +166,9 @@ skills/<skill-name>/
 │   └── REFERENCE.md   # Placeholder reference file
 └── scripts/           # For utility scripts
 ```
+</phase_init>
 
+<phase_draft>
 ### Phase 5: Draft the Skill
 
 #### Write the Frontmatter
@@ -208,7 +237,7 @@ What DOESN'T work:
 </failed_attempts>
 
 ## Examples
-[Concrete input/output pairs - NOT placeholders]
+[Show structure/format with generic details - avoid company names, specific numbers, or domain content that could bleed into unrelated outputs]
 
 ## Additional Resources
 [Links to files in references/ folder if needed]
@@ -223,7 +252,7 @@ Writing guidelines:
 - Lead with Quick Start (most common case)
 - Be concise - you're smart, skip obvious explanations
 - Use appropriate freedom level (high/medium/low)
-- Include concrete examples with real values
+- Include examples showing structure/format (avoid locked-in details that bleed through)
 - Link to references/ files for detailed content
 - **For skills producing reports/documents**: Add an Output Requirements section specifying file output vs inline
 
@@ -262,6 +291,13 @@ Every skill MUST have a Critical Rules section near the top. Include rules relev
 **STOP.** Get explicit user confirmation before executing.
 ```
 
+**GATE:** Before proceeding to testing, confirm:
+- "SKILL.md drafted with: [list sections included]"
+- "Description is third-person with triggers: [yes/no]"
+- "Critical Rules section included: [yes/no]"
+</phase_draft>
+
+<phase_test>
 ### Phase 6: Test and Validate
 
 Testing happens in two stages: **structural validation** (automated scripts) and **functional testing** (parallel session testing with real prompts).
@@ -361,10 +397,74 @@ See [references/BEST-PRACTICES.md](references/BEST-PRACTICES.md) for detailed fu
 6. Only proceed when both stages pass
 ```
 
-### Phase 7: Package and Finalize
+**GATE:** Before proceeding, confirm:
+- "Validation scripts pass: [yes/no]"
+- "Functional tests completed: [list test types run]"
+- "Issues found and fixed: [list or 'none']"
+</phase_test>
+
+<phase_readme>
+### Phase 7: Create README
+
+Create a user-facing README.md in the skill directory. This file helps users understand how to use the skill when browsing the GitHub repository.
+
+**README.md structure:**
+
+```markdown
+# [Skill Title]
+
+[One sentence describing what this skill does.]
+
+## When to Use
+
+Use this skill when you need to:
+- [Primary use case]
+- [Secondary use case]
+- [Additional use case if applicable]
+
+## How to Invoke
+
+Say things like:
+- "[Example trigger phrase 1]"
+- "[Example trigger phrase 2]"
+- "[Example trigger phrase 3]"
+
+## What You'll Need
+
+- [Required input 1 - e.g., "A transcript file (any format: SRT, VTT, plain text)"]
+- [Required input 2 if applicable]
+- [Optional input with "(optional)" suffix]
+
+## What You'll Get
+
+[Describe the output - what file(s) are created, what format, where they're saved.]
+
+## Example
+
+**Input:** [Brief description of example input]
+
+**Output:** [Brief description of what the skill produces]
+
+## Tips
+
+- [Helpful tip 1 for getting better results]
+- [Helpful tip 2]
+```
+
+**Guidelines:**
+- Write for humans browsing GitHub, not for Claude
+- Keep it concise - users should understand the skill in 30 seconds
+- Use concrete examples from the skill's actual capabilities
+- "How to Invoke" should use natural language triggers, not slash commands
+- Don't duplicate the full SKILL.md content - this is a quick reference
+</phase_readme>
+
+<phase_finalize>
+### Phase 8: Package and Finalize
 
 Present the complete skill to the user:
 - Show SKILL.md content
+- Show README.md content
 - Explain any additional files
 - Note any trade-offs or decisions made
 
@@ -378,6 +478,7 @@ This creates a zip file ready for:
 - Upload to Claude.ai (Settings > Features > Skills)
 - Distribution to other users
 - Extraction to `~/.claude/skills/` for local use
+</phase_finalize>
 
 ## File Reference
 
@@ -395,13 +496,26 @@ This skill includes:
 | [scripts/dry-run.py](scripts/dry-run.py) | Full loading simulation |
 | [scripts/package_skill.py](scripts/package_skill.py) | Package skill for distribution |
 
+<failed_attempts>
+## What DOESN'T Work
+
+- **Vague descriptions:** "Helps with documents" won't trigger. Include specific trigger conditions: "Use when working with X" or "Activates when Y is provided."
+
+- **Locked-in example details:** Examples should show structure/format, not specific content that gets copied into unrelated outputs. Show the *shape* of output without company names, specific numbers, or domain details that bleed through.
+
+- **Skipping reference docs:** Creating skills without reading SPEC.md and BEST-PRACTICES.md produces verbose, poorly-structured skills that waste tokens.
+
+- **Long SKILL.md files:** Over 500 lines means you're including content that should be in references/. Split by domain or move detailed reference content.
+
+- **Weak constraint language:** "You might consider" and "feel free to" get ignored. Use "REQUIRED," "Do not proceed until," and commitment gates.
+
+- **Missing behavioral guardrails:** Skills without Critical Rules sections produce hallucinated content and skip verification steps.
+</failed_attempts>
+
 ## Common Issues
 
 **"Description too vague"**
 → Add specific trigger conditions: "Use when working with X" or "Use for Y tasks"
-
-**"Examples are abstract"**
-→ Replace `[placeholder]` with actual values. Show real input → real output.
 
 **"SKILL.md too long"**
 → Move detailed content to references/ folder or split by domain.

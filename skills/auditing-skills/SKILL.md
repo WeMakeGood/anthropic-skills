@@ -35,6 +35,7 @@ and produces actionable improvement recommendations.
 
 **REQUIRED:** Read ALL files in the skill directory:
 - SKILL.md (required)
+- README.md (if present)
 - All files in references/ (if present)
 - All scripts in scripts/ (if present)
 
@@ -61,6 +62,7 @@ Evaluate the skill against each criterion. Mark as:
 | **Description third-person** | | No "I" or "you" |
 | **Description has triggers** | | "Use when..." or "Activates when..." |
 | **Under 500 lines** | | Or properly split into references/ |
+| **README.md present** | | User-facing documentation for GitHub |
 
 #### Behavioral Guardrails Checklist
 
@@ -201,6 +203,7 @@ When multiple issues exist, prioritize:
    - Vague examples
 
 4. **Low (polish):**
+   - Missing README.md for GitHub users
    - Could add more trigger keywords to description
    - Could improve organization
 
