@@ -5,6 +5,13 @@ description: Builds AI context libraries from organizational source documents. C
 
 # Building Context Libraries
 
+<purpose>
+Claude's default behavior when given organizational documents is to summarize, paraphrase,
+and fill gaps with plausible-sounding information. This skill exists because context
+libraries require the opposite: rigorous verification, transformation (not transcription),
+and explicit gaps rather than invented content. Every fact must trace to a source.
+</purpose>
+
 Build structured context libraries that encode organizational knowledge for AI agents.
 
 ## Core Purpose
@@ -97,6 +104,7 @@ Store these as `SOURCE_PATH`, `OUTPUT_PATH`, and `AGENTS`.
 
 ## Build Process
 
+<phase_index>
 ### Phase 1: Create Source Index
 
 **Run the indexing script to create the source manifest:**
@@ -143,10 +151,18 @@ This creates `<OUTPUT_PATH>/source-index.md` — your working checklist for the 
 - Read files without updating the index
 - Proceed to Phase 2 until every file is marked read
 
-**STOP. Get user approval on completed source index before proceeding.**
+**GATE:** Before requesting approval, write:
+- "Source index complete: [N] files catalogued"
+- "Files needing synthesis: [list or 'none']"
+- "Conflicts found: [list or 'none']"
+- "Gaps found: [list or 'none']"
+
+**STOP.** Get user approval on completed source index before proceeding.
+</phase_index>
 
 ---
 
+<phase_synthesize>
 ### Phase 2: Synthesize Complex Sources
 
 The script marks files as `needs-synthesis` based on file type, but this is only a **preliminary classification**. You must evaluate each file before processing.
@@ -243,12 +259,19 @@ The first example is useless to an LLM agent. The second is actionable guidance.
 1. Update source index status to `ready`
 2. Present completed index showing all syntheses to user
 
-**STOP. Get user approval on ALL syntheses before proposing structure.**
+**GATE:** Before requesting approval, write:
+- "Synthesis complete: [N] files synthesized"
+- "All synthesis files saved to: [list paths]"
+- "Source index updated with working source paths"
+
+**STOP.** Get user approval on ALL syntheses before proposing structure.
 
 **Session break point:** After Phase 2, the source index and syntheses can be used to resume in a new session.
+</phase_synthesize>
 
 ---
 
+<phase_propose>
 ### Phase 3: Propose Structure
 
 Create `<OUTPUT_PATH>/proposal.md` — a structural plan describing WHAT you will build, not the content itself.
@@ -284,10 +307,17 @@ Every fact in the proposal must come from working sources. If you haven't read i
 - 20,000 tokens maximum per agent, but include all useful verified content
 - Do NOT compress to hit a low number — sparse modules are worse than rich ones
 
-**STOP. Get explicit user approval before building.**
+**GATE:** Before requesting approval, write:
+- "Proposal saved to: [path]"
+- "Modules proposed: [count] foundation, [count] shared, [count] specialized"
+- "Blocking gaps: [list or 'none']"
+
+**STOP.** Get explicit user approval before building.
+</phase_propose>
 
 ---
 
+<phase_build>
 ### Phase 4: Build Modules
 
 Create folder structure:
@@ -395,9 +425,11 @@ If any facts are flagged as unverified:
 - Single source of truth: each fact in ONE module only
 - Explicit cross-references: `See [Module Name]` for related info
 - No duplication
+</phase_build>
 
 ---
 
+<phase_agents>
 ### Phase 5: Create Agent Definitions
 
 For each agent, create a definition in `<OUTPUT_PATH>/agents/`:
@@ -407,9 +439,11 @@ For each agent, create a definition in `<OUTPUT_PATH>/agents/`:
 - Add domain-specific guidance if needed (beyond standard guardrails)
 
 **Do not duplicate guardrail content in agent definitions.** The standard guardrail modules handle anti-hallucination, epistemic honesty, professional objectivity, and natural prose. Agent definitions should only add domain-specific extensions.
+</phase_agents>
 
 ---
 
+<phase_validate>
 ### Phase 6: Validate
 
 Run validation scripts:
@@ -426,7 +460,14 @@ Check for:
 
 Update source index status to `complete`.
 
-**STOP. Get user approval on final library.**
+**GATE:** Before requesting approval, write:
+- "Validation complete"
+- "Cross-reference issues: [count or 'none']"
+- "Token budget status: [all agents under 20K / issues found]"
+- "Source index status: complete"
+
+**STOP.** Get user approval on final library.
+</phase_validate>
 
 ---
 
@@ -453,6 +494,28 @@ Update source index status to `complete`.
 **Reference, don't repeat.** Each fact exists in one module only. Cross-reference instead of duplicating.
 
 **Principles over prescriptions.** Extract decision frameworks, not locked-in methodologies.
+
+---
+
+<failed_attempts>
+## What DOESN'T Work
+
+- **Transcribing instead of synthesizing:** Copying quotes with "they said X" produces content useless to LLM agents. Extract the *meaning*, state it directly. If your synthesis reads like the source document with quotation marks, start over.
+
+- **Filling gaps with plausible content:** A thin module with verified facts is better than a rich module with hallucinations. Leave gaps as gaps. Report them. Do not invent.
+
+- **Writing from memory:** Even if you read sources in Phase 1, re-read them in the same turn you write modules. Memory blurs; sources don't. Without re-reading, you will write confident-sounding falsehoods.
+
+- **Proposing content in Phase 3:** The proposal describes structure, not organizational information. If you're writing "The organization focuses on..." or "Key services include...", stop — that's content, not structure.
+
+- **Compressing to hit token targets:** Do NOT artificially compress to "save tokens." Include all useful verified content. Sparse modules that lack context are worse than rich modules that give agents what they need.
+
+- **Skipping source index updates:** If you don't mark files as read in the index, you lose track of what's been processed. Update the index after every file read, every synthesis completed, every status change.
+
+- **Preserving time spans:** "25 years of experience" becomes wrong the next year. Convert to dates: "since 1999" or "founded in 1999." Dates remain accurate; time spans decay.
+
+- **Batching syntheses:** Do not read three files and then write three syntheses. Complete each synthesis and update the source index before starting the next. Sequential completion with index updates prevents drift and lost work.
+</failed_attempts>
 
 ---
 
