@@ -120,6 +120,24 @@ The skill gracefully handles degraded transcripts by:
 - Marking reconstructed quotes appropriately
 - Recommending re-transcription when needed
 
+## Skill Architecture
+
+This skill uses structured patterns to ensure consistent, high-quality output:
+
+- **Purpose statement** - Metacognitive framing that reinforces synthesis over summarization
+- **XML phase boundaries** - 7 phases wrapped in tags for hard workflow separation
+- **Commitment gates** - Written confirmations required before proceeding at key decision points
+- **Failed attempts documentation** - Common mistakes and why they don't work
+
+The workflow phases are:
+1. Process transcript and identify speakers
+2. Build discussion outline
+3. Write main synthesis (with gate confirming topics, viewpoints, tensions)
+4. Extract key quotes
+5. Compile and verify references
+6. Note spelling/verification issues
+7. Save output (with gate confirming reference search completion)
+
 ## Installation
 
 ### Claude Code

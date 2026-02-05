@@ -7,6 +7,13 @@ description: Synthesizes interview transcripts into comprehensive research docum
 
 Extracts structured insights, key quotes, and discussion analysis from interview transcripts for later research use. This is NOT a meeting report generator - it distills the substance of conversations.
 
+<purpose>
+Claude's default is to summarize—to compress information into brief overviews.
+Interview synthesis requires the opposite: preserving richness while removing only
+conversational overhead. This skill exists to enforce detailed distillation over
+compression, ensuring every significant point, quote, and viewpoint is captured.
+</purpose>
+
 ## Critical Rules
 
 **GROUNDING:** Base all synthesis ONLY on what speakers actually said. Every claim in the synthesis must trace to specific transcript content.
@@ -37,6 +44,7 @@ Progress:
 - [ ] Phase 7: Save output file
 ```
 
+<phase_process>
 ### Phase 1: Process Transcript
 
 Accept transcripts in any format:
@@ -51,13 +59,21 @@ If context documents provided:
 - Apply relationship context to analysis
 - Cross-reference background information
 
+**GATE:** Before proceeding, write:
+- "Transcript format: [format identified]"
+- "Speakers identified: [list names]"
+</phase_process>
+
+<phase_outline>
 ### Phase 2: Build Discussion Outline
 
 Create a high-level flow of the conversation:
 - Hierarchy limited to 3 levels deep
 - Serves as quick navigation reference
 - Captures the arc and structure of discussion
+</phase_outline>
 
+<phase_synthesis>
 ### Phase 3: Write Main Synthesis
 
 This is the core output. NOT a summary - a detailed distillation.
@@ -85,6 +101,13 @@ When speakers express positions, be explicit about who said what:
 
 **Tone/Tenor:** Note the character of discussion - collaborative, contentious, exploratory, uncertain, etc. If the conversation was tense or difficult, say so.
 
+**GATE:** Before proceeding to quotes, confirm:
+- "I have captured [N] significant topics"
+- "Viewpoints tracked for: [speaker list]"
+- "Tensions/disagreements documented: [yes/no with brief description]"
+</phase_synthesis>
+
+<phase_quotes>
 ### Phase 4: Extract Key Quotes
 
 Pull significant quotes with:
@@ -97,7 +120,9 @@ Focus on quotes that:
 - Reveal speaker priorities or concerns
 - Provide memorable articulation of ideas
 - Show points of agreement or disagreement
+</phase_quotes>
 
+<phase_references>
 ### Phase 5: Compile and Verify References
 
 **REQUIRED:** Actively search for URLs for all references mentioned.
@@ -116,7 +141,9 @@ Extract any mentioned:
 4. If a reference appears to not exist, note this: "[Could not locate — may be misremembered or proprietary]"
 
 Do not include URLs you are not confident are correct.
+</phase_references>
 
+<phase_verification>
 ### Phase 6: Spelling/Verification Notes
 
 Flag:
@@ -124,14 +151,21 @@ Flag:
 - Discrepancies between transcript and context documents
 - Items that couldn't be verified via search
 - Names or terms that appear inconsistent
+</phase_verification>
 
+<phase_save>
 ### Phase 7: Save Output
+
+**GATE:** Before saving, confirm:
+- "References searched: [count]"
+- "Unverified items flagged: [count]"
 
 **ALWAYS save to file in `./tmp/`. Do not output inline in chat.**
 
 Filename: `./tmp/[subject-or-interviewee]-interview-synthesis-YYYY-MM-DD.md`
 
 After saving, confirm with brief summary of what was captured.
+</phase_save>
 
 ## Output Structure
 
@@ -272,11 +306,14 @@ Chen expressed concern about timeline implications...
 - Dr. Elena Vasquez - Environmental consultant referenced regarding the impact study
 ```
 
-## Anti-Patterns
+<failed_attempts>
+What DOESN'T work:
 
-- Don't create a meeting summary with action items
-- Don't truncate or abbreviate to save space
-- Don't omit quotes in favor of paraphrasing
-- Don't skip the reference lookup step
-- Don't ignore context documents when provided
-- Don't output inline - always save to file
+- **Summarizing instead of synthesizing:** Compression loses the richness. The synthesis should be substantial—longer than a summary, preserving detail.
+- **Paraphrasing quotes:** Even "cleaning up" grammar destroys authenticity. Quotes must be verbatim or explicitly marked as paraphrased.
+- **Smoothing over tensions:** If speakers disagreed, report the disagreement. Sanitizing conflict loses valuable information.
+- **Skipping reference lookup:** Users need verified URLs. "I'll add links later" means links never get added.
+- **Outputting inline:** Always save to file. Long synthesis documents are unusable in chat.
+- **Ignoring context documents:** If provided, they contain verified spellings and background that improve accuracy.
+- **Creating meeting reports:** If the user wants action items, decisions, or assignments—that's a meeting report, not an interview synthesis.
+</failed_attempts>
