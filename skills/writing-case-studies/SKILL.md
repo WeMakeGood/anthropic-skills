@@ -5,6 +5,13 @@ description: Guides users through creating comprehensive case studies from inter
 
 # Writing Case Studies
 
+<purpose>
+Claude's default when given a project story is to report what happened—a narrative
+summary of events. Case studies require the opposite: teaching transferable techniques
+using the project as proof. This skill exists to enforce the "teach, don't report"
+mindset and ensure every section provides actionable knowledge readers can apply.
+</purpose>
+
 Case studies are **teaching documents** that show readers how to solve problems. The subject is a running illustration, not the protagonist.
 
 ## Critical Rules
@@ -25,6 +32,17 @@ Banned structures: "Not only X but Y," "serves as," "stands as," "-ing" phrases 
 
 Required: Use "is" not "serves as," repeat nouns rather than finding synonyms, be specific with numbers and names, match the voice of actual practitioners in this field.
 
+<failed_attempts>
+What DOESN'T work:
+
+- **Starting with the subject:** "Company X faced a challenge..." puts the subject as protagonist. Start with the reader's problem instead.
+- **Reporting chronologically:** "First they did A, then B, then C" is a report. Organize by technique, not timeline.
+- **Generic "Get Started" sections:** "Define your goals and understand your audience" wastes the reader's time. Reference specific tools from the case study.
+- **Inventing supporting details:** If the source doesn't mention a metric, you can't include it. Plausible-sounding stats are still hallucinations.
+- **Enhancing quotes:** Even "cleaning up" a quote changes what the person said. Use verbatim or paraphrase without quotation marks.
+- **Skipping source files:** If you haven't read every provided file, you will miss context and contradict information the user gave you.
+</failed_attempts>
+
 ## Output Rules
 
 **Claude Code:** Write files to the confirmed output directory.
@@ -40,13 +58,14 @@ Required: Use "is" not "serves as," repeat nouns rather than finding synonyms, b
 
 A case study is not a report of what happened. It's a teaching document that happens to use a real example.
 
+<phase_setup>
 ## Before You Start
 
 ### 1. Confirm Output Directory
 
 Ask: "Where should I save case study files? Default is `./tmp/` in your current directory."
 
-**STOP. Wait for confirmation before proceeding.**
+**STOP.** Wait for confirmation before proceeding.
 
 ### 2. Read EVERY Provided File
 
@@ -59,8 +78,15 @@ Ask: "Where should I save case study files? Default is `./tmp/` in your current 
 
 **If you skip files, you will hallucinate. You will miss critical context. You will write content that contradicts provided information.**
 
-**VERIFICATION:** Before proceeding past Phase 1, confirm you have read every file. If you haven't read a file, read it now.
+**GATE:** Before proceeding, write:
+- "Output directory confirmed: [path]"
+- "Files read: [list every file]"
+- "Source content type: [transcript/notes/outline]"
 
+Do not proceed until you have written these statements.
+</phase_setup>
+
+<phase_identify>
 ## Phase 1: Identify Reader Questions
 
 **Do not start by analyzing what happened. Start by identifying what readers need to learn.**
@@ -78,6 +104,15 @@ Write 3-5 specific questions readers have. These become the backbone of the case
 
 **Ask the user:** "Here are the reader questions I identified: [list]. Are these the right questions? What's missing?"
 
+**GATE:** Before proceeding, write:
+- "Target reader: [description]"
+- "Reader questions: [list 3-5 questions]"
+- "User confirmed questions: [yes/no]"
+
+**STOP.** Wait for user confirmation of reader questions.
+</phase_identify>
+
+<phase_extract>
 ## Phase 2: Extract Techniques from Source
 
 Now read the source content looking for **techniques you can teach** that answer the reader questions.
@@ -117,6 +152,12 @@ The case study subject trusted you with their story. Do not:
 
 **Default to anonymization** unless there's a clear reason to name them AND they benefit from being named.
 
+**GATE:** Before proceeding, write:
+- "Techniques identified: [list techniques with supporting evidence]"
+- "Gaps in source material: [list any missing proof/quotes, or 'None']"
+</phase_extract>
+
+<phase_plan>
 ## Phase 3: Plan the Structure
 
 Structure the case study as a **teaching document with a through-line**.
@@ -177,8 +218,15 @@ Before finalizing the plan, verify:
 
 **If the source material doesn't support a planned section, either remove it or ask the user for additional information. Do not proceed with gaps you plan to fill with assumptions.**
 
-**STOP. Get explicit approval before drafting.**
+**GATE:** Before proceeding, write:
+- "Through-line: From [starting state] to [ending state]"
+- "Planned sections: [list section titles]"
+- "Each section has source support: [yes/no]"
 
+**STOP.** Get explicit user approval of the structure before drafting.
+</phase_plan>
+
+<phase_draft>
 ## Phase 4: Write the Draft
 
 Write to `case-study-draft.md` in the output directory.
@@ -244,6 +292,13 @@ This section must give readers something **new and actionable**—not platitudes
 
 The "Get Started" content comes from the source material—reference specific tools, resources, or techniques mentioned in the case study.
 
+**GATE:** Before proceeding, write:
+- "Draft saved to: [file path]"
+- "Sections written: [list]"
+- "All quotes verbatim from source: [yes/no]"
+</phase_draft>
+
+<phase_review>
 ## Phase 5: Review
 
 Present the draft summary and ask:
@@ -255,6 +310,14 @@ Present the draft summary and ask:
 
 **Make edits until approved.**
 
+**GATE:** Before proceeding, write:
+- "User approved draft: [yes/no]"
+- "Edits made: [list changes, or 'None']"
+
+**STOP.** Do not proceed to asset generation until user explicitly approves the draft.
+</phase_review>
+
+<phase_assets>
 ## Phase 6: Generate Assets
 
 Only after draft approval.
@@ -269,6 +332,11 @@ Only after draft approval.
 6. `social/twitter-posts.md` — 3-5 posts
 7. `social/pull-quotes.md` — 3-5 quotes with attribution + key statistics
 8. `index.md` — **Create last.** Catalog what was actually produced.
+
+**GATE:** Before completing, write:
+- "Assets created: [list files]"
+- "All assets saved to: [directory path]"
+</phase_assets>
 
 ## Quick Reference: The Questions
 
