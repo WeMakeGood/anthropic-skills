@@ -18,7 +18,7 @@ compression, ensuring every significant point, quote, and viewpoint is captured.
 
 **GROUNDING:** Base all synthesis ONLY on what speakers actually said. Every claim in the synthesis must trace to specific transcript content.
 
-**QUOTE INTEGRITY:** Never alter, combine, or paraphrase content within quotation marks. Quotes are verbatim or clearly marked as paraphrased.
+**QUOTE INTEGRITY:** Preserve speaker meaning, not transcription errors. Clean transcription artifacts (false punctuation, filler words, stutters, [inaudible] markers) while keeping the speaker's actual words and intent intact. Never change word choice, combine separate statements, or alter meaning.
 
 **EPISTEMIC HONESTY:** If speakers made claims you cannot verify, note this. If there are contradictions between speakers, surface them. If transcript quality limits what you can extract, say so.
 
@@ -81,7 +81,7 @@ This is the core output. NOT a summary - a detailed distillation.
 **REQUIRED:**
 - Capture ALL significant points and ideas from the transcript
 - Preserve the tenor and flow of conversation
-- Include direct quotes with attribution throughout — quotes MUST be verbatim
+- Include direct quotes with attribution throughout — clean transcription artifacts but preserve speaker's words
 - Identify individual viewpoints and perspectives
 - Surface areas of agreement, disagreement, or tension between speakers — do not smooth over conflicts
 - Explain and contextualize ideas discussed (don't just list them)
@@ -113,7 +113,26 @@ When speakers express positions, be explicit about who said what:
 Pull significant quotes with:
 - Speaker attribution
 - Organization by theme or topic
-- Exact wording preserved
+- Cleaned transcription artifacts
+
+**Transcription Cleanup (REQUIRED):**
+
+Remove these artifacts — they are transcription noise, not speaker intent:
+- False punctuation (periods, question marks mid-sentence from speech recognition)
+- Filler words (um, uh, you know, like)
+- Stutters and false starts
+- [inaudible] or [unclear] markers — omit the marked section or skip the quote
+- Repeated words from speech disfluency
+
+Preserve these — they are what the speaker actually said:
+- Word choice (never substitute synonyms)
+- Grammar that reflects natural speech
+- Incomplete thoughts (if meaningful)
+- Emphasis and phrasing
+
+**Example cleanup:**
+- Raw: "We don't want to hallucinate. Time estimates. We don't want to hallucinate. Um. Date and times"
+- Cleaned: "We don't want to hallucinate time estimates. We don't want to hallucinate date and times"
 
 Focus on quotes that:
 - Capture key insights or positions
@@ -200,9 +219,9 @@ After saving, confirm with brief summary of what was captured.
 
 ### [Theme 1]
 
-> "[Exact quote]" — [Speaker Name]
+> "[Quote with transcription artifacts cleaned]" — [Speaker Name]
 
-> "[Exact quote]" — [Speaker Name]
+> "[Quote with transcription artifacts cleaned]" — [Speaker Name]
 
 ### [Theme 2]
 
@@ -310,7 +329,8 @@ Chen expressed concern about timeline implications...
 What DOESN'T work:
 
 - **Summarizing instead of synthesizing:** Compression loses the richness. The synthesis should be substantial—longer than a summary, preserving detail.
-- **Paraphrasing quotes:** Even "cleaning up" grammar destroys authenticity. Quotes must be verbatim or explicitly marked as paraphrased.
+- **Preserving transcription errors in quotes:** False punctuation, filler words, and speech recognition artifacts are not what the speaker said. They create broken token sequences that confuse downstream LLM processing. Clean them.
+- **Changing word choice in quotes:** Cleaning artifacts is required; substituting synonyms or "improving" phrasing is forbidden. The speaker's actual words must be preserved.
 - **Smoothing over tensions:** If speakers disagreed, report the disagreement. Sanitizing conflict loses valuable information.
 - **Skipping reference lookup:** Users need verified URLs. "I'll add links later" means links never get added.
 - **Outputting inline:** Always save to file. Long synthesis documents are unusable in chat.
