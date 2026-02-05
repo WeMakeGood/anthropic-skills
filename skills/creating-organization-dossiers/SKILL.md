@@ -5,6 +5,13 @@ description: Creates structured organizational dossiers following a 6-phase rese
 
 # Creating Organization Dossiers
 
+<purpose>
+Claude's default research mode produces surface-level summaries that look comprehensive
+but lack verification. Organizational dossiers require verified intelligence, not
+plausible-sounding narratives. This skill exists to enforce source attribution for
+every factual claim and explicit marking of inferences versus confirmed facts.
+</purpose>
+
 Build comprehensive organizational profiles by systematically gathering and synthesizing public information.
 
 ## Critical Rules
@@ -19,6 +26,8 @@ Build comprehensive organizational profiles by systematically gathering and synt
 - `[Outdated: YYYY]` — information that may no longer be current
 
 **PROFESSIONAL OBJECTIVITY:** Report what you find, including concerns or red flags. If financials show declining revenue, leadership turnover is high, or public information is inconsistent — say so directly. The user needs accurate intelligence, not a favorable summary.
+
+**NATURAL PROSE (for Executive Summary and narrative sections):** Write like a research analyst, not an AI assistant. Avoid: pivotal, crucial, vibrant, tapestry, delve, foster, leverage, "not only X but Y," "serves as." Use direct language: "Revenue is $2.4M" not "Revenue stands at $2.4M."
 
 ## Before Starting
 
@@ -64,6 +73,7 @@ Dossier Progress:
 - [ ] Phase 6: Generate dossier
 ```
 
+<phase_gather>
 ### Phase 1: Gather Requirements
 
 Use the questions above. If user provides organization name without other details, search for:
@@ -71,6 +81,13 @@ Use the questions above. If user provides organization name without other detail
 - Nonprofit status (check if they have 990 filings)
 - Basic public information
 
+**GATE:** Before proceeding, write:
+- "Organization: [name]"
+- "Purpose: [why this dossier is being created]"
+- "Data collection plan: [scripts to run, sources to check]"
+</phase_gather>
+
+<phase_collect>
 ### Phase 2: Collect Website Content
 
 **ALWAYS run the scraper script first.** It produces better, more complete results than web fetch.
@@ -93,6 +110,12 @@ Review output in `./tmp/<org-name>/`:
 
 If scraper misses important pages, ask user for specific URLs or use web_fetch for those specific pages.
 
+**GATE:** Before proceeding, write:
+- "Scraped pages: [list categories found]"
+- "Missing categories: [what wasn't found or needs manual lookup]"
+</phase_collect>
+
+<phase_990>
 ### Phase 3: Retrieve 990 Data (Nonprofits)
 
 **For U.S. nonprofits, ALWAYS run the 990 script:**
@@ -116,6 +139,12 @@ The script retrieves from ProPublica Nonprofit Explorer API:
 
 **Skip this phase** for non-U.S. organizations or for-profit companies.
 
+**GATE:** Before proceeding, write:
+- "990 data available: [yes/no]"
+- "Years covered: [list fiscal years]" or "Skipped: [reason]"
+</phase_990>
+
+<phase_materials>
 ### Phase 4: Process Additional Materials
 
 Read any user-provided materials:
@@ -127,9 +156,21 @@ Read any user-provided materials:
 
 Extract relevant information for each dossier section.
 
+**GATE:** Before proceeding, write:
+- "Additional materials processed: [list or 'none provided']"
+- "Key information extracted: [brief summary]"
+</phase_materials>
+
+<phase_synthesize>
 ### Phase 5: Synthesize Findings
 
-**REQUIRED:** Before writing, verify you can cite a source for every major claim.
+**GATE:** Before writing the dossier, list your sources:
+- "Mission statement source: [page/document]"
+- "Financial data source: [990 year or document]"
+- "Leadership info source: [page/document]"
+- "Program details source: [page/document]"
+
+If any section lacks a source, note it here and address in Information Gaps.
 
 **Organizational Understanding:**
 - Core mission and theory of change — cite specific source
@@ -150,7 +191,9 @@ Extract relevant information for each dossier section.
 - **Limitations:** Where is data outdated, self-reported, or unverifiable?
 
 Do not omit concerns to make the dossier more favorable. The user needs accurate intelligence.
+</phase_synthesize>
 
+<phase_generate>
 ### Phase 6: Generate Dossier
 
 **Output file:** `<org-name>-dossier.md`
@@ -167,6 +210,7 @@ Key sections:
 7. Digital Presence
 8. Strategic Analysis (if requester context provided)
 9. Information Gaps & Next Steps
+</phase_generate>
 
 ## Output Requirements
 
@@ -251,6 +295,16 @@ skill development, and community connection."
 3. **Community Hub** - After-school programming and family support
 ...
 ```
+
+<failed_attempts>
+## What DOESN'T Work
+
+- **Writing before running scripts:** Manual web fetch produces incomplete results. ALWAYS run scrape_website.py first.
+- **Synthesizing without source verification:** Before writing any section, identify the exact source for each claim. "I'll verify later" means never.
+- **Presenting inferences as facts:** If you deduce something from context (e.g., "likely a small team based on website"), mark it [Inferred]. Readers need to know what's verified vs reasoned.
+- **Favorable framing of concerns:** If financials show declining revenue, say "Revenue declined 15% from $X to $Y." Don't soften it to "Revenue faced some headwinds."
+- **Skipping the gaps section:** Every dossier has information gaps. Identifying what you DON'T know is as valuable as what you do know.
+</failed_attempts>
 
 ## References
 
