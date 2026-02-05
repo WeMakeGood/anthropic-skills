@@ -5,6 +5,14 @@ description: Designs website content strategy and generates all content assets b
 
 # Designing Websites
 
+<purpose>
+Website projects typically start with visuals and pages, leaving content strategy
+as an afterthought. This produces beautiful sites with weak conversions. This skill
+exists because content strategy must precede design—every page needs a purpose
+before it needs a layout. The skill enforces CTA-first thinking by requiring
+business goals before any structure decisions.
+</purpose>
+
 Guides website content strategy from business goals to complete content files. Flips traditional design: starts with CTAs, not visuals.
 
 ## Critical Rules
@@ -53,6 +61,7 @@ content assets for your website. The process follows this order:
 **Important:** We start with business goals, not design or audience.
 ```
 
+<phase_gather>
 ## Phase 1: Gather Requirements
 
 Before writing any files, collect:
@@ -85,22 +94,16 @@ Before writing any files, collect:
 
 ### Pre-Flight Checklist
 
-**STOP. Do not proceed to Phase 2 until ALL items are checked.**
+**GATE:** Before proceeding to Phase 2, write:
+- "Primary CTA: [specific action visitors should take]"
+- "Secondary CTA: [specific action]"
+- "Target audiences: [list with entry points]"
+- "Technical requirements: [forms, CPTs, integrations needed]"
 
-```
-## Pre-Flight Checklist
+Do not proceed until you have written these statements. If the user cannot clearly articulate their primary CTA, help them define it before proceeding. A website without a clear primary action will underperform.
+</phase_gather>
 
-Before proceeding:
-
-- [ ] Clear primary CTA defined — if vague, push back and ask for specifics
-- [ ] Secondary CTA defined
-- [ ] Target audience(s) identified — if "everyone," challenge this
-- [ ] Technical requirements noted
-- [ ] Brand voice understood (if provided)
-```
-
-**If the user cannot clearly articulate their primary CTA, help them define it before proceeding. A website without a clear primary action will underperform.**
-
+<phase_strategy>
 ## Phase 2-3: Strategy
 
 Create `./tmp/<project-name>/` and generate strategy documents.
@@ -111,7 +114,9 @@ See [references/STRATEGY.md](references/STRATEGY.md) for:
 - Conversion strategy mapping
 
 **Core philosophy:** Every piece of content converts interest + intent into action. No "informational only" pages.
+</phase_strategy>
 
+<phase_sitemap>
 ## Phase 4: Sitemap
 
 Create flow-based sitemap with no dead ends.
@@ -126,6 +131,15 @@ Rules:
 - Every page has assigned template
 - Every page has assigned CTA
 
+**GATE:** Before generating content, write:
+- "Sitemap contains [N] pages"
+- "All pages have assigned CTAs: [yes/no]"
+- "No dead ends identified: [yes/no]"
+
+Do not proceed until the sitemap is complete and validated.
+</phase_sitemap>
+
+<phase_content>
 ## Phase 5: Content Generation
 
 Generate one markdown file per page/post.
@@ -157,7 +171,9 @@ See [references/FORMS-CPTS.md](references/FORMS-CPTS.md) for:
 ```
 
 **REQUIRED:** Ask for missing information rather than proceeding with gaps. Do not generate content that requires facts you don't have.
+</phase_content>
 
+<phase_validation>
 ## Phase 6: Validation
 
 Run validation scripts after each major phase:
@@ -186,6 +202,7 @@ For CPT/ACF generation from YAML:
 ```bash
 python3 scripts/generate_cpt_spec.py ./tmp/<project-name>
 ```
+</phase_validation>
 
 ## Output Structure
 
@@ -264,6 +281,16 @@ Ready to proceed?
 - "Get Help" optimized for victims
 - "Get Involved" for supporters
 - All content drives to one of three CTAs
+
+<failed_attempts>
+What DOESN'T work:
+
+- **Starting with pages:** "We need an About page" before "What do we want visitors to do?" leads to content without purpose.
+- **Inventing details:** Creating plausible-sounding company history, statistics, or testimonials. These always ring false.
+- **Dead-end pages:** Pages with no CTA become navigation dead ends. Every page must lead somewhere.
+- **"Everyone" as audience:** If you can't name specific audience segments, the site can't speak to anyone effectively.
+- **Skipping strategy:** Jumping to sitemap creation without CTA/audience work produces structure without strategy.
+</failed_attempts>
 
 ## Reference Files
 
