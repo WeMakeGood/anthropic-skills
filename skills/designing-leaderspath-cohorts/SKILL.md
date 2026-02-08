@@ -17,20 +17,26 @@ Design cohort curricula for LeadersPath facilitated learning experiences.
 
 ## What This Skill Does
 
-This skill transforms source materials into a complete cohort design with course curriculum prompts. It sits upstream of `building-leaderspath-curriculum`:
+This skill transforms source materials into a complete cohort design with course curriculum prompts. It sits upstream of `building-leaderspath-curriculum`, with optional post-build phases:
 
 ```
-Source Materials → [THIS SKILL] → Cohort Design + Course Curriculum Prompts
-                                            ↓
-                        [building-leaderspath-curriculum]
-                                            ↓
-                        Facilitator Guides, Activities, Learner Materials
+Source Materials → [THIS SKILL: Phases 1-5] → Cohort Design + Course Curriculum Prompts
+                                                        ↓
+                              [building-leaderspath-curriculum]
+                                                        ↓
+                              Facilitator Guides, Activities, Learner Materials
+                                                        ↓
+                          [THIS SKILL: Phase 6] → Meta-Analysis Report
+                                                        ↓
+                          [THIS SKILL: Phase 7] → Cohort Email Series
 ```
 
 **Output:**
 1. **Cohort Curriculum** — Structure, sequencing, target audience, duration
 2. **Course Curriculum Prompts** — One per course, ready for `building-leaderspath-curriculum`
 3. **Course Reuse Report** — Which existing courses can be used vs. created new
+4. **Meta-Analysis Report** — Post-build review of courses against design intent, with curated resources (Phase 6)
+5. **Cohort Email Series** — Pre-cohort, post-session, and follow-up emails threading the learning arc (Phase 7)
 
 ---
 
@@ -57,6 +63,8 @@ Source Materials → [THIS SKILL] → Cohort Design + Course Curriculum Prompts
 For detailed guidance, see:
 - [references/CURRICULUM-PROMPT-GUIDE.md](references/CURRICULUM-PROMPT-GUIDE.md) — How to write effective course curriculum prompts
 - [references/COURSE-SEARCH-GUIDE.md](references/COURSE-SEARCH-GUIDE.md) — How to search for and evaluate existing courses
+- [references/META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) — How to conduct post-build meta-analysis (Phase 6)
+- [references/EMAIL-SERIES-GUIDE.md](references/EMAIL-SERIES-GUIDE.md) — How to create the cohort email series (Phase 7)
 - [../building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) — Course ID, Activity ID, and Context File naming conventions
 
 ---
@@ -131,7 +139,23 @@ Phase 4: Create Course Curriculum Prompts
     └── Output atomic curriculum prompts
     ↓
 Phase 5: Validate and Finalize
+    ↓ (Phases 1-5 complete independently)
+    ↓ (Courses built by building-leaderspath-curriculum)
+    ↓
+Phase 6: Post-Build Meta-Analysis (optional, after courses built)
+    ├── Review courses against design intent
+    ├── Surface insights from building process
+    ├── Conduct gap analysis
+    └── Curate supplementary resources
+    ↓
+Phase 7: Cohort Email Series (requires Phase 6)
+    ├── Create welcome email
+    ├── Create post-session emails
+    ├── Create final session email
+    └── Create one-month check-in
 ```
+
+**Note:** Phases 1-5 produce the cohort design and curriculum prompts. Phases 6-7 are optional post-build phases that run AFTER courses have been built by `building-leaderspath-curriculum`. Return to this skill to run Phases 6-7 when courses are complete.
 
 ---
 
@@ -468,7 +492,7 @@ After all content is complete:
 3. **Check coverage** — All learning themes addressed
 4. **Confirm sequencing** — Cohort curriculum sequences make sense
 
-**Final deliverables:**
+**Phase 1-5 deliverables:**
 ```
 [working-folder]/
 ├── cohort-tracker.md
@@ -487,7 +511,147 @@ After all content is complete:
 - "Theme coverage: [all themes addressed / gaps]"
 
 **STOP.** Present complete package and get user approval before finalizing.
+
+**After Phase 5:** The user takes the course curriculum prompts to `building-leaderspath-curriculum` to build the courses. Once courses are built, return to this skill for Phases 6-7.
 </phase_validate>
+
+---
+
+<phase_meta_analysis>
+## Phase 6: Post-Build Meta-Analysis
+
+**PREREQUISITE:** All courses must be built by `building-leaderspath-curriculum` before running this phase.
+
+This phase reviews what was actually built against the original design intent. It surfaces insights, identifies gaps, and curates supplementary resources for the email series.
+
+### 6a: Gather Built Course Materials
+
+**REQUIRED:** Before starting, gather all inputs:
+
+1. **From Phase 1-5:**
+   - Cohort design document
+   - Source materials (interview syntheses, articles)
+   - All curriculum prompts
+   - Cohort tracker
+
+2. **From building-leaderspath-curriculum:**
+   - All facilitator guides
+   - All activity configurations
+   - All learner overviews
+   - Q&A bot configs (if applicable)
+   - Context registry (if demo contexts used)
+
+**GATE:** Before proceeding, write:
+- "I have gathered [N] built course packages: [list Course IDs]"
+- "Source materials available: [list]"
+
+### 6b: Conduct the Analysis
+
+See [references/META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) for detailed structure.
+
+**Analysis sections:**
+
+1. **Alignment** — Do courses meet design intent? What aligned? Where did they diverge?
+2. **Building insights** — What emerged during construction not in original design?
+3. **Gap analysis** — Create coverage matrix of source topics vs. built courses
+4. **Supplementary reading** — Curate articles from credible sources by theme
+5. **Supplementary viewing** — Curate videos using `researching-youtube-channels` skill
+6. **Recommendations** — Prioritize as quick wins, facilitator resources, future iterations
+
+**IMPORTANT:** For video research, invoke the `researching-youtube-channels` skill. Do NOT use WebFetch for YouTube — it doesn't work reliably.
+
+### 6c: Output
+
+Save the meta-analysis to:
+```
+[working-folder]/cohort-meta-analysis-[YYYY-MM-DD].md
+```
+
+**GATE:** Before proceeding to Phase 7, write:
+- "Meta-analysis complete: [filename]"
+- "Articles curated: [count] organized by [themes]"
+- "Videos curated: [count] from [channels]"
+- "Key gaps identified: [list]"
+
+**STOP.** Present meta-analysis findings and get user approval before proceeding to Phase 7.
+</phase_meta_analysis>
+
+---
+
+<phase_email_series>
+## Phase 7: Cohort Email Series
+
+**PREREQUISITE:** Phase 6 (Meta-Analysis) must be complete. The email series uses the curated resource lists from the meta-analysis.
+
+This phase creates the cohort email series that threads standalone courses into a single learning arc.
+
+### 7a: Identify the Thematic Spine
+
+Before writing emails, identify 1-2 ideas that run through the entire cohort. These will be referenced in every email.
+
+Look for concepts that:
+- Appear in source materials repeatedly
+- Inform multiple courses
+- Represent the cohort's core insight or reframe
+
+**GATE:** Before proceeding, write:
+- "Thematic spine: [1-2 concepts that thread through the cohort]"
+
+### 7b: Create the Email Series
+
+See [references/EMAIL-SERIES-GUIDE.md](references/EMAIL-SERIES-GUIDE.md) for detailed templates and tone guidance.
+
+**Email types:**
+
+| Email | Timing | Key Elements |
+|-------|--------|--------------|
+| Welcome | 1 week before Session 1 | Expectations, pre-reading (1 article), optional pre-viewing (2-3 videos) |
+| Post-session (×N) | Within 24 hours | Anchor (key takeaway), Bridge (between-session activity), Prepare (resources for NEXT session) |
+| Final session | Within 24 hours | Close the arc, resource library for ongoing reference |
+| One-month check-in | 30 days after last | Specific feedback questions, recent developments (placeholder), engagement invitation |
+
+**Tone requirements:**
+- Direct, warm, substantive
+- No marketing copy or "we hope you enjoyed" filler
+- No exclamation points
+- Written by people who care about the work, to people doing the work
+
+**Resource curation for post-session emails:**
+- Resources point to NEXT session's themes (not current session)
+- Under 15 minutes to consume
+- From credible sources (Anthropic, HBR, Stanford, Pew, Brookings, SSIR)
+- Maximum 2 articles + 1 video per email
+
+### 7c: Output
+
+Save the email series to:
+```
+[working-folder]/cohort-email-series.md
+```
+
+**Complete deliverables (all phases):**
+```
+[working-folder]/
+├── cohort-tracker.md
+├── cohort-curriculum.md
+├── course-reuse-report.md
+├── course-id-log.md
+├── Courses/
+│   └── [curriculum prompts]
+│
+│  (After courses are built by building-leaderspath-curriculum:)
+│
+├── cohort-meta-analysis-[date].md    # Phase 6
+└── cohort-email-series.md            # Phase 7
+```
+
+**GATE:** Before finalizing, write:
+- "Email series complete: [count] emails"
+- "Thematic spine threaded: [yes/no]"
+- "Resources curated from meta-analysis: [yes/no]"
+
+**STOP.** Present email series draft and get user approval.
+</phase_email_series>
 
 ---
 
@@ -500,6 +664,8 @@ After all content is complete:
 | Phase 3 | Cohort structure and sequencing |
 | Each course prompt | Individual curriculum prompts |
 | Phase 5 | Complete cohort package |
+| Phase 6 | Meta-analysis findings and supplementary resources |
+| Phase 7 | Complete email series draft |
 
 **Do not proceed without explicit approval at each checkpoint.**
 
@@ -590,6 +756,9 @@ After completing this course, learners will be able to:
 
 **This skill outputs prompts for:**
 - `building-leaderspath-curriculum` — Takes course curriculum prompts, creates full course content
+
+**This skill invokes:**
+- `researching-youtube-channels` — Used in Phase 6 to research YouTube channels for supplementary video recommendations. Do NOT use WebFetch for YouTube; use this skill instead.
 
 **This skill may reference:**
 - `building-context-libraries` — If a demo context is needed

@@ -1,14 +1,19 @@
 # Designing LeadersPath Cohorts
 
-An Agent Skill for designing cohort curricula from source materials.
+An Agent Skill for designing cohort curricula from source materials, with optional post-build analysis and email series creation.
 
 ## What This Skill Does
 
 Transforms source materials (interview transcripts, design docs, organizational materials) into:
 
+**Phases 1-5 (Cohort Design):**
 - **Cohort Curriculum** — Structure, sequencing, target audience, duration
 - **Course Curriculum Prompts** — Design documents for building-leaderspath-curriculum
 - **Course Reuse Report** — Which existing courses can be reused vs. created new
+
+**Phases 6-7 (Post-Build, Optional):**
+- **Meta-Analysis Report** — Review of built courses against design intent, with curated supplementary resources
+- **Cohort Email Series** — Pre-cohort, post-session, and follow-up emails that thread courses into a learning arc
 
 ## Quick Start
 
@@ -33,14 +38,20 @@ Course library: ./existing-courses/
 ## Relationship to Other Skills
 
 ```
-Source Materials → [THIS SKILL] → Course Curriculum Prompts
-                                          ↓
-                      [building-leaderspath-curriculum]
-                                          ↓
-                      Facilitator Guides, Activities, Learner Materials
+Source Materials → [THIS SKILL: Phases 1-5] → Course Curriculum Prompts
+                                                        ↓
+                              [building-leaderspath-curriculum]
+                                                        ↓
+                              Facilitator Guides, Activities, Learner Materials
+                                                        ↓
+                          [THIS SKILL: Phase 6] → Meta-Analysis Report
+                                                        ↓
+                          [THIS SKILL: Phase 7] → Cohort Email Series
 ```
 
-This skill sits upstream of `building-leaderspath-curriculum`. It produces design documents (curriculum prompts) that tell the building skill what to create.
+Phases 1-5 sit upstream of `building-leaderspath-curriculum`, producing design documents (curriculum prompts) that tell the building skill what to create.
+
+Phases 6-7 run after courses are built, analyzing the results and creating cohort-level communication assets.
 
 ## Output Structure
 
@@ -50,10 +61,15 @@ This skill sits upstream of `building-leaderspath-curriculum`. It produces desig
 ├── cohort-curriculum.md       # Cohort structure and course sequence
 ├── course-reuse-report.md     # Analysis of existing vs. new courses
 ├── course-id-log.md           # New/updated Course ID entries
-└── Courses/
-    ├── FUND-101-ai-basics-curriculum.md
-    ├── PRMPT-101-intro-prompting-curriculum.md
-    └── ...
+├── Courses/
+│   ├── FUND-101-ai-basics-curriculum.md
+│   ├── PRMPT-101-intro-prompting-curriculum.md
+│   └── ...
+│
+│  (After courses are built by building-leaderspath-curriculum:)
+│
+├── cohort-meta-analysis-[date].md    # Phase 6: Post-build analysis
+└── cohort-email-series.md            # Phase 7: Cohort communications
 ```
 
 Course IDs use the format `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`). See [building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) for complete naming conventions.
@@ -65,6 +81,8 @@ Course IDs use the format `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`). See [
 | [SKILL.md](SKILL.md) | Main workflow and instructions |
 | [references/CURRICULUM-PROMPT-GUIDE.md](references/CURRICULUM-PROMPT-GUIDE.md) | How to write effective curriculum prompts |
 | [references/COURSE-SEARCH-GUIDE.md](references/COURSE-SEARCH-GUIDE.md) | How to search for and evaluate existing courses |
+| [references/META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) | How to conduct post-build meta-analysis (Phase 6) |
+| [references/EMAIL-SERIES-GUIDE.md](references/EMAIL-SERIES-GUIDE.md) | How to create the cohort email series (Phase 7) |
 
 ## License
 
