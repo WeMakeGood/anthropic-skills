@@ -1,10 +1,10 @@
-# Course Curriculum Prompt Guide
+# Lesson Curriculum Prompt Guide
 
 This document explains how to write effective curriculum prompts that work well with `building-leaderspath-curriculum`.
 
-## Course ID Assignment
+## Lesson ID Assignment
 
-Every course curriculum prompt must include a Course ID in the format `TOPIC-LEVEL-slug`.
+Every lesson curriculum prompt must include a Lesson ID in the format `TOPIC-LEVEL-slug`.
 
 **Topic codes:**
 - `FUND` - Fundamentals (how AI works, capabilities, limitations)
@@ -23,14 +23,14 @@ Every course curriculum prompt must include a Course ID in the format `TOPIC-LEV
 
 **Example:** "AI Foundations" for beginners → `FUND-101-ai-foundations`
 
-If a course doesn't fit neatly into a topic, use the closest match or ask the user.
+If a lesson doesn't fit neatly into a topic, use the closest match or ask the user.
 
 ---
 
 ## The Purpose of Curriculum Prompts
 
 Curriculum prompts are **design documents** that tell the curriculum-building skill what to create. They specify:
-- Course ID (TOPIC-LEVEL-slug)
+- Lesson ID (TOPIC-LEVEL-slug)
 - What learners should achieve (learning objectives)
 - What experiences they should have
 - What source materials to use
@@ -47,44 +47,44 @@ They do NOT specify:
 
 ## Atomicity: The Critical Rule
 
-Courses must be atomic—self-contained teaching units that don't reference other courses.
+Lessons must be atomic—self-contained teaching units that don't reference other lessons.
 
 ### Why Atomicity Matters
 
-1. **Reusability** — An atomic course can be used in multiple cohorts
-2. **Flexibility** — Cohorts can sequence courses differently
-3. **Maintainability** — Updating one course doesn't break others
-4. **Testing** — Each course can be validated independently
+1. **Reusability** — An atomic lesson can be used in multiple courses
+2. **Flexibility** — Courses can sequence lessons differently
+3. **Maintainability** — Updating one lesson doesn't break others
+4. **Testing** — Each lesson can be validated independently
 
 ### What Atomicity Means in Practice
 
 **DO:**
-- Define learning objectives specific to this course
+- Define learning objectives specific to this lesson
 - Describe experiences learners should have
 - Reference context files by name
 - Specify whether to include Q&A bot
 
 **DON'T:**
-- Say "builds on Course 2" or "prepares for Course 4"
-- Reference learning from previous courses
-- Assume knowledge from other courses
-- Use phrases like "as we saw before" or "in the next course"
+- Say "builds on Lesson 2" or "prepares for Lesson 4"
+- Reference learning from previous lessons
+- Assume knowledge from other lessons
+- Use phrases like "as we saw before" or "in the next lesson"
 
 ### Handling Prerequisites
 
-If a course assumes prior knowledge, express it as prerequisites in the course overview:
+If a lesson assumes prior knowledge, express it as prerequisites in the lesson overview:
 
 ```markdown
 **Prerequisites:** None (AI Foundations recommended)
 ```
 
-This lets the cohort curriculum handle sequencing while keeping the course atomic.
+This lets the course curriculum handle sequencing while keeping the lesson atomic.
 
 ---
 
-## Course Types
+## Lesson Types
 
-Different courses have different pedagogical approaches. Specify the type to guide the building skill.
+Different lessons have different pedagogical approaches. Specify the type to guide the building skill.
 
 ### Facilitated Presentation
 - Facilitator-led with optional Q&A activity
@@ -190,24 +190,24 @@ If using a fictional organization for demonstrations:
 
 ## Q&A Bot Specification
 
-The Course Q&A Bot is an optional helpful assistant separate from activity sandboxes.
+The Lesson Q&A Bot is an optional helpful assistant separate from activity sandboxes.
 
 ### When to Include
 
-- Complex courses with dense concepts
+- Complex lessons with dense concepts
 - When learners may have questions between activities
 - When facilitator availability is limited
 
 ### When to Skip
 
-- Simple courses with clear activities
+- Simple lessons with clear activities
 - When human facilitator is always available
-- When cohort discussion is the Q&A mechanism
+- When course discussion is the Q&A mechanism
 
 ### How to Specify
 
 ```markdown
-**Include Course Q&A Bot:** Yes
+**Include Lesson Q&A Bot:** Yes
 
 The Q&A bot should help learners understand:
 * [Topic 1 the bot should be able to discuss]
@@ -243,7 +243,7 @@ Ground concepts in source material. Use quotes when helpful.
 ### The Sycophancy Problem
 From interview: "They're not designed to tell you you're wrong, because if they told you you were wrong you'd turn it off."
 
-**Note:** This course explains the concept; hands-on demonstration belongs in activity-based courses.
+**Note:** This lesson explains the concept; hands-on demonstration belongs in activity-based lessons.
 ```
 
 ### Poor
@@ -260,10 +260,10 @@ The good version grounds in source material. The poor version invents explanatio
 ## Complete Example
 
 See `FUND-101-ai-foundations-curriculum.md` for a complete example that demonstrates:
-- Course ID assignment (FUND-101-ai-foundations)
-- Clear learning objectives at course level
+- Lesson ID assignment (FUND-101-ai-foundations)
+- Clear learning objectives at lesson level
 - Source document references
 - Q&A bot specification
 - Key concepts grounded in source material
 - Experience descriptions focused on outcomes
-- No references to other courses
+- No references to other lessons

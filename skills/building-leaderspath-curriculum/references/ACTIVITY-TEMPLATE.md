@@ -1,6 +1,6 @@
 # Activity Template
 
-This template defines the structure for Activity configuration and instructions. Activities are AI sandbox experiments within a facilitated course—they guide hands-on experimentation, not conceptual teaching.
+This template defines the structure for Activity configuration and instructions. Activities are AI sandbox experiments within a facilitated lesson—they guide hands-on experimentation, not conceptual teaching.
 
 ---
 
@@ -8,11 +8,11 @@ This template defines the structure for Activity configuration and instructions.
 
 Activity folders use the naming convention: `TOPIC-LEVEL-ACT-slug`
 
-- **TOPIC-LEVEL:** Matches the parent course (e.g., `FUND-101`)
+- **TOPIC-LEVEL:** Matches the parent lesson (e.g., `FUND-101`)
 - **ACT:** Literal string indicating this is an activity
 - **slug:** Kebab-case activity name (e.g., `starting-from-zero`)
 
-**Example:** Course `FUND-101-ai-basics` with activity "Starting from Zero" → `FUND-101-ACT-starting-from-zero`
+**Example:** Lesson `FUND-101-ai-basics` with activity "Starting from Zero" → `FUND-101-ACT-starting-from-zero`
 
 See [NAMING-SYSTEM.md](NAMING-SYSTEM.md) for complete naming conventions.
 
@@ -63,7 +63,7 @@ activities/TOPIC-LEVEL-ACT-slug/
 
 **DON'T:**
 - Teach concepts (facilitator does that)
-- Include learning objectives (those are at course level)
+- Include learning objectives (those are at lesson level)
 - Explain "The Principle" (facilitator synthesizes after)
 - Write lengthy explanations or background
 
@@ -144,7 +144,7 @@ See [CONTENT-GUIDES.md](CONTENT-GUIDES.md) for detailed patterns and examples.
 
 ## Example: Complete Activity
 
-**Activity: Starting from Zero** (in course FUND-101-ai-basics)
+**Activity: Starting from Zero** (in lesson FUND-101-ai-basics)
 
 **Folder structure:**
 ```
@@ -220,7 +220,7 @@ The absence of context files is intentional. This activity shows what AI produce
 
 1. **Activities are experiments, not lessons.** The facilitator teaches; the sandbox demonstrates.
 
-2. **No learning objectives in activities.** Objectives live at course level.
+2. **No learning objectives in activities.** Objectives live at lesson level.
 
 3. **No "The Principle" section.** The facilitator synthesizes meaning after the activity.
 

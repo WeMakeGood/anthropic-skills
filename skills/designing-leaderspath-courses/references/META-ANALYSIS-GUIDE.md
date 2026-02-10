@@ -1,37 +1,37 @@
 # Post-Build Meta-Analysis Guide
 
-This guide provides detailed instructions for Phase 6 of the designing-leaderspath-cohorts workflow. Phase 6 runs AFTER all courses have been built by `building-leaderspath-curriculum`.
+This guide provides detailed instructions for Phase 6 of the designing-leaderspath-courses workflow. Phase 6 runs AFTER all lessons have been built by `building-leaderspath-curriculum`.
 
 ## Purpose
 
-The meta-analysis reviews what was actually built against the original design intent. It surfaces insights from the building process, identifies gaps, and curates supplementary resources that feed into the cohort email series.
+The meta-analysis reviews what was actually built against the original design intent. It surfaces insights from the building process, identifies gaps, and curates supplementary resources that feed into the course email series.
 
 ## Required Inputs
 
 Before starting the meta-analysis, gather:
 
-1. **Cohort design document** — The final cohort curriculum from Phase 3
+1. **Course design document** — The final course curriculum from Phase 3
 2. **Source materials** — All interview syntheses, articles, and organizational docs used in design
-3. **All curriculum prompts** — The course curriculum prompts from Phase 4
-4. **All built course files:**
+3. **All curriculum prompts** — The lesson curriculum prompts from Phase 4
+4. **All built lesson files:**
    - Facilitator guides
    - Activity configurations
    - Learner overviews
    - Q&A bot configs (if applicable)
-5. **Tracking documents** — Cohort tracker and any session logs
+5. **Tracking documents** — Course tracker and any session logs
 6. **Context registry** — If demo contexts were used
 
 ## Meta-Analysis Structure
 
 The meta-analysis report follows this structure:
 
-### Section 1: Alignment — Do the Courses Meet the Cohort Design Intent?
+### Section 1: Alignment — Do the Lessons Meet the Course Design Intent?
 
 **What to assess:**
 
-- Did the built courses faithfully deliver the cohort design's vision?
+- Did the built lessons faithfully deliver the course design's vision?
 - What aligned well between design and implementation?
-- Where did courses diverge from the original design?
+- Where did lessons diverge from the original design?
 - Were divergences improvements or gaps?
 
 **Document specific findings:**
@@ -40,7 +40,7 @@ The meta-analysis report follows this structure:
 |----------------|--------|-------|
 | [Learning objective] | Aligned / Diverged / Missing | [Details] |
 
-### Section 2: Insights from the Course Building Process
+### Section 2: Insights from the Lesson Building Process
 
 **What to surface:**
 
@@ -52,7 +52,7 @@ The meta-analysis report follows this structure:
 **Key questions:**
 
 - Did any distinctions become clearer through building? (e.g., behavioral training vs. context)
-- Did course atomicity hold up?
+- Did lesson atomicity hold up?
 - What teaching patterns proved effective?
 
 ### Section 3: Gap Analysis — What's Missing?
@@ -61,24 +61,24 @@ The meta-analysis report follows this structure:
 
 | Source Topic | Covered In | Status | Notes |
 |--------------|------------|--------|-------|
-| [Topic from interview/design] | [Course ID] | Covered / Partial / Not covered | [Details] |
+| [Topic from interview/design] | [Lesson ID] | Covered / Partial / Not covered | [Details] |
 
 **Categories of gaps:**
 
-1. **Interview topics not covered** — Themes from source materials that didn't make it into courses
-2. **Design themes underrepresented** — Ideas mentioned in cohort design but not fully developed
-3. **Missing connective tissue** — Between-session activities, cohort-level discussion arcs
+1. **Interview topics not covered** — Themes from source materials that didn't make it into lessons
+2. **Design themes underrepresented** — Ideas mentioned in course design but not fully developed
+3. **Missing connective tissue** — Between-session activities, course-level discussion arcs
 
 **Recommendations format:**
 
 For each gap, assess:
 - Can it be addressed through supplementary materials? (Quick win)
 - Does it need facilitator resources? (Medium effort)
-- Does it require course revision? (Future iteration)
+- Does it require lesson revision? (Future iteration)
 
 ### Section 4: Supplementary Reading — External Articles
 
-Curate articles from credible sources organized by cohort theme.
+Curate articles from credible sources organized by course theme.
 
 **Source priorities:**
 1. Anthropic (research and blog)
@@ -95,8 +95,8 @@ Curate articles from credible sources organized by cohort theme.
 | Audience | Accessible to non-technical leaders |
 | Length | Under 15 minutes to read |
 | Credibility | From established, reputable sources |
-| Relevance | Directly connected to cohort themes |
-| Angle | Adds perspective not covered in courses |
+| Relevance | Directly connected to course themes |
+| Angle | Adds perspective not covered in lessons |
 
 **Article entry format:**
 
@@ -106,7 +106,7 @@ Curate articles from credible sources organized by cohort theme.
 | 1 | [Title] | [Source] | [Date] | [1-2 sentence description] | [Link] |
 ```
 
-**Organize by theme:** Group articles under theme headings that match the cohort's major topics.
+**Organize by theme:** Group articles under theme headings that match the course's major topics.
 
 ### Section 5: Supplementary Viewing — Video Resources
 
@@ -114,7 +114,7 @@ Curate articles from credible sources organized by cohort theme.
 
 **Priority channels:**
 - Anthropic official channel (@anthropic-ai)
-- Channels relevant to the cohort's domain
+- Channels relevant to the course's domain
 
 **Video entry format:**
 
@@ -126,12 +126,12 @@ Curate articles from credible sources organized by cohort theme.
 
 **Viewing package format:**
 
-Create suggested viewing packages per course:
+Create suggested viewing packages per lesson:
 
 ```markdown
-| Course | Required Viewing (Pre-Session) | Optional Deep Dive |
+| Lesson | Required Viewing (Pre-Session) | Optional Deep Dive |
 |--------|-------------------------------|-------------------|
-| [Course ID] | [Video title] ([X min]) | [Longer video] ([X min]) |
+| [Lesson ID] | [Video title] ([X min]) | [Longer video] ([X min]) |
 ```
 
 ### Section 6: Summary of Recommendations
@@ -147,15 +147,15 @@ Organize recommendations by priority:
 - Examples: case study snippets, discussion arc guides
 
 **Priority 3: Future Iteration Candidates**
-- Higher effort, for next cohort version
-- Examples: new activities, course revisions
+- Higher effort, for next course version
+- Examples: new activities, lesson revisions
 
 ## Output
 
 Save the meta-analysis to:
 
 ```
-[working-folder]/cohort-meta-analysis-[YYYY-MM-DD].md
+[working-folder]/course-meta-analysis-[YYYY-MM-DD].md
 ```
 
 Use the date the analysis is completed.
@@ -163,10 +163,10 @@ Use the date the analysis is completed.
 ## Example Meta-Analysis Excerpt
 
 ```markdown
-# Meta-Analysis: [Cohort Name]
+# Meta-Analysis: [Course Name]
 
 **Date:** [Date]
-**Scope:** Review of built courses against cohort design intent
+**Scope:** Review of built lessons against course design intent
 
 ## Section 1: Alignment
 
@@ -174,29 +174,29 @@ Use the date the analysis is completed.
 
 ### What Aligned Well
 
-- The comparison-pair pedagogy survived intact across all hands-on courses
-- Course atomicity holds — no course references another by name
+- The comparison-pair pedagogy survived intact across all hands-on lessons
+- Lesson atomicity holds — no lesson references another by name
 - The philosophical foundation from source interviews appears in facilitator guides
 
-### Where Courses Diverged
+### Where Lessons Diverged
 
 | Design Element | Divergence | Assessment |
 |----------------|------------|------------|
-| Activity count per course | Design listed 7; built courses have 3-7 | Correct call — conceptual content became facilitator-led |
+| Activity count per lesson | Design listed 7; built lessons have 3-7 | Correct call — conceptual content became facilitator-led |
 
 ## Section 3: Gap Analysis
 
 | Source Topic | Status | Notes |
 |--------------|--------|-------|
-| Between-session homework | Not covered | Courses include reflection but no structured take-home work |
-| Cohort-level discussion arc | Not covered | Discussion exists per-course but not mapped across weeks |
+| Between-session homework | Not covered | Lessons include reflection but no structured take-home work |
+| Course-level discussion arc | Not covered | Discussion exists per-lesson but not mapped across weeks |
 
 ### Recommendations
 
 **Quick Win:** Create between-session activities document
-**Facilitator Resource:** Create cohort discussion arc guide
+**Facilitator Resource:** Create course discussion arc guide
 ```
 
 ## Dependency Note
 
-The meta-analysis must be completed before Phase 7 (Cohort Email Series). The curated resource lists (articles and videos) feed directly into the post-session emails.
+The meta-analysis must be completed before Phase 7 (Course Email Series). The curated resource lists (articles and videos) feed directly into the post-session emails.

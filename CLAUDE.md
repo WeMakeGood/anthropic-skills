@@ -97,6 +97,14 @@ python3 skills/creating-skills/scripts/package_skill.py skills/your-skill --outp
 - If asked to "move README.md to X", move the file only—do not delete other files or folders
 - If you accidentally delete something, STOP and tell the user immediately
 
+### NEVER rm -rf Through Symlinks
+
+- `.claude/skills/` is a **symlink** to `skills/`. They are the **same directory**.
+- Running `rm -rf .claude/skills/something` **deletes the real files** in `skills/something`
+- Before running `rm`, `rm -rf`, or `cp` that overwrites a target, **always check for symlinks first** using `ls -la` on the parent directory
+- `file <path>` reports "directory" for both real directories and symlinks-to-directories — it cannot distinguish them. **Use `ls -la` instead.**
+- If `.claude/skills/` and `skills/` are in sync, it's because they're the same directory. There is nothing to "sync."
+
 ### NEVER Recreate From Memory
 
 - If you delete or lose a file, you **cannot** recreate it from memory

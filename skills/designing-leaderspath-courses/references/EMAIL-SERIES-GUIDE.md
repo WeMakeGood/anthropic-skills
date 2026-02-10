@@ -1,16 +1,16 @@
-# Cohort Email Series Guide
+# Course Email Series Guide
 
-This guide provides detailed instructions for Phase 7 of the designing-leaderspath-cohorts workflow. Phase 7 runs AFTER the meta-analysis (Phase 6) is complete.
+This guide provides detailed instructions for Phase 7 of the designing-leaderspath-courses workflow. Phase 7 runs AFTER the meta-analysis (Phase 6) is complete.
 
 ## Purpose
 
-The cohort email series threads standalone courses into a single learning arc. These emails frame, connect, and extend the cohort experience beyond individual sessions.
+The course email series threads standalone lessons into a single learning arc. These emails frame, connect, and extend the course experience beyond individual sessions.
 
 ## Dependency
 
 **Phase 7 cannot run without Phase 6.** The meta-analysis produces:
 - Curated article lists organized by theme
-- Curated video lists organized by course
+- Curated video lists organized by lesson
 - Between-session activity recommendations
 - Gap analysis identifying what needs reinforcement
 
@@ -51,7 +51,7 @@ We're so excited to welcome you to this amazing learning journey!
 We hope you're as thrilled as we are about the incredible opportunities ahead!
 
 # Good (substantive)
-Welcome to the Ethical AI for Nonprofit Leaders cohort.
+Welcome to the Ethical AI for Nonprofit Leaders course.
 
 Over the next six weeks, you'll work through a progression designed to
 change how you think about AI — not just how you use it.
@@ -66,11 +66,11 @@ change how you think about AI — not just how you use it.
 ### Structure
 
 ```markdown
-**Subject:** Your cohort starts [date] — one thing to read before we meet
+**Subject:** Your course starts [date] — one thing to read before we meet
 
 ---
 
-[Opening: What to expect from the cohort — 2-3 paragraphs]
+[Opening: What to expect from the course — 2-3 paragraphs]
 
 **A few things to know going in:**
 
@@ -78,7 +78,7 @@ change how you think about AI — not just how you use it.
 
 **One thing to read before we meet:**
 
-[1 article tied to the cohort's central theme — include title, author if notable, and 1-2 sentence framing]
+[1 article tied to the course's central theme — include title, author if notable, and 1-2 sentence framing]
 
 [Closing: Brief, no homework pressure]
 
@@ -92,7 +92,7 @@ change how you think about AI — not just how you use it.
 ### Content Guidelines
 
 **Pre-reading selection:**
-- One article that introduces the cohort's thematic spine
+- One article that introduces the course's thematic spine
 - Should be thought-provoking, not instructional
 - From a credible source
 
@@ -191,9 +191,9 @@ Every post-session email has exactly three jobs:
 
 [Opening: Acknowledge what learners accomplished in the final session]
 
-**What to hold onto from this entire cohort:**
+**What to hold onto from this entire course:**
 
-[3-4 key themes that run through the whole cohort, with 1-2 sentence explanations]
+[3-4 key themes that run through the whole course, with 1-2 sentence explanations]
 
 ### Your [deliverable name]
 
@@ -201,7 +201,7 @@ Every post-session email has exactly three jobs:
 
 ### Resources to keep
 
-[Curated resource library organized by category — bookmarks from across the cohort]
+[Curated resource library organized by category — bookmarks from across the course]
 
 [Closing: Thank you, brief and sincere]
 
@@ -213,7 +213,7 @@ Every post-session email has exactly three jobs:
 **Closing the arc:**
 - Reference the thematic spine introduced in the welcome email
 - Bring ideas full circle
-- Focus on the cohort-level learning, not just the last session
+- Focus on the course-level learning, not just the last session
 
 **Resource library:**
 - Organize by category (e.g., "For your team:", "For ongoing reference:")
@@ -269,7 +269,7 @@ Every post-session email has exactly three jobs:
 - "Of everything we covered, what has actually made a difference in your day-to-day?"
 
 **Bad questions:**
-- "Did you enjoy the cohort?"
+- "Did you enjoy the course?"
 - "Would you recommend us to a colleague?"
 - "Rate your experience 1-10"
 
@@ -277,7 +277,7 @@ Every post-session email has exactly three jobs:
 - This section CANNOT be pre-written
 - Mark it as requiring manual update at send time
 - Include placeholder guidance for what to include:
-  - Recent research or product updates relevant to cohort themes
+  - Recent research or product updates relevant to course themes
   - Policy developments affecting the target audience
   - New resources or tools that connect to what was covered
 
@@ -285,14 +285,14 @@ Every post-session email has exactly three jobs:
 
 ## Threading the Thematic Spine
 
-**CRITICAL:** Identify 1-2 ideas that run through the entire cohort. Reference them in every email.
+**CRITICAL:** Identify 1-2 ideas that run through the entire course. Reference them in every email.
 
 ### How to identify the spine
 
 Look for concepts that:
 - Appear in the source materials repeatedly
-- Inform multiple courses
-- Represent the cohort's core insight or reframe
+- Inform multiple lessons
+- Represent the course's core insight or reframe
 
 ### How to thread it
 
@@ -300,16 +300,16 @@ Look for concepts that:
 |-------|------------------|
 | Welcome | Introduce the frame explicitly |
 | Post-session 1-N | Touch it — connect session content back to the frame |
-| Final session | Bring it home — show how the cohort delivered on the frame |
+| Final session | Bring it home — show how the course delivered on the frame |
 | One-month | Reference it in feedback questions |
 
 ### Example
 
-For an "Ethical AI" cohort, the thematic spine might be:
+For an "Ethical AI" course, the thematic spine might be:
 - "Productive friction" — what we lose when AI removes struggle
 - "Ethical AI as user practice" — ethics come from you, not the AI
 
-The welcome email introduces these frames. Every post-session email connects the session's content back to these ideas. The final email synthesizes how the cohort addressed them.
+The welcome email introduces these frames. Every post-session email connects the session's content back to these ideas. The final email synthesizes how the course addressed them.
 
 ---
 
@@ -323,12 +323,12 @@ For all curated resources in post-session emails:
 | Accessibility | Accessible to non-technical leaders |
 | Length | Under 15 minutes to consume |
 | Source | Credible (Anthropic, HBR, Stanford, Pew, Brookings, SSIR) |
-| Angle | Adds new perspective (not repeat of course content) |
+| Angle | Adds new perspective (not repeat of lesson content) |
 
 **Why resources point forward, not back:**
 - Learners just experienced the current session — they don't need reinforcement
 - Forward-pointing resources prime learners for upcoming themes
-- This creates anticipation and continuity across the cohort
+- This creates anticipation and continuity across the course
 
 ---
 
@@ -337,13 +337,13 @@ For all curated resources in post-session emails:
 Save the email series to:
 
 ```
-[working-folder]/cohort-email-series.md
+[working-folder]/course-email-series.md
 ```
 
 ### File Structure
 
 ```markdown
-# Cohort Email Series: [Cohort Name]
+# Course Email Series: [Course Name]
 
 **Purpose:** [Brief description]
 
@@ -355,7 +355,7 @@ Save the email series to:
 | 1 | After Session 1 | Within 24 hours | ... |
 ...
 
-**Tone:** [Tone guidance for this cohort]
+**Tone:** [Tone guidance for this course]
 
 ---
 
@@ -370,7 +370,7 @@ Save the email series to:
 
 ---
 
-## Email 1: After Session 1 ([Course Name])
+## Email 1: After Session 1 ([Lesson Name])
 
 **Subject:** [Subject line]
 **Send:** [Timing]

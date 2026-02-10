@@ -6,20 +6,20 @@ These guidelines help you write prompts that produce better curriculum output.
 
 ## The Core Model
 
-**LeadersPath is a facilitated cohort learning experience.** The AI sandbox is an activity within a facilitated course, not a standalone lesson.
+**LeadersPath is a facilitated course learning experience.** The AI sandbox is an activity within a facilitated lesson, not a standalone tutorial.
 
 | Old Model (Avoid) | New Model (Use) |
 |-------------------|-----------------|
-| Lesson = standalone unit with AI | Course = cohesive facilitated experience |
-| Lesson teaches through AI | Facilitator teaches; AI demonstrates |
-| Objectives per lesson | Objectives per course |
+| Activity = standalone unit with AI | Lesson = cohesive facilitated experience |
+| Activity teaches through AI | Facilitator teaches; AI demonstrates |
+| Objectives per activity | Objectives per lesson |
 | Facilitator notes = secondary | Facilitator guide = primary deliverable |
 
 ---
 
-## 1. Design Courses as Cohesive Experiences
+## 1. Design Lessons as Cohesive Experiences
 
-Think of a course as a single facilitated session, not a collection of independent lessons.
+Think of a lesson as a single facilitated session, not a collection of independent activities.
 
 **Include in your prompt:**
 - What the facilitator will present (concepts, context)
@@ -29,13 +29,13 @@ Think of a course as a single facilitated session, not a collection of independe
 
 **Example prompt:**
 
-> "Create a 60-minute course on AI sycophancy. The facilitator introduces the concept of sycophancy, then learners experience it firsthand in Activity 1 (sycophantic AI). The facilitator debriefs, then learners experience Activity 2 (honest AI). Course closes with discussion comparing the two experiences."
+> "Create a 60-minute lesson on AI sycophancy. The facilitator introduces the concept of sycophancy, then learners experience it firsthand in Activity 1 (sycophantic AI). The facilitator debriefs, then learners experience Activity 2 (honest AI). Lesson closes with discussion comparing the two experiences."
 
 ---
 
 ## 2. Write Facilitator Guides as the Primary Deliverable
 
-The facilitator guide is the central document—a facilitator should be able to teach the entire course from it alone.
+The facilitator guide is the central document—a facilitator should be able to teach the entire lesson from it alone.
 
 **Include in your prompt:**
 - Timing expectations for each section
@@ -61,7 +61,7 @@ Activity instructions guide sandbox experimentation only—they do NOT teach con
 
 **Activity instructions should NOT:**
 - Teach concepts (facilitator does that)
-- Include learning objectives (those are at course level)
+- Include learning objectives (those are at lesson level)
 - Explain "The Principle" (facilitator synthesizes after)
 
 **Example prompt:**
@@ -70,9 +70,9 @@ Activity instructions guide sandbox experimentation only—they do NOT teach con
 
 ---
 
-## 4. Structure Comparison Activities Within a Course
+## 4. Structure Comparison Activities Within a Lesson
 
-When learners need to compare two AI behaviors, use sequential activities within the same course.
+When learners need to compare two AI behaviors, use sequential activities within the same lesson.
 
 **Pattern:**
 1. Facilitator introduces the concept
@@ -87,28 +87,28 @@ When learners need to compare two AI behaviors, use sequential activities within
 
 ---
 
-## 5. Decide When to Include a Course Q&A Bot
+## 5. Decide When to Include a Lesson Q&A Bot
 
-The Course Q&A Bot is optional and separate from Activity sandboxes.
+The Lesson Q&A Bot is optional and separate from Activity sandboxes.
 
 **Include Q&A bot when:**
-- Course has complex conceptual content
+- Lesson has complex conceptual content
 - Learners may have questions between activities
 - Facilitator availability is limited
 - Self-paced review is expected
 
 **Skip Q&A bot when:**
-- Simple course with clear activities
+- Simple lesson with clear activities
 - Facilitator always available for questions
-- Course is very short
+- Lesson is very short
 
 **Important distinction:**
 - **Activity Sandbox** = Demonstrates specific behavior (may be flawed)
-- **Course Q&A Bot** = Always helpful assistant for questions
+- **Lesson Q&A Bot** = Always helpful assistant for questions
 
 **Example prompt:**
 
-> "This course does NOT need a Q&A bot—it's a 30-minute session with the facilitator present throughout."
+> "This lesson does NOT need a Q&A bot—it's a 30-minute session with the facilitator present throughout."
 
 ---
 
@@ -118,7 +118,7 @@ When providing source material, indicate what type it is:
 
 | Type | Description | How It's Used |
 |------|-------------|---------------|
-| **Curriculum document** | Learning objectives, course outlines | Direct extraction of structure |
+| **Curriculum document** | Learning objectives, lesson outlines | Direct extraction of structure |
 | **Organizational context** | Internal docs, frameworks | Transformed for AI context files |
 | **Reference material** | Background reading | Informs content, not used directly |
 
@@ -158,12 +158,12 @@ For persona/simulation activities, provide:
 
 ## Quick Reference Checklist
 
-Before submitting a course design, ensure you've included:
+Before submitting a lesson design, ensure you've included:
 
-**Course Level:**
-- [ ] Course title and description
+**Lesson Level:**
+- [ ] Lesson title and description
 - [ ] Total duration
-- [ ] Learning objectives (course-level, not per-activity)
+- [ ] Learning objectives (lesson-level, not per-activity)
 - [ ] Facilitator guide expectations (timing, discussion prompts)
 - [ ] Whether Q&A bot is needed
 
@@ -180,10 +180,10 @@ Before submitting a course design, ensure you've included:
 
 | Mistake | Better Approach |
 |---------|-----------------|
-| "Lesson 1 teaches about context" | "Activity 1 lets learners experience AI without context; facilitator explains why after" |
-| "Include learning objectives in each activity" | "Learning objectives at course level only" |
+| "Activity 1 teaches about context" | "Activity 1 lets learners experience AI without context; facilitator explains why after" |
+| "Include learning objectives in each activity" | "Learning objectives at lesson level only" |
 | "The Principle section explains the takeaway" | "Facilitator synthesizes the principle in discussion after activity" |
-| "Q&A bot in every activity" | "One Q&A bot at course level (if needed), separate from activity sandboxes" |
+| "Q&A bot in every activity" | "One Q&A bot at lesson level (if needed), separate from activity sandboxes" |
 | "Activity should explain sycophancy" | "Activity demonstrates sycophancy; facilitator explains it" |
 
 ---
@@ -192,10 +192,12 @@ Before submitting a course design, ensure you've included:
 
 | Old Term | New Term |
 |----------|----------|
-| Lesson | Activity |
+| Course (teaching unit) | Lesson |
+| Cohort (program) | Course |
+| Lesson (pre-2025) | Activity |
 | Lesson Plan | Activity Configuration |
 | Lesson Text | Activity Instructions |
 | `lessons/` folder | `activities/` folder |
 | "This lesson demonstrates..." | "This activity lets learners experience..." |
-| Facilitator Notes (secondary) | Facilitator Guide (primary, course-level) |
-| Lesson Objectives | Course Learning Objectives |
+| Facilitator Notes (secondary) | Facilitator Guide (primary, lesson-level) |
+| Lesson Objectives | Lesson Learning Objectives |

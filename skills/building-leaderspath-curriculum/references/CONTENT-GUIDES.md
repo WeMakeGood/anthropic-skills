@@ -6,38 +6,38 @@ This document provides patterns and examples for creating LeadersPath content co
 
 ## The Core Model
 
-**LeadersPath is a facilitated cohort learning experience.** The AI sandbox is an activity within a facilitated course, not a standalone lesson.
+**LeadersPath is a facilitated course learning experience.** The AI sandbox is an activity within a facilitated lesson, not a standalone tutorial.
 
 | Component | Purpose | Who Creates It |
 |-----------|---------|----------------|
 | **Facilitator Guide** | Complete teaching script | PRIMARY deliverable |
 | **Activity Instructions** | "Try this, notice that" for sandbox | Experimentation guidance only |
-| **Course Q&A Bot** | Optional helpful assistant | For questions about course content |
+| **Lesson Q&A Bot** | Optional helpful assistant | For questions about lesson content |
 | **Activity Sandbox** | Demonstrate specific AI behavior | May be flawed, limited, or roleplay |
 
-**The facilitator teaches concepts. The sandbox provides hands-on experience. The cohort discusses.**
+**The facilitator teaches concepts. The sandbox provides hands-on experience. The peers discuss.**
 
 ---
 
 ## Facilitator Guide (PRIMARY DELIVERABLE)
 
-The facilitator guide is the central document. A facilitator should be able to teach the entire course from this document alone.
+The facilitator guide is the central document. A facilitator should be able to teach the entire lesson from this document alone.
 
 ### Purpose
 
 The facilitator guide:
 - Scripts the entire teaching flow with timing
 - Integrates conceptual presentation with activity breaks
-- Provides discussion prompts for cohort interaction
+- Provides discussion prompts for peer interaction
 - Anticipates common questions and challenges
 - Guides synthesis and wrap-up
 
 ### Structure
 
 ```markdown
-# Facilitator Guide: [Course Name]
+# Facilitator Guide: [Lesson Name]
 
-## Course Overview
+## Lesson Overview
 - **Duration:** [total time]
 - **Activities:** [count]
 - **Prerequisites:** [list]
@@ -77,7 +77,7 @@ The facilitator guide:
 ---
 
 #### Discussion After Activity
-[Prompts for cohort discussion]
+[Prompts for group discussion]
 
 - [Discussion prompt 1]
 - [Discussion prompt 2]
@@ -92,7 +92,7 @@ The facilitator guide:
 ---
 
 ## Synthesis and Wrap-Up
-[How to close the course]
+[How to close the lesson]
 
 - Connect activities to learning objectives
 - Key takeaways
@@ -217,7 +217,7 @@ Activity instructions tell learners:
 
 **DON'T:**
 - Teach concepts (facilitator does that)
-- Include learning objectives (those are at course level)
+- Include learning objectives (those are at lesson level)
 - Explain "The Principle" (facilitator synthesizes after)
 - Write lengthy explanations
 
@@ -377,58 +377,58 @@ They are a consultant assessing whether your organization is ready for AI implem
 
 ---
 
-## Course Q&A Bot Configuration
+## Lesson Q&A Bot Configuration
 
-The Course Q&A Bot is fundamentally different from Activity sandboxes.
+The Lesson Q&A Bot is fundamentally different from Activity sandboxes.
 
-| Aspect | Activity Sandbox | Course Q&A Bot |
+| Aspect | Activity Sandbox | Lesson Q&A Bot |
 |--------|------------------|----------------|
 | Purpose | Demonstrate behavior | Answer questions |
 | Configuration | May be flawed/limited | Always helpful |
-| When used | During specific activity | Anytime during course |
+| When used | During specific activity | Anytime during lesson |
 | Tone | Varies by activity | Supportive, accurate |
 
 ### When to Include Q&A Bot
 
 **Include when:**
-- Course has complex conceptual content
+- Lesson has complex conceptual content
 - Learners may have questions between activities
 - Facilitator availability is limited
 - Self-paced review is expected
 
 **Skip when:**
-- Simple course with clear activities
+- Simple lesson with clear activities
 - Facilitator always available for questions
-- Cohort discussion is primary Q&A mechanism
-- Course is very short
+- Group discussion is primary Q&A mechanism
+- Lesson is very short
 
 ### Q&A Bot Structure
 
 ```markdown
-# Course Q&A Chatbot Configuration
+# Lesson Q&A Chatbot Configuration
 
 ## Enable Q&A Chatbot
 Yes
 
 ## Purpose
-Helpful assistant for answering questions about [Course Name] concepts.
+Helpful assistant for answering questions about [Lesson Name] concepts.
 
 ## System Prompt
-You are a helpful Q&A assistant for the course "[Course Name]".
+You are a helpful Q&A assistant for the lesson "[Lesson Name]".
 
 Your role is to:
-- Answer questions about course concepts
+- Answer questions about lesson concepts
 - Clarify ideas that may be confusing
 - Help learners understand the material
-- Point to relevant parts of the course
+- Point to relevant parts of the lesson
 
 Be accurate, clear, and supportive. If you're unsure about something,
 say so rather than guessing.
 
-[Additional context about specific course topics]
+[Additional context about specific lesson topics]
 
 ## Context Files
-- [course-concepts.md] — Core course content
+- [lesson-concepts.md] — Core lesson content
 - [terminology.md] — Key terms and definitions
 
 ## Model Settings
@@ -509,19 +509,19 @@ Context files provide background knowledge that shapes AI behavior. They're load
 
 ## Examples
 
-### Complete Course Package
+### Complete Lesson Package
 
-**Course: AI Foundations** (Course ID: FUND-101-ai-basics)
+**Lesson: AI Foundations** (Lesson ID: FUND-101-ai-basics)
 
 **Folder structure:**
 ```
 [working-folder]/
-├── course-tracker.md
-├── course-metadata.md
+├── lesson-tracker.md
+├── lesson-metadata.md
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
-├── course-id-log.md
+├── lesson-id-log.md
 └── activities/
     ├── FUND-101-ACT-starting-from-zero/
     │   ├── configuration/
@@ -539,7 +539,7 @@ Context files provide background knowledge that shapes AI behavior. They're load
 ```markdown
 # Learning Objectives: AI Foundations
 
-After completing this course, learners will be able to:
+After completing this lesson, learners will be able to:
 
 1. Recognize the difference between unconfigured and context-rich AI outputs
 2. Identify when generic AI advice needs organizational context to be actionable
@@ -555,7 +555,7 @@ A hands-on exploration of how AI configuration affects output quality—from gen
 
 ## What to Expect
 - 2 hands-on activities with AI sandboxes
-- Discussion and reflection with your cohort
+- Discussion and reflection with your peers
 - 45 minutes of facilitated learning
 
 ## Before You Begin
@@ -610,7 +610,7 @@ None
 ```markdown
 # Context Files for Activity: Starting from Zero
 
-## Course-Level Context
+## Lesson-Level Context
 None
 
 ## Activity-Specific Context
@@ -640,4 +640,4 @@ Temperature affects response variability. Guidance for different activity types:
 | Complex reasoning | Opus 4.5 | Best for nuanced, multi-step tasks |
 | Quick demonstrations | Haiku | Fast responses for simple interactions |
 | Roleplay/persona | Sonnet or Opus | Higher quality character portrayal |
-| Course Q&A bot | Sonnet | Reliable, helpful responses |
+| Lesson Q&A bot | Sonnet | Reliable, helpful responses |

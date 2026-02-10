@@ -1,10 +1,10 @@
 # LeadersPath Curriculum Naming System
 
-This document defines the naming conventions for LeadersPath courses, activities, and context files. These conventions ensure consistency, enable WordPress import, and support curriculum reuse across cohorts.
+This document defines the naming conventions for LeadersPath lessons, activities, and context files. These conventions ensure consistency, enable WordPress import, and support curriculum reuse across courses.
 
 ---
 
-## Course ID Format
+## Lesson ID Format
 
 ```
 TOPIC-LEVEL-slug
@@ -26,7 +26,7 @@ TOPIC-LEVEL-slug
 | `ETH` | Ethics & Responsibility | Bias, transparency, responsible use |
 | `APP` | Applications | Writing, research, analysis, communication |
 
-**Note:** These codes cover most curriculum needs. If a course doesn't fit neatly, use the closest match or ask the user which code applies.
+**Note:** These codes cover most curriculum needs. If a lesson doesn't fit neatly, use the closest match or ask the user which code applies.
 
 ### Level Codes
 
@@ -46,7 +46,7 @@ TOPIC-LEVEL-slug
 - **No consecutive hyphens**
 
 **Good slugs:** `ai-basics`, `effective-prompting`, `context-transforms`
-**Bad slugs:** `AI_Basics`, `1-intro`, `my--course`
+**Bad slugs:** `AI_Basics`, `1-intro`, `my--lesson`
 
 ---
 
@@ -63,19 +63,19 @@ TOPIC-LEVEL-ACT-slug
 
 ### Construction
 
-1. Start with the parent Course ID's topic and level: `FUND-101`
+1. Start with the parent Lesson ID's topic and level: `FUND-101`
 2. Add literal `ACT`: `FUND-101-ACT`
 3. Add activity slug: `FUND-101-ACT-starting-from-zero`
 
 ### Activity Slug Rules
 
-Same rules as course slugs:
+Same rules as lesson slugs:
 - kebab-case, 3-50 characters, starts with letter
 - Generated from activity name: "Starting from Zero" → `starting-from-zero`
 
 ### Global Uniqueness
 
-The course ID prefix makes activities globally unique by construction. No separate registry is needed—just ensure no duplicate slugs within the same course.
+The lesson ID prefix makes activities globally unique by construction. No separate registry is needed—just ensure no duplicate slugs within the same lesson.
 
 ---
 
@@ -106,8 +106,8 @@ CTX###-slug.md
 ### Scope
 
 Context files can be:
-- **Shared globally:** Used across multiple courses (stored in a shared context library)
-- **Course-specific:** Used only within one course (stored in `activities/shared-context/`)
+- **Shared globally:** Used across multiple lessons (stored in a shared context library)
+- **Lesson-specific:** Used only within one lesson (stored in `activities/shared-context/`)
 
 Both use the same `CTX###-slug.md` format for consistency.
 
@@ -115,7 +115,7 @@ Both use the same `CTX###-slug.md` format for consistency.
 
 ## Validation Rules
 
-### Course ID Validation
+### Lesson ID Validation
 
 ```
 Pattern: ^(FUND|PRMPT|CTX|ETH|APP)-[1-4][0-9]{2}-[a-z][a-z0-9-]{2,49}$
@@ -124,7 +124,7 @@ Pattern: ^(FUND|PRMPT|CTX|ETH|APP)-[1-4][0-9]{2}-[a-z][a-z0-9-]{2,49}$
 - Topic: One of FUND, PRMPT, CTX, ETH, APP (uppercase)
 - Level: 101-499 (three digits)
 - Slug: 3-50 characters, starts with letter, kebab-case
-- Must be unique (check course-id-log if provided)
+- Must be unique (check lesson-id-log if provided)
 
 ### Activity ID Validation
 
@@ -132,10 +132,10 @@ Pattern: ^(FUND|PRMPT|CTX|ETH|APP)-[1-4][0-9]{2}-[a-z][a-z0-9-]{2,49}$
 Pattern: ^(FUND|PRMPT|CTX|ETH|APP)-[1-4][0-9]{2}-ACT-[a-z][a-z0-9-]{2,49}$
 ```
 
-- Topic-Level: Must match parent course
+- Topic-Level: Must match parent lesson
 - ACT: Literal string (uppercase)
 - Slug: 3-50 characters, starts with letter, kebab-case
-- Must be unique within the course
+- Must be unique within the lesson
 
 ### Context File ID Validation
 
@@ -152,14 +152,14 @@ Pattern: ^CTX[0-9]{3}-[a-z][a-z0-9-]{2,49}\.md$
 
 ## Log File Formats
 
-### course-id-log.md
+### lesson-id-log.md
 
-Tracks assigned Course IDs organized by topic.
+Tracks assigned Lesson IDs organized by topic.
 
 ```markdown
-# Course ID Log
+# Lesson ID Log
 
-Tracks Course ID assignments to avoid conflicts and find available IDs.
+Tracks Lesson ID assignments to avoid conflicts and find available IDs.
 
 ---
 
@@ -167,7 +167,7 @@ Tracks Course ID assignments to avoid conflicts and find available IDs.
 
 | ID | Slug | Title | Date Assigned | Status | Notes |
 |----|------|-------|---------------|--------|-------|
-| FUND-101 | ai-basics | AI Foundations | 2026-02-05 | Published | First LeadersPath course |
+| FUND-101 | ai-basics | AI Foundations | 2026-02-05 | Published | First LeadersPath lesson |
 | FUND-102 | capabilities-limits | AI Capabilities & Limitations | 2026-02-10 | Development | |
 
 ## PRMPT - Prompting
@@ -213,7 +213,7 @@ Tracks CTX### assignments for sequential numbering.
 | CTX002 | brand-voice | Brand voice guidelines | Global | Context Library | 2026-02-05 |
 | CTX003 | behavioral-standards | AI behavioral training | Global | Context Library | 2026-02-06 |
 | CTX004 | prose-standards | Natural prose guidelines | Global | Context Library | 2026-02-06 |
-| CTX005 | foundations-terminology | Course-specific terms | Course | FUND-101 | 2026-02-07 |
+| CTX005 | foundations-terminology | Lesson-specific terms | Lesson | FUND-101 | 2026-02-07 |
 
 ---
 
@@ -222,7 +222,7 @@ Tracks CTX### assignments for sequential numbering.
 CTX006
 ```
 
-**Scope values:** `Global` (shared library), `Course` (course-specific)
+**Scope values:** `Global` (shared library), `Lesson` (lesson-specific)
 
 ---
 
@@ -232,32 +232,32 @@ When importing to WordPress LeadersPath plugin:
 
 | Curriculum Element | WordPress Post Slug |
 |--------------------|---------------------|
-| Course | `TOPIC-LEVEL-slug` (lowercase) |
+| Lesson | `TOPIC-LEVEL-slug` (lowercase) |
 | Activity | `TOPIC-LEVEL-ACT-slug` (lowercase) |
 | Context File | `CTX###-slug` (lowercase) |
 
 **Examples:**
-- Course `FUND-101-ai-basics` → slug `fund-101-ai-basics`
+- Lesson `FUND-101-ai-basics` → slug `fund-101-ai-basics`
 - Activity `FUND-101-ACT-starting-from-zero` → slug `fund-101-act-starting-from-zero`
 - Context file `CTX001-org-identity.md` → slug `ctx001-org-identity`
 
-Activity slugs include the full course ID prefix, making them globally unique in WordPress without requiring a separate uniqueness check.
+Activity slugs include the full lesson ID prefix, making them globally unique in WordPress without requiring a separate uniqueness check.
 
 ---
 
 ## Folder Structure
 
-### Course Output (building-leaderspath-curriculum)
+### Lesson Output (building-leaderspath-curriculum)
 
 ```
 [working-folder]/
-├── course-tracker.md
-├── course-metadata.md
+├── lesson-tracker.md
+├── lesson-metadata.md
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
 ├── qa-chatbot-config.md              # Optional
-├── course-id-log.md                  # New/updated entries
+├── lesson-id-log.md                  # New/updated entries
 └── activities/
     ├── TOPIC-LEVEL-ACT-first-activity/
     │   ├── configuration/
@@ -268,18 +268,18 @@ Activity slugs include the full course ID prefix, making them globally unique in
     ├── TOPIC-LEVEL-ACT-second-activity/
     │   └── [same structure]
     └── shared-context/
-        └── CTX###-slug.md            # Course-specific context
+        └── CTX###-slug.md            # Lesson-specific context
 ```
 
-### Cohort Output (designing-leaderspath-cohorts)
+### Course Output (designing-leaderspath-courses)
 
 ```
 [working-folder]/
-├── cohort-tracker.md
-├── cohort-curriculum.md
-├── course-reuse-report.md
-├── course-id-log.md                  # New/updated entries
-└── Courses/
+├── course-tracker.md
+├── course-curriculum.md
+├── lesson-reuse-report.md
+├── lesson-id-log.md                  # New/updated entries
+└── Lessons/
     ├── FUND-101-ai-basics-curriculum.md
     ├── PRMPT-201-effective-prompting-curriculum.md
     └── ...
@@ -291,7 +291,7 @@ Activity slugs include the full course ID prefix, making them globally unique in
 
 | Element | Format | Example |
 |---------|--------|---------|
-| Course ID | `TOPIC-LEVEL-slug` | `FUND-101-ai-basics` |
+| Lesson ID | `TOPIC-LEVEL-slug` | `FUND-101-ai-basics` |
 | Activity ID | `TOPIC-LEVEL-ACT-slug` | `FUND-101-ACT-starting-from-zero` |
 | Context File | `CTX###-slug.md` | `CTX001-org-identity.md` |
 | Activity Folder | `activities/TOPIC-LEVEL-ACT-slug/` | `activities/FUND-101-ACT-starting-from-zero/` |

@@ -1,32 +1,32 @@
 # LeadersPath Data Schema
 
-This document defines the data model and field requirements for LeadersPath content, aligned with the WordPress plugin schema.
+This document defines the data model and field requirements for LeadersPath content, aligned with the WordPress plugin schema (v0.3.0).
 
 ## Terminology
 
-**Important:** In the WordPress plugin, the post type is `leaderspath_lesson` for historical reasons, but the UI displays "Activity" throughout. When designing curriculum, use "Activity" terminology.
-
-| Curriculum Term | WordPress Post Type | UI Label |
-|-----------------|---------------------|----------|
-| Course | `leaderspath_course` | Course |
-| Activity | `leaderspath_lesson` | Activity |
-| Context File | `leaderspath_context` | Context File |
-| Skill | `leaderspath_skill` | Skill |
+| Curriculum Term | WordPress Post Type | REST Endpoint | Description |
+|-----------------|---------------------|---------------|-------------|
+| Course | `leaderspath_course` | `/courses` | Container grouping lessons into a program |
+| Lesson | `leaderspath_lesson` | `/lessons` | Teaching unit with objectives and activities |
+| Activity | `leaderspath_activity` | `/activities` | Individual hands-on learning exercise |
+| Context File | `leaderspath_context` | `/context-files` | Reference material for AI chatbots |
+| Skill | `leaderspath_skill` | `/skills` | Agent skill package (ZIP with SKILL.md) |
 
 ---
 
 ## Entity Overview
 
 ```
-Course (teaching unit)
-├── Learning Objectives (course-level)
-├── Facilitator Guide
-├── Learner Overview
-├── Q&A Chatbot (optional)
-└── Activities (ordered sequence)
-    ├── Activity Sandbox Configuration
-    ├── Activity Instructions
-    └── Context Files (relationship)
+Course (program container)
+└── Lessons (ordered sequence)
+    ├── Learning Objectives (lesson-level)
+    ├── Facilitator Guide
+    ├── Learner Overview
+    ├── Q&A Chatbot (optional)
+    └── Activities (ordered sequence)
+        ├── Activity Sandbox Configuration
+        ├── Activity Instructions
+        └── Context Files (relationship)
 ```
 
 ---
@@ -39,37 +39,49 @@ Course (teaching unit)
 |-------|------|----------|-------------|
 | `title` | Text | Yes | Course title |
 | `post_content` | Text | Yes | Course description |
-| `course_objectives` | Repeater | Yes | Learning objectives (what learners achieve) |
-| `course_facilitator_guide` | WYSIWYG | Yes | Complete facilitator guide content |
-| `course_learner_overview` | WYSIWYG | Yes | Learner-facing overview |
-| `course_lessons` | Relationship | Yes | Ordered sequence of Activities |
+| `course_lessons` | Relationship | Yes | Ordered sequence of Lessons |
+
+---
+
+## Lesson Fields
+
+### Core Content
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | Text | Yes | Lesson title |
+| `post_content` | Text | Yes | Lesson description |
+| `lesson_objectives` | Repeater | Yes | Learning objectives (what learners achieve) |
+| `lesson_facilitator_guide` | WYSIWYG | Yes | Complete facilitator guide content |
+| `lesson_learner_overview` | WYSIWYG | Yes | Learner-facing overview |
+| `lesson_activities` | Relationship | Yes | Ordered sequence of Activities |
 
 ### Metadata
 
 | Field | Type | Required | Constraints | Description |
 |-------|------|----------|-------------|-------------|
-| `course_difficulty` | Select | Yes | beginner/intermediate/advanced | Target skill level |
-| `course_total_duration` | Text | Yes | — | Total time (e.g., "90 minutes") |
-| `course_access_roles` | Checkbox | No | WordPress roles | Who can access |
+| `lesson_difficulty` | Select | Yes | beginner/intermediate/advanced | Target skill level |
+| `lesson_total_duration` | Text | Yes | — | Total time (e.g., "90 minutes") |
+| `lesson_access_roles` | Checkbox | No | WordPress roles | Who can access |
 
-### Course Q&A Chatbot (Optional)
+### Lesson Q&A Chatbot (Optional)
 
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|
-| `course_chatbot_enabled` | Boolean | Yes | false | Enable Q&A bot |
-| `course_chatbot_model` | Select | No | sonnet | Claude model |
-| `course_chatbot_system_prompt` | Textarea | No | — | Custom Q&A prompt |
-| `course_chatbot_context_files` | Relationship | No | — | Reference materials |
-| `course_chatbot_max_tokens` | Number | No | 4096 | Response length limit |
-| `course_chatbot_temperature` | Number | No | 0.7 | Response randomness |
+| `lesson_chatbot_enabled` | Boolean | Yes | false | Enable Q&A bot |
+| `lesson_chatbot_model` | Select | No | sonnet | Claude model |
+| `lesson_chatbot_system_prompt` | Textarea | No | — | Custom Q&A prompt |
+| `lesson_chatbot_context_files` | Relationship | No | — | Reference materials |
+| `lesson_chatbot_max_tokens` | Number | No | 4096 | Response length limit |
+| `lesson_chatbot_temperature` | Number | No | 0.7 | Response randomness |
 
 **Key distinction:**
 - **Activity Sandbox** = Demonstrates specific AI behavior (might be sycophantic, limited, roleplay)
-- **Course Q&A Bot** = Always helpful, accurate, grounded in course content
+- **Lesson Q&A Bot** = Always helpful, accurate, grounded in lesson content
 
 ---
 
-## Activity Fields (WordPress: `leaderspath_lesson`)
+## Activity Fields (WordPress: `leaderspath_activity`)
 
 ### Core Content
 
@@ -78,14 +90,13 @@ Course (teaching unit)
 | `title` | Text | Yes | Activity title |
 | `post_content` | Text | Yes | Activity instructions ("Try this, notice that") |
 
-**Note:** `lesson_objectives` has been **removed**. Learning objectives now live at Course level.
-
 ### Metadata
 
 | Field | Type | Required | Constraints | Description |
 |-------|------|----------|-------------|-------------|
-| `lesson_duration` | Number | Yes | 1-480 minutes | Estimated completion time |
-| `lesson_prerequisites` | Relationship | No | Other Activities | Required prior Activities |
+| `activity_duration` | Number | Yes | 1-480 minutes | Estimated completion time |
+| `activity_prerequisites` | Relationship | No | Other Activities | Required prior Activities |
+| `activity_references` | Repeater | No | — | Supporting reference links |
 
 ### Activity Sandbox Configuration
 
@@ -93,6 +104,7 @@ Course (teaching unit)
 |-------|------|----------|---------|-------------|-------------|
 | `chatbot_enabled` | Boolean | Yes | true | — | Enable AI sandbox |
 | `chatbot_model` | Select | Yes | sonnet | sonnet/haiku/opus-4.5 | Model selection |
+| `chatbot_allow_model_switch` | Boolean | No | false | — | Allow learner to switch models |
 | `chatbot_system_prompt` | Textarea | Yes | — | — | **The sandbox configuration** |
 | `chatbot_context_files` | Relationship | No | — | Max 20 | Context files to load |
 | `chatbot_skills` | Relationship | No | — | Max 20 | Skills to enable |
@@ -172,26 +184,38 @@ When curriculum is imported to WordPress:
 | Curriculum Output | Plugin Field |
 |-------------------|--------------|
 | Course name | `post_title` |
-| Course description (from course-metadata.md) | `post_content` |
-| Learning objectives | `course_objectives` (repeater) |
-| facilitator-guide.md content | `course_facilitator_guide` |
-| learner-overview.md content | `course_learner_overview` |
-| Activities | `course_lessons` (relationship) |
-| Difficulty level | `course_difficulty` |
-| Duration text | `course_total_duration` |
-| Q&A enabled | `course_chatbot_enabled` |
-| Q&A settings | `course_chatbot_*` fields |
+| Course description | `post_content` |
+| Lessons | `course_lessons` (relationship) |
 
-### Activity Post (`leaderspath_lesson`, UI shows "Activity")
+### Lesson Post (`leaderspath_lesson`)
+
+| Curriculum Output | Plugin Field |
+|-------------------|--------------|
+| Lesson name | `post_title` |
+| Lesson description (from lesson-metadata.md) | `post_content` |
+| Learning objectives | `lesson_objectives` (repeater) |
+| facilitator-guide.md content | `lesson_facilitator_guide` |
+| learner-overview.md content | `lesson_learner_overview` |
+| Activities | `lesson_activities` (relationship) |
+| Difficulty level | `lesson_difficulty` |
+| Duration text | `lesson_total_duration` |
+| Q&A enabled | `lesson_chatbot_enabled` |
+| Q&A settings | `lesson_chatbot_*` fields |
+
+### Activity Post (`leaderspath_activity`)
 
 | Curriculum Output | Plugin Field |
 |-------------------|--------------|
 | Activity name | `post_title` |
 | instructions.md content | `post_content` |
-| Duration in minutes | `lesson_duration` |
+| Duration in minutes | `activity_duration` |
+| Prerequisites | `activity_prerequisites` |
+| References | `activity_references` |
 | Model | `chatbot_model` |
+| Allow model switch | `chatbot_allow_model_switch` |
 | system-prompt.md content | `chatbot_system_prompt` |
 | Context file references | `chatbot_context_files` |
+| Skill references | `chatbot_skills` |
 | Max tokens | `chatbot_max_tokens` |
 | Temperature | `chatbot_temperature` |
 
@@ -210,7 +234,7 @@ When curriculum is imported to WordPress:
 See [NAMING-SYSTEM.md](NAMING-SYSTEM.md) for complete naming conventions.
 
 **Quick reference:**
-- **Course ID:** `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`)
+- **Lesson ID:** `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`)
 - **Activity ID:** `TOPIC-LEVEL-ACT-slug` (e.g., `FUND-101-ACT-starting-from-zero`)
 - **Context File:** `CTX###-slug.md` (e.g., `CTX001-org-identity.md`)
 
@@ -224,13 +248,13 @@ When creating curriculum content, output in these formats:
 
 ```
 [working-folder]/
-├── course-tracker.md
-├── course-metadata.md
+├── lesson-tracker.md
+├── lesson-metadata.md
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
 ├── qa-chatbot-config.md              # Optional
-├── course-id-log.md                  # New/updated entries
+├── lesson-id-log.md                  # New/updated entries
 └── activities/
     ├── TOPIC-LEVEL-ACT-first-activity/
     │   ├── configuration/
@@ -244,12 +268,12 @@ When creating curriculum content, output in these formats:
         └── CTX###-slug.md
 ```
 
-### Course Metadata (`course-metadata.md`)
+### Lesson Metadata (`lesson-metadata.md`)
 
 ```markdown
-# Course: [Title]
+# Lesson: [Title]
 
-**Course ID:** [TOPIC-LEVEL-slug]
+**Lesson ID:** [TOPIC-LEVEL-slug]
 
 ## Overview
 [Brief description of what learners will experience]
@@ -261,7 +285,7 @@ When creating curriculum content, output in these formats:
 [e.g., "90 minutes" or "2 hours"]
 
 ## Prerequisites
-[List of prior courses or knowledge]
+[List of prior lessons or knowledge]
 
 ## Activities Included
 1. [TOPIC-LEVEL-ACT-slug] — [Activity name]
@@ -272,9 +296,9 @@ When creating curriculum content, output in these formats:
 ### Learning Objectives (`learning-objectives.md`)
 
 ```markdown
-# Learning Objectives: [Course Name]
+# Learning Objectives: [Lesson Name]
 
-After completing this course, learners will be able to:
+After completing this lesson, learners will be able to:
 
 1. [Objective 1 - action verb + measurable outcome]
 2. [Objective 2]
@@ -289,14 +313,14 @@ See [CONTENT-GUIDES.md](CONTENT-GUIDES.md) for the complete structure.
 ### Learner Overview (`learner-overview.md`)
 
 ```markdown
-# [Course Name]
+# [Lesson Name]
 
 ## What You'll Experience
-[High-level description of the course journey]
+[High-level description of the lesson journey]
 
 ## What to Expect
 - [Number] hands-on activities with AI sandboxes
-- Discussion and reflection with your cohort
+- Discussion and reflection with your course peers
 - [Duration] of facilitated learning
 
 ## Before You Begin
@@ -306,13 +330,13 @@ See [CONTENT-GUIDES.md](CONTENT-GUIDES.md) for the complete structure.
 ### Q&A Chatbot Config (`qa-chatbot-config.md`)
 
 ```markdown
-# Course Q&A Chatbot Configuration
+# Lesson Q&A Chatbot Configuration
 
 ## Enable Q&A Chatbot
 Yes / No
 
 ## Purpose
-[Why this course has a Q&A bot]
+[Why this lesson has a Q&A bot]
 
 ## System Prompt
 [Complete system prompt for Q&A assistant]
@@ -341,6 +365,7 @@ Yes / No
 - Model: [sonnet / haiku / opus-4.5]
 - Max Tokens: [number]
 - Temperature: [0-1]
+- Allow Model Switch: [yes / no]
 
 ## Context Files
 - [path/filename.md] — [brief description]
@@ -355,7 +380,7 @@ Yes / No
 ```markdown
 # Context Files for Activity: [Name]
 
-## Course-Level Context
+## Lesson-Level Context
 - [shared-context/filename.md] — [why needed]
 
 ## Activity-Specific Context

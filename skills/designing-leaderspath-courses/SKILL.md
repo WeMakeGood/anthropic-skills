@@ -1,26 +1,26 @@
 ---
-name: designing-leaderspath-cohorts
-description: Designs LeadersPath cohort curricula from source materials (interview transcripts, organizational docs, learning objectives). Creates cohort structure, searches for reusable courses, and outputs course curriculum prompts for the building-leaderspath-curriculum skill. Use when designing a new cohort, planning a learning program, or creating curriculum from interview or design materials. Activates when cohort design materials are provided via file path, attached file, or uploaded document.
+name: designing-leaderspath-courses
+description: Designs LeadersPath course curricula from source materials (interview transcripts, organizational docs, learning objectives). Creates course structure, searches for reusable lessons, and outputs lesson curriculum prompts for the building-leaderspath-curriculum skill. Use when designing a new course, planning a learning program, or creating curriculum from interview or design materials. Activates when course design materials are provided via file path, attached file, or uploaded document.
 ---
 
-# Designing LeadersPath Cohorts
+# Designing LeadersPath Courses
 
 <purpose>
 Claude's default when given curriculum design tasks is to jump straight to creating
-course content. This skill exists because cohort design requires upstream analysis—
-understanding learning themes, searching for reusable courses, and sequencing before
-any course content is written. The skill enforces this separation by producing
+lesson content. This skill exists because course design requires upstream analysis—
+understanding learning themes, searching for reusable lessons, and sequencing before
+any lesson content is written. The skill enforces this separation by producing
 curriculum prompts (design documents) rather than curriculum content.
 </purpose>
 
-Design cohort curricula for LeadersPath facilitated learning experiences.
+Design course curricula for LeadersPath facilitated learning experiences.
 
 ## What This Skill Does
 
-This skill transforms source materials into a complete cohort design with course curriculum prompts. It sits upstream of `building-leaderspath-curriculum`, with optional post-build phases:
+This skill transforms source materials into a complete course design with lesson curriculum prompts. It sits upstream of `building-leaderspath-curriculum`, with optional post-build phases:
 
 ```
-Source Materials → [THIS SKILL: Phases 1-5] → Cohort Design + Course Curriculum Prompts
+Source Materials → [THIS SKILL: Phases 1-5] → Course Design + Lesson Curriculum Prompts
                                                         ↓
                               [building-leaderspath-curriculum]
                                                         ↓
@@ -28,15 +28,15 @@ Source Materials → [THIS SKILL: Phases 1-5] → Cohort Design + Course Curricu
                                                         ↓
                           [THIS SKILL: Phase 6] → Meta-Analysis Report
                                                         ↓
-                          [THIS SKILL: Phase 7] → Cohort Email Series
+                          [THIS SKILL: Phase 7] → Course Email Series
 ```
 
 **Output:**
-1. **Cohort Curriculum** — Structure, sequencing, target audience, duration
-2. **Course Curriculum Prompts** — One per course, ready for `building-leaderspath-curriculum`
-3. **Course Reuse Report** — Which existing courses can be used vs. created new
-4. **Meta-Analysis Report** — Post-build review of courses against design intent, with curated resources (Phase 6)
-5. **Cohort Email Series** — Pre-cohort, post-session, and follow-up emails threading the learning arc (Phase 7)
+1. **Course Curriculum** — Structure, sequencing, target audience, duration
+2. **Lesson Curriculum Prompts** — One per lesson, ready for `building-leaderspath-curriculum`
+3. **Lesson Reuse Report** — Which existing lessons can be used vs. created new
+4. **Meta-Analysis Report** — Post-build review of lessons against design intent, with curated resources (Phase 6)
+5. **Course Email Series** — Pre-course, post-session, and follow-up emails threading the learning arc (Phase 7)
 
 ---
 
@@ -44,15 +44,15 @@ Source Materials → [THIS SKILL: Phases 1-5] → Cohort Design + Course Curricu
 
 **GROUNDING:** Base all content ONLY on provided source materials. Never invent learning objectives, topics, or pedagogical approaches not supported by the source.
 
-**COURSE REUSE:** Before designing new courses, ALWAYS search for existing courses that could serve the cohort's learning goals. Reuse is preferred over creation.
+**LESSON REUSE:** Before designing new lessons, ALWAYS search for existing lessons that could serve the course's learning goals. Reuse is preferred over creation.
 
-**ATOMIC COURSES:** Courses must be self-contained teaching units. Course curriculum prompts must NOT reference other courses. Sequencing belongs in the cohort curriculum, not individual courses.
+**ATOMIC LESSONS:** Lessons must be self-contained teaching units. Lesson curriculum prompts must NOT reference other lessons. Sequencing belongs in the course curriculum, not individual lessons.
 
 **CURRICULUM PROMPTS, NOT IMPLEMENTATION:** This skill creates prompts that tell `building-leaderspath-curriculum` what to build. Do NOT specify system prompts, activity instructions, or folder structures. Focus on learning outcomes and experiences.
 
 **ARTIFACT OUTPUT:** Never output content inline. Always save to files in the working folder.
 
-**PROGRESS TRACKING:** Maintain a cohort tracker file. Update after every completed step.
+**PROGRESS TRACKING:** Maintain a course tracker file. Update after every completed step.
 
 **PROFESSIONAL OBJECTIVITY:** If source materials contain unclear or contradictory learning goals, surface the issue rather than inventing a resolution. Ask for clarification rather than making assumptions.
 
@@ -61,11 +61,11 @@ Source Materials → [THIS SKILL: Phases 1-5] → Cohort Design + Course Curricu
 ## Additional Resources
 
 For detailed guidance, see:
-- [references/CURRICULUM-PROMPT-GUIDE.md](references/CURRICULUM-PROMPT-GUIDE.md) — How to write effective course curriculum prompts
-- [references/COURSE-SEARCH-GUIDE.md](references/COURSE-SEARCH-GUIDE.md) — How to search for and evaluate existing courses
+- [references/CURRICULUM-PROMPT-GUIDE.md](references/CURRICULUM-PROMPT-GUIDE.md) — How to write effective lesson curriculum prompts
+- [references/LESSON-SEARCH-GUIDE.md](references/LESSON-SEARCH-GUIDE.md) — How to search for and evaluate existing lessons
 - [references/META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) — How to conduct post-build meta-analysis (Phase 6)
-- [references/EMAIL-SERIES-GUIDE.md](references/EMAIL-SERIES-GUIDE.md) — How to create the cohort email series (Phase 7)
-- [../building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) — Course ID, Activity ID, and Context File naming conventions
+- [references/EMAIL-SERIES-GUIDE.md](references/EMAIL-SERIES-GUIDE.md) — How to create the course email series (Phase 7)
+- [../building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) — Lesson ID, Activity ID, and Context File naming conventions
 
 ---
 
@@ -74,22 +74,22 @@ For detailed guidance, see:
 **FIRST: Gather information from the user:**
 
 1. **"Where are your source materials?"** (interview transcripts, design docs, organizational materials)
-2. **"What is the cohort name?"** (used for tracker and curriculum files)
+2. **"What is the course name?"** (used for tracker and curriculum files)
 3. **"Who is the target audience?"** (nonprofit leaders, developers, executives, etc.)
 4. **"What is the desired duration?"** (number of sessions, weeks, hours)
-5. **"Are there existing courses I should check for reuse?"** (file paths or course library location)
-6. **"Do you have an existing course-id-log.md?"** (optional)
+5. **"Are there existing lessons I should check for reuse?"** (file paths or lesson library location)
+6. **"Do you have an existing lesson-id-log.md?"** (optional)
 
    If provided:
-   - Read to check existing Course IDs and avoid conflicts
+   - Read to check existing Lesson IDs and avoid conflicts
    - Note which topic-level combinations are already used
 
    If not provided:
    - Skill will create a new log as part of output
 
-**Topic and Level Code Reference** (for assigning Course IDs):
+**Topic and Level Code Reference** (for assigning Lesson IDs):
 
-When assigning Course IDs in Phase 4, use these codes:
+When assigning Lesson IDs in Phase 4, use these codes:
 
 **Topic codes:**
 - `FUND` - Fundamentals (how AI works, capabilities, limitations)
@@ -104,7 +104,7 @@ When assigning Course IDs in Phase 4, use these codes:
 - `301-399` - Advanced
 - `401+` - Specialized/Expert
 
-If a course doesn't fit neatly, use the closest match or ask user.
+If a lesson doesn't fit neatly, use the closest match or ask user.
 
 **THEN: Identify working folder:**
 - Look for a mounted/selected folder in the environment
@@ -120,54 +120,54 @@ Output directly to the working folder. No wrapper folders.
 
 ```
 Phase 1: Initialize & Analyze Sources
-    ├── Create cohort tracker
+    ├── Create course tracker
     ├── Read and analyze source materials
     └── Extract learning themes and objectives
     ↓
-Phase 2: Search for Existing Courses
-    ├── Search course library (if provided)
-    ├── Match existing courses to learning objectives
-    └── Create course reuse report
+Phase 2: Search for Existing Lessons
+    ├── Search lesson library (if provided)
+    ├── Match existing lessons to learning objectives
+    └── Create lesson reuse report
     ↓
-Phase 3: Design Cohort Structure
+Phase 3: Design Course Structure
     ├── Define audience and duration
-    ├── Sequence courses (existing + new)
-    └── Create cohort curriculum document
+    ├── Sequence lessons (existing + new)
+    └── Create course curriculum document
     ↓
-Phase 4: Create Course Curriculum Prompts
-    ├── For each NEW course needed
+Phase 4: Create Lesson Curriculum Prompts
+    ├── For each NEW lesson needed
     └── Output atomic curriculum prompts
     ↓
 Phase 5: Validate and Finalize
     ↓ (Phases 1-5 complete independently)
-    ↓ (Courses built by building-leaderspath-curriculum)
+    ↓ (Lessons built by building-leaderspath-curriculum)
     ↓
-Phase 6: Post-Build Meta-Analysis (optional, after courses built)
-    ├── Review courses against design intent
+Phase 6: Post-Build Meta-Analysis (optional, after lessons built)
+    ├── Review lessons against design intent
     ├── Surface insights from building process
     ├── Conduct gap analysis
     └── Curate supplementary resources
     ↓
-Phase 7: Cohort Email Series (requires Phase 6)
+Phase 7: Course Email Series (requires Phase 6)
     ├── Create welcome email
     ├── Create post-session emails
     ├── Create final session email
     └── Create one-month check-in
 ```
 
-**Note:** Phases 1-5 produce the cohort design and curriculum prompts. Phases 6-7 are optional post-build phases that run AFTER courses have been built by `building-leaderspath-curriculum`. Return to this skill to run Phases 6-7 when courses are complete.
+**Note:** Phases 1-5 produce the course design and curriculum prompts. Phases 6-7 are optional post-build phases that run AFTER lessons have been built by `building-leaderspath-curriculum`. Return to this skill to run Phases 6-7 when lessons are complete.
 
 ---
 
 <phase_initialize>
 ## Phase 1: Initialize & Analyze Sources
 
-### 1a: Create Cohort Tracker
+### 1a: Create Course Tracker
 
-Create `cohort-tracker.md` in the working folder:
+Create `course-tracker.md` in the working folder:
 
 ```markdown
-# Cohort Tracker: [Cohort Name]
+# Course Tracker: [Course Name]
 
 **Created:** [date]
 **Last Updated:** [date]
@@ -182,8 +182,8 @@ Create `cohort-tracker.md` in the working folder:
 1. [Theme from analysis]
 2. ...
 
-## Course Plan
-| Course ID | Course Name | Source | Status |
+## Lesson Plan
+| Lesson ID | Lesson Name | Source | Status |
 |-----------|-------------|--------|--------|
 | TOPIC-LEVEL-slug | [name] | [existing/new] | [ ] |
 
@@ -201,7 +201,7 @@ Read all source materials and extract:
 2. **Key concepts** — Specific ideas, frameworks, or skills mentioned
 3. **Target outcomes** — What learners should be able to do after
 4. **Suggested activities** — Any hands-on experiences mentioned
-5. **Quotes/examples** — Concrete material to reference in courses
+5. **Quotes/examples** — Concrete material to reference in lessons
 
 Document findings in the tracker under "Learning Themes Identified."
 
@@ -215,70 +215,70 @@ Document findings in the tracker under "Learning Themes Identified."
 ---
 
 <phase_search>
-## Phase 2: Search for Existing Courses
+## Phase 2: Search for Existing Lessons
 
-**REQUIRED:** Before creating new courses, search for existing ones.
+**REQUIRED:** Before creating new lessons, search for existing ones.
 
-### 2a: Search Course Library
+### 2a: Search Lesson Library
 
-If user provided a course library location:
+If user provided a lesson library location:
 
-1. List all course curriculum files (pattern: `*-curriculum.md`)
-2. Read each course's learning objectives and description
+1. List all lesson curriculum files (pattern: `*-curriculum.md`)
+2. Read each lesson's learning objectives and description
 3. Compare against identified learning themes
 
-If no course library provided:
-1. Ask user: "Is there an existing course library I should search?"
-2. If no: proceed to Phase 3 (all courses will be new)
+If no lesson library provided:
+1. Ask user: "Is there an existing lesson library I should search?"
+2. If no: proceed to Phase 3 (all lessons will be new)
 
-### 2b: Create Course Reuse Report
+### 2b: Create Lesson Reuse Report
 
-Create `[cohort-name]/course-reuse-report.md`:
+Create `lesson-reuse-report.md` in the working folder:
 
 ```markdown
-# Course Reuse Report: [Cohort Name]
+# Lesson Reuse Report: [Course Name]
 
-## Existing Courses That Fit
+## Existing Lessons That Fit
 
-| Course | File | Covers Themes | Gaps |
+| Lesson | File | Covers Themes | Gaps |
 |--------|------|---------------|------|
 | [name] | [path] | [themes 1, 3] | [missing X] |
 
-## Courses to Create New
+## Lessons to Create New
 
-| Course | Themes Covered | Rationale |
+| Lesson | Themes Covered | Rationale |
 |--------|----------------|-----------|
 | [name] | [themes 2, 4] | [why not reusing] |
 
 ## Recommendations
 
-[Summary of which courses to reuse, which to create, and any adaptations needed]
+[Summary of which lessons to reuse, which to create, and any adaptations needed]
 ```
 
-**Update tracker:** Add course plan with existing/new designations.
+**Update tracker:** Add lesson plan with existing/new designations.
 
 **GATE:** Before proceeding to Phase 3, write:
-- "Courses to reuse: [list or 'none']"
-- "Courses to create new: [list]"
+- "Lessons to reuse: [list or 'none']"
+- "Lessons to create new: [list]"
 
-**STOP.** Present course reuse report and get user approval before proceeding.
+**STOP.** Present lesson reuse report and get user approval before proceeding.
 </phase_search>
 
 ---
 
 <phase_design>
-## Phase 3: Design Cohort Structure
+## Phase 3: Design Course Structure
 
-### 3a: Create Cohort Curriculum
+### 3a: Create Course Curriculum
 
-Create `cohort-curriculum.md` in the working folder:
+Create `course-curriculum.md` in the working folder:
 
 ```markdown
-# Cohort Curriculum: [Cohort Name]
+# Course Curriculum: [Course Name]
 
-## Cohort Overview
+## Course Overview
 
-**Cohort Name:** [Name]
+**Course Name:** [Name]
 **Duration:** [X weeks / sessions]
 **Format:** Live facilitated sessions with AI sandbox activities
 **Target Audience:** [Description]
@@ -287,7 +287,7 @@ Create `cohort-curriculum.md` in the working folder:
 
 ## Learning Goals
 
-After completing this cohort, learners will be able to:
+After completing this course, learners will be able to:
 
 1. [Goal 1]
 2. [Goal 2]
@@ -295,9 +295,9 @@ After completing this cohort, learners will be able to:
 
 ---
 
-## Course Sequence
+## Lesson Sequence
 
-| Week | Course ID | Course Name | Focus | Source |
+| Week | Lesson ID | Lesson Name | Focus | Source |
 |------|-----------|-------------|-------|--------|
 | 1 | FUND-101-ai-basics | AI Foundations | Conceptual grounding | new |
 | 2 | PRMPT-101-intro-prompting | Introduction to Prompting | Prompting basics | new |
@@ -309,15 +309,15 @@ After completing this cohort, learners will be able to:
 
 **Organization:** [Name]
 **Context files:** [list CTX###-slug.md files]
-**Used in:** [which courses]
+**Used in:** [which lessons]
 
 ---
 
 ## Curriculum Files
 
-| Course ID | File |
+| Lesson ID | File |
 |-----------|------|
-| FUND-101-ai-basics | `Courses/FUND-101-ai-basics-curriculum.md` |
+| FUND-101-ai-basics | `Lessons/FUND-101-ai-basics-curriculum.md` |
 ...
 
 ---
@@ -325,62 +325,62 @@ After completing this cohort, learners will be able to:
 ## Using building-leaderspath-curriculum
 
 1. Invoke the skill
-2. Provide the course curriculum file and Course ID
+2. Provide the lesson curriculum file and Lesson ID
 3. Provide any referenced context files
 4. The skill creates facilitator guides, activities, learner materials
 
-Work course-by-course for best results.
+Work lesson-by-lesson for best results.
 ```
 
-**Update tracker:** Mark cohort curriculum complete.
+**Update tracker:** Mark course curriculum complete.
 
 **GATE:** Before proceeding to Phase 4, write:
-- "Cohort structure: [number] courses over [duration]"
-- "Course sequence: [brief list]"
+- "Course structure: [number] lessons over [duration]"
+- "Lesson sequence: [brief list]"
 </phase_design>
 
 ---
 
 <phase_prompts>
-## Phase 4: Create Course Curriculum Prompts
+## Phase 4: Create Lesson Curriculum Prompts
 
-For each NEW course (not reused), create a curriculum prompt file.
+For each NEW lesson (not reused), create a curriculum prompt file.
 
-### Assign Course ID
+### Assign Lesson ID
 
-For each new course:
+For each new lesson:
 
 1. **Select Topic Code:** FUND, PRMPT, CTX, ETH, or APP (closest match)
 2. **Select Level:** 101-199 (beginner), 201-299 (intermediate), 301-399 (advanced), 401+ (specialized)
-3. **Generate Slug:** From course name, kebab-case, 3-50 chars
+3. **Generate Slug:** From lesson name, kebab-case, 3-50 chars
 
 **Example:** "AI Foundations" for beginners → `FUND-101-ai-foundations`
 
-If course-id-log.md was provided, check for conflicts before assigning.
+If lesson-id-log.md was provided, check for conflicts before assigning.
 
-### Course Curriculum Prompt Template
+### Lesson Curriculum Prompt Template
 
-Create `Courses/TOPIC-LEVEL-slug-curriculum.md`:
+Create `Lessons/TOPIC-LEVEL-slug-curriculum.md`:
 
 ```markdown
-# Course: [Course Name] — Curriculum Prompt
+# Lesson: [Lesson Name] — Curriculum Prompt
 
-**Course ID:** [TOPIC-LEVEL-slug]
+**Lesson ID:** [TOPIC-LEVEL-slug]
 
-## Course Overview
+## Lesson Overview
 
-**Course Name:** [Name]
+**Lesson Name:** [Name]
 **Difficulty:** [Beginner / Intermediate / Advanced]
-**Prerequisites:** [None / Other courses recommended]
+**Prerequisites:** [None / Other lessons recommended]
 **Estimated Duration:** [X minutes]
 
 **Description:** [What learners will experience and why it matters]
 
 ---
 
-## Course Learning Objectives
+## Lesson Learning Objectives
 
-After completing this course, learners will be able to:
+After completing this lesson, learners will be able to:
 
 1. [Objective 1 — action verb + measurable outcome]
 2. [Objective 2]
@@ -401,13 +401,13 @@ After completing this course, learners will be able to:
 
 ---
 
-## Course Design
+## Lesson Design
 
-**Course type:** [Facilitated presentation / Hands-on comparison / Discussion-based / etc.]
+**Lesson type:** [Facilitated presentation / Hands-on comparison / Discussion-based / etc.]
 
 [Brief description of pedagogical approach]
 
-**Include Course Q&A Bot:** [Yes / No]
+**Include Lesson Q&A Bot:** [Yes / No]
 
 [If yes, describe what the Q&A bot should help with]
 
@@ -442,7 +442,7 @@ After completing this course, learners will be able to:
 
 ### What TO Include
 
-* Learning objectives (course level)
+* Learning objectives (lesson level)
 * What experiences learners should have
 * What concepts should be covered
 * Which context files to use
@@ -456,28 +456,28 @@ After completing this course, learners will be able to:
 * Activity instructions (skill generates those)
 * Facilitator notes (skill generates those)
 * Folder structures (skill decides those)
-* References to other courses (breaks atomicity)
+* References to other lessons (breaks atomicity)
 
-**Update tracker:** Mark each course curriculum prompt complete.
+**Update tracker:** Mark each lesson curriculum prompt complete.
 
-**Log Course ID assignments:**
+**Log Lesson ID assignments:**
 
-After creating each curriculum prompt, output a course-id-log entry (append to provided log or create new `course-id-log.md`):
+After creating each curriculum prompt, output a lesson-id-log entry (append to provided log or create new `lesson-id-log.md`):
 
 ```markdown
 ## [TOPIC] - [Topic Name]
 
 | ID | Slug | Title | Date Assigned | Status | Notes |
 |----|------|-------|---------------|--------|-------|
-| TOPIC-LEVEL | slug | Course Title | [date] | Design | Part of [Cohort Name] |
+| TOPIC-LEVEL | slug | Lesson Title | [date] | Design | Part of [Course Name] |
 ```
 
-**Present each course for review before proceeding to next.**
+**Present each lesson for review before proceeding to next.**
 
 **GATE:** Before proceeding to Phase 5, write:
-- "Course curriculum prompts created: [list files with Course IDs]"
-- "Course IDs logged: [count]"
-- "All courses approved: [yes/pending]"
+- "Lesson curriculum prompts created: [list files with Lesson IDs]"
+- "Lesson IDs logged: [count]"
+- "All lessons approved: [yes/pending]"
 </phase_prompts>
 
 ---
@@ -488,18 +488,18 @@ After creating each curriculum prompt, output a course-id-log entry (append to p
 After all content is complete:
 
 1. **Review tracker** — All items complete
-2. **Verify atomicity** — No course references another course
+2. **Verify atomicity** — No lesson references another lesson
 3. **Check coverage** — All learning themes addressed
-4. **Confirm sequencing** — Cohort curriculum sequences make sense
+4. **Confirm sequencing** — Course curriculum sequences make sense
 
 **Phase 1-5 deliverables:**
 ```
 [working-folder]/
-├── cohort-tracker.md
-├── cohort-curriculum.md
-├── course-reuse-report.md
-├── course-id-log.md              # New/updated entries
-└── Courses/
+├── course-tracker.md
+├── course-curriculum.md
+├── lesson-reuse-report.md
+├── lesson-id-log.md              # New/updated entries
+└── Lessons/
     ├── FUND-101-ai-basics-curriculum.md
     ├── PRMPT-101-intro-prompting-curriculum.md
     └── ...
@@ -512,7 +512,7 @@ After all content is complete:
 
 **STOP.** Present complete package and get user approval before finalizing.
 
-**After Phase 5:** The user takes the course curriculum prompts to `building-leaderspath-curriculum` to build the courses. Once courses are built, return to this skill for Phases 6-7.
+**After Phase 5:** The user takes the lesson curriculum prompts to `building-leaderspath-curriculum` to build the lessons. Once lessons are built, return to this skill for Phases 6-7.
 </phase_validate>
 
 ---
@@ -520,19 +520,19 @@ After all content is complete:
 <phase_meta_analysis>
 ## Phase 6: Post-Build Meta-Analysis
 
-**PREREQUISITE:** All courses must be built by `building-leaderspath-curriculum` before running this phase.
+**PREREQUISITE:** All lessons must be built by `building-leaderspath-curriculum` before running this phase.
 
 This phase reviews what was actually built against the original design intent. It surfaces insights, identifies gaps, and curates supplementary resources for the email series.
 
-### 6a: Gather Built Course Materials
+### 6a: Gather Built Lesson Materials
 
 **REQUIRED:** Before starting, gather all inputs:
 
 1. **From Phase 1-5:**
-   - Cohort design document
+   - Course design document
    - Source materials (interview syntheses, articles)
    - All curriculum prompts
-   - Cohort tracker
+   - Course tracker
 
 2. **From building-leaderspath-curriculum:**
    - All facilitator guides
@@ -542,7 +542,7 @@ This phase reviews what was actually built against the original design intent. I
    - Context registry (if demo contexts used)
 
 **GATE:** Before proceeding, write:
-- "I have gathered [N] built course packages: [list Course IDs]"
+- "I have gathered [N] built lesson packages: [list Lesson IDs]"
 - "Source materials available: [list]"
 
 ### 6b: Conduct the Analysis
@@ -551,9 +551,9 @@ See [references/META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) for d
 
 **Analysis sections:**
 
-1. **Alignment** — Do courses meet design intent? What aligned? Where did they diverge?
+1. **Alignment** — Do lessons meet design intent? What aligned? Where did they diverge?
 2. **Building insights** — What emerged during construction not in original design?
-3. **Gap analysis** — Create coverage matrix of source topics vs. built courses
+3. **Gap analysis** — Create coverage matrix of source topics vs. built lessons
 4. **Supplementary reading** — Curate articles from credible sources by theme
 5. **Supplementary viewing** — Curate videos using `researching-youtube-channels` skill
 6. **Recommendations** — Prioritize as quick wins, facilitator resources, future iterations
@@ -564,7 +564,7 @@ See [references/META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) for d
 
 Save the meta-analysis to:
 ```
-[working-folder]/cohort-meta-analysis-[YYYY-MM-DD].md
+[working-folder]/course-meta-analysis-[YYYY-MM-DD].md
 ```
 
 **GATE:** Before proceeding to Phase 7, write:
@@ -579,23 +579,23 @@ Save the meta-analysis to:
 ---
 
 <phase_email_series>
-## Phase 7: Cohort Email Series
+## Phase 7: Course Email Series
 
 **PREREQUISITE:** Phase 6 (Meta-Analysis) must be complete. The email series uses the curated resource lists from the meta-analysis.
 
-This phase creates the cohort email series that threads standalone courses into a single learning arc.
+This phase creates the course email series that threads standalone lessons into a single learning arc.
 
 ### 7a: Identify the Thematic Spine
 
-Before writing emails, identify 1-2 ideas that run through the entire cohort. These will be referenced in every email.
+Before writing emails, identify 1-2 ideas that run through the entire course. These will be referenced in every email.
 
 Look for concepts that:
 - Appear in source materials repeatedly
-- Inform multiple courses
-- Represent the cohort's core insight or reframe
+- Inform multiple lessons
+- Represent the course's core insight or reframe
 
 **GATE:** Before proceeding, write:
-- "Thematic spine: [1-2 concepts that thread through the cohort]"
+- "Thematic spine: [1-2 concepts that thread through the course]"
 
 ### 7b: Create the Email Series
 
@@ -626,23 +626,23 @@ See [references/EMAIL-SERIES-GUIDE.md](references/EMAIL-SERIES-GUIDE.md) for det
 
 Save the email series to:
 ```
-[working-folder]/cohort-email-series.md
+[working-folder]/course-email-series.md
 ```
 
 **Complete deliverables (all phases):**
 ```
 [working-folder]/
-├── cohort-tracker.md
-├── cohort-curriculum.md
-├── course-reuse-report.md
-├── course-id-log.md
-├── Courses/
+├── course-tracker.md
+├── course-curriculum.md
+├── lesson-reuse-report.md
+├── lesson-id-log.md
+├── Lessons/
 │   └── [curriculum prompts]
 │
-│  (After courses are built by building-leaderspath-curriculum:)
+│  (After lessons are built by building-leaderspath-curriculum:)
 │
-├── cohort-meta-analysis-[date].md    # Phase 6
-└── cohort-email-series.md            # Phase 7
+├── course-meta-analysis-[date].md    # Phase 6
+└── course-email-series.md            # Phase 7
 ```
 
 **GATE:** Before finalizing, write:
@@ -660,10 +660,10 @@ Save the email series to:
 | After | User Reviews |
 |-------|--------------|
 | Phase 1 | Learning themes extracted from sources |
-| Phase 2 | Course reuse recommendations |
-| Phase 3 | Cohort structure and sequencing |
-| Each course prompt | Individual curriculum prompts |
-| Phase 5 | Complete cohort package |
+| Phase 2 | Lesson reuse recommendations |
+| Phase 3 | Course structure and sequencing |
+| Each lesson prompt | Individual curriculum prompts |
+| Phase 5 | Complete course package |
 | Phase 6 | Meta-analysis findings and supplementary resources |
 | Phase 7 | Complete email series draft |
 
@@ -674,9 +674,9 @@ Save the email series to:
 <failed_attempts>
 What DOESN'T work:
 
-- **Creating course content instead of curriculum prompts:** This skill outputs design documents, not facilitator guides or activity instructions. Those are created by `building-leaderspath-curriculum`.
-- **Courses that reference each other:** "Builds on Course 2" breaks atomicity. Courses must be self-contained. Express dependencies as prerequisites in the course overview, not cross-references.
-- **Skipping the course reuse search:** Even when no library exists, document that you searched. Otherwise future cohorts lose reuse opportunities.
+- **Creating lesson content instead of curriculum prompts:** This skill outputs design documents, not facilitator guides or activity instructions. Those are created by `building-leaderspath-curriculum`.
+- **Lessons that reference each other:** "Builds on Lesson 2" breaks atomicity. Lessons must be self-contained. Express dependencies as prerequisites in the lesson overview, not cross-references.
+- **Skipping the lesson reuse search:** Even when no library exists, document that you searched. Otherwise future courses lose reuse opportunities.
 - **Generating learning themes without sources:** All themes must trace back to provided materials. No invented pedagogy or assumed learning objectives.
 - **Specifying implementation details:** System prompts, activity instructions, folder structures—these belong in `building-leaderspath-curriculum`, not curriculum prompts.
 </failed_attempts>
@@ -685,7 +685,7 @@ What DOESN'T work:
 
 ## Resuming a Previous Session
 
-If `cohort-tracker.md` exists:
+If `course-tracker.md` exists:
 1. Read it
 2. Check current phase and incomplete items
 3. Review session log
@@ -696,7 +696,7 @@ If `cohort-tracker.md` exists:
 
 ## Examples
 
-### Example: Cohort Design from Interview Transcript
+### Example: Course Design from Interview Transcript
 
 **Input:** Interview transcript about AI ethics training for nonprofit leaders
 
@@ -708,32 +708,32 @@ If `cohort-tracker.md` exists:
 - Personal reflection and leadership
 - Ethical frameworks for AI use
 
-**Phase 2 output (course reuse report):**
+**Phase 2 output (lesson reuse report):**
 ```
-Existing courses found: 0
-Recommendation: Create 6 new courses
+Existing lessons found: 0
+Recommendation: Create 6 new lessons
 ```
 
-**Phase 3 output (cohort curriculum excerpt):**
+**Phase 3 output (course curriculum excerpt):**
 ```markdown
-## Course Sequence
+## Lesson Sequence
 
-| Week | Course ID | Course Name | Focus | Source |
+| Week | Lesson ID | Lesson Name | Focus | Source |
 |------|-----------|-------------|-------|--------|
 | 1 | FUND-101-ai-foundations | AI Foundations | Conceptual grounding | new |
 | 2 | FUND-102-behavioral-training | Behavioral Training | Sycophancy, prose quality | new |
 | 3 | CTX-101-context-libraries | Context Libraries | Organizational knowledge | new |
 ```
 
-**Phase 4 output (course curriculum prompt excerpt):**
+**Phase 4 output (lesson curriculum prompt excerpt):**
 ```markdown
-# Course: AI Foundations — Curriculum Prompt
+# Lesson: AI Foundations — Curriculum Prompt
 
-**Course ID:** FUND-101-ai-foundations
+**Lesson ID:** FUND-101-ai-foundations
 
-## Course Learning Objectives
+## Lesson Learning Objectives
 
-After completing this course, learners will be able to:
+After completing this lesson, learners will be able to:
 
 1. Distinguish LLMs from other AI types
 2. Explain the jazz ensemble metaphor for how LLMs work
@@ -744,10 +744,10 @@ After completing this course, learners will be able to:
 ### Experience: Concept Explorer Q&A
 
 **What learners should experience:**
-* Conversational exploration of course concepts
-* Answers grounded in course material
+* Conversational exploration of lesson concepts
+* Answers grounded in lesson material
 
-**Include Course Q&A Bot:** Yes
+**Include Lesson Q&A Bot:** Yes
 ```
 
 ---
@@ -755,7 +755,7 @@ After completing this course, learners will be able to:
 ## Relationship to Other Skills
 
 **This skill outputs prompts for:**
-- `building-leaderspath-curriculum` — Takes course curriculum prompts, creates full course content
+- `building-leaderspath-curriculum` — Takes lesson curriculum prompts, creates full lesson content
 
 **This skill invokes:**
 - `researching-youtube-channels` — Used in Phase 6 to research YouTube channels for supplementary video recommendations. Do NOT use WebFetch for YouTube; use this skill instead.

@@ -4,25 +4,25 @@ An Agent Skill for creating facilitated AI learning content for the LeadersPath 
 
 ## What This Skill Does
 
-Transforms course designs into complete LeadersPath curriculum packages:
+Transforms lesson designs into complete LeadersPath curriculum packages:
 
 - **Facilitator guides** — The primary deliverable; complete teaching scripts with timing
 - **Activity configurations** — System prompts that configure AI sandbox behavior
 - **Activity instructions** — "Try this, notice that" guidance for sandbox experimentation
 - **Context files** — Background knowledge (reusable across activities)
-- **Course metadata** — Learning objectives, duration, prerequisites
+- **Lesson metadata** — Learning objectives, duration, prerequisites
 
 ## Quick Start
 
 1. Invoke the skill with your curriculum materials
-2. Provide course name and source documents
-3. Review and approve course-level content (facilitator guide, objectives)
+2. Provide lesson name and source documents
+3. Review and approve lesson-level content (facilitator guide, objectives)
 4. Skill produces all activity files with checkpoints for approval
 
 ### Example Prompt
 
 ```
-Build a LeadersPath course called "The Sycophancy Problem"
+Build a LeadersPath lesson called "The Sycophancy Problem"
 
 Source: Two activities teaching learners to recognize sycophantic vs. objective AI.
 
@@ -31,20 +31,20 @@ Activity 2: "The Professional Critic" - AI configured with anti-sycophancy guard
 
 These are a comparison pair - use the same prompts in both activities.
 
-Output to: ./my-course/
+Output to: ./my-lesson/
 ```
 
 ## What LeadersPath Is
 
-LeadersPath is a **facilitated cohort learning experience**, not a self-paced lesson platform. The system has three components:
+LeadersPath is a **facilitated course learning experience**, not a self-paced platform. The system has three components:
 
-1. **A cohort of learners** — Peers learning together
+1. **A group of learners** — Peers learning together
 2. **A human facilitator** — Who teaches concepts and leads discussion
 3. **AI sandboxes as activities** — For hands-on experimentation
 
 **The AI sandbox is NOT the lesson—it's an activity within a facilitated learning experience.**
 
-**Key concept:** The facilitator teaches; the AI sandbox demonstrates. Comparisons happen across activities within a course.
+**Key concept:** The facilitator teaches; the AI sandbox demonstrates. Comparisons happen across activities within a lesson.
 
 ## Writing Better Prompts
 
@@ -64,7 +64,7 @@ The quality of curriculum output depends on the clarity of your input. See [refe
 
 When providing source material, indicate what type:
 
-- **Curriculum document** — Learning objectives, course outlines (used directly)
+- **Curriculum document** — Learning objectives, lesson outlines (used directly)
 - **Organizational context** — Internal docs, frameworks (adapted/transformed)
 - **Reference material** — Background reading (informs but not used directly)
 
@@ -72,13 +72,13 @@ When providing source material, indicate what type:
 
 ```
 [working-folder]/
-├── course-tracker.md          # Progress tracking, decisions log
-├── course-metadata.md         # Course-level metadata
-├── learning-objectives.md     # Course-level learning objectives
+├── lesson-tracker.md          # Progress tracking, decisions log
+├── lesson-metadata.md         # Lesson-level metadata
+├── learning-objectives.md     # Lesson-level learning objectives
 ├── facilitator-guide.md       # PRIMARY DELIVERABLE
 ├── learner-overview.md        # Context for learners
 ├── qa-chatbot-config.md       # Optional Q&A assistant
-├── course-id-log.md           # New/updated Course ID entries
+├── lesson-id-log.md           # New/updated Lesson ID entries
 └── activities/
     ├── TOPIC-LEVEL-ACT-first-activity/
     │   ├── configuration/
@@ -136,7 +136,7 @@ This step is environment-dependent—if the Contexts folder doesn't exist, it gr
 | [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) | Content creation patterns and examples |
 | [references/ACTIVITY-TEMPLATE.md](references/ACTIVITY-TEMPLATE.md) | Template for activity configuration |
 | [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) | Guidelines for curriculum designers |
-| [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) | Course ID, Activity ID, and Context File naming |
+| [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) | Lesson ID, Activity ID, and Context File naming |
 
 ## Platform Notes
 
