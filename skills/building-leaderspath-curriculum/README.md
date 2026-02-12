@@ -78,7 +78,7 @@ When providing source material, indicate what type:
 ├── facilitator-guide.md       # PRIMARY DELIVERABLE
 ├── learner-overview.md        # Context for learners
 ├── qa-chatbot-config.md       # Optional Q&A assistant
-├── lesson-registry.yaml       # New/updated Lesson ID entries
+├── lesson-id-log.md           # New/updated Lesson ID entries
 └── activities/
     ├── ACT001-first-activity/
     │   ├── configuration/

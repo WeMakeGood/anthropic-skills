@@ -257,7 +257,7 @@ Activity folder names use format: `ACT###-{slug}`
 
 **Log Lesson ID Assignment:**
 
-Output a lesson registry entry (append to provided registry or create new `lesson-registry.yaml`):
+Output a lesson ID log entry (append to provided log or create new `lesson-id-log.md`):
 
 ```markdown
 ## [TOPIC] - [Topic Name]
@@ -649,7 +649,7 @@ When importing to WordPress LeadersPath plugin:
 ├── facilitator-guide.md
 ├── learner-overview.md
 ├── qa-chatbot-config.md              # Optional
-├── lesson-registry.yaml                  # New/updated entries
+├── lesson-id-log.md                      # New/updated entries
 └── activities/
     ├── ACT001-first-activity/
     │   ├── configuration/
@@ -719,7 +719,7 @@ Lesson ID: LSN001-ai-foundations
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
-├── lesson-registry.yaml
+├── lesson-id-log.md
 └── activities/
     ├── ACT001-starting-from-zero/
     │   ├── configuration/

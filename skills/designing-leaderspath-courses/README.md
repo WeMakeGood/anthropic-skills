@@ -60,7 +60,7 @@ Phases 6-7 run after lessons are built, analyzing the results and creating cours
 ├── course-tracker.md          # Progress tracking, session log
 ├── course-curriculum.md       # Course structure and lesson sequence
 ├── lesson-reuse-report.md     # Analysis of existing vs. new lessons
-├── lesson-registry.yaml       # New/updated Lesson ID entries
+├── lesson-id-log.md           # New/updated Lesson ID entries
 ├── Lessons/
 │   ├── LSN001-ai-foundations-curriculum.md
 │   ├── LSN003-intro-prompting-curriculum.md

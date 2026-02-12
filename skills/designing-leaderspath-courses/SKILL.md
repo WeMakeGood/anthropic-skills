@@ -462,7 +462,7 @@ After completing this lesson, learners will be able to:
 
 **Log Lesson ID assignments:**
 
-After creating each curriculum prompt, output a lesson registry entry (append to provided registry or create new `lesson-registry.yaml`):
+After creating each curriculum prompt, output a lesson ID log entry (append to provided log or create new `lesson-id-log.md`):
 
 ```markdown
 ## [TOPIC] - [Topic Name]
@@ -498,7 +498,7 @@ After all content is complete:
 ├── course-tracker.md
 ├── course-curriculum.md
 ├── lesson-reuse-report.md
-├── lesson-registry.yaml              # New/updated entries
+├── lesson-id-log.md                  # New/updated entries
 └── Lessons/
     ├── LSN001-ai-foundations-curriculum.md
     ├── LSN003-intro-prompting-curriculum.md
@@ -635,7 +635,7 @@ Save the email series to:
 ├── course-tracker.md
 ├── course-curriculum.md
 ├── lesson-reuse-report.md
-├── lesson-registry.yaml
+├── lesson-id-log.md
 ├── Lessons/
 │   └── [curriculum prompts]
 │
