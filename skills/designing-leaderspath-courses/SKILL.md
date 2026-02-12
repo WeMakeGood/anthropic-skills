@@ -78,11 +78,11 @@ For detailed guidance, see:
 3. **"Who is the target audience?"** (nonprofit leaders, developers, executives, etc.)
 4. **"What is the desired duration?"** (number of sessions, weeks, hours)
 5. **"Are there existing lessons I should check for reuse?"** (file paths or lesson library location)
-6. **"Do you have an existing lesson-id-log.md?"** (optional)
+6. **"Do you have an existing lesson-registry.yaml?"** (optional)
 
    If provided:
    - Read to check existing Lesson IDs and avoid conflicts
-   - Note which topic-level combinations are already used
+   - Note which Lesson ID numbers are already used
 
    If not provided:
    - Skill will create a new log as part of output
@@ -185,7 +185,7 @@ Create `course-tracker.md` in the working folder:
 ## Lesson Plan
 | Lesson ID | Lesson Name | Source | Status |
 |-----------|-------------|--------|--------|
-| TOPIC-LEVEL-slug | [name] | [existing/new] | [ ] |
+| LSN###-slug | [name] | [existing/new] | [ ] |
 
 ## Session Log
 ### [date] - Session 1
@@ -299,8 +299,8 @@ After completing this course, learners will be able to:
 
 | Week | Lesson ID | Lesson Name | Focus | Source |
 |------|-----------|-------------|-------|--------|
-| 1 | FUND-101-ai-basics | AI Foundations | Conceptual grounding | new |
-| 2 | PRMPT-101-intro-prompting | Introduction to Prompting | Prompting basics | new |
+| 1 | LSN001-ai-foundations | AI Foundations | Conceptual grounding | new |
+| 2 | LSN003-intro-prompting | Introduction to Prompting | Prompting basics | new |
 ...
 
 ---
@@ -317,7 +317,7 @@ After completing this course, learners will be able to:
 
 | Lesson ID | File |
 |-----------|------|
-| FUND-101-ai-basics | `Lessons/FUND-101-ai-basics-curriculum.md` |
+| LSN001-ai-foundations | `Lessons/LSN001-ai-foundations-curriculum.md` |
 ...
 
 ---
@@ -354,18 +354,18 @@ For each new lesson:
 2. **Select Level:** 101-199 (beginner), 201-299 (intermediate), 301-399 (advanced), 401+ (specialized)
 3. **Generate Slug:** From lesson name, kebab-case, 3-50 chars
 
-**Example:** "AI Foundations" for beginners → `FUND-101-ai-foundations`
+**Example:** "AI Foundations" for beginners → `LSN001-ai-foundations`
 
-If lesson-id-log.md was provided, check for conflicts before assigning.
+If lesson-registry.yaml was provided, check for conflicts before assigning.
 
 ### Lesson Curriculum Prompt Template
 
-Create `Lessons/TOPIC-LEVEL-slug-curriculum.md`:
+Create `Lessons/LSN###-slug-curriculum.md`:
 
 ```markdown
 # Lesson: [Lesson Name] — Curriculum Prompt
 
-**Lesson ID:** [TOPIC-LEVEL-slug]
+**Lesson ID:** [LSN###-slug]
 
 ## Lesson Overview
 
@@ -462,14 +462,14 @@ After completing this lesson, learners will be able to:
 
 **Log Lesson ID assignments:**
 
-After creating each curriculum prompt, output a lesson-id-log entry (append to provided log or create new `lesson-id-log.md`):
+After creating each curriculum prompt, output a lesson registry entry (append to provided registry or create new `lesson-registry.yaml`):
 
 ```markdown
 ## [TOPIC] - [Topic Name]
 
 | ID | Slug | Title | Date Assigned | Status | Notes |
 |----|------|-------|---------------|--------|-------|
-| TOPIC-LEVEL | slug | Lesson Title | [date] | Design | Part of [Course Name] |
+| LSN### | slug | Lesson Title | [date] | Design | Part of [Course Name] |
 ```
 
 **Present each lesson for review before proceeding to next.**
@@ -498,10 +498,10 @@ After all content is complete:
 ├── course-tracker.md
 ├── course-curriculum.md
 ├── lesson-reuse-report.md
-├── lesson-id-log.md              # New/updated entries
+├── lesson-registry.yaml              # New/updated entries
 └── Lessons/
-    ├── FUND-101-ai-basics-curriculum.md
-    ├── PRMPT-101-intro-prompting-curriculum.md
+    ├── LSN001-ai-foundations-curriculum.md
+    ├── LSN003-intro-prompting-curriculum.md
     └── ...
 ```
 
@@ -635,7 +635,7 @@ Save the email series to:
 ├── course-tracker.md
 ├── course-curriculum.md
 ├── lesson-reuse-report.md
-├── lesson-id-log.md
+├── lesson-registry.yaml
 ├── Lessons/
 │   └── [curriculum prompts]
 │
@@ -720,16 +720,16 @@ Recommendation: Create 6 new lessons
 
 | Week | Lesson ID | Lesson Name | Focus | Source |
 |------|-----------|-------------|-------|--------|
-| 1 | FUND-101-ai-foundations | AI Foundations | Conceptual grounding | new |
-| 2 | FUND-102-behavioral-training | Behavioral Training | Sycophancy, prose quality | new |
-| 3 | CTX-101-context-libraries | Context Libraries | Organizational knowledge | new |
+| 1 | LSN001-ai-foundations | AI Foundations | Conceptual grounding | new |
+| 2 | LSN002-behavioral-training | Behavioral Training | Sycophancy, prose quality | new |
+| 3 | LSN004-context-libraries | Context Libraries | Organizational knowledge | new |
 ```
 
 **Phase 4 output (lesson curriculum prompt excerpt):**
 ```markdown
 # Lesson: AI Foundations — Curriculum Prompt
 
-**Lesson ID:** FUND-101-ai-foundations
+**Lesson ID:** LSN001-ai-foundations
 
 ## Lesson Learning Objectives
 

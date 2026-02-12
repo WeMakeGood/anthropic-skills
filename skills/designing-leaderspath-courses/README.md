@@ -60,10 +60,10 @@ Phases 6-7 run after lessons are built, analyzing the results and creating cours
 ├── course-tracker.md          # Progress tracking, session log
 ├── course-curriculum.md       # Course structure and lesson sequence
 ├── lesson-reuse-report.md     # Analysis of existing vs. new lessons
-├── lesson-id-log.md           # New/updated Lesson ID entries
+├── lesson-registry.yaml       # New/updated Lesson ID entries
 ├── Lessons/
-│   ├── FUND-101-ai-basics-curriculum.md
-│   ├── PRMPT-101-intro-prompting-curriculum.md
+│   ├── LSN001-ai-foundations-curriculum.md
+│   ├── LSN003-intro-prompting-curriculum.md
 │   └── ...
 │
 │  (After lessons are built by building-leaderspath-curriculum:)
@@ -72,7 +72,7 @@ Phases 6-7 run after lessons are built, analyzing the results and creating cours
 └── course-email-series.md            # Phase 7: Course communications
 ```
 
-Lesson IDs use the format `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`). See [building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) for complete naming conventions.
+All entities use sequential IDs: lessons are `LSN###-slug` (e.g., `LSN001-ai-foundations`), activities are `ACT###-slug`. See [building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) for complete naming conventions.
 
 ## Files in This Skill
 

@@ -78,21 +78,21 @@ When providing source material, indicate what type:
 ├── facilitator-guide.md       # PRIMARY DELIVERABLE
 ├── learner-overview.md        # Context for learners
 ├── qa-chatbot-config.md       # Optional Q&A assistant
-├── lesson-id-log.md           # New/updated Lesson ID entries
+├── lesson-registry.yaml       # New/updated Lesson ID entries
 └── activities/
-    ├── TOPIC-LEVEL-ACT-first-activity/
+    ├── ACT001-first-activity/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── TOPIC-LEVEL-ACT-second-activity/
+    ├── ACT002-second-activity/
     │   └── [same structure]
     └── shared-context/
         └── CTX###-slug.md
 ```
 
-Activity folders use the naming convention `TOPIC-LEVEL-ACT-slug` (e.g., `FUND-101-ACT-starting-from-zero`). See [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) for complete naming conventions.
+All entities use sequential IDs: lessons are `LSN###-slug` (e.g., `LSN001-ai-foundations`), activities are `ACT###-slug` (e.g., `ACT001-starting-from-zero`). See [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) for complete naming conventions.
 
 ## Activity Types
 
@@ -122,7 +122,7 @@ After creating curriculum, the skill can automatically install context files to 
 
 - Reads `Curriculum/Contexts/README.md` to learn folder structure
 - Copies files from `activities/shared-context/` to appropriate subfolders
-- Updates `Curriculum/Registry/context-registry.md` with new entries
+- Updates `Curriculum/Registry/context-registry.yaml` with new entries
 - Skips files that already exist (no overwrites)
 
 This step is environment-dependent—if the Contexts folder doesn't exist, it gracefully skips and notes manual installation is needed.

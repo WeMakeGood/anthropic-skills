@@ -99,7 +99,7 @@ See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS
 
 2. **"What is the Lesson ID?"**
 
-   Lesson ID format: `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`)
+   Lesson ID format: `LSN###-slug` (e.g., `LSN001-ai-foundations`)
 
    If user provides full ID: validate format, extract topic, level, and slug.
 
@@ -120,14 +120,14 @@ See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS
 
    **Slug:** Auto-generate from lesson name (kebab-case, 3-50 chars, starts with letter)
 
-3. **"Do you have an existing lesson-id-log.md?"** (optional)
+3. **"Do you have an existing lesson-registry.yaml?"** (optional)
 
    If provided: check for conflicts, find available IDs.
    If not: skill will output new log entries.
 
 4. **"Are there existing context files I should reference?"** (for reuse identification)
 
-5. **"Do you have an existing context-registry.md?"** (optional, for CTX### numbering)
+5. **"Do you have an existing context-registry.yaml?"** (optional, for CTX### numbering)
 
 6. **"Will this lesson need a Q&A chatbot?"** (optional helpful assistant)
 
@@ -137,7 +137,7 @@ Output directly to the working folder. No wrapper folders.
 
 - `[working-folder]/lesson-tracker.md`
 - `[working-folder]/lesson-metadata.md`
-- `[working-folder]/activities/TOPIC-LEVEL-ACT-slug/`
+- `[working-folder]/activities/ACT###-slug/`
 
 Determine working folder based on environment:
 - If working directory is accessible → use it directly
@@ -217,7 +217,7 @@ Create the tracker file at `[working-folder]/lesson-tracker.md`:
 ```markdown
 # Lesson Tracker: [Lesson Name]
 
-**Lesson ID:** [TOPIC-LEVEL-slug]
+**Lesson ID:** [LSN###-slug]
 **Created:** [date]
 **Last Updated:** [date]
 **Current Phase:** 1 - Initialization
@@ -238,7 +238,7 @@ Create the tracker file at `[working-folder]/lesson-tracker.md`:
 |---------------|-------------|---------------|--------------|--------|
 | [slug] | [brief description] | [ ] | [ ] | pending |
 
-Activity folder names use format: `TOPIC-LEVEL-ACT-{slug}`
+Activity folder names use format: `ACT###-{slug}`
 
 ## Context Files
 
@@ -257,18 +257,18 @@ Activity folder names use format: `TOPIC-LEVEL-ACT-{slug}`
 
 **Log Lesson ID Assignment:**
 
-Output a lesson-id-log entry (append to provided log or create new `lesson-id-log.md`):
+Output a lesson registry entry (append to provided registry or create new `lesson-registry.yaml`):
 
 ```markdown
 ## [TOPIC] - [Topic Name]
 
 | ID | Slug | Title | Date Assigned | Status | Notes |
 |----|------|-------|---------------|--------|-------|
-| TOPIC-LEVEL | slug | Lesson Title | [date] | Development | |
+| LSN### | slug | Lesson Title | [date] | Development | |
 ```
 
 **GATE:** Before proceeding, write:
-- "Lesson ID: [TOPIC-LEVEL-slug]"
+- "Lesson ID: [LSN###-slug]"
 - "Lesson tracker created at: [path]"
 - "Activities identified: [count] — [list slugs]"
 
@@ -287,7 +287,7 @@ Create `lesson-metadata.md`:
 ```markdown
 # Lesson: [Lesson Name]
 
-**Lesson ID:** [TOPIC-LEVEL-slug]
+**Lesson ID:** [LSN###-slug]
 
 ## Overview
 [Brief description of what learners will experience]
@@ -302,8 +302,8 @@ Create `lesson-metadata.md`:
 [List of prior lessons or knowledge]
 
 ## Activities Included
-1. [TOPIC-LEVEL-ACT-slug] — [Activity name]
-2. [TOPIC-LEVEL-ACT-slug] — [Activity name]
+1. [ACT###-slug] — [Activity name]
+2. [ACT###-slug] — [Activity name]
 ...
 ```
 
@@ -440,13 +440,13 @@ Generate the activity folder name using the Lesson ID:
 
 1. Take the activity name: "Starting from Zero"
 2. Convert to slug: `starting-from-zero`
-3. Prepend Lesson ID + ACT: `FUND-101-ACT-starting-from-zero`
+3. Prepend Lesson ID + ACT: `ACT001-starting-from-zero`
 
-Activity folder: `activities/FUND-101-ACT-starting-from-zero/`
+Activity folder: `activities/ACT001-starting-from-zero/`
 
 ### 3a: Create Activity Configuration
 
-Create the `activities/TOPIC-LEVEL-ACT-[slug]/configuration/` folder with:
+Create the `activities/ACT###-[slug]/configuration/` folder with:
 
 **system-prompt.md** — The complete system prompt for the AI sandbox
 - What AI behavior should learners experience?
@@ -495,7 +495,7 @@ See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for system prom
 
 If the activity needs a new context file:
 
-1. Check if context-registry.md was provided
+1. Check if context-registry.yaml was provided
 2. If yes: find next available CTX number
 3. If no: start from CTX001 or next available in the lesson
 
@@ -509,7 +509,7 @@ Output registry entries for any new context files created.
 
 ### 3b: Create Activity Instructions
 
-Create `activities/TOPIC-LEVEL-ACT-[slug]/instructions.md`:
+Create `activities/ACT###-[slug]/instructions.md`:
 
 ```markdown
 # Activity: [Name]
@@ -605,7 +605,7 @@ For each file in the lesson tracker's "Context Files" table:
 
 **Update Context Registry:**
 
-After installing files, update `Curriculum/Registry/context-registry.md`:
+After installing files, update `Curriculum/Registry/context-registry.yaml`:
 
 1. Read the registry first to understand current format and entries
 2. Add entries for any new context files that don't already exist in the registry
@@ -636,8 +636,8 @@ After all content is complete:
 **WordPress Import Mapping:**
 
 When importing to WordPress LeadersPath plugin:
-- Lesson post slug: `TOPIC-LEVEL-slug` (e.g., `fund-101-ai-basics`)
-- Activity post slug: `TOPIC-LEVEL-ACT-slug` (e.g., `fund-101-act-starting-from-zero`)
+- Lesson post slug: `LSN###-slug` (e.g., `lsn001-ai-foundations`)
+- Activity post slug: `ACT###-slug` (e.g., `act001-starting-from-zero`)
 - Context file post slug: `CTX###-slug` (e.g., `ctx001-org-identity`)
 
 **Final deliverables:**
@@ -649,15 +649,15 @@ When importing to WordPress LeadersPath plugin:
 ├── facilitator-guide.md
 ├── learner-overview.md
 ├── qa-chatbot-config.md              # Optional
-├── lesson-id-log.md                  # New/updated entries
+├── lesson-registry.yaml                  # New/updated entries
 └── activities/
-    ├── TOPIC-LEVEL-ACT-first-activity/
+    ├── ACT001-first-activity/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── TOPIC-LEVEL-ACT-second-activity/
+    ├── ACT002-second-activity/
     │   └── [same structure]
     └── shared-context/
         └── CTX###-slug.md
@@ -711,7 +711,7 @@ See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for complete ex
 **Quick Example — Naming Structure:**
 
 ```
-Lesson ID: FUND-101-ai-basics
+Lesson ID: LSN001-ai-foundations
 
 [working-folder]/
 ├── lesson-tracker.md
@@ -719,15 +719,15 @@ Lesson ID: FUND-101-ai-basics
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
-├── lesson-id-log.md
+├── lesson-registry.yaml
 └── activities/
-    ├── FUND-101-ACT-starting-from-zero/
+    ├── ACT001-starting-from-zero/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── FUND-101-ACT-context-transforms/
+    ├── ACT002-context-transforms/
     │   └── [same structure]
     └── shared-context/
         └── CTX005-foundations-terminology.md
