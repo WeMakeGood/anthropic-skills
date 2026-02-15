@@ -1,5 +1,20 @@
 # Module and Agent Templates
 
+## Build State Template
+
+The build state file tracks progress across sessions. It is the first file any resumed session reads. See `templates/build-state.md` for the full template.
+
+Create this file at `<OUTPUT_PATH>/build-state.md` during Phase 1 (after completing the source index).
+
+Key fields:
+- **Current Phase** — which phase the build is in
+- **Read this phase file next** — pointer to the phase instruction file in `references/phases/`
+- **Phase Completion Status** — table tracking all 7 phases
+- **Module Build Checklist** — tracks each module individually during Phase 5
+- **User Decisions Log** — records conflicts resolved, gaps accepted, scope changes
+
+---
+
 ## Source Index Template
 
 The source index is the master manifest for the entire build. It tracks every source file, its status, and what working source to use for module building.
@@ -186,11 +201,41 @@ purpose: "[What question does this answer?]"
 last_updated: YYYY-MM-DD
 ---
 
+<!-- BUILD REMINDERS (remove from final module):
+- Re-read working sources BEFORE writing this module. Do not write from memory.
+- Re-read this module's SCOPE from the proposal. Do not include addenda or other-module content.
+- This module should be METAPROMPTING — behavioral instructions for agents, not just facts.
+- HIGH-STAKES content (legal names, EINs, addresses, titles, dates): copy EXACTLY from source.
+
+TRANSFORMATION TEST — ask these three questions about every section you write:
+1. Does this change how the agent BEHAVES? If not, it's content — transform it.
+2. Could the agent act on this without further interpretation? If not, add decision logic.
+3. Does this read like a Wikipedia article or a system prompt? It must read like the latter.
+
+DURABILITY CHECKS:
+- No volatile specifics (counts, prices, named lists that change). Move to an addendum and reference it instead. BUT: process parameters (timelines, thresholds, review cycles) are durable — keep them. Volatile = changes when business grows. Durable = changes only if processes are redesigned.
+- Guide, don't catalog. Teach creation principles, not inventories of what exists. BUT: "If prospect says X, respond by Y" is behavioral guidance, not a catalog — keep response patterns.
+- Respect scope boundaries. If content belongs in addenda or another module, reference it. BUT: content near addenda in a source file isn't automatically out of scope. Test against the proposal, not source proximity.
+- Frame example lists as illustrative, not exhaustive. State criteria separately.
+
+BAD:  "The organization offers Advisory, Implementation, and Managed services."
+GOOD: "When recommending services, match to client AI maturity: Advisory for early-stage,
+       Implementation for committed adopters, Managed for ongoing support needs."
+
+If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
+-->
+
+<!-- VERIFICATION LOG (remove from final module):
+| Fact | Source File | Exact Source Text |
+|------|-------------|-------------------|
+| [fact] | [file] | [exact quote] |
+-->
+
 # [Module Name]
 
 ## Purpose
 
-[One paragraph: what organizational knowledge does this provide?]
+[One paragraph: what decisions does this module help agents make?]
 
 ## Scope
 
@@ -199,13 +244,15 @@ last_updated: YYYY-MM-DD
 
 ---
 
-## [Content Section]
+## [Behavioral Section — what agents should DO with this knowledge]
 
-[Verified information from source documents]
+[Metaprompting and context, not just facts.
+"When discussing X, frame it as Y" not just "X exists."
+"If asked about Z, respond by emphasizing A" not just "Z is true."]
 
 ### [Subsection]
 
-[Organized content]
+[Decision criteria in "If X, do Y" format where applicable.]
 
 ---
 
@@ -219,8 +266,8 @@ last_updated: YYYY-MM-DD
 ## Agent Instructions
 
 When using this module:
-- [How to apply this knowledge]
-- [What to prioritize]
+- [Specific behavioral guidance]
+- [Priority rules for this knowledge area]
 ```
 
 ## Shared Module Template
@@ -235,11 +282,41 @@ used_by: [agent types that need this]
 last_updated: YYYY-MM-DD
 ---
 
+<!-- BUILD REMINDERS (remove from final module):
+- Re-read working sources BEFORE writing this module. Do not write from memory.
+- Re-read this module's SCOPE from the proposal. Do not include addenda or other-module content.
+- This module should be METAPROMPTING — behavioral instructions for agents, not just facts.
+- HIGH-STAKES content (legal names, EINs, addresses, titles, dates): copy EXACTLY from source.
+
+TRANSFORMATION TEST — ask these three questions about every section you write:
+1. Does this change how the agent BEHAVES? If not, it's content — transform it.
+2. Could the agent act on this without further interpretation? If not, add decision logic.
+3. Does this read like a Wikipedia article or a system prompt? It must read like the latter.
+
+DURABILITY CHECKS:
+- No volatile specifics (counts, prices, named lists that change). Move to an addendum and reference it instead. BUT: process parameters (timelines, thresholds, review cycles) are durable — keep them. Volatile = changes when business grows. Durable = changes only if processes are redesigned.
+- Guide, don't catalog. Teach creation principles, not inventories of what exists. BUT: "If prospect says X, respond by Y" is behavioral guidance, not a catalog — keep response patterns.
+- Respect scope boundaries. If content belongs in addenda or another module, reference it. BUT: content near addenda in a source file isn't automatically out of scope. Test against the proposal, not source proximity.
+- Frame example lists as illustrative, not exhaustive. State criteria separately.
+
+BAD:  "The organization offers Advisory, Implementation, and Managed services."
+GOOD: "When recommending services, match to client AI maturity: Advisory for early-stage,
+       Implementation for committed adopters, Managed for ongoing support needs."
+
+If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
+-->
+
+<!-- VERIFICATION LOG (remove from final module):
+| Fact | Source File | Exact Source Text |
+|------|-------------|-------------------|
+| [fact] | [file] | [exact quote] |
+-->
+
 # [Module Name]
 
 ## Purpose
 
-[What cross-functional knowledge does this provide?]
+[What decisions does this module help agents make?]
 
 ## Scope
 
@@ -248,19 +325,15 @@ last_updated: YYYY-MM-DD
 
 ---
 
-## [Content Section]
+## [Behavioral Section]
 
 > **Requires [Foundation Module]** for organizational context.
 
-[Verified information from sources]
+[Metaprompting and context — behavioral instructions, not just information.]
 
 ### [Subsection]
 
-[Content organized for clarity]
-
-| Item | Description |
-|------|-------------|
-| ... | ... |
+[Decision criteria and behavioral guidance organized for agent use.]
 
 ---
 
@@ -276,8 +349,9 @@ last_updated: YYYY-MM-DD
 
 ## Agent Instructions
 
-- [How agents apply this]
+- [How agents apply this knowledge]
 - [When it applies vs doesn't]
+- [Priority rules]
 ```
 
 ## Specialized Module Template
@@ -292,11 +366,41 @@ used_by: [specific agents]
 last_updated: YYYY-MM-DD
 ---
 
+<!-- BUILD REMINDERS (remove from final module):
+- Re-read working sources BEFORE writing this module. Do not write from memory.
+- Re-read this module's SCOPE from the proposal. Do not include addenda or other-module content.
+- This module should be METAPROMPTING — behavioral instructions for agents, not just facts.
+- HIGH-STAKES content (legal names, EINs, addresses, titles, dates): copy EXACTLY from source.
+
+TRANSFORMATION TEST — ask these three questions about every section you write:
+1. Does this change how the agent BEHAVES? If not, it's content — transform it.
+2. Could the agent act on this without further interpretation? If not, add decision logic.
+3. Does this read like a Wikipedia article or a system prompt? It must read like the latter.
+
+DURABILITY CHECKS:
+- No volatile specifics (counts, prices, named lists that change). Move to an addendum and reference it instead. BUT: process parameters (timelines, thresholds, review cycles) are durable — keep them. Volatile = changes when business grows. Durable = changes only if processes are redesigned.
+- Guide, don't catalog. Teach creation principles, not inventories of what exists. BUT: "If prospect says X, respond by Y" is behavioral guidance, not a catalog — keep response patterns.
+- Respect scope boundaries. If content belongs in addenda or another module, reference it. BUT: content near addenda in a source file isn't automatically out of scope. Test against the proposal, not source proximity.
+- Frame example lists as illustrative, not exhaustive. State criteria separately.
+
+BAD:  "The organization offers Advisory, Implementation, and Managed services."
+GOOD: "When recommending services, match to client AI maturity: Advisory for early-stage,
+       Implementation for committed adopters, Managed for ongoing support needs."
+
+If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
+-->
+
+<!-- VERIFICATION LOG (remove from final module):
+| Fact | Source File | Exact Source Text |
+|------|-------------|-------------------|
+| [fact] | [file] | [exact quote] |
+-->
+
 # [Module Name]
 
 ## Purpose
 
-[Domain-specific knowledge for particular roles]
+[What domain-specific decisions does this module enable?]
 
 ## Scope
 
@@ -307,12 +411,12 @@ last_updated: YYYY-MM-DD
 
 ---
 
-## [Domain Content]
+## [Domain Behavioral Section]
 
 > **Requires [Shared Module]** for methodology.
 > **Requires [Foundation Module]** for org context.
 
-[Verified domain-specific information]
+[Metaprompting and context — domain-specific behavioral instructions for agents.]
 
 ---
 
@@ -326,9 +430,9 @@ last_updated: YYYY-MM-DD
 
 ## Agent Instructions
 
-Agents with this module can:
-- [Domain capability 1]
-- [Domain capability 2]
+Agents with this module should:
+- [Domain-specific behavioral guidance]
+- [Decision rules for this domain]
 ```
 
 ## Agent Definition Template
@@ -341,11 +445,14 @@ purpose: "[What this agent does]"
 modules:
   foundation:
     - F1_[name]
-    - F2_[name]
+    - F_agent_behavioral_standards
   shared:
     - S1_[name]
+    - S_natural_prose_standards  # if external-facing
   specialized:
     - D1_[name]
+addenda:  # optional — only if this agent consults reference data
+  - addendum_name: "[what data]"
 estimated_tokens: [total]
 last_updated: YYYY-MM-DD
 ---
@@ -354,11 +461,11 @@ last_updated: YYYY-MM-DD
 
 ## Role
 
-[2-3 sentences: what this agent does]
+[2-3 sentences: what this agent does — focused on actions and decisions, not knowledge]
 
 ## Responsibilities
 
-1. [Primary responsibility]
+1. [Primary responsibility — what the agent produces or decides]
 2. [Secondary responsibility]
 3. [Additional responsibility]
 
@@ -366,29 +473,29 @@ last_updated: YYYY-MM-DD
 
 | Area | Module | Why Needed |
 |------|--------|------------|
-| [Area] | [Module] | [Reason] |
+| [Area] | [Module ID] | [What decisions this enables] |
+
+## Reference Addenda (Optional)
+
+If this agent consults reference data (pricing, biographical details, service catalogs), list the addenda here. Addenda are loaded on demand when modules direct the agent to consult them — they do not count against the 20K token budget.
+
+| Addendum | When Consulted |
+|----------|----------------|
+| [addenda/name.md] | [What triggers the agent to load this — e.g., "When building proposals that include pricing"] |
 
 ## Guidelines
 
 **Do:**
-- [Behavior]
-- [Approach]
+- [Behavioral instruction]
+- [Approach to follow]
 
 **Don't:**
-- [Avoid]
-- [Pitfall]
-
-## Required Modules
-
-All agents must load **F#_agent_behavioral_standards** (anti-hallucination, epistemic honesty, professional objectivity).
-
-External-facing agents must also load **S#_natural_prose_standards** (AI-detectable writing patterns to avoid).
-
-These modules are copied from `templates/guardrails/` during Phase 4. Do not duplicate their content in agent definitions — just reference them in the modules list.
+- [Anti-pattern to avoid]
+- [Common mistake]
 
 ## Domain-Specific Guidance (Optional)
 
-If this agent has domain-specific verification needs beyond the standard guardrails, add them here:
+Only add guidance here that extends beyond the standard guardrail modules:
 
 - **Additional verification:** [e.g., "Always verify partner names against F1"]
 - **Escalation:** [e.g., "Flag pricing questions for human review"]
@@ -400,11 +507,62 @@ If this agent has domain-specific verification needs beyond the standard guardra
 - Shared: [X] tokens
 - Specialized: [X] tokens
 - **Total: [X] tokens** ([X]% of 20K limit)
+- Addenda: not counted (loaded on demand)
 ```
+
+## Addendum Template
+
+Addenda contain volatile reference data — not behavioral instructions. They are proposed alongside modules in Phase 4, built after modules in Phase 5, and validated in Phase 7.
+
+```markdown
+---
+addendum_id: A#_[name]
+addendum_name: [Name]
+purpose: "[What reference data this provides]"
+referenced_by: [which modules reference this addendum]
+update_frequency: "[quarterly | annually | on-demand | when-changed]"
+last_updated: YYYY-MM-DD
+---
+
+<!-- VERIFICATION LOG (remove from final addendum):
+| Data Point | Source File | Exact Source Text |
+|------------|-------------|-------------------|
+| [data] | [file] | [exact quote] |
+-->
+
+# [Addendum Name]
+
+> **This is a reference addendum, not a module.** It contains data that changes
+> as the business evolves. Modules reference this file rather than embedding
+> its contents. When this data changes, update this file — modules will not
+> need to change.
+
+---
+
+## [Data Section]
+
+[Tables, lists, rates, biographical details, catalogs, inventories —
+whatever reference data this addendum provides.
+HIGH-STAKES content (pricing, legal details) must be copied exactly from source.]
+
+---
+
+*Source: [source files]*
+*Last verified: YYYY-MM-DD*
+```
+
+**Addenda design rules:**
+- **Data only.** If you're writing "When X, do Y" — that belongs in a module, not an addendum.
+- **Source-verified.** Every data point must trace to a working source, same as modules.
+- **Referenced, not orphaned.** At least one module must point to this addendum. If no module references it, it shouldn't exist.
+- **Self-contained.** Each addendum covers one type of reference data. Don't combine pricing and biographies in one file.
+- **Update-aware.** The frontmatter includes `update_frequency` so the user knows how often to review it.
+
+---
 
 ## Proposal Template
 
-**IMPORTANT:** The proposal describes STRUCTURE, not content. Do not pre-write module content or summarize organizational information. The proposal lists what modules you will create and why.
+**IMPORTANT:** The proposal describes STRUCTURE, not content. Do not pre-write module content or summarize organizational information. The proposal lists what modules and addenda you will create and why.
 
 ```markdown
 # Context Library Proposal
@@ -428,6 +586,12 @@ If this agent has domain-specific verification needs beyond the standard guardra
 | ID | Name | Purpose | Used By | Est. Tokens |
 |----|------|---------|---------|-------------|
 | D1 | [Name] | [Purpose] | [Agents] | [Est] |
+
+### Addenda (Reference Data)
+
+| ID | Name | Purpose | Referenced By | Key Sources | Update Frequency |
+|----|------|---------|---------------|-------------|------------------|
+| A1 | [Name] | [What data this provides] | [which modules] | [sources] | [quarterly/annually/on-demand] |
 
 ## Agent-Module Mapping
 

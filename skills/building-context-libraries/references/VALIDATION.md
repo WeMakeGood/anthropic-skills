@@ -1,8 +1,12 @@
 # Validation Guide
 
+Detailed validation checklists and procedures are also embedded in the phase instruction files at `references/phases/`. Each phase file contains its own gate criteria. This file provides the comprehensive checklists for reference.
+
 ## Phase-by-Phase Validation
 
 ### Phase 1: Index Validation
+
+> See also: [references/phases/PHASE_1_INDEX.md](phases/PHASE_1_INDEX.md)
 
 Before proceeding to synthesis:
 
@@ -15,6 +19,8 @@ Before proceeding to synthesis:
 - [ ] User approved the index
 
 ### Phase 2: Synthesis Validation
+
+> See also: [references/phases/PHASE_2_SYNTHESIZE.md](phases/PHASE_2_SYNTHESIZE.md)
 
 Before proceeding to proposal:
 
@@ -38,7 +44,9 @@ Before synthesizing each file marked `needs-synthesis`:
 - [ ] If already clean: Update index to `ready`, skip synthesis
 - [ ] If synthesis file already exists: Read it, update index to `synthesized`, skip re-synthesis
 
-### Phase 3: Proposal Validation
+### Phase 3-4: Proposal Validation
+
+> See also: [references/phases/PHASE_3_ANALYZE.md](phases/PHASE_3_ANALYZE.md) and [references/phases/PHASE_4_PROPOSE.md](phases/PHASE_4_PROPOSE.md)
 
 Before proceeding to build:
 
@@ -62,16 +70,49 @@ Before proceeding to build:
 
 ## Module Quality Checklist
 
+> See also: [references/phases/PHASE_5_BUILD.md](phases/PHASE_5_BUILD.md) for build-time rules
+
 For each module:
 
 - [ ] Has correct YAML frontmatter (module_id, name, tier, purpose, last_updated)
 - [ ] Purpose clearly states what question it answers
 - [ ] Scope defines what's included AND excluded
+- [ ] **Content is metaprompting/context, not just copied facts** — module tells agents how to behave, not just what to know
+- [ ] **Transformation test passes** — each section changes agent behavior, not just states information
 - [ ] No information duplicated from other modules
 - [ ] All cross-references use explicit format
 - [ ] `[PROPOSED]` used only for user-approved inferences (all other content is verified)
 - [ ] High-stakes content marked with `[HIGH-STAKES]` and has source citations
 - [ ] Agent instructions section included
+- [ ] Time spans converted to dates
+- [ ] No verbatim quotes from sources
+
+**Content vs. Metaprompting red flags — STOP if you see:**
+- Sections that just list facts without behavioral guidance
+- "The organization does X" without "When agents encounter Y, do Z"
+- Content that reads like a Wikipedia article rather than a system prompt
+- Facts copied from sources without transformation into agent instructions
+
+---
+
+## Addenda Quality Checklist
+
+> See also: [references/phases/PHASE_5_BUILD.md](phases/PHASE_5_BUILD.md) for build-time rules and [references/phases/PHASE_6_7_AGENTS_VALIDATE.md](phases/PHASE_6_7_AGENTS_VALIDATE.md) for validation step 4b
+
+For each addendum:
+
+- [ ] Has correct YAML frontmatter (addendum_id, addendum_name, purpose, referenced_by, update_frequency, last_updated)
+- [ ] Contains data only — no behavioral instructions, no agent guidance
+- [ ] Every data point traces to a working source
+- [ ] At least one module references this addendum (no orphaned addenda)
+- [ ] HIGH-STAKES content marked with `[HIGH-STAKES]` and has source citations
+- [ ] Update frequency is specified and realistic
+
+**Data vs. Behavioral instruction red flags — STOP if you see:**
+- "When agents encounter X, do Y" — that belongs in a module
+- "Always/never" behavioral rules — that belongs in a module
+- Decision frameworks or escalation logic — that belongs in a module
+- Anything that tells agents *how to behave* rather than *what to look up*
 
 ---
 
@@ -201,6 +242,28 @@ Client engagement adapts to maturity level:
 **Symptom**: Module contains facts not found in source index working sources
 **Fix**: Either locate the working source and verify, or change to [PROPOSED]
 
+### Content Instead of Metaprompting
+
+**Symptom**: Module reads like a fact sheet or Wikipedia article — lists information but doesn't tell agents how to behave. Sections state "X is true" without "Therefore, when an agent encounters Y, it should do Z."
+**Fix**: Transform each section. For every fact, ask: "Given this fact, what should the agent DO differently?" Rewrite as behavioral instructions.
+
+**Wrong (content — just facts):**
+```
+The organization offers three service tiers: Advisory, Implementation, and Managed.
+Advisory is for early-stage clients. Implementation is for committed adopters.
+Managed is for ongoing support needs.
+```
+
+**Right (metaprompting — behavioral instructions):**
+```
+When recommending services, match to client AI maturity:
+- If early-stage → recommend Advisory, emphasize quick wins
+- If committed adopter → recommend Implementation, scope 8-12 week project
+- If needs ongoing support → recommend Managed, propose retainer
+
+Never recommend Managed before the client has completed at least one Implementation engagement.
+```
+
 ---
 
 ## Final Validation Checklist
@@ -209,10 +272,12 @@ Before declaring complete:
 
 - [ ] Source index status updated to `complete`
 - [ ] All modules pass quality checklist
+- [ ] All addenda pass addenda quality checklist
 - [ ] **All facts verified against working sources in source index**
-- [ ] No broken cross-references
+- [ ] No broken cross-references (modules and addenda)
+- [ ] No orphaned addenda (every addendum referenced by at least one module)
 - [ ] No duplicated information
-- [ ] All agents under 20,000 token maximum
+- [ ] All agents under 20,000 token maximum (addenda excluded — loaded on demand)
 - [ ] All BLOCKING gaps resolved or user-approved
 - [ ] High-stakes content properly marked and sourced
 - [ ] Agent definitions include verification and objectivity guidance
@@ -234,6 +299,7 @@ Before declaring complete:
 - Total source files: [X]
 - Synthesized sources: [X]
 - Total modules: [X]
+- Total addenda: [X]
 - Total agents: [X]
 - Issues found: [X]
 - **Source verification**: [PASSED/FAILED]
@@ -282,6 +348,17 @@ For each module, confirm all facts are verifiable in working sources:
 - [ ] Agent definitions include stakes-based verification guidance
 - Issues: [List any high-stakes content without source]
 
+## Addenda Quality
+
+| Addendum | Data Only | Source-Verified | Referenced By | Update Freq | Status |
+|----------|-----------|-----------------|---------------|-------------|--------|
+| [A1] | Yes/No | Yes/No | [modules] | [freq] | OK/ISSUE |
+
+- [ ] All addenda contain data only (no behavioral instructions)
+- [ ] All addenda referenced by at least one module
+- [ ] All data points trace to working sources
+- Issues: [List any]
+
 ## Agent Objectivity Check
 
 - [ ] Each agent has "Verification & Professional Objectivity" section
@@ -304,3 +381,19 @@ For each module, confirm all facts are verifiable in working sources:
 
 [APPROVED FOR USE / NEEDS FIXES: list required changes]
 ```
+
+---
+
+## Session Handoff Validation
+
+Before ending ANY session (not just the final one), verify:
+
+- [ ] `build-state.md` exists at `<OUTPUT_PATH>/build-state.md`
+- [ ] `build-state.md` reflects the current phase and sub-step
+- [ ] `build-state.md` points to the correct next phase instruction file
+- [ ] All completed work is saved to disk (source index, syntheses, modules, agent definitions)
+- [ ] Source index reflects the current status of all files
+- [ ] User decisions are logged in build-state.md (conflicts resolved, gaps accepted)
+- [ ] Any in-progress module is either completed or noted as incomplete in build-state.md
+
+**Why this matters:** A new session reads build-state.md first. If it's not up to date, the agent may repeat work, skip steps, or lose user decisions made in a previous session.

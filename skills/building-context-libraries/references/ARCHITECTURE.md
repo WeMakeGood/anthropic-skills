@@ -1,8 +1,26 @@
 # Context Library Architecture
 
-## Modules Are Prompt Engineering, Not Documentation
+## Modules Are Metaprompts, Not Documentation
 
-Context libraries exist to give LLMs organizational knowledge. This fundamentally shapes how modules should be written.
+Context libraries exist to shape how LLM agents *behave* with organizational knowledge. Modules are not fact sheets — they are system prompt components that change agent behavior.
+
+### Content vs. Context vs. Metaprompting
+
+Source documents contain **content** (raw facts). The agent building this library defaults to copying content into modules because it's easier than transformation. This produces modules that are useless — fact sheets an agent reads but doesn't act on.
+
+| Level | What It Is | Example |
+|-------|-----------|---------|
+| **Content** (source material) | Raw facts from documents | "We were founded in 2016, rebranded in 2023" |
+| **Context** (minimum bar for modules) | Processed knowledge that shapes behavior | "When writing about history, emphasize the 2023 AI-native transformation, not the original founding. The rebrand reflects a strategic pivot, not cosmetic change." |
+| **Metaprompting** (target for modules) | Instructions that tell the agent how to think | "If a client asks about AI experience, frame it as AI-native since inception — not as recent adoption." |
+
+**Every module section should be context or metaprompting.** The transformation test:
+
+1. **Does this change how the agent behaves?** Content doesn't. Context/metaprompting does.
+2. **Could the agent act on this without further interpretation?** If the agent would need to figure out *what to do with* the information, you've written content, not context.
+3. **Does this read like a Wikipedia article or like a system prompt?** Modules should read like the latter.
+
+### Writing for LLM Consumption
 
 **LLMs process context differently than humans:**
 - LLMs read the entire context; humans scan and skip
@@ -11,38 +29,36 @@ Context libraries exist to give LLMs organizational knowledge. This fundamentall
 - LLMs can't follow external links or reference other documents not in context
 - LLMs work best with direct, declarative statements
 
-**Write for LLM consumption:**
+**Write metaprompts, not summaries:**
 
 | Instead of... | Write... |
 |---------------|----------|
-| "It's important to understand that..." | State the fact directly |
+| "The organization was founded in 2016" | "When discussing founding: emphasize the 2023 transformation as the defining origin story, not the 2016 incorporation" |
+| "Services include Advisory, Implementation, Managed" | "When recommending services, match to client AI maturity: Advisory for exploration-stage, Implementation for committed adopters, Managed for ongoing support" |
+| "It's important to understand that..." | State the behavioral instruction directly |
 | "See [external document] for details" | Encode the information in the module |
-| "Our approach has evolved over time to emphasize..." | "[Topic] principles: [list]" |
 | Varied synonyms for style | Consistent terminology throughout |
-| Background context explaining why | Direct statements of what and how |
 
 **Token efficiency matters:**
 - Every token costs money and consumes context window
 - Cut preambles, transitions, and hedging language
-- Front-load the most important information
-- Use "If X, then Y" patterns for decision logic
+- Front-load behavioral instructions, then supporting context
+- Use "If X, do Y" patterns for decision logic
 - Don't explain what Claude already knows (general concepts, industry basics)
 
-**Effective LLM context patterns:**
+**Effective module patterns:**
 ```markdown
-## [Topic]
+## Client Engagement
 
-[Category A]:
-- [Criterion 1]
-- [Criterion 2]
-- [Criterion 3]
+When qualifying a new client:
+- If AI maturity is early-stage → recommend Advisory engagement, emphasize quick wins
+- If AI maturity is intermediate → recommend Implementation, scope 8-12 week project
+- If AI maturity is advanced → recommend Managed services, propose ongoing retainer
 
-[Category B]:
-- [Criterion 1]
-- [Criterion 2]
+Never recommend Managed before the client has completed at least one Implementation engagement.
 ```
 
-Structured lists with clear categories are more useful to an LLM than narrative prose.
+This pattern tells the agent what to DO. A content-only version would just list the three service tiers.
 
 ## Content Transformation
 
@@ -138,6 +154,47 @@ Time spans become outdated the moment the calendar changes. Always convert relat
 
 **Why this matters:** A module stating "25 years of experience" is wrong by year 2 and increasingly wrong thereafter. "Since 1999" remains accurate indefinitely.
 
+### Avoiding Volatile Specifics
+
+Time spans are one type of volatile detail, but not the only one. Never include details in **modules** whose accuracy depends on a point-in-time snapshot. Instead, move volatile data to an **addendum** (see "Addenda" under Module Hierarchy) and reference it from the module:
+
+- **Counts of things that change** — number of skills, team members, clients, courses, partners
+- **Specific prices, rates, or fee structures** → move to a pricing addendum
+- **Named lists of tools, skills, or platforms** that are actively evolving
+- **Enrollment, participation, or growth numbers**
+- **Biographical details** that will be updated → move to a biographical addendum
+
+**Wrong (volatile data embedded in module):**
+- "13 skills on GitHub"
+- "Retainers at $3,500/mo and $6,000/mo"
+- "Team of 5 certified consultants"
+
+**Right (module references addendum):**
+- "The skills library is actively developed and publicly available on GitHub"
+- "For current retainer pricing, see addenda/pricing-and-rates.md"
+- "The consulting team includes certified practitioners at multiple levels"
+
+**The test:** If this number or list changed tomorrow, would the module be wrong? If yes, move the data to an addendum and reference it. The volatile data still gets built — it lives in `addenda/`, not in `modules/`.
+
+### Volatile Specifics vs. Durable Process Parameters
+
+Not all numbers are volatile. The volatile specifics rule targets **snapshot data** — values that change as the business evolves. It does NOT target **process parameters** — operational thresholds, timelines, and criteria that define how work gets done.
+
+**Volatile (exclude — these expire):**
+- "13 skills on GitHub" — count changes weekly
+- "Retainers at $3,500/mo" — pricing changes quarterly
+- "5 certified consultants" — headcount changes with hiring
+
+**Durable (include — these are behavioral guidance):**
+- "Escalate unresponsive clients within 2 business days" — process parameter
+- "Engagements under $10K use a PSA; over $10K use an MSA" — decision threshold
+- "Allow 2-week buffer between discovery and proposal" — timeline guidance
+- "Review cycles run on 30/60/90 day intervals" — operational rhythm
+
+**The distinction:** Would this change because the business *grew or evolved* (volatile), or would it only change if the organization *redesigned its processes* (durable)? Process parameters are behavioral instructions — they tell the agent how to advise. Filtering them out strips the module of the decision logic it exists to provide.
+
+When you encounter a number during self-check, ask: "Is this a price, count, or enrollment figure? Or is this a threshold, timeline, or criterion that defines how work is done?" Only filter the former.
+
 ### Transforming Quotes
 
 Quotes in source documents are *evidence* — they inform what should go in modules, but aren't copied directly.
@@ -212,6 +269,99 @@ This creates many small modules that agents must combine, losing coherence.
 
 **The test:** For each proposed module, ask: "What decision does this help an agent make?" If the answer is unclear, the module may be too abstract or taxonomic.
 
+### Guiding, Not Cataloging
+
+Modules can drift into cataloging existing content — listing all courses, enumerating all services, inventorying all tools — instead of providing creation and decision guidance. This is especially dangerous when a skill or tool can discover existing content on its own.
+
+**Wrong (catalog — tells the agent what exists):**
+```markdown
+## LeadersPath Courses
+Course 1: AI Foundations (6 lessons, conceptual)
+Course 2: Behavioral Training (7 lessons, vanilla vs. trained comparison)
+Course 3: Context Libraries (7 lessons, progressive context loading)
+...
+```
+
+**Right (guide — tells the agent how to create):**
+```markdown
+## Course Design Principles
+When designing a new course:
+- Structure around comparison pairs: show vanilla output first, then configured output
+- Progressive disclosure: each lesson adds one layer of context/configuration
+- Every lesson must include a hands-on sandbox activity, not just presentation
+
+The three-layer architecture (cohort → courses → demo contexts) allows course reuse across cohorts.
+```
+
+**The test:** If the organization added a new course tomorrow, would this module need updating? If yes, you've cataloged instead of guided. The agent can look things up — the module should teach it how to think.
+
+### Response Patterns Are Not Catalogs
+
+A specific case of the catalog vs. guide distinction: **competitive objection handling** and **recurring scenario responses** are behavioral guidance, not competitor inventories. When a source document describes how to respond to a specific, recurring situation ("the prospect says they already have AI through their CRM"), that's an "If X, do Y" pattern — exactly what modules exist to provide.
+
+**Wrong (filters out a response pattern because it mentions a competitor category):**
+```markdown
+For competitive positioning, see S1: Client & Market Context.
+```
+
+**Right (encodes the behavioral response):**
+```markdown
+When a prospect says "we already have AI through our CRM/platform":
+- Acknowledge what they have — don't dismiss embedded AI features
+- Distinguish between embedded AI (vendor-configured, limited to one tool) and custom implementation (organization-configured, cross-functional)
+- Frame the gap: "What can your team do with AI that your CRM vendor didn't anticipate?"
+```
+
+**The test:** Is this a list of competitors (catalog), or a response framework for a recurring conversation (behavioral guidance)? If it follows an "If the prospect says X, respond by Y" pattern, it belongs in the module.
+
+### Respecting Scope Boundaries
+
+The proposal defines what content belongs in each module and what content is designated as addenda or out-of-scope. When writing a module, the proposal's scope boundary is authoritative — not the availability of information in source files.
+
+When you re-read sources (Step 2b in PHASE_5_BUILD.md), you encounter ALL information in those files — including content the proposal explicitly assigned elsewhere. The temptation is to include "relevant" verified facts because they're right there. Resist this.
+
+**The rule:** If the proposal assigns content to addenda or to a different module, do NOT include it in the module you're writing. Reference it instead.
+
+**Wrong (scope leak):**
+```markdown
+## Leadership
+### Christopher Frazier
+Born 1974 in Southern California. Attended Azusa Pacific University (1992-1996).
+Married Amy on July 14, 2001. Served as pastor for 15 years...
+```
+
+**Right (scope boundary respected):**
+```markdown
+## Leadership
+Christopher Frazier (Founding Partner, Chief Advocacy Officer) leads LeadersPath.
+Amy Frazier (Founding Partner, Chief Collaboration Officer) leads Make Good.
+
+For detailed founder backgrounds, see addenda/founder-bios.md.
+```
+
+The fact that biographical information is verified and available does not mean it belongs in the organizational identity module. A module about organizational identity should reference founder bios, not contain them.
+
+### Scope Proximity Is Not Scope Assignment
+
+A common over-filtering error: content that appears *near* addenda content in a source file gets excluded along with it. The scope boundary test is whether the **proposal assigned** the content elsewhere — not whether it shares a paragraph or section with excluded content.
+
+**Example:** A source document discusses proposal-building methodology in the same section as specific pricing. The pricing is addenda. The methodology ("present mixed pricing models," "structure proposals around phased delivery") is behavioral guidance that belongs in the module.
+
+**Wrong (over-filters by proximity):**
+```markdown
+For proposal structure and pricing, see addenda/pricing-and-rates.md.
+```
+
+**Right (separates the behavioral guidance from the excluded data):**
+```markdown
+When structuring proposals:
+- Present mixed pricing models (fixed-fee phases + retainer options) to give clients flexibility
+- Structure around phased delivery so clients can evaluate before committing to full scope
+- For specific pricing tiers and rate cards, see addenda/pricing-and-rates.md
+```
+
+**The test:** Does the proposal assign THIS specific content to addenda? Or does it only assign the data point (the price, the rate, the dollar amount) while the surrounding methodology is in-scope? Exclude the data, keep the guidance.
+
 ## Module Hierarchy
 
 Context libraries use three tiers:
@@ -240,6 +390,32 @@ Examples:
 - Program details (for program-focused agents)
 - Technical processes (for technical agents)
 - Curriculum content (for learning agents)
+
+### Addenda (Reference Data)
+
+Addenda are the volatile counterpart to durable modules. They contain reference data that agents consult on demand — not behavioral instructions that shape how agents think.
+
+| Component | Contains | Changes When | Loaded | Token Budget |
+|-----------|----------|-------------|--------|-------------|
+| **Modules** | Metaprompting — behavioral instructions, decision frameworks, "If X, do Y" logic | Processes are redesigned | Always (per agent definition) | Counts against 20K limit |
+| **Addenda** | Data — pricing tables, rate cards, biographical details, service catalogs, inventories | Business evolves (prices change, people join, services added) | On demand (when a module directs the agent to consult) | Does not count against limit |
+
+**The classification test:**
+1. Does the agent need this to *decide how to behave* (module) or to *look up specific data* (addendum)?
+2. Would this change because processes were redesigned (module) or because the business evolved (addendum)?
+3. Is this a behavioral instruction or a reference fact?
+
+**The relationship rule:** Modules reference addenda; addenda don't reference modules. A module says `See addenda/pricing-and-rates.md for current rates.` The addendum contains the rates — no behavioral instructions, no agent guidance, no decision logic.
+
+**Examples from practice:**
+- Pricing tables, billing rates, retainer packages → addendum
+- "When structuring proposals, present mixed pricing models" → module (behavioral guidance *about* pricing)
+- Founder biographical timelines, career histories → addendum
+- "When referencing Chris, emphasize the technology-to-AI through-line" → module (behavioral guidance *about* biography)
+- Service catalogs, current offerings, team roster → addendum
+- "Match service tier to client AI maturity" → module (decision logic *about* services)
+
+**Addenda are proposed in Phase 4, built in Phase 5, and validated in Phase 7** — alongside modules, with equivalent source verification but without the metaprompting transformation test.
 
 ## Single Source of Truth
 
@@ -426,7 +602,21 @@ The first version helps agents evaluate *any* option using principles. The secon
 
 **Speculative frameworks:** If a source document mentions "three types of users," ask: Is this a confirmed organizational framework, or an illustrative example? Don't encode speculation as methodology.
 
-**Illustrative examples as prescriptions:** A case study showing *one way* something was done shouldn't become *the way* it must be done.
+**Illustrative examples as prescriptions:** A case study showing *one way* something was done shouldn't become *the way* it must be done. This extends to lists of categories, sectors, types, or use cases — always frame them as non-exhaustive illustrations of breadth, and state the actual qualification or selection criteria separately.
+
+**Wrong (list becomes a restriction):**
+```
+Client sectors: Faith-based, Environmental, Education, Healthcare, Social Justice
+```
+
+**Right (list illustrates breadth, criteria are separate):**
+```
+Make Good serves any purpose-driven organization meeting the qualification criteria in S1.
+Past work spans faith-based, environmental, education, healthcare, and social justice
+sectors — these illustrate breadth, not boundaries.
+```
+
+**The test:** If someone from a sector NOT on this list matched the qualification criteria, would this module make the agent hesitate to engage? If yes, the framing is too restrictive.
 
 **Current state as permanent state:** "We currently use X" should become "Our criteria for selecting tools like X" unless there's strategic commitment to X specifically.
 
@@ -524,3 +714,52 @@ Every context library includes two standard guardrail modules, copied from `temp
 | Research/analysis | Required | Skip (unless published) |
 
 **Do not write custom guardrail sections in agent definitions.** Load the standard modules and add only domain-specific extensions if needed.
+
+## Session Architecture
+
+The context library build process runs across multiple sessions. This is by design — the process is too long for a single context window, and auto-compaction destroys critical instructions and facts.
+
+### Why Sessions Exist
+
+When Claude Code's auto-compact triggers during a build:
+- **Skill instructions vanish** — critical rules (never invent, re-read sources, transform don't transcribe) are lost; the agent reverts to default summarize/paraphrase behavior
+- **Specific facts blur** — titles, names, dates read from source files get reconstructed from memory, producing confident wrong information
+- **Classification decisions are lost** — already-clean documents get re-synthesized, losing nuance
+
+### How the Architecture Prevents This
+
+1. **Phase-specific instruction files** in `references/phases/` — the agent reads only the phase file it needs, when it needs it. Each file is self-contained with its own critical rules block.
+
+2. **Embedded rules in data files** — source-index.md, proposal.md, and module templates contain embedded rules as redundant safety nets. Even after full compaction, when the agent reads source-index.md to figure out what to do next, it encounters the rules.
+
+3. **Build state tracking** — `build-state.md` in the output directory records current phase, completed work, user decisions, and a pointer to which phase instruction file to read next. Any new session reads this first.
+
+### Session Groupings
+
+| Session | Phases | Why Together |
+|---------|--------|-------------|
+| A | 1 (Index) + 2 (Synthesize) | Short phases, naturally sequential, low compaction risk |
+| B | 3 (Analyze) + 4 (Propose) | Analysis feeds directly into proposal, moderate length |
+| **MANDATORY BREAK** | | **Always start a new session before Phase 5** |
+| C | 5 (Build) | Longest phase, highest risk — one module at a time with re-read protocol |
+| D | 6-7 (Agents + Validate) | Short phases, use completed modules as input |
+
+Sessions A and B may combine if compaction hasn't occurred. **The boundary between B and C is mandatory.** Phase 5 needs a full context window — the metaprompting transformation rules must be fresh when writing modules, not buried under thousands of tokens of prior conversation. Without this, the agent reverts to copying content instead of creating metaprompts.
+
+### How to Resume From Any Point
+
+1. Read `<OUTPUT_PATH>/build-state.md` — it tells you the current phase and what's done
+2. Read the phase instruction file it points to
+3. Continue from where work left off
+
+If `build-state.md` doesn't exist but `source-index.md` does, determine the current phase from the index status and create `build-state.md` to track progress going forward.
+
+### Build State File
+
+The `build-state.md` file (template in `templates/build-state.md`) tracks:
+- Current phase and sub-step
+- Phase completion status for all 7 phases
+- Module build checklist (for Phase 5 — the longest phase)
+- User decisions log (conflicts resolved, gaps accepted, scope changes)
+- Pointer to current phase instruction file
+- Session history (optional, for debugging)

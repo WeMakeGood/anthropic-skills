@@ -4,7 +4,7 @@ A skill for Claude that transforms organizational documents into structured know
 
 ## What It Does
 
-This skill guides Claude through a 6-phase workflow to analyze source documents and build a modular context library that gives domain-specific AI agents the organizational knowledge they need to work effectively.
+This skill guides Claude through a 7-phase workflow to analyze source documents and build a modular context library that gives domain-specific AI agents the organizational knowledge they need to work effectively.
 
 **The core insight:** AI agents work better when they have structured, organization-specific context rather than trying to derive everything from raw documents or general knowledge.
 
@@ -73,51 +73,66 @@ You approve each synthesis. These become the "working sources" for module buildi
 
 **Session break point:** After Phase 2, you can stop and resume later. The source index and synthesis files persist — a new session reads these instead of re-reading original documents.
 
-### Phase 3: Propose Structure
+### Phase 3: Analyze Sources
+
+Claude analyzes working sources to identify:
+
+- **Work patterns** — What decisions and outputs agents will produce
+- **Agent roles** — Which agents are needed, based on distinct work patterns (not taxonomy)
+- **Content tiers** — Foundation (all agents), shared (multiple agents), specialized (specific agents)
+- **Addenda candidates** — Volatile reference data (pricing, bios, catalogs) that belongs in addenda rather than modules
+
+### Phase 4: Propose Structure
 
 Claude creates a proposal with:
 
 - **Foundation modules** — Universal context all agents need
 - **Shared modules** — Cross-functional knowledge for multiple agents
 - **Specialized modules** — Domain-specific knowledge for particular roles
+- **Addenda** — Volatile reference data that modules point to (pricing, bios, service catalogs)
 - **Conflict resolutions** — How contradictory documents will be handled
 - **Gap analysis** — What's missing and whether it blocks progress
 
 You approve before building begins.
 
-### Phase 4: Build Modules
+**Mandatory session break:** Always start a new session before Phase 5.
 
-Claude creates the module structure with:
+### Phase 5: Build Modules & Addenda
 
-- Single source of truth (each fact in ONE place)
-- Explicit cross-references between modules
-- `[PROPOSED]` markers for user-approved inferences (all other content is verified by default)
-- `[HIGH-STAKES]` markers with source citations for sensitive content
+Claude builds the library in order:
 
-All facts must trace to working sources in the source index.
+1. **Guardrail modules** — copied from templates (anti-hallucination, natural prose standards)
+2. **Foundation modules** — organizational identity, positioning
+3. **Shared modules** — methodology, engagement approach
+4. **Specialized modules** — domain-specific depth
+5. **Addenda** — volatile reference data (pricing tables, biographical details, service catalogs)
 
-### Phase 5: Create Agent Definitions
+Modules are metaprompts — they tell agents how to behave, not just what facts exist. Addenda are data — they provide reference information that modules point to. Each module and addendum is verified against working sources.
+
+### Phase 6: Create Agent Definitions
 
 For each domain agent, Claude creates:
 
-- Module loading list (all agents load `F#_agent_behavioral_standards`)
-- External-facing agents also load `S#_natural_prose_standards`
+- Module loading list (all agents load `F_agent_behavioral_standards`)
+- External-facing agents also load `S_natural_prose_standards`
+- Optional reference addenda (loaded on demand, don't count against token budget)
 - Token budget estimate
 - Role description and responsibilities
 - Domain-specific guidance (beyond standard guardrails, if needed)
 
 **Standard guardrails are loaded as modules, not duplicated in agent definitions.**
 
-### Phase 6: Validate
+### Phase 7: Validate
 
-Scripts check for:
+Scripts and manual checks verify:
 
-- Broken cross-references
+- Broken cross-references (modules and addenda)
 - Duplicated information
 - Token budget overruns
 - Unmarked high-stakes content
 - Missing verification guidance
 - Facts not traceable to working sources
+- Addenda quality (data only, no behavioral instructions, properly referenced)
 
 ## Key Concepts
 
@@ -135,6 +150,17 @@ The **source index** is the master manifest tracking all source files. Each file
 | `reference` | Supporting material | Use directly |
 
 **Working sources** are what module building actually uses — either original files marked `ready` or synthesis files for complex sources.
+
+### Modules vs. Addenda
+
+The library produces two types of output:
+
+| Component | Contains | Changes When | Token Budget |
+|-----------|----------|-------------|-------------|
+| **Modules** | Metaprompting — behavioral instructions, decision frameworks | Processes are redesigned | Counts against 20K limit |
+| **Addenda** | Data — pricing, bios, catalogs, rate cards | Business evolves | Does not count (loaded on demand) |
+
+Modules reference addenda (`See addenda/pricing.md for current rates`). Addenda don't contain behavioral instructions.
 
 ### Content Stakes Classification
 
@@ -162,6 +188,8 @@ Foundation     → Universal context (identity, positioning, voice)
 Shared         → Cross-functional (methodology, engagement, standards)
     ↓
 Specialized    → Domain-specific (sales process, technical specs, HR)
+    ↓
+Addenda        → Reference data (pricing, bios, catalogs — loaded on demand)
 ```
 
 ## Outputs
@@ -169,17 +197,22 @@ Specialized    → Domain-specific (sales process, technical specs, HR)
 ```
 context-library/
 ├── source-index.md           # Master manifest of all sources
+├── build-state.md            # Progress tracking across sessions
+├── analysis.md               # Source analysis (work patterns, agent derivation)
+├── proposal.md               # Structure proposal (approved before build)
 ├── synthesis/                # Cleaned versions of complex sources
 │   ├── interview-1-synthesis.md
 │   └── transcript-synthesis.md
-├── proposal.md               # Structure proposal (approved before build)
 ├── modules/
 │   ├── foundation/           # F1_organizational_identity.md, etc.
 │   ├── shared/               # S1_methodology.md, etc.
 │   └── specialized/          # D1_sales_process.md, etc.
+├── addenda/                  # Volatile reference data
+│   ├── pricing-and-rates.md
+│   └── founder-bios.md
 └── agents/
-    ├── content-agent.md      # Agent definitions with module lists
-    ├── sales-agent.md
+    ├── content-writer.md     # Agent definitions with module lists
+    ├── client-advisor.md
     └── ...
 ```
 
@@ -188,7 +221,10 @@ context-library/
 The skill includes Python validation scripts:
 
 ```bash
-# Analyze source documents (run first)
+# Create source index (run first)
+python3 scripts/create_source_index.py ./source ./context-library
+
+# Analyze source documents (detailed inventory)
 python3 scripts/analyze_sources.py ./source-documents
 
 # Validate library structure
@@ -199,12 +235,6 @@ python3 scripts/count_tokens.py ./context-library/modules ./context-library/agen
 
 # Verify module facts against sources
 python3 scripts/verify_module.py ./context-library/modules/F1_identity.md ./sources
-```
-
-**Dependencies:** `tiktoken` (for token counting)
-
-```bash
-pip install tiktoken
 ```
 
 ## Example
@@ -222,18 +252,20 @@ Output to: ./makegood-context/
 - Source index tracking all source files and their status
 - Synthesis files for any transcripts or interviews
 - 3-4 foundation modules (identity, positioning, voice, audience)
-- 2-4 shared modules (methodology, engagement approach, pricing)
+- 2-4 shared modules (methodology, engagement approach)
 - 1-2 specialized modules per agent
-- Agent definitions with verification guidance
+- Addenda for volatile data (pricing, biographical details, service catalogs)
+- Agent definitions with module lists and optional addenda references
 - Validation report confirming no issues
 
 ## Session Breaks & Resumption
 
 The index-based architecture supports stopping and resuming:
 
-- **After Phase 1:** Source index exists — resume with synthesis
-- **After Phase 2:** Index + syntheses exist — resume with proposal
-- **Status field** in index tracks progress: `indexing → synthesizing → ready → building → complete`
+- **After Phase 1-2:** Source index + syntheses exist — resume with analysis
+- **After Phase 3-4:** Proposal approved — **mandatory break** before Phase 5
+- **After Phase 5:** Modules + addenda complete — resume with agent definitions
+- **build-state.md** tracks progress, points to the current phase instruction file
 
 When resuming, Claude reads the artifacts instead of re-reading original sources. This enables:
 
@@ -263,10 +295,18 @@ building-context-libraries/
 ├── SKILL.md                    # Main skill instructions
 ├── README.md                   # This file
 ├── references/
-│   ├── ARCHITECTURE.md         # Module design, stakes classification
-│   ├── TEMPLATES.md            # Index, synthesis, module, and agent templates
-│   └── VALIDATION.md           # Phase-by-phase validation checklists
+│   ├── ARCHITECTURE.md         # Module design, content transformation, addenda architecture
+│   ├── TEMPLATES.md            # All templates (modules, addenda, agents, proposal, build state)
+│   ├── VALIDATION.md           # Phase-by-phase validation checklists
+│   └── phases/                 # Per-phase instruction files
+│       ├── PHASE_1_INDEX.md
+│       ├── PHASE_2_SYNTHESIZE.md
+│       ├── PHASE_3_ANALYZE.md
+│       ├── PHASE_4_PROPOSE.md
+│       ├── PHASE_5_BUILD.md
+│       └── PHASE_6_7_AGENTS_VALIDATE.md
 ├── templates/
+│   ├── build-state.md          # Progress tracking template
 │   └── guardrails/
 │       ├── F_agent_behavioral_standards.md   # Required: anti-hallucination, epistemic honesty
 │       └── S_natural_prose_standards.md      # Required for external-facing agents
