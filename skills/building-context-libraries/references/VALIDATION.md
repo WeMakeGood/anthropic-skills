@@ -54,7 +54,7 @@ Before proceeding to build:
 - [ ] **NO FABRICATION** — Every detail traces to a working source you actually read
 - [ ] **NO COMPRESSION** — Token estimates reflect source richness, not arbitrary low targets
 - [ ] Each module has: ID, name, purpose, source references, token estimate
-- [ ] Agent-module mapping with token totals (maximum: 20,000 per agent)
+- [ ] Agent-module mapping with token totals (maximum: 10% of target model's context window per agent)
 - [ ] Conflicts listed with proposed resolutions
 - [ ] Gaps classified (blocking/limiting/enhancing)
 - [ ] Questions for user clearly stated
@@ -163,7 +163,7 @@ Check for:
 Run: `python scripts/count_tokens.py ./modules ./agents`
 
 For each agent, verify:
-- Total tokens under 20,000 maximum
+- Total module tokens under 10% of target model's context window (addenda excluded)
 - Include all useful verified content (don't compress to hit a target)
 - Foundation modules not over-weighted
 
@@ -279,7 +279,7 @@ Before declaring complete:
 - [ ] No broken cross-references (modules and addenda)
 - [ ] No orphaned addenda (every addendum referenced by at least one module)
 - [ ] No duplicated information
-- [ ] All agents under 20,000 token maximum (addenda excluded — loaded on demand)
+- [ ] All agents under per-agent module limit — 10% of target model's context window (addenda excluded — loaded on demand)
 - [ ] All BLOCKING gaps resolved or user-approved
 - [ ] High-stakes content properly marked and sourced
 - [ ] Agent definitions include verification and objectivity guidance

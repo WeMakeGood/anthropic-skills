@@ -1,13 +1,26 @@
 #!/usr/bin/env python3
 """
 Count tokens in context library modules and calculate agent budgets.
+
+The per-agent module budget is 10% of the target model's context window.
+Addenda are excluded from token counts — they are loaded on demand.
+
+Usage:
+    python count_tokens.py <library_dir> [agents_dir] [--context-window N]
+
+Examples:
+    python count_tokens.py ./modules ./agents
+    python count_tokens.py ./modules ./agents --context-window 200000
 """
 
-import os
 import sys
-import re
+import argparse
 import yaml
 from pathlib import Path
+
+
+DEFAULT_CONTEXT_WINDOW = 200000  # Claude Sonnet 4.5
+BUDGET_PERCENTAGE = 0.10  # 10% of context window
 
 
 def estimate_tokens(text: str) -> int:
@@ -85,7 +98,7 @@ def analyze_agent(filepath: Path) -> dict:
 
 
 def find_modules(library_dir: Path) -> list:
-    """Find all module files in library."""
+    """Find all module files in library (excludes addenda)."""
     modules = []
     for subdir in ['foundation', 'shared', 'specialized']:
         subpath = library_dir / subdir
@@ -95,25 +108,34 @@ def find_modules(library_dir: Path) -> list:
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("Usage: count_tokens.py <library_dir> [agents_dir]")
-        print("  library_dir: Path to library/ folder with modules")
-        print("  agents_dir: Optional path to agents/ folder")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description='Count tokens in context library modules and calculate agent budgets.'
+    )
+    parser.add_argument('library_dir',
+                       help='Path to library/ folder with modules')
+    parser.add_argument('agents_dir', nargs='?',
+                       help='Optional path to agents/ folder')
+    parser.add_argument('--context-window', type=int, default=DEFAULT_CONTEXT_WINDOW,
+                       help=f'Target model context window in tokens (default: {DEFAULT_CONTEXT_WINDOW:,})')
 
-    library_dir = Path(sys.argv[1])
-    agents_dir = Path(sys.argv[2]) if len(sys.argv) > 2 else None
+    args = parser.parse_args()
+    library_dir = Path(args.library_dir)
+    agents_dir = Path(args.agents_dir) if args.agents_dir else None
+    token_limit = int(args.context_window * BUDGET_PERCENTAGE)
 
     if not library_dir.exists():
         print(f"Error: Library directory '{library_dir}' not found")
         sys.exit(1)
 
-    # Analyze modules
+    # Analyze modules (not addenda)
     module_files = find_modules(library_dir)
     modules = {}
 
     print("Token Count Report")
     print("==================")
+    print(f"Context window: {args.context_window:,} tokens")
+    print(f"Per-agent module budget: {token_limit:,} tokens (10% of context window)")
+    print(f"Addenda: excluded from budget (loaded on demand)")
     print()
     print("MODULES")
     print("-" * 60)
@@ -139,12 +161,11 @@ def main():
         agent_files = list(agents_dir.glob('*.md'))
 
         if agent_files:
-            print("AGENT TOKEN BUDGETS")
+            limit_label = f"% of {token_limit // 1000}K"
+            print("AGENT TOKEN BUDGETS (modules only — addenda excluded)")
             print("-" * 70)
-            print(f"{'Agent':<30} {'Tokens':>10} {'% of 20K':>10} {'Status':>10}")
+            print(f"{'Agent':<30} {'Tokens':>10} {limit_label:>10} {'Status':>10}")
             print("-" * 70)
-
-            TOKEN_LIMIT = 20000
 
             for af in sorted(agent_files):
                 agent = analyze_agent(af)
@@ -152,7 +173,7 @@ def main():
                     print(f"{agent['name']:<30} ERROR: {agent['error']}")
                     continue
 
-                # Calculate actual tokens from modules
+                # Calculate actual tokens from modules only
                 agent_tokens = 0
                 missing_modules = []
                 for mod_id in agent['modules']:
@@ -166,8 +187,8 @@ def main():
                     if not matched:
                         missing_modules.append(mod_id)
 
-                pct = (agent_tokens / TOKEN_LIMIT) * 100
-                status = "OK" if agent_tokens < TOKEN_LIMIT else "OVER"
+                pct = (agent_tokens / token_limit) * 100
+                status = "OK" if agent_tokens < token_limit else "OVER"
                 if pct > 80:
                     status = "WARN" if status == "OK" else status
 
@@ -178,7 +199,9 @@ def main():
 
             print("-" * 70)
             print()
+            print(f"Budget: 10% of {args.context_window:,} context window = {token_limit:,} tokens per agent")
             print("Status: OK = under 80%, WARN = 80-100%, OVER = exceeds limit")
+            print("Note: Addenda are loaded on demand and do not count against this budget.")
 
     else:
         print("No agents directory provided. Run with agents path to check budgets:")

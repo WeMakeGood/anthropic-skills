@@ -214,7 +214,7 @@ def print_text_report(results: list, source_dir: Path, total_tokens: int, total_
     print("Guidance:")
     print(f"- Context libraries typically compress to 20-40% of source size")
     print(f"- Estimated library size: {int(total_tokens * 0.2):,} - {int(total_tokens * 0.4):,} tokens")
-    print(f"- Target per agent: <20,000 tokens")
+    print(f"- Target per agent: 10% of model context window (e.g., 20K for 200K-context models)")
     print()
 
     if total_tokens > 100000:

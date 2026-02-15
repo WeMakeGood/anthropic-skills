@@ -66,7 +66,7 @@ last_updated: YYYY-MM-DD
 
 ## Reference Addenda (Optional)
 
-If this agent consults reference data (pricing, biographical details, service catalogs), list the addenda here. Addenda are loaded on demand when modules direct the agent to consult them — they do not count against the 20K token budget.
+If this agent consults reference data (pricing, biographical details, service catalogs), list the addenda here. Addenda are loaded on demand when modules direct the agent to consult them — they do not count against the module token budget.
 
 | Addendum | When Consulted |
 |----------|----------------|
@@ -95,7 +95,7 @@ Only add guidance here that extends beyond the standard guardrail modules:
 - Foundation: [X] tokens
 - Shared: [X] tokens
 - Specialized: [X] tokens
-- **Total: [X] tokens** ([X]% of 20K limit)
+- **Total: [X] tokens** ([X]% of per-agent limit)
 - Addenda: not counted (loaded on demand)
 ```
 
@@ -187,7 +187,7 @@ For each addendum, verify:
 ### Step 5: Token Budget Check
 
 For each agent:
-- Total tokens under 20,000 maximum
+- Total module tokens under 10% of target model's context window (e.g., 20K for 200K-context models). Addenda are excluded — loaded on demand.
 - No modules under 1,000 tokens (likely too thin)
 - Include all useful verified content (don't compress to hit a target)
 
@@ -206,7 +206,7 @@ Before requesting approval, write:
 - "Addenda: [count] total"
 - "Agents: [count] total"
 - "Cross-reference issues: [count or 'none']"
-- "Token budget status: [all agents under 20K / issues found]"
+- "Token budget status: [all agents under limit / issues found]"
 - "Source verification: [passed / issues found]"
 - "Content quality: [passed / issues found]"
 - "Addenda quality: [passed / issues found]"

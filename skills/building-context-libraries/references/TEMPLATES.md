@@ -477,7 +477,7 @@ last_updated: YYYY-MM-DD
 
 ## Reference Addenda (Optional)
 
-If this agent consults reference data (pricing, biographical details, service catalogs), list the addenda here. Addenda are loaded on demand when modules direct the agent to consult them — they do not count against the 20K token budget.
+If this agent consults reference data (pricing, biographical details, service catalogs), list the addenda here. Addenda are loaded on demand when modules direct the agent to consult them — they do not count against the module token budget.
 
 | Addendum | When Consulted |
 |----------|----------------|
@@ -506,7 +506,7 @@ Only add guidance here that extends beyond the standard guardrail modules:
 - Foundation: [X] tokens
 - Shared: [X] tokens
 - Specialized: [X] tokens
-- **Total: [X] tokens** ([X]% of 20K limit)
+- **Total: [X] tokens** ([X]% of per-agent limit)
 - Addenda: not counted (loaded on demand)
 ```
 

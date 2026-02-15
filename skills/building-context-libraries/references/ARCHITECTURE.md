@@ -397,7 +397,7 @@ Addenda are the volatile counterpart to durable modules. They contain reference 
 
 | Component | Contains | Changes When | Loaded | Token Budget |
 |-----------|----------|-------------|--------|-------------|
-| **Modules** | Metaprompting — behavioral instructions, decision frameworks, "If X, do Y" logic | Processes are redesigned | Always (per agent definition) | Counts against 20K limit |
+| **Modules** | Metaprompting — behavioral instructions, decision frameworks, "If X, do Y" logic | Processes are redesigned | Always (per agent definition) | Counts against per-agent limit (10% of model context window) |
 | **Addenda** | Data — pricing tables, rate cards, biographical details, service catalogs, inventories | Business evolves (prices change, people join, services added) | On demand (when a module directs the agent to consult) | Does not count against limit |
 
 **The classification test:**
@@ -504,7 +504,7 @@ Every module draft should include (can be removed in final):
 
 ## Token Budget Management
 
-**Guideline**: ~20,000 tokens maximum per agent. But the goal is not to minimize tokens — it's to include all useful verified content.
+**Guideline**: The module budget per agent is **10% of the target model's context window** (e.g., 20K tokens for a 200K-context model like Claude Sonnet). This limit scales automatically as models gain larger context windows. Addenda do not count against this budget — they are loaded on demand. The goal is not to minimize tokens — it's to include all useful verified content.
 
 **DO NOT artificially compress content to "save tokens."** If the content is verified and helps the agent make better decisions, include it.
 

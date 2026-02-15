@@ -143,7 +143,7 @@ Every module must answer: "What decision does this help an agent make?" If the a
 ### Token Estimates
 
 - Base on source content richness, not arbitrary targets
-- 20,000 tokens maximum per agent total
+- Per-agent module budget: **10% of the target model's context window** (e.g., 20K tokens for a 200K-context model). Addenda do not count — they are loaded on demand.
 - Most modules should be 2,000-4,000 tokens
 - Modules under 1,000 tokens are almost certainly too thin
 - Do NOT compress to hit a low number — sparse modules are worse than rich ones

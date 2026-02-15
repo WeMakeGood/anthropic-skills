@@ -157,7 +157,7 @@ The library produces two types of output:
 
 | Component | Contains | Changes When | Token Budget |
 |-----------|----------|-------------|-------------|
-| **Modules** | Metaprompting — behavioral instructions, decision frameworks | Processes are redesigned | Counts against 20K limit |
+| **Modules** | Metaprompting — behavioral instructions, decision frameworks | Processes are redesigned | Counts against per-agent limit (10% of model context window) |
 | **Addenda** | Data — pricing, bios, catalogs, rate cards | Business evolves | Does not count (loaded on demand) |
 
 Modules reference addenda (`See addenda/pricing.md for current rates`). Addenda don't contain behavioral instructions.
@@ -284,7 +284,7 @@ When resuming, Claude reads the artifacts instead of re-reading original sources
 ## Limitations
 
 - Requires source documents (can't build from scratch)
-- Token budgets assume ~20K context per agent (adjust for your model)
+- Token budgets are 10% of the target model's context window per agent (e.g., 20K for 200K-context models)
 - High-stakes content still needs human verification for external use
 - Cannot resolve conflicting information without user input
 
