@@ -117,7 +117,7 @@ If you cannot see the section above, here is the minimum you need:
 
 Write with sources fresh in context. Use the module template from [references/TEMPLATES.md](../TEMPLATES.md).
 
-**While writing, maintain a verification log:**
+**While writing, maintain a verification log.** This log is a build artifact — it ensures every fact is sourced during writing but **must be removed from the final module** before Phase 5 is complete. Agents don't need it; it wastes tokens and can cause instruction conflicts.
 
 ```markdown
 <!-- VERIFICATION LOG
@@ -221,7 +221,7 @@ Write with sources fresh in context. Use the addendum template from [references/
 - **No behavioral instructions.** If you're writing "When X, do Y" — that belongs in a module, not an addendum.
 - **Include source attribution.** Every data point must trace to a working source.
 
-**While writing, maintain a verification log** (same format as modules):
+**While writing, maintain a verification log** (same format as modules). This log **must be removed from the final addendum** before Phase 5 is complete.
 
 ```markdown
 <!-- VERIFICATION LOG
@@ -279,9 +279,10 @@ If you cannot find the exact text in a working source, do NOT include it. Even i
 
 ## After All Modules and Addenda Are Complete
 
-1. Update source index status to `building` → `complete`
-2. Update build-state.md: Phase 5 status → `complete`
-3. Set next phase file → `references/phases/PHASE_6_7_AGENTS_VALIDATE.md`
+1. **Remove all verification logs.** Open each module and addendum and delete the `<!-- VERIFICATION LOG ... -->` HTML comment block. These were build artifacts for source tracing — they waste tokens in the final library and can cause instruction conflicts when loaded as agent context.
+2. Update source index status to `building` → `complete`
+3. Update build-state.md: Phase 5 status → `complete`
+4. Set next phase file → `references/phases/PHASE_6_7_AGENTS_VALIDATE.md`
 
 No gate after Phase 5 — continue to Phase 6-7 for agent definitions and validation.
 

@@ -163,6 +163,7 @@ For each module, verify all facts against working sources:
 ### Step 4: Content Quality Check
 
 For each module, verify:
+- [ ] **No verification logs remain.** `<!-- VERIFICATION LOG ... -->` blocks are build artifacts that must be removed before Phase 5 ends. If any are still present, delete them now. They waste tokens and can cause instruction conflicts.
 - [ ] Content is metaprompting/context, not just copied facts
 - [ ] No verbatim quotes from sources
 - [ ] No speech artifacts or conversational structure
@@ -175,6 +176,7 @@ For each module, verify:
 ### Step 4b: Addenda Quality Check
 
 For each addendum, verify:
+- [ ] **No verification logs remain.** Same as modules — delete any `<!-- VERIFICATION LOG ... -->` blocks.
 - [ ] Contains data only — no behavioral instructions ("When X, do Y" belongs in modules)
 - [ ] Has correct YAML frontmatter (addendum_id, addendum_name, purpose, referenced_by, update_frequency, last_updated)
 - [ ] Every data point traces to a working source

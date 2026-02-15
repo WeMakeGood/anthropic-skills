@@ -74,6 +74,7 @@ Before proceeding to build:
 
 For each module:
 
+- [ ] **No verification logs remain** — `<!-- VERIFICATION LOG ... -->` blocks are build artifacts that must be removed. They waste tokens and can cause instruction conflicts.
 - [ ] Has correct YAML frontmatter (module_id, name, tier, purpose, last_updated)
 - [ ] Purpose clearly states what question it answers
 - [ ] Scope defines what's included AND excluded
@@ -101,6 +102,7 @@ For each module:
 
 For each addendum:
 
+- [ ] **No verification logs remain** — same as modules, delete any `<!-- VERIFICATION LOG ... -->` blocks
 - [ ] Has correct YAML frontmatter (addendum_id, addendum_name, purpose, referenced_by, update_frequency, last_updated)
 - [ ] Contains data only — no behavioral instructions, no agent guidance
 - [ ] Every data point traces to a working source

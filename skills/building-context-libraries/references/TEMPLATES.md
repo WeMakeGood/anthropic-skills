@@ -225,7 +225,7 @@ GOOD: "When recommending services, match to client AI maturity: Advisory for ear
 If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
 -->
 
-<!-- VERIFICATION LOG (remove from final module):
+<!-- VERIFICATION LOG — REMOVE THIS BLOCK before finalizing. It is a build artifact, not part of the module.
 | Fact | Source File | Exact Source Text |
 |------|-------------|-------------------|
 | [fact] | [file] | [exact quote] |
@@ -306,7 +306,7 @@ GOOD: "When recommending services, match to client AI maturity: Advisory for ear
 If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
 -->
 
-<!-- VERIFICATION LOG (remove from final module):
+<!-- VERIFICATION LOG — REMOVE THIS BLOCK before finalizing. It is a build artifact, not part of the module.
 | Fact | Source File | Exact Source Text |
 |------|-------------|-------------------|
 | [fact] | [file] | [exact quote] |
@@ -390,7 +390,7 @@ GOOD: "When recommending services, match to client AI maturity: Advisory for ear
 If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
 -->
 
-<!-- VERIFICATION LOG (remove from final module):
+<!-- VERIFICATION LOG — REMOVE THIS BLOCK before finalizing. It is a build artifact, not part of the module.
 | Fact | Source File | Exact Source Text |
 |------|-------------|-------------------|
 | [fact] | [file] | [exact quote] |
@@ -524,7 +524,7 @@ update_frequency: "[quarterly | annually | on-demand | when-changed]"
 last_updated: YYYY-MM-DD
 ---
 
-<!-- VERIFICATION LOG (remove from final addendum):
+<!-- VERIFICATION LOG — REMOVE THIS BLOCK before finalizing. It is a build artifact, not part of the addendum.
 | Data Point | Source File | Exact Source Text |
 |------------|-------------|-------------------|
 | [data] | [file] | [exact quote] |
