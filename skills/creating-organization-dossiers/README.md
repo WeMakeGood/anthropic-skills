@@ -36,9 +36,18 @@ This skill guides Claude through a 6-phase workflow to research an organization 
 
 ## How It Works
 
-### In Claude Code (CLI)
+The skill auto-adapts to available tools:
 
-The skill includes Python scripts that automate data collection:
+### web_search + web_fetch (preferred)
+
+When web_search and web_fetch tools are available (Claude API, Claude AI, or Claude Code), the skill uses them directly to collect website content and 990 data. This produces cleaner results and works in sandboxed environments without internet access from code execution.
+
+- **Website content:** Fetches homepage, discovers internal pages, fetches key sections (About, Team, Programs, etc.)
+- **990 data:** Queries the ProPublica Nonprofit Explorer API via web_fetch, or searches for ProPublica pages via web_search
+
+### Python scripts (bash environments)
+
+When bash is available and web_search/web_fetch are not, the skill falls back to bundled Python scripts:
 
 1. **Website Scraper** (`scripts/scrape_website.py`)
    - Discovers pages via sitemap.xml or navigation crawling
@@ -50,9 +59,7 @@ The skill includes Python scripts that automate data collection:
    - Retrieves 5 years of financial data
    - Outputs formatted markdown with revenue, expenses, assets
 
-### In Claude AI (Web)
-
-When scripts aren't available, Claude uses web search and web fetch to gather equivalent information manually.
+If scripts fail (no internet, missing packages), the skill switches to web_search/web_fetch automatically.
 
 ## Outputs
 
@@ -70,7 +77,7 @@ When outputting as a file or artifact, the skill shows progress checkpoints as i
 
 ## Script Dependencies
 
-If using Claude Code, install Python dependencies:
+Only needed if using the Python scripts (bash environments without web_search/web_fetch):
 
 ```bash
 pip install requests beautifulsoup4 html2text lxml

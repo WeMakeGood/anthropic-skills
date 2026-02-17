@@ -92,28 +92,44 @@ Use the questions above. If user provides organization name without other detail
 <phase_collect>
 ### Phase 2: Collect Website Content
 
-**ALWAYS run the scraper script first.** It produces better, more complete results than web fetch.
+Choose the collection method based on available tools:
+
+#### Path A: web_search + web_fetch (preferred)
+
+Use this path when web_search and web_fetch tools are available. These produce cleaner, more reliable results than the scraper script.
+
+1. **Fetch the homepage:** `web_fetch` on `ORG_URL`
+2. **Identify key pages** from homepage links — look for About, Team/Staff, Board, Programs/Services, Impact, Partners, Contact
+3. **Fetch each key page** using `web_fetch` on discovered URLs
+4. **Fill gaps with web_search:** Use `site:<domain> about team programs board leadership` to discover pages not linked from the homepage
+5. **Fetch any additional pages** found via search
+
+Target pages: Homepage, About, Team/Staff, Board, Programs/Services, Impact, Partners, Contact, Financials/Annual Report.
+
+**Note:** web_fetch does not render JavaScript. If a page returns minimal content, try web_search for cached or indexed versions.
+
+#### Path B: Scraper script (bash environments)
+
+Use this path when bash is available and web_search/web_fetch are not, or if Path A returns insufficient results.
 
 ```bash
 python3 scripts/scrape_website.py <ORG_URL> --output ./tmp/<org-name>
 ```
-
-The scraper:
-- Discovers pages via sitemap.xml (preferred) or navigation crawling
-- Extracts content from About, Team, Board, Programs, Impact, Partners pages
-- Saves structured markdown files for analysis
 
 Review output in `./tmp/<org-name>/`:
 - `scrape_manifest.json` - what was found
 - `homepage.md` - main page content
 - `about.md`, `team.md`, etc. - categorized content
 
-**Fallback (only if script fails):** Use web_fetch to manually gather content from key pages (Homepage, About, Team, Board, Programs, Impact, Partners, Contact).
+If the script fails (no internet, missing packages), switch to Path A immediately. Do not retry or attempt to install packages in sandboxed environments.
 
-If scraper misses important pages, ask user for specific URLs or use web_fetch for those specific pages.
+#### Supplemental
+
+Regardless of path, if key pages are missing, ask the user for specific URLs.
 
 **GATE (file/artifact):** Before proceeding, write:
-- "Scraped pages: [list categories found]"
+- "Collection method: [Path A / Path B]"
+- "Pages collected: [list categories found]"
 - "Missing categories: [what wasn't found or needs manual lookup]"
 
 **GATE (inline):** Verify internally before proceeding. Do not output.
@@ -122,7 +138,21 @@ If scraper misses important pages, ask user for specific URLs or use web_fetch f
 <phase_990>
 ### Phase 3: Retrieve 990 Data (Nonprofits)
 
-**For U.S. nonprofits, ALWAYS run the 990 script:**
+**Skip this phase** for non-U.S. organizations or for-profit companies.
+
+Choose the retrieval method based on available tools:
+
+#### Path A: web_search + web_fetch (preferred)
+
+1. **Search ProPublica:** `web_search` for `"<ORG_NAME>" site:projects.propublica.org` — or use the API directly:
+   - By name: `web_fetch` on `https://projects.propublica.org/nonprofits/api/v2/search.json?q=<ORG_NAME>`
+   - By EIN (more reliable): `web_fetch` on `https://projects.propublica.org/nonprofits/api/v2/organizations/<EIN>.json`
+2. **Parse the JSON response** to extract: revenue, expenses, assets, employee counts, fiscal years covered
+3. **For additional detail:** fetch the organization's ProPublica page for filing PDFs and trend data
+
+#### Path B: 990 script (bash environments)
+
+Use when bash is available and web_search/web_fetch are not.
 
 ```bash
 python3 scripts/fetch_990.py "<ORG_NAME>" --output ./tmp/<org-name>
@@ -133,17 +163,16 @@ Or with known EIN (more reliable):
 python3 scripts/fetch_990.py --ein <EIN> --output ./tmp/<org-name>
 ```
 
-The script retrieves from ProPublica Nonprofit Explorer API:
-- Recent 990 filings (up to 5 years)
-- Revenue, expenses, assets
-- Employee/volunteer counts
-- PDF links to original filings
+If the script fails, switch to Path A immediately.
 
-**If script returns no results:** Organization may not e-file. Try web search for GuideStar/Candid or ask user for 990 PDFs.
+#### Either path
 
-**Skip this phase** for non-U.S. organizations or for-profit companies.
+Target data: recent 990 filings (up to 5 years), revenue, expenses, assets, employee/volunteer counts, PDF links to original filings.
+
+**If no results from either path:** Organization may not e-file. Try `web_search` for GuideStar/Candid listings, or ask user for 990 PDFs.
 
 **GATE (file/artifact):** Before proceeding, write:
+- "990 retrieval method: [Path A / Path B]"
 - "990 data available: [yes/no]"
 - "Years covered: [list fiscal years]" or "Skipped: [reason]"
 
@@ -313,7 +342,8 @@ skill development, and community connection."
 <failed_attempts>
 ## What DOESN'T Work
 
-- **Writing before running scripts:** Manual web fetch produces incomplete results. ALWAYS run scrape_website.py first.
+- **Writing before collecting data:** Always complete Phase 2 and Phase 3 data collection before writing any dossier content.
+- **Retrying scripts in sandboxed containers:** If scrape_website.py or fetch_990.py fails due to no internet or missing packages, switch to web_search/web_fetch immediately. Do not retry, attempt to install packages, or debug the script environment.
 - **Synthesizing without source verification:** Before writing any section, identify the exact source for each claim. "I'll verify later" means never.
 - **Presenting inferences as facts:** If you deduce something from context (e.g., "likely a small team based on website"), mark it [Inferred]. Readers need to know what's verified vs reasoned.
 - **Favorable framing of concerns:** If financials show declining revenue, say "Revenue declined 15% from $X to $Y." Don't soften it to "Revenue faced some headwinds."
