@@ -53,7 +53,17 @@ The skill handles transcripts in any common format:
 
 ## Output
 
-The skill saves output to `meeting-report-YYYY-MM-DD.md` with these sections:
+By default, the skill returns the report inline in the conversation. You can change this with a keyword in your request:
+
+| Request | Output |
+|---------|--------|
+| "Create a meeting report" | Returns report inline |
+| "Create a meeting report **as a file**" | Writes `meeting-report-YYYY-MM-DD.md` to disk |
+| "Create a meeting report **as an artifact**" | Creates a Claude artifact |
+
+When outputting as a file or artifact, the skill shows progress checkpoints as it works. When outputting inline, it runs silently and returns only the final report.
+
+The report includes these sections:
 
 1. **Executive Summary** - 2-3 paragraphs covering purpose, key decisions, and critical next steps
 2. **Meeting Details** - Date, time, duration, type, and attendees
@@ -64,28 +74,28 @@ The skill saves output to `meeting-report-YYYY-MM-DD.md` with these sections:
 
 ## Example Usage
 
-### Basic Usage
+### Inline (default)
 
 ```
 User: Create a meeting report from this transcript
 [attaches zoom-transcript.txt]
 ```
 
-### With Pasted Content
+### Save to File
 
 ```
-User: Generate meeting minutes
+User: Create a meeting report as a file
+[attaches zoom-transcript.txt]
+```
+
+### As an Artifact
+
+```
+User: Generate meeting minutes as an artifact
 
 [Sarah Chen]
 Let's discuss the Q2 roadmap...
 [pastes rest of transcript]
-```
-
-### From Recording Platform
-
-```
-User: Turn this transcript into a report
-[attaches teams-meeting-export.docx]
 ```
 
 ## Tips for Best Results
@@ -124,7 +134,7 @@ The workflow phases are:
 1. Analyze transcript (identify speakers, topics, date)
 2. Extract structured data (action items, decisions, topics)
 3. Generate report (using standardized template)
-4. Review and save (verify completeness)
+4. Review and deliver (verify completeness)
 
 ## Installation
 
@@ -143,4 +153,4 @@ Place the skill folder in:
 
 ### Claude API
 
-Upload via the `/v1/skills` endpoint.
+Upload via the `/v1/skills` endpoint. By default, the skill returns the report inline — ideal for API consumers. Include "as a file" in the prompt if you want file output instead.

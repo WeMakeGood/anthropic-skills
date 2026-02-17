@@ -29,15 +29,19 @@ Given a meeting transcript, generate a report:
 1. Read the transcript completely before extracting anything
 2. Extract meeting metadata, attendees, topics, decisions, and action items
 3. Generate report following the structure in [references/REPORT-FORMAT.md](references/REPORT-FORMAT.md)
-4. **Save the report to a file** (see Output Requirements below)
+4. Deliver the report (see Output Rules below)
 
-## Output Requirements
+## Output Rules
 
-**ALWAYS save the report to a file. Do not output the report inline in chat.**
+The user controls how the report is delivered by including a keyword in their request:
 
-1. Generate a filename: `meeting-report-YYYY-MM-DD.md` (use the meeting date)
-2. Write the complete report to this file
-3. After saving, confirm to the user: "Report saved to `[filename]`" with a brief summary of key findings
+- **"as a file"** → Write to `meeting-report-YYYY-MM-DD.md`. After saving, confirm: "Report saved to `[filename]`" with a brief summary of key findings.
+- **"as an artifact"** → Create an artifact containing the complete report.
+- **No keyword (default)** → Return the complete report inline in your response.
+
+When delivering inline (the default), execute all workflow phases internally — do not output progress checklists, gate statements, or intermediate extraction notes. Return only the final report.
+
+When delivering as a file or artifact, show the progress checklist and write gate statements visibly before proceeding through each phase.
 
 If the meeting date is unknown, use the current date or ask the user.
 
@@ -66,10 +70,12 @@ Identify from the transcript:
 - Resources, tools, or documents referenced
 - Follow-up items and open questions
 
-**GATE:** Before proceeding, write:
+**GATE (file/artifact):** Before proceeding, write:
 - "Speakers identified: [list all speakers]"
 - "Major topics: [list 2-5 topics]"
 - "Meeting date/time: [date or 'Not specified']"
+
+**GATE (inline):** Verify internally before proceeding. Do not output.
 </phase_analyze>
 
 <phase_extract>
@@ -88,9 +94,11 @@ For each topic:
 - Decisions made
 - Implementation details
 
-**GATE:** Before proceeding, write:
+**GATE (file/artifact):** Before proceeding, write:
 - "Action items found: [count]"
 - "Decisions documented: [count]"
+
+**GATE (inline):** Verify internally before proceeding. Do not output.
 </phase_extract>
 
 <phase_generate>
@@ -104,18 +112,20 @@ Requirements:
 - Resources section with any tools, links, or documents mentioned
 - Notes section for follow-ups, open questions, and future considerations
 
-**Write the report to a file, not inline.**
+Deliver the report per the Output Rules above.
 </phase_generate>
 
 <phase_review>
-### Step 4: Review and Save
+### Step 4: Review and Deliver
 
-**GATE:** Before saving, write:
+**GATE (file/artifact):** Before delivering, write:
 - "Action items: [count] items with [count] owners assigned"
 - "Format check: Matches template exactly: [yes/no]"
 - "Gaps documented: [list any '[Not specified]' or '[Inferred]' markers used, or 'None']"
 
-Then save to `meeting-report-YYYY-MM-DD.md` and confirm to the user.
+**GATE (inline):** Verify internally. Do not output gate statements — return only the final report.
+
+Then deliver per the Output Rules above.
 </phase_review>
 
 ## Handling Challenges
