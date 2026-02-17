@@ -56,7 +56,16 @@ When scripts aren't available, Claude uses web search and web fetch to gather eq
 
 ## Outputs
 
-- **Dossier file:** `[org-name]-dossier.md` - comprehensive organizational profile
+By default, the skill returns the dossier inline in the conversation. You can change this with a keyword in your request:
+
+| Request | Output |
+|---------|--------|
+| "Create a dossier on Acme Corp" | Returns dossier inline |
+| "Create a dossier on Acme Corp **as a file**" | Writes `acme-corp-dossier.md` to disk |
+| "Create a dossier on Acme Corp **as an artifact**" | Creates a Claude artifact |
+
+When outputting as a file or artifact, the skill shows progress checkpoints as it works. When outputting inline, it runs silently and returns only the final dossier.
+
 - **Source files:** `tmp/[org-name]/` - raw scraped content and 990 data (in Claude Code)
 
 ## Script Dependencies

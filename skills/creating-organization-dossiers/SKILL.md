@@ -1,6 +1,6 @@
 ---
 name: creating-organization-dossiers
-description: Creates structured organizational dossiers following a 6-phase research workflow. Produces comprehensive profiles with executive summary, mission, leadership, financials, programs, partnerships, and strategic analysis sections. Use when user says create a dossier, build an org profile, generate an organization report, compile background on a company, or produce a prospect brief. Also triggers on client research, prospect research, due diligence report, partnership evaluation, or org analysis. Outputs to [org-name]-dossier.md file.
+description: Creates structured organizational dossiers following a 6-phase research workflow. Produces comprehensive profiles with executive summary, mission, leadership, financials, programs, partnerships, and strategic analysis sections. Use when user says create a dossier, build an org profile, generate an organization report, compile background on a company, or produce a prospect brief. Also triggers on client research, prospect research, due diligence report, partnership evaluation, or org analysis.
 ---
 
 # Creating Organization Dossiers
@@ -81,10 +81,12 @@ Use the questions above. If user provides organization name without other detail
 - Nonprofit status (check if they have 990 filings)
 - Basic public information
 
-**GATE:** Before proceeding, write:
+**GATE (file/artifact):** Before proceeding, write:
 - "Organization: [name]"
 - "Purpose: [why this dossier is being created]"
 - "Data collection plan: [scripts to run, sources to check]"
+
+**GATE (inline):** Verify internally before proceeding. Do not output.
 </phase_gather>
 
 <phase_collect>
@@ -110,9 +112,11 @@ Review output in `./tmp/<org-name>/`:
 
 If scraper misses important pages, ask user for specific URLs or use web_fetch for those specific pages.
 
-**GATE:** Before proceeding, write:
+**GATE (file/artifact):** Before proceeding, write:
 - "Scraped pages: [list categories found]"
 - "Missing categories: [what wasn't found or needs manual lookup]"
+
+**GATE (inline):** Verify internally before proceeding. Do not output.
 </phase_collect>
 
 <phase_990>
@@ -139,9 +143,11 @@ The script retrieves from ProPublica Nonprofit Explorer API:
 
 **Skip this phase** for non-U.S. organizations or for-profit companies.
 
-**GATE:** Before proceeding, write:
+**GATE (file/artifact):** Before proceeding, write:
 - "990 data available: [yes/no]"
 - "Years covered: [list fiscal years]" or "Skipped: [reason]"
+
+**GATE (inline):** Verify internally before proceeding. Do not output.
 </phase_990>
 
 <phase_materials>
@@ -156,19 +162,23 @@ Read any user-provided materials:
 
 Extract relevant information for each dossier section.
 
-**GATE:** Before proceeding, write:
+**GATE (file/artifact):** Before proceeding, write:
 - "Additional materials processed: [list or 'none provided']"
 - "Key information extracted: [brief summary]"
+
+**GATE (inline):** Verify internally before proceeding. Do not output.
 </phase_materials>
 
 <phase_synthesize>
 ### Phase 5: Synthesize Findings
 
-**GATE:** Before writing the dossier, list your sources:
+**GATE (file/artifact):** Before writing the dossier, list your sources:
 - "Mission statement source: [page/document]"
 - "Financial data source: [990 year or document]"
 - "Leadership info source: [page/document]"
 - "Program details source: [page/document]"
+
+**GATE (inline):** Verify sources internally before proceeding. Do not output.
 
 If any section lacks a source, note it here and address in Information Gaps.
 
@@ -194,9 +204,7 @@ Do not omit concerns to make the dossier more favorable. The user needs accurate
 </phase_synthesize>
 
 <phase_generate>
-### Phase 6: Generate Dossier
-
-**Output file:** `<org-name>-dossier.md`
+### Phase 6: Generate and Deliver Dossier
 
 Use the template in [references/DOSSIER-TEMPLATE.md](references/DOSSIER-TEMPLATE.md).
 
@@ -210,15 +218,21 @@ Key sections:
 7. Digital Presence
 8. Strategic Analysis (if requester context provided)
 9. Information Gaps & Next Steps
+
+Deliver per the Output Rules above. If writing to file, use `<org-name>-dossier.md`.
 </phase_generate>
 
-## Output Requirements
+## Output Rules
 
-**ALWAYS save the dossier to a file. Do not output inline in chat.**
+The user controls how the dossier is delivered by including a keyword in their request:
 
-1. Generate filename: `<org-name>-dossier.md`
-2. Write the complete dossier to this file
-3. After saving, confirm with brief summary of key findings
+- **"as a file"** → Write to `<org-name>-dossier.md`. After saving, confirm with a brief summary of key findings.
+- **"as an artifact"** → Create an artifact containing the complete dossier.
+- **No keyword (default)** → Return the complete dossier inline in your response.
+
+When delivering inline (the default), execute all workflow phases internally — do not output progress checklists, gate statements, or intermediate extraction notes. Return only the final dossier.
+
+When delivering as a file or artifact, show the progress checklist and write gate statements visibly before proceeding through each phase.
 
 ## Key Principles
 
