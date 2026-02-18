@@ -121,6 +121,8 @@ We welcome contributions! Please see our [contribution guidelines](docs/CONTRIBU
 - Include trigger conditions in descriptions
 - Test with the validation scripts
 
+For the design philosophy behind how skills are scoped, structured, and evaluated, see the [Design Guide](docs/DESIGN-GUIDE.md).
+
 ## Resources
 
 - [Agent Skills Specification](https://agentskills.io/specification)

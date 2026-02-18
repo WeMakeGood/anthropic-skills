@@ -108,7 +108,9 @@ Before submitting, ensure your skill:
 
 ## Skill Writing Best Practices
 
-For detailed guidance, see:
+For the design philosophy — why skills are scoped the way they are, what makes a good skill, and what the library intentionally excludes — see the [Design Guide](DESIGN-GUIDE.md).
+
+For detailed technical guidance, see:
 - `skills/creating-skills/SPEC.md` - How skills work
 - `skills/creating-skills/BEST-PRACTICES.md` - Writing guidelines
 - `skills/creating-skills/EXAMPLES.md` - Conversion examples
