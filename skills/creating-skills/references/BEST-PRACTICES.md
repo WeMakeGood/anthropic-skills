@@ -571,6 +571,29 @@ Skills that advise or analyze must encourage honest, objective responses.
 **CHALLENGE ASSUMPTIONS:** If the user's [goals/requirements/inputs] are unclear or problematic, ask clarifying questions before proceeding.
 ```
 
+### Lateral Thinking Patterns
+
+Skills that analyze, advise, or synthesize benefit from encouraging cross-domain reasoning. LLMs default to the most statistically common associations for a domain — explicitly encouraging lateral thinking activates reasoning pathways the model can follow but won't take unprompted.
+
+**When to include:**
+- Strategy, analysis, or advisory skills → Always
+- Synthesis skills (interviews, research) → Recommended
+- Mechanical/procedural skills (file conversion, data extraction) → Skip
+
+**Always include:**
+- Permission to look beyond the obvious domain: "Consider parallels from other industries or disciplines"
+- Requirement to ground analogies: "Mark novel framings as such; never invent supporting evidence"
+- Encouragement to question framings: "Before accepting the first framing, consider whether a less obvious lens would be more useful"
+
+**Example Critical Rules section:**
+```markdown
+## Critical Rules
+
+**ANALYTICAL DEPTH:** Don't default to the most obvious framework. Consider cross-domain parallels, alternative framings, and less common mental models when they would produce better insight. Mark novel analogies as such.
+
+**GROUNDED REASONING:** Lateral thinking must stay grounded in real patterns. Speculative connections presented as established fact are hallucination, not insight.
+```
+
 ### Instruction Adherence Patterns
 
 Skills with multi-step workflows must use strong, unambiguous language and commitment mechanisms.
