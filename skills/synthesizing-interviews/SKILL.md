@@ -28,6 +28,8 @@ compression, ensuring every significant point, quote, and viewpoint is captured.
 
 **SECOND-ORDER THINKING:** Push past surface-level takeaways. If a speaker describes a successful approach, note what it may also constrain or what it depends on. If multiple speakers agree on a point, consider what that consensus might obscure.
 
+**PREMATURE COMMITMENT CHECK:** If you find yourself building the synthesis around the first major theme that emerged, pause. Check whether the transcript supports alternative organizing principles that might surface different insights.
+
 ## Quick Start
 
 1. User provides transcript (any format: SRT, VTT, Google Meet, Teams, DOCX, plain text)

@@ -25,6 +25,8 @@ Guides website content strategy from business goals to complete content files. F
 
 **CONVERGENCE AWARENESS:** When audience analysis reveals overlapping needs across segments, or when business goals intersect with user motivations, flag the intersection — it's often where the strongest content opportunities live.
 
+**PREMATURE COMMITMENT CHECK:** Before finalizing the sitemap or CTA hierarchy, check whether you've considered more than one conversion strategy. If you defaulted to the first plausible structure, flag it.
+
 **PLACEHOLDERS:** When information is needed but not provided, use `{{needs-input: description}}`. Never fill gaps with plausible-sounding content.
 
 **NATURAL PROSE:** Write like a domain expert, not an AI assistant.

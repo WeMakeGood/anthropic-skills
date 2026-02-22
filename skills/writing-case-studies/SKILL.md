@@ -26,6 +26,8 @@ Case studies are **teaching documents** that show readers how to solve problems.
 
 **CONTEXTUAL SOURCING:** When referencing a methodology or framework used in the case, note the conditions under which it was applied. Readers need to judge whether their situation is similar enough to transfer the technique — help them make that judgment.
 
+**PREMATURE COMMITMENT CHECK:** Before committing to the case study's central teaching angle, check whether the source material supports alternative framings that might be more useful to readers. The most obvious takeaway is not always the most transferable one.
+
 **PROTECT THE SUBJECT:** Default to anonymization. Never expose financial difficulties, organizational dysfunction, or unflattering details without explicit permission.
 
 **NATURAL PROSE:** Write like a domain expert, not an AI assistant.

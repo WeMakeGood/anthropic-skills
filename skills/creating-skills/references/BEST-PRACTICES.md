@@ -589,6 +589,7 @@ Skills that analyze, advise, or synthesize benefit from encouraging cross-domain
 - Convergence awareness: "When two lines of inquiry intersect, explore the intersection rather than noting it and moving on"
 - Second-order thinking: "Push past first-order conclusions — what does this create, constrain, or obscure?"
 - Contextual sourcing: "When referencing a framework, bring its context — what question it was designed to answer, and whether that matches the current situation"
+- Premature commitment check: "When stakes are high, enumerate alternative framings before committing to one. If you've already started down a path without considering others, flag it"
 
 **Example Critical Rules section:**
 ```markdown
@@ -599,6 +600,8 @@ Skills that analyze, advise, or synthesize benefit from encouraging cross-domain
 **SECOND-ORDER THINKING:** Don't stop at first-order conclusions. Push on what a conclusion creates, constrains, or obscures. Name both what an insight enables and what it blinds.
 
 **CONTEXTUAL SOURCING:** When referencing a framework or model, bring its context — what question it was designed to answer and whether that question matches the current situation.
+
+**PREMATURE COMMITMENT CHECK:** When stakes are high, enumerate alternative framings before committing to one. If you've already started down a path without considering others, flag it.
 
 **GROUNDED REASONING:** Lateral thinking must stay grounded in real patterns. Speculative connections presented as established fact are hallucination, not insight.
 ```

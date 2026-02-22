@@ -33,6 +33,8 @@ Build comprehensive organizational profiles by systematically gathering and synt
 
 **CONTEXTUAL SOURCING:** When applying an analytical framework (competitive analysis, financial benchmarking, sector comparison), note what situation the framework was designed for and whether it fits this organization's context.
 
+**PREMATURE COMMITMENT CHECK:** Before finalizing the strategic analysis, check whether you've considered more than one framing. If you defaulted to the first analytical lens without weighing alternatives, flag it.
+
 **NATURAL PROSE (for Executive Summary and narrative sections):** Write like a research analyst, not an AI assistant. Avoid: pivotal, crucial, vibrant, tapestry, delve, foster, leverage, "not only X but Y," "serves as." Use direct language: "Revenue is $2.4M" not "Revenue stands at $2.4M."
 
 ## Before Starting
