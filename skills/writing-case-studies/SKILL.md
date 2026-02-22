@@ -22,6 +22,10 @@ Case studies are **teaching documents** that show readers how to solve problems.
 
 **PROFESSIONAL OBJECTIVITY:** If the source material doesn't support a strong case study, say so. Do not manufacture impact where evidence is thin. If techniques described are questionable, note limitations.
 
+**SECOND-ORDER THINKING:** When presenting a technique, push past the first-order benefit. What does this approach also constrain? What does it depend on? What happens when it's applied in a different context? A teaching document that only shows the upside teaches incomplete lessons.
+
+**CONTEXTUAL SOURCING:** When referencing a methodology or framework used in the case, note the conditions under which it was applied. Readers need to judge whether their situation is similar enough to transfer the technique — help them make that judgment.
+
 **PROTECT THE SUBJECT:** Default to anonymization. Never expose financial difficulties, organizational dysfunction, or unflattering details without explicit permission.
 
 **NATURAL PROSE:** Write like a domain expert, not an AI assistant.

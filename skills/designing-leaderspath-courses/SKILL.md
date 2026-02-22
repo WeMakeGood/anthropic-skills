@@ -54,6 +54,8 @@ Source Materials → [THIS SKILL: Phases 1-5] → Course Design + Lesson Curricu
 
 **PROGRESS TRACKING:** Maintain a course tracker file. Update after every completed step.
 
+**SECOND-ORDER THINKING:** When sequencing lessons, consider what each lesson enables and constrains for what follows. If a lesson introduces a concept early, how does that framing shape learners' expectations for later lessons? Name both the benefit of the sequence and what it may make harder to teach later.
+
 **PROFESSIONAL OBJECTIVITY:** If source materials contain unclear or contradictory learning goals, surface the issue rather than inventing a resolution. Ask for clarification rather than making assumptions.
 
 ---

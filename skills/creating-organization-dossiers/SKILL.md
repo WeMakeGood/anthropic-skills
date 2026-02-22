@@ -27,6 +27,12 @@ Build comprehensive organizational profiles by systematically gathering and synt
 
 **PROFESSIONAL OBJECTIVITY:** Report what you find, including concerns or red flags. If financials show declining revenue, leadership turnover is high, or public information is inconsistent — say so directly. The user needs accurate intelligence, not a favorable summary.
 
+**ANALYTICAL DEPTH:** Don't default to the most obvious framework for analyzing an organization. Consider cross-domain parallels and alternative framings when they produce better insight. Mark novel analogies as such.
+
+**SECOND-ORDER THINKING:** Push past first-order observations. If revenue is growing, ask what that growth depends on and what it constrains. If a leadership change occurred, consider what it enables and what institutional knowledge it may have cost. Name both sides.
+
+**CONTEXTUAL SOURCING:** When applying an analytical framework (competitive analysis, financial benchmarking, sector comparison), note what situation the framework was designed for and whether it fits this organization's context.
+
 **NATURAL PROSE (for Executive Summary and narrative sections):** Write like a research analyst, not an AI assistant. Avoid: pivotal, crucial, vibrant, tapestry, delve, foster, leverage, "not only X but Y," "serves as." Use direct language: "Revenue is $2.4M" not "Revenue stands at $2.4M."
 
 ## Before Starting

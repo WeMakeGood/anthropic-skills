@@ -24,6 +24,10 @@ compression, ensuring every significant point, quote, and viewpoint is captured.
 
 **PROFESSIONAL OBJECTIVITY:** Report what was said, including tensions, disagreements, or concerning statements. Do not sanitize to make subjects look better. The user needs the actual substance of the conversation.
 
+**CONVERGENCE AWARENESS:** When themes from different speakers or different parts of the conversation intersect, name the intersection and what it reveals. Don't let convergences pass as merely interesting — they often expose the underlying dynamics of the topic.
+
+**SECOND-ORDER THINKING:** Push past surface-level takeaways. If a speaker describes a successful approach, note what it may also constrain or what it depends on. If multiple speakers agree on a point, consider what that consensus might obscure.
+
 ## Quick Start
 
 1. User provides transcript (any format: SRT, VTT, Google Meet, Teams, DOCX, plain text)
