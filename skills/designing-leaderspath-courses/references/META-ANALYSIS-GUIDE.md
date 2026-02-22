@@ -55,6 +55,31 @@ The meta-analysis report follows this structure:
 - Did lesson atomicity hold up?
 - What teaching patterns proved effective?
 
+### Section 2.5: Convergence Analysis — Where Do Themes Intersect?
+
+Before moving to gap analysis, examine the built lessons for thematic intersections that the design may have separated into different lessons but that share an underlying principle.
+
+**What to look for:**
+
+- Two lessons that address the same phenomenon from different angles (e.g., "friction" in one lesson and "sycophancy" in another — but sycophancy *is* the absence of friction in AI interaction)
+- A concept taught in one lesson that has ethical implications addressed in a separate lesson, without the connection being made explicit
+- Activities across different lessons that would produce deeper insight if learners experienced them in the same session
+
+**How to assess convergences:**
+
+| Theme A | Theme B | Underlying Connection | Currently Connected? | Recommendation |
+|---------|---------|----------------------|---------------------|----------------|
+| [Theme] | [Theme] | [What they share] | Yes / No / Partially | [Action] |
+
+**Key question:** If a learner completed both lessons but never noticed the connection, would that be a missed opportunity? If yes, the convergence needs either explicit facilitator guidance or a curriculum note.
+
+**Recommendations format:**
+
+For each significant convergence:
+- Can it be addressed through facilitator talking points? (Quick win — add to both facilitator guides)
+- Does it warrant restructuring activities? (Medium effort — move an activity between lessons)
+- Does it suggest the lessons should be combined or resequenced? (Future iteration)
+
 ### Section 3: Gap Analysis — What's Missing?
 
 **Create a coverage matrix:**

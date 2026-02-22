@@ -87,6 +87,7 @@ Evaluate the skill against each criterion. Mark as:
 | Criterion | Status | Notes |
 |-----------|--------|-------|
 | **Concrete examples** | | Real input/output, not placeholders |
+| **Examples not over-anchoring** | | Structural over content-specific; multiple examples to prevent fixation; Wrong/Right pairs don't create rigid templates |
 | **Output requirements** | | File vs inline specified (if applicable) |
 | **Destructive action gates** | | For skills that delete/overwrite |
 | **Natural prose guardrails** | | For external-facing content skills |

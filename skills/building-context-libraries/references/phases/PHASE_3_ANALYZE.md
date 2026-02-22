@@ -123,6 +123,34 @@ Document addenda candidates in analysis.md:
 
 ---
 
+## Step 3.7: Convergence Analysis
+
+Before consolidating, look for a different pattern: source documents that describe the same underlying phenomenon from different perspectives without using the same terms.
+
+This is distinct from consolidation (same fact, different wording). Convergence is when two apparently separate topics share an underlying principle that neither document makes explicit.
+
+**What to look for:**
+
+- A strategy document describes "how we approach clients" and an operations document describes "how we scope projects" — but the underlying decision logic is the same framework applied at different stages
+- An interview describes a founder's philosophy and a services document describes delivery methodology — but the methodology *is* the philosophy made operational
+- Multiple documents describe different aspects of the same organizational tension (e.g., "accessible pricing" in one, "premium positioning" in another)
+
+**Why this matters for module design:**
+
+If you catch a convergence during analysis, you can design modules that surface the connection. If you miss it, the modules will treat related topics as unrelated, and agents will never see the deeper pattern.
+
+**Document convergences in analysis.md:**
+
+```markdown
+## Convergences Identified
+
+### [Convergence Name]
+- **Source A:** [document] describes [topic A]
+- **Source B:** [document] describes [topic B]
+- **Underlying connection:** [what they share]
+- **Implication for module design:** [how this should affect tiering or module scope]
+```
+
 ## Step 4: Consolidation Test
 
 Check for information that should consolidate:

@@ -156,6 +156,33 @@ For persona/simulation activities, provide:
 
 ---
 
+## 9. Notice What Emerges During Building
+
+The building process often reveals things the design didn't anticipate. These are valuable — don't absorb them silently.
+
+**What to watch for:**
+
+- **Distinctions that sharpen through implementation.** A curriculum prompt may describe a concept as one thing, but when you write the activity config and facilitator guide, the concept splits into two distinct ideas. The behavioral/context distinction — that HOW the AI responds (behavioral training) is a separate lever from WHAT it knows (context) — emerged during building, not design.
+
+- **Activities that connect across lessons.** If you're building Activity 2 for one lesson and realize it touches the same principle as Activity 1 in a different lesson, note that in the lesson tracker. The designing-leaderspath-courses skill will use this during meta-analysis.
+
+- **Implementation choices that shape the experience.** A system prompt that frames the AI as "a helpful assistant" produces a different learner experience than one that frames it as "an AI with no behavioral training." Both could satisfy the same curriculum prompt, but they teach subtly different things. When you make these choices, note what you chose and what the alternative would have produced.
+
+- **Pacing surprises.** If a 60-minute lesson feels too dense or too thin once you've written the facilitator guide, that's an insight — not just a problem to solve.
+
+**How to surface insights:**
+
+Add an "Emergent Insights" entry to the lesson tracker after completing each lesson:
+
+```markdown
+## Emergent Insights: [Lesson ID]
+- [What emerged, why it matters, and whether it affects other lessons]
+```
+
+These feed directly into the Phase 6 meta-analysis, where the course designer reviews what changed between design and implementation.
+
+---
+
 ## Quick Reference Checklist
 
 Before submitting a lesson design, ensure you've included:

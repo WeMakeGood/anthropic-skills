@@ -44,6 +44,12 @@ Source documents contain **content** — raw facts. Modules must deliver **conte
 
 **CONFLICT RESOLUTION:** When source documents contradict, surface the conflict to the user. Do not silently pick one version.
 
+**CONVERGENCE AWARENESS:** When source documents describe the same underlying pattern differently, the convergence reveals something about the organization that neither document says alone. Explore intersections rather than filing information into the first plausible module. See [PHASE_3_ANALYZE.md](references/phases/PHASE_3_ANALYZE.md) for how this applies during analysis.
+
+**SECOND-ORDER THINKING:** Tiering and agent derivation decisions have downstream consequences. If a piece of knowledge goes into foundation instead of shared, every agent sees it — including ones where it may cause confusion. If you derive agents by taxonomy instead of role, modules become fact sheets instead of behavioral guides. Trace the consequences of structural choices. See [PHASE_5_BUILD.md](references/phases/PHASE_5_BUILD.md) for how this applies during module writing.
+
+**PREMATURE COMMITMENT CHECK:** Your first pass at agent derivation or content tiering may not be the best one. Before finalizing the proposal, check whether you defaulted to the first organizational structure that seemed reasonable or whether you considered alternatives.
+
 ---
 
 ## Reference Files

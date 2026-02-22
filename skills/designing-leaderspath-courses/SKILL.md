@@ -58,6 +58,10 @@ Source Materials → [THIS SKILL: Phases 1-5] → Course Design + Lesson Curricu
 
 **PREMATURE COMMITMENT CHECK:** Before finalizing the course structure, check whether you've considered more than one sequencing approach. If you defaulted to the first logical order without weighing alternatives, flag it.
 
+**CONVERGENCE AWARENESS:** When source themes intersect — two topics that touch the same underlying principle from different angles — explore the intersection rather than filing them into separate lessons. These convergences are often where the most valuable learning lives. See [META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) for how this applies during post-build review.
+
+**CONTEXTUAL SOURCING:** When drawing on pedagogical frameworks (comparison-pair, scaffolded learning, experiential learning cycle), bring context about what the framework was designed for and whether it fits this audience and subject matter. See [CURRICULUM-PROMPT-GUIDE.md](references/CURRICULUM-PROMPT-GUIDE.md) for how to evaluate framework fit when writing curriculum prompts.
+
 **PROFESSIONAL OBJECTIVITY:** If source materials contain unclear or contradictory learning goals, surface the issue rather than inventing a resolution. Ask for clarification rather than making assumptions.
 
 ---

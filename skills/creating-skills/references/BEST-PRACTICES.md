@@ -606,6 +606,26 @@ Skills that analyze, advise, or synthesize benefit from encouraging cross-domain
 **GROUNDED REASONING:** Lateral thinking must stay grounded in real patterns. Speculative connections presented as established fact are hallucination, not insight.
 ```
 
+### Example Anchoring
+
+Examples in skill instructions don't just illustrate — they anchor. An LLM encountering a specific example will gravitate toward that pattern even when the instruction says "consider alternatives" or labels it as what *not* to do. This is a form of premature commitment that operates at the instruction layer rather than the reasoning layer.
+
+**The core problem:** When a skill includes a concrete example, the model treats it as a template. A Wrong/Right pair intended to demonstrate a *principle* becomes a pattern to reproduce. If the "Right" example shows a specific domain transformation, the model will apply that transformation's shape to unrelated domains rather than reasoning from the principle.
+
+**Rules for skill authors:**
+
+1. **Prefer structural examples over content-specific ones.** Show the *shape* of good output (format, section structure, decision flow) rather than domain-specific content. Structural examples anchor on form; content examples anchor on substance.
+
+2. **When domain-specific examples are necessary, use more than one.** A single example creates a template. Two or three examples from different domains illustrate a range, signaling that the principle — not the specific application — is what matters.
+
+3. **Don't make examples more specific than the principle they illustrate.** If the principle is "question the obvious behavioral instruction," an example that shows one specific transformation narrows the model's thinking to that transformation's domain. Either keep the example at the same level of abstraction as the principle, or include enough variation to prevent fixation.
+
+4. **Wrong/Right pairs are high-risk.** The "Right" version becomes the default template regardless of context. If you use Wrong/Right, make the "Right" version abstract enough that it demonstrates the reasoning, not a specific output pattern. Or use multiple "Right" versions to show that the principle has many valid expressions.
+
+5. **Watch for anchoring in behavioral guardrails.** Guardrail examples are especially prone to anchoring because they're loaded into every session. An example meant to demonstrate epistemic honesty will shape how the model expresses uncertainty across all domains — which may be desirable for the pattern but constraining if the specific wording becomes a template.
+
+**Self-check for skill authors:** After writing an example, ask: "If the model encounters a completely different domain, will this example help it apply the principle, or will it reproduce this specific pattern?" If the latter, generalize or diversify.
+
 ### Instruction Adherence Patterns
 
 Skills with multi-step workflows must use strong, unambiguous language and commitment mechanisms.

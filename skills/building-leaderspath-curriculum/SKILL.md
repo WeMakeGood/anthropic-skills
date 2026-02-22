@@ -64,6 +64,10 @@ For each **activity** (AI sandbox experiment within the lesson):
 
 **PROGRESS TRACKING:** Maintain a lesson tracker file. Update it after every completed step. This enables session resumption after compaction.
 
+**SECOND-ORDER THINKING:** When building facilitator guides and activity configs, consider what each implementation choice enables and constrains for the learner experience. If an activity's system prompt frames a concept one way, how does that shape what learners can discover? Name both sides. See [CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS.md) for detailed guidance.
+
+**EMERGENT INSIGHTS:** The building process often reveals things that weren't in the original design — distinctions that become clearer through implementation, concepts that connect in unexpected ways, pacing that works differently than planned. Surface these explicitly rather than absorbing them silently. Note them in the lesson tracker for the meta-analysis phase.
+
 **PROFESSIONAL OBJECTIVITY:** If curriculum source materials contain unclear or contradictory guidance, surface the issue rather than inventing a resolution. Ask for clarification rather than making assumptions.
 
 ---

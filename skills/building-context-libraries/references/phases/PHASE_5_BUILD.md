@@ -139,6 +139,8 @@ Write with sources fresh in context. Use the module template from [references/TE
 - **Don't explain concepts Claude already knows** — focus on organization-specific knowledge
 - **Guide, don't catalog.** Teach the agent how to create and decide, not what currently exists. If a skill or tool can discover existing content, focus on creation principles instead.
 - **Avoid volatile specifics.** Don't embed counts, prices, or named lists that will change. Move this data to an addendum and reference it from the module instead.
+- **Question the obvious behavioral instruction.** The first metaprompt transformation you think of may not be the best one. "Founded in Portland" → "Use Portland as business address" is mechanical. A better transformation might consider *when* location matters and when it doesn't. If you can write a more useful behavioral instruction by considering how the agent will actually encounter this information, do so.
+- **Trace second-order effects of behavioral instructions.** A foundation-level instruction shapes every agent that loads the module. Consider: does this instruction serve all the agents that will receive it, or does it help some while constraining others? If a content writer needs to frame organizational history differently than a proposal developer, the instruction belongs in specialized modules, not foundation.
 
 **What to include:**
 - All verified facts from working sources relevant to this module's purpose

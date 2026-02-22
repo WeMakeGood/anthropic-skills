@@ -233,6 +233,30 @@ This tells the building skill to include these as references in learner material
 
 ---
 
+## Evaluating Pedagogical Framework Fit
+
+When choosing a lesson type or structuring experiences, consider whether the framework fits the specific situation — not just the domain.
+
+**The comparison-pair model** was designed for demonstrating contrasts between AI configurations. It works well when the contrast is binary and observable (sycophantic vs. honest, no-context vs. full-context). It works less well when the concept is a spectrum or when the insight comes from accumulation rather than contrast. Don't default to comparison pairs for every hands-on lesson.
+
+**Progressive exploration** was designed for concepts that build on each other within a single session. It works when each step adds a visible layer. It works less well when the "layers" are conceptually different rather than additive — in that case, the learner experiences a sequence of unrelated activities rather than a building insight.
+
+**Reflection practice** assumes learners have enough conceptual grounding to explore independently. If the lesson is early in a course, open-ended reflection may produce confusion rather than insight. Consider whether the learner has enough scaffolding to reflect productively.
+
+**When writing curriculum prompts, name your framework choice and why it fits:**
+
+```markdown
+**Lesson type:** Hands-on comparison
+
+**Why comparison-pair:** The sycophancy/honesty distinction is binary
+and immediately observable — learners can use identical prompts and see
+the difference. This is not a spectrum concept.
+```
+
+This helps the building skill understand your intent, and it forces a check: if you can't articulate why this framework fits, it may not.
+
+---
+
 ## Key Concepts Section
 
 Ground concepts in source material. Use quotes when helpful.
