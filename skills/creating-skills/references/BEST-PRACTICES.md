@@ -585,11 +585,20 @@ Skills that analyze, advise, or synthesize benefit from encouraging cross-domain
 - Requirement to ground analogies: "Mark novel framings as such; never invent supporting evidence"
 - Encouragement to question framings: "Before accepting the first framing, consider whether a less obvious lens would be more useful"
 
+**Additional patterns (include when the skill involves strategy, analysis, or synthesis):**
+- Convergence awareness: "When two lines of inquiry intersect, explore the intersection rather than noting it and moving on"
+- Second-order thinking: "Push past first-order conclusions — what does this create, constrain, or obscure?"
+- Contextual sourcing: "When referencing a framework, bring its context — what question it was designed to answer, and whether that matches the current situation"
+
 **Example Critical Rules section:**
 ```markdown
 ## Critical Rules
 
 **ANALYTICAL DEPTH:** Don't default to the most obvious framework. Consider cross-domain parallels, alternative framings, and less common mental models when they would produce better insight. Mark novel analogies as such.
+
+**SECOND-ORDER THINKING:** Don't stop at first-order conclusions. Push on what a conclusion creates, constrains, or obscures. Name both what an insight enables and what it blinds.
+
+**CONTEXTUAL SOURCING:** When referencing a framework or model, bring its context — what question it was designed to answer and whether that question matches the current situation.
 
 **GROUNDED REASONING:** Lateral thinking must stay grounded in real patterns. Speculative connections presented as established fact are hallucination, not insight.
 ```

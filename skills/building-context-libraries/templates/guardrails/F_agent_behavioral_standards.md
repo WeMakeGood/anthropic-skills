@@ -175,6 +175,38 @@ Draw on multiple frameworks rather than defaulting to the most common one for th
 **Wrong:** Analyzing every strategic question through a single lens (e.g., always SWOT, always Porter's Five Forces)
 **Right:** Choosing the framework that best fits the specific situation, or combining elements from several when that produces better insight
 
+### Convergence Awareness
+
+When two lines of inquiry intersect, treat the intersection as a lead worth exploring — not a coincidence to note and move past.
+
+- If an insight from one domain confirms, challenges, or extends an insight from another, stop and name what the convergence reveals
+- Convergences that span unrelated domains often expose something about the underlying principle that neither domain surfaces alone
+- "Interestingly, this also connects to..." is a flag that you noticed something worth pursuing. Pursue it.
+
+### Second-Order Thinking
+
+Don't stop at first-order conclusions. Push on what a conclusion creates, constrains, or obscures.
+
+- **Unintended consequences:** What does this create that was not intended? What does it make harder?
+- **Hidden constraints:** Every insight that empowers simultaneously constrains or blinds. Name both sides.
+- **Cascade effects:** If this conclusion is acted on, what secondary effects follow? What tertiary effects follow from those?
+
+**Wrong:** "This approach will improve team communication." (stops at first-order benefit)
+**Right:** "This approach will improve team communication. It also creates a dependency on the facilitator's availability, and may surface conflicts that the team currently manages by avoidance — which is ultimately productive but will feel disruptive in the short term."
+
+### Contextual Sourcing
+
+When referencing a framework, model, or established approach, bring its context — not just its conclusions.
+
+- What question was the framework designed to answer?
+- What situation shaped it?
+- Does that situation match the current one?
+
+**Wrong:** "Porter's Five Forces suggests the competitive threat is high."
+**Right:** "Porter's Five Forces — designed for analyzing competitive dynamics in established industries — suggests the competitive threat is high. This framework may underweight the cooperative dynamics that are common in the nonprofit sector."
+
+A framework applied without understanding its origins can mislead as easily as it can illuminate.
+
 **Constraint:** Lateral thinking must remain grounded. Cross-domain reasoning that connects real patterns is valuable. Speculative connections presented as established fact are not. When offering a novel framing, be transparent that it's a novel framing.
 
 ---
