@@ -71,28 +71,27 @@ When providing source material, indicate what type:
 ## Output Structure
 
 ```
-[working-folder]/
+Curriculum/Lessons/LSN###-slug/
 ├── lesson-tracker.md          # Progress tracking, decisions log
 ├── lesson-metadata.md         # Lesson-level metadata
 ├── learning-objectives.md     # Lesson-level learning objectives
 ├── facilitator-guide.md       # PRIMARY DELIVERABLE
 ├── learner-overview.md        # Context for learners
 ├── qa-chatbot-config.md       # Optional Q&A assistant
-├── lesson-id-log.md           # New/updated Lesson ID entries
 └── activities/
-    ├── ACT001-first-activity/
+    ├── ACT###-first-activity/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── ACT002-second-activity/
+    ├── ACT###-second-activity/
     │   └── [same structure]
     └── shared-context/
         └── CTX###-slug.md
 ```
 
-All entities use sequential IDs: lessons are `LSN###-slug` (e.g., `LSN001-ai-foundations`), activities are `ACT###-slug` (e.g., `ACT001-starting-from-zero`). See [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) for complete naming conventions.
+All entities use sequential IDs: lessons are `LSN###-slug` (e.g., `LSN001-skills-framework`), activities are `ACT###-slug` (e.g., `ACT001-meeting-report-contextualized`), globally unique across all lessons. IDs are assigned from YAML registries in `Curriculum/Registry/`. See [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) for complete naming conventions.
 
 ## Activity Types
 
@@ -120,9 +119,9 @@ Multiple activities can share context files. The skill tracks reuse opportunitie
 
 After creating curriculum, the skill can automatically install context files to your shared Contexts library:
 
-- Reads `Curriculum/Contexts/README.md` to learn folder structure
-- Copies files from `activities/shared-context/` to appropriate subfolders
+- Copies files from `activities/shared-context/` to `Curriculum/Contexts/` (flat directory — no subfolders)
 - Updates `Curriculum/Registry/context-registry.yaml` with new entries
+- Updates `Curriculum/Registry/lesson-registry.yaml` with lesson and activity entries
 - Skips files that already exist (no overwrites)
 
 This step is environment-dependent—if the Contexts folder doesn't exist, it gracefully skips and notes manual installation is needed.

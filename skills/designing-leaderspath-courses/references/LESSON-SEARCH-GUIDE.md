@@ -17,12 +17,20 @@ Creating lessons is expensive—both in design time and in the curriculum-buildi
 
 ## Where to Search
 
+### Check Registry First
+
+The fastest way to find existing lessons is the lesson registry:
+
+1. Read `Curriculum/Registry/lesson-registry.yaml`
+2. Review all lesson entries — each has ID, name, difficulty, topics, and activity lists
+3. Match against learning themes before searching the filesystem
+
 ### Standard Locations
 
-Look for lesson curriculum files in these patterns:
-- `**/Lessons/*-curriculum.md`
-- `**/lesson-metadata.md`
-- `**/*-curriculum.md`
+If the registry isn't sufficient, search the filesystem:
+- `Curriculum/Lessons/LSN*-*/lesson-metadata.md` — Built lesson metadata
+- `Curriculum/Courses/CRS*-*/Lesson Prompts/LSN*-*-curriculum.md` — Curriculum prompts from previous courses
+- `Curriculum/Lessons/LSN*-*/learning-objectives.md` — Learning objectives
 
 ### User-Specified Locations
 
@@ -70,24 +78,24 @@ A lesson **doesn't fit** if:
 
 ## Search Process
 
-### Step 1: List Available Lessons
+### Step 1: Check the Registry
 
-```bash
-# Find all curriculum files
-find . -name "*-curriculum.md" -type f
+```yaml
+# Read lesson-registry.yaml and review entries
+# Each entry includes: name, difficulty, topics, activities
 ```
 
-Or use the Glob tool:
+Or use the Glob tool to find lesson files:
 ```
-pattern: "**/*-curriculum.md"
+pattern: "Curriculum/Lessons/LSN*-*/lesson-metadata.md"
 ```
 
 ### Step 2: Read Each Lesson
 
-For each file found:
-1. Read the Lesson Overview section
-2. Read the Learning Objectives section
-3. Note the key concepts covered
+For each lesson found:
+1. Read `lesson-metadata.md` for overview and difficulty
+2. Read `learning-objectives.md` for what the lesson teaches
+3. Note the key concepts and activity types
 
 ### Step 3: Compare to Learning Themes
 
@@ -124,8 +132,8 @@ Document findings in `lesson-reuse-report.md`:
 
 | Lesson | File | Covers Themes | Recommendation |
 |--------|------|---------------|----------------|
-| AI Foundations | `01-AI-Foundations-curriculum.md` | 1, 2 | Reuse directly |
-| Context Libraries | `03-Context-Libraries-curriculum.md` | 3 | Reuse with notes |
+| AI Foundations | `LSN002-ai-foundations` | 1, 2 | Reuse directly |
+| Context Libraries | `LSN006-context-libraries` | 3 | Reuse with notes |
 
 ## Lessons to Create New
 

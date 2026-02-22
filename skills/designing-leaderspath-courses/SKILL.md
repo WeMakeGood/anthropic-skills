@@ -86,41 +86,30 @@ For detailed guidance, see:
 3. **"Who is the target audience?"** (nonprofit leaders, developers, executives, etc.)
 4. **"What is the desired duration?"** (number of sessions, weeks, hours)
 5. **"Are there existing lessons I should check for reuse?"** (file paths or lesson library location)
-6. **"Do you have an existing lesson-registry.yaml?"** (optional)
+6. **"Where is your Curriculum folder?"** (for registries and lesson library)
 
-   If provided:
-   - Read to check existing Lesson IDs and avoid conflicts
-   - Note which Lesson ID numbers are already used
+   If `Curriculum/Registry/` exists:
+   - Read `lesson-registry.yaml` — check `next_id` for available lesson numbers
+   - Read `course-registry.yaml` — check `next_id` for available course numbers
+   - Note which IDs are already used to avoid conflicts
 
    If not provided:
-   - Skill will create a new log as part of output
+   - Ask user for the next available LSN number and CRS number
 
-**Topic and Level Code Reference** (for assigning Lesson IDs):
+**ID Format:** All IDs use sequential numbering from YAML registries. Topic and difficulty are recorded in lesson metadata, NOT embedded in the ID.
 
-When assigning Lesson IDs in Phase 4, use these codes:
+- **Courses:** `CRS###-slug` (e.g., `CRS001-ethical-ai-nonprofit-leaders`)
+- **Lessons:** `LSN###-slug` (e.g., `LSN001-skills-framework`)
 
-**Topic codes:**
-- `FUND` - Fundamentals (how AI works, capabilities, limitations)
-- `PRMPT` - Prompting (interaction techniques, effective prompting)
-- `CTX` - Context & Knowledge (context libraries, organizational knowledge)
-- `ETH` - Ethics & Responsibility (bias, transparency, responsible use)
-- `APP` - Applications (writing, research, analysis, communication)
+See [NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) for complete naming conventions.
 
-**Level codes:**
-- `101-199` - Foundations/Beginner
-- `201-299` - Intermediate
-- `301-399` - Advanced
-- `401+` - Specialized/Expert
+**THEN: Create course folder:**
 
-If a lesson doesn't fit neatly, use the closest match or ask user.
+1. Assign a Course ID from `course-registry.yaml` using `next_id`
+2. Create `Curriculum/Courses/CRS###-slug/` as the working folder
+3. All course design outputs go in this folder
 
-**THEN: Identify working folder:**
-- Look for a mounted/selected folder in the environment
-- If Cowork: use assigned working folder
-- If Claude Code: use current directory
-- If unclear: ask the user
-
-Output directly to the working folder. No wrapper folders.
+If Curriculum folder is not available, ask for a working folder and output directly to it.
 
 ---
 
@@ -241,27 +230,7 @@ If no lesson library provided:
 
 ### 2b: Create Lesson Reuse Report
 
-Create `lesson-reuse-report.md` in the working folder:
-
-```markdown
-# Lesson Reuse Report: [Course Name]
-
-## Existing Lessons That Fit
-
-| Lesson | File | Covers Themes | Gaps |
-|--------|------|---------------|------|
-| [name] | [path] | [themes 1, 3] | [missing X] |
-
-## Lessons to Create New
-
-| Lesson | Themes Covered | Rationale |
-|--------|----------------|-----------|
-| [name] | [themes 2, 4] | [why not reusing] |
-
-## Recommendations
-
-[Summary of which lessons to reuse, which to create, and any adaptations needed]
-```
+Create `lesson-reuse-report.md` in the working folder. See [references/LESSON-SEARCH-GUIDE.md](references/LESSON-SEARCH-GUIDE.md) for the complete template and matching criteria. Include: existing lessons that fit (with theme coverage and gaps), lessons to create new (with rationale), and recommendations.
 
 **Update tracker:** Add lesson plan with existing/new designations.
 
@@ -279,66 +248,13 @@ Create `lesson-reuse-report.md` in the working folder:
 
 ### 3a: Create Course Curriculum
 
-Create `course-curriculum.md` in the working folder:
-
-```markdown
-# Course Curriculum: [Course Name]
-
-## Course Overview
-
-**Course Name:** [Name]
-**Duration:** [X weeks / sessions]
-**Format:** Live facilitated sessions with AI sandbox activities
-**Target Audience:** [Description]
-
----
-
-## Learning Goals
-
-After completing this course, learners will be able to:
-
-1. [Goal 1]
-2. [Goal 2]
-...
-
----
-
-## Lesson Sequence
-
-| Week | Lesson ID | Lesson Name | Focus | Source |
-|------|-----------|-------------|-------|--------|
-| 1 | LSN001-ai-foundations | AI Foundations | Conceptual grounding | new |
-| 2 | LSN003-intro-prompting | Introduction to Prompting | Prompting basics | new |
-...
-
----
-
-## Demo Context (if applicable)
-
-**Organization:** [Name]
-**Context files:** [list CTX###-slug.md files]
-**Used in:** [which lessons]
-
----
-
-## Curriculum Files
-
-| Lesson ID | File |
-|-----------|------|
-| LSN001-ai-foundations | `Lessons/LSN001-ai-foundations-curriculum.md` |
-...
-
----
-
-## Using building-leaderspath-curriculum
-
-1. Invoke the skill
-2. Provide the lesson curriculum file and Lesson ID
-3. Provide any referenced context files
-4. The skill creates facilitator guides, activities, learner materials
-
-Work lesson-by-lesson for best results.
-```
+Create `course-curriculum.md` in the working folder with:
+- **Course Overview** — Name, duration, format, target audience
+- **Learning Goals** — Course-level objectives
+- **Lesson Sequence** — Table with Week, Lesson ID, Lesson Name, Focus, Source (existing/new)
+- **Demo Context** — If applicable: organization name, context files, which lessons use them
+- **Curriculum Files** — Table mapping Lesson IDs to curriculum prompt files
+- **Using building-leaderspath-curriculum** — Brief instructions for the downstream skill
 
 **Update tracker:** Mark course curriculum complete.
 
@@ -358,133 +274,48 @@ For each NEW lesson (not reused), create a curriculum prompt file.
 
 For each new lesson:
 
-1. **Select Topic Code:** FUND, PRMPT, CTX, ETH, or APP (closest match)
-2. **Select Level:** 101-199 (beginner), 201-299 (intermediate), 301-399 (advanced), 401+ (specialized)
-3. **Generate Slug:** From lesson name, kebab-case, 3-50 chars
+1. **Get next number** from `lesson-registry.yaml` → `next_id`
+2. **Generate slug** from lesson name, kebab-case, 3-50 chars
+3. **Combine:** `LSN` + three-digit number + `-` + slug
+4. **Increment `next_id`** in the registry after each assignment
 
-**Example:** "AI Foundations" for beginners → `LSN001-ai-foundations`
+**Example:** If `next_id: 7`, "Ethical AI Framework" → `LSN007-ethical-ai-framework`
 
-If lesson-registry.yaml was provided, check for conflicts before assigning.
+Topic and difficulty are recorded in the lesson metadata and registry entry, not in the ID itself.
 
-### Lesson Curriculum Prompt Template
+### Lesson Curriculum Prompt Structure
 
-Create `Lessons/LSN###-slug-curriculum.md`:
+Create `Lesson Prompts/LSN###-slug-curriculum.md` following the template and guidance in [references/CURRICULUM-PROMPT-GUIDE.md](references/CURRICULUM-PROMPT-GUIDE.md).
 
-```markdown
-# Lesson: [Lesson Name] — Curriculum Prompt
+Each prompt must include: Lesson ID, overview, learning objectives, source documents, lesson design type, key concepts from source material, and required experiences.
 
-**Lesson ID:** [LSN###-slug]
+**What TO include:** Learning objectives, experiences, concepts, context files, Q&A bot decision, source quotes, comparison pairs.
 
-## Lesson Overview
-
-**Lesson Name:** [Name]
-**Difficulty:** [Beginner / Intermediate / Advanced]
-**Prerequisites:** [None / Other lessons recommended]
-**Estimated Duration:** [X minutes]
-
-**Description:** [What learners will experience and why it matters]
-
----
-
-## Lesson Learning Objectives
-
-After completing this lesson, learners will be able to:
-
-1. [Objective 1 — action verb + measurable outcome]
-2. [Objective 2]
-...
-
----
-
-## Source Documents
-
-**Primary curriculum source:**
-* [filename.md] — [brief description]
-
-**Context files for activities (if applicable):**
-* [filename.md] — [what it provides]
-
-**Online resources to link (if applicable):**
-* "[Article Title]" ([path]) — [brief description]
-
----
-
-## Lesson Design
-
-**Lesson type:** [Facilitated presentation / Hands-on comparison / Discussion-based / etc.]
-
-[Brief description of pedagogical approach]
-
-**Include Lesson Q&A Bot:** [Yes / No]
-
-[If yes, describe what the Q&A bot should help with]
-
----
-
-## Key Concepts from Source Material
-
-### [Concept 1]
-[Explanation grounded in source material]
-
-### [Concept 2]
-[Explanation grounded in source material]
-
----
-
-## Required Experiences
-
-### [Experience/Activity Name]
-
-**What learners should experience:**
-* [Observable outcome 1]
-* [Observable outcome 2]
-
-**Context files:** [List or "None"]
-
-**[Any suggested prompts or approaches]**
-
----
-
-[Repeat for each major experience/activity]
-```
-
-### What TO Include
-
-* Learning objectives (lesson level)
-* What experiences learners should have
-* What concepts should be covered
-* Which context files to use
-* Whether to include Q&A bot (and what it covers)
-* Key quotes or concepts from source material
-* Suggested comparison pairs (if applicable)
-
-### What NOT to Include
-
-* System prompts (skill generates those)
-* Activity instructions (skill generates those)
-* Facilitator notes (skill generates those)
-* Folder structures (skill decides those)
-* References to other lessons (breaks atomicity)
+**What NOT to include:** System prompts, activity instructions, facilitator notes, folder structures, references to other lessons (breaks atomicity).
 
 **Update tracker:** Mark each lesson curriculum prompt complete.
 
-**Log Lesson ID assignments:**
+**Update registries after each lesson:**
 
-After creating each curriculum prompt, output a lesson ID log entry (append to provided log or create new `lesson-id-log.md`):
+After creating each curriculum prompt, update `lesson-registry.yaml`:
 
-```markdown
-## [TOPIC] - [Topic Name]
-
-| ID | Slug | Title | Date Assigned | Status | Notes |
-|----|------|-------|---------------|--------|-------|
-| LSN### | slug | Lesson Title | [date] | Design | Part of [Course Name] |
+```yaml
+LSN007:
+  name: "Ethical AI Framework"
+  slug: ethical-ai-framework
+  difficulty: intermediate
+  topics: [ethics, ai-responsibility]
+  status: design
+  course: CRS###-slug
 ```
+
+Also update `course-registry.yaml` to add the lesson to the course's `lessons` list.
 
 **Present each lesson for review before proceeding to next.**
 
 **GATE:** Before proceeding to Phase 5, write:
 - "Lesson curriculum prompts created: [list files with Lesson IDs]"
-- "Lesson IDs logged: [count]"
+- "Registry updated: [count] new entries"
 - "All lessons approved: [yes/pending]"
 </phase_prompts>
 
@@ -500,18 +331,7 @@ After all content is complete:
 3. **Check coverage** — All learning themes addressed
 4. **Confirm sequencing** — Course curriculum sequences make sense
 
-**Phase 1-5 deliverables:**
-```
-[working-folder]/
-├── course-tracker.md
-├── course-curriculum.md
-├── lesson-reuse-report.md
-├── lesson-id-log.md                  # New/updated entries
-└── Lessons/
-    ├── LSN001-ai-foundations-curriculum.md
-    ├── LSN003-intro-prompting-curriculum.md
-    └── ...
-```
+**Phase 1-5 deliverables:** `Curriculum/Courses/CRS###-slug/` containing README.md, course-tracker.md, course-curriculum.md, lesson-reuse-report.md, lesson-id-log.md, Source Materials/, and Lesson Prompts/ with one curriculum prompt per lesson. Registries updated: `course-registry.yaml` (new CRS entry) and `lesson-registry.yaml` (new LSN entries).
 
 **GATE:** Before finalizing, write:
 - "All deliverables created: [list files]"
@@ -534,20 +354,7 @@ This phase reviews what was actually built against the original design intent. I
 
 ### 6a: Gather Built Lesson Materials
 
-**REQUIRED:** Before starting, gather all inputs:
-
-1. **From Phase 1-5:**
-   - Course design document
-   - Source materials (interview syntheses, articles)
-   - All curriculum prompts
-   - Course tracker
-
-2. **From building-leaderspath-curriculum:**
-   - All facilitator guides
-   - All activity configurations
-   - All learner overviews
-   - Q&A bot configs (if applicable)
-   - Context registry (if demo contexts used)
+**REQUIRED:** Gather all inputs from Phases 1-5 (course design, source materials, curriculum prompts, tracker) and from `building-leaderspath-curriculum` (facilitator guides, activity configs, learner overviews, Q&A configs, context registry). See [references/META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) for the complete required inputs list.
 
 **GATE:** Before proceeding, write:
 - "I have gathered [N] built lesson packages: [list Lesson IDs]"
@@ -572,7 +379,7 @@ See [references/META-ANALYSIS-GUIDE.md](references/META-ANALYSIS-GUIDE.md) for d
 
 Save the meta-analysis to:
 ```
-[working-folder]/course-meta-analysis-[YYYY-MM-DD].md
+Curriculum/Courses/CRS###-slug/course-meta-analysis-[YYYY-MM-DD].md
 ```
 
 **GATE:** Before proceeding to Phase 7, write:
@@ -607,51 +414,13 @@ Look for concepts that:
 
 ### 7b: Create the Email Series
 
-See [references/EMAIL-SERIES-GUIDE.md](references/EMAIL-SERIES-GUIDE.md) for detailed templates and tone guidance.
+See [references/EMAIL-SERIES-GUIDE.md](references/EMAIL-SERIES-GUIDE.md) for detailed templates, tone guidance, and structure for all email types (welcome, post-session, final session, one-month check-in).
 
-**Email types:**
-
-| Email | Timing | Key Elements |
-|-------|--------|--------------|
-| Welcome | 1 week before Session 1 | Expectations, pre-reading (1 article), optional pre-viewing (2-3 videos) |
-| Post-session (×N) | Within 24 hours | Anchor (key takeaway), Bridge (between-session activity), Prepare (resources for NEXT session) |
-| Final session | Within 24 hours | Close the arc, resource library for ongoing reference |
-| One-month check-in | 30 days after last | Specific feedback questions, recent developments (placeholder), engagement invitation |
-
-**Tone requirements:**
-- Direct, warm, substantive
-- No marketing copy or "we hope you enjoyed" filler
-- No exclamation points
-- Written by people who care about the work, to people doing the work
-
-**Resource curation for post-session emails:**
-- Resources point to NEXT session's themes (not current session)
-- Under 15 minutes to consume
-- From credible sources (Anthropic, HBR, Stanford, Pew, Brookings, SSIR)
-- Maximum 2 articles + 1 video per email
+**Key requirements:** Direct/warm/substantive tone (no marketing copy, no exclamation points). Post-session resources point to NEXT session's themes. Maximum 2 articles + 1 video per email, all under 15 minutes, from credible sources.
 
 ### 7c: Output
 
-Save the email series to:
-```
-[working-folder]/course-email-series.md
-```
-
-**Complete deliverables (all phases):**
-```
-[working-folder]/
-├── course-tracker.md
-├── course-curriculum.md
-├── lesson-reuse-report.md
-├── lesson-id-log.md
-├── Lessons/
-│   └── [curriculum prompts]
-│
-│  (After lessons are built by building-leaderspath-curriculum:)
-│
-├── course-meta-analysis-[date].md    # Phase 6
-└── course-email-series.md            # Phase 7
-```
+Save to: `Curriculum/Courses/CRS###-slug/course-email-series.md`
 
 **GATE:** Before finalizing, write:
 - "Email series complete: [count] emails"
@@ -708,71 +477,21 @@ If `course-tracker.md` exists:
 
 **Input:** Interview transcript about AI ethics training for nonprofit leaders
 
-**Phase 1 output (learning themes):**
-- LLM fundamentals and misconceptions
-- Sycophancy problem and honest AI
-- Context libraries and organizational knowledge
-- Skills and packaged processes
-- Personal reflection and leadership
-- Ethical frameworks for AI use
+**Phase 1 → 6 learning themes** (LLM fundamentals, sycophancy, context libraries, skills, reflection, ethical frameworks)
 
-**Phase 2 output (lesson reuse report):**
-```
-Existing lessons found: 0
-Recommendation: Create 6 new lessons
-```
+**Phase 2 →** No existing lessons found; create 6 new
 
-**Phase 3 output (course curriculum excerpt):**
-```markdown
-## Lesson Sequence
+**Phase 3 →** 6-week sequence: AI Foundations → Behavioral Training → Context Libraries → Skills → Reflection → Ethical Framework
 
-| Week | Lesson ID | Lesson Name | Focus | Source |
-|------|-----------|-------------|-------|--------|
-| 1 | LSN001-ai-foundations | AI Foundations | Conceptual grounding | new |
-| 2 | LSN002-behavioral-training | Behavioral Training | Sycophancy, prose quality | new |
-| 3 | LSN004-context-libraries | Context Libraries | Organizational knowledge | new |
-```
+**Phase 4 →** Atomic curriculum prompts per lesson, each with lesson-level objectives, source references, required experiences, and Q&A bot decisions
 
-**Phase 4 output (lesson curriculum prompt excerpt):**
-```markdown
-# Lesson: AI Foundations — Curriculum Prompt
-
-**Lesson ID:** LSN001-ai-foundations
-
-## Lesson Learning Objectives
-
-After completing this lesson, learners will be able to:
-
-1. Distinguish LLMs from other AI types
-2. Explain the jazz ensemble metaphor for how LLMs work
-3. Articulate the sycophancy problem
-
-## Required Experiences
-
-### Experience: Concept Explorer Q&A
-
-**What learners should experience:**
-* Conversational exploration of lesson concepts
-* Answers grounded in lesson material
-
-**Include Lesson Q&A Bot:** Yes
-```
+See [references/CURRICULUM-PROMPT-GUIDE.md](references/CURRICULUM-PROMPT-GUIDE.md) for a complete curriculum prompt example.
 
 ---
 
 ## Relationship to Other Skills
 
-**This skill outputs prompts for:**
-- `building-leaderspath-curriculum` — Takes lesson curriculum prompts, creates full lesson content
-
-**This skill invokes:**
-- `researching-youtube-channels` — Used in Phase 6 to research YouTube channels for supplementary video recommendations. Do NOT use WebFetch for YouTube; use this skill instead.
-
-**This skill may reference:**
-- `building-context-libraries` — If a demo context is needed
-- `synthesizing-interviews` — If source is a raw transcript
-
-**This skill does NOT:**
-- Create system prompts, activity instructions, or facilitator guides (that's `building-leaderspath-curriculum`)
-- Create context libraries (that's `building-context-libraries`)
-- Create Agent Skills (that's `creating-skills`)
+- **Outputs to:** `building-leaderspath-curriculum` (lesson curriculum prompts → full lesson content)
+- **Invokes:** `researching-youtube-channels` (Phase 6 video curation — do NOT use WebFetch for YouTube)
+- **May reference:** `building-context-libraries` (demo contexts), `synthesizing-interviews` (raw transcripts)
+- **Does NOT:** Create system prompts, activity instructions, facilitator guides, context libraries, or Agent Skills

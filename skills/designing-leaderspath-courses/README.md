@@ -56,14 +56,16 @@ Phases 6-7 run after lessons are built, analyzing the results and creating cours
 ## Output Structure
 
 ```
-[working-folder]/
-├── course-tracker.md          # Progress tracking, session log
-├── course-curriculum.md       # Course structure and lesson sequence
-├── lesson-reuse-report.md     # Analysis of existing vs. new lessons
-├── lesson-id-log.md           # New/updated Lesson ID entries
-├── Lessons/
-│   ├── LSN001-ai-foundations-curriculum.md
-│   ├── LSN003-intro-prompting-curriculum.md
+Curriculum/Courses/CRS###-slug/
+├── README.md                         # Course project overview
+├── course-tracker.md                 # Progress tracking, session log
+├── course-curriculum.md              # Course structure and lesson sequence
+├── lesson-reuse-report.md            # Analysis of existing vs. new lessons
+├── lesson-id-log.md                  # ID assignments made during design
+├── Source Materials/                  # Inputs gathered before designing
+│   └── [transcripts, syntheses, etc.]
+├── Lesson Prompts/                   # One per lesson
+│   ├── LSN###-slug-curriculum.md
 │   └── ...
 │
 │  (After lessons are built by building-leaderspath-curriculum:)
@@ -72,7 +74,7 @@ Phases 6-7 run after lessons are built, analyzing the results and creating cours
 └── course-email-series.md            # Phase 7: Course communications
 ```
 
-All entities use sequential IDs: lessons are `LSN###-slug` (e.g., `LSN001-ai-foundations`), activities are `ACT###-slug`. See [building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) for complete naming conventions.
+All entities use sequential IDs assigned from YAML registries in `Curriculum/Registry/`: courses are `CRS###-slug` (e.g., `CRS001-ethical-ai-nonprofit-leaders`), lessons are `LSN###-slug` (e.g., `LSN001-skills-framework`), activities are `ACT###-slug`. See [building-leaderspath-curriculum/references/NAMING-SYSTEM.md](../building-leaderspath-curriculum/references/NAMING-SYSTEM.md) for complete naming conventions.
 
 ## Files in This Skill
 

@@ -234,9 +234,10 @@ When curriculum is imported to WordPress:
 See [NAMING-SYSTEM.md](NAMING-SYSTEM.md) for complete naming conventions.
 
 **Quick reference:**
-- **Lesson ID:** `TOPIC-LEVEL-slug` (e.g., `FUND-101-ai-basics`)
-- **Activity ID:** `TOPIC-LEVEL-ACT-slug` (e.g., `FUND-101-ACT-starting-from-zero`)
-- **Context File:** `CTX###-slug.md` (e.g., `CTX001-org-identity.md`)
+- **Course ID:** `CRS###-slug` (e.g., `CRS001-ethical-ai-nonprofit-leaders`)
+- **Lesson ID:** `LSN###-slug` (e.g., `LSN001-skills-framework`)
+- **Activity ID:** `ACT###-slug` (e.g., `ACT001-meeting-report-vanilla`)
+- **Context File:** `CTX###-slug.md` (e.g., `CTX004-agent-behavioral-standards.md`)
 
 ---
 
@@ -247,33 +248,34 @@ When creating curriculum content, output in these formats:
 ### Folder Structure
 
 ```
-[working-folder]/
+Curriculum/Lessons/LSN###-slug/
 ├── lesson-tracker.md
 ├── lesson-metadata.md
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
 ├── qa-chatbot-config.md              # Optional
-├── lesson-id-log.md                  # New/updated entries
 └── activities/
-    ├── TOPIC-LEVEL-ACT-first-activity/
+    ├── ACT###-first-activity/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── TOPIC-LEVEL-ACT-second-activity/
+    ├── ACT###-second-activity/
     │   └── [same structure]
     └── shared-context/
         └── CTX###-slug.md
 ```
+
+Registry files updated separately in `Curriculum/Registry/` (lesson-registry.yaml, context-registry.yaml).
 
 ### Lesson Metadata (`lesson-metadata.md`)
 
 ```markdown
 # Lesson: [Title]
 
-**Lesson ID:** [TOPIC-LEVEL-slug]
+**Lesson ID:** [LSN###-slug]
 
 ## Overview
 [Brief description of what learners will experience]
@@ -288,8 +290,8 @@ When creating curriculum content, output in these formats:
 [List of prior lessons or knowledge]
 
 ## Activities Included
-1. [TOPIC-LEVEL-ACT-slug] — [Activity name]
-2. [TOPIC-LEVEL-ACT-slug] — [Activity name]
+1. [ACT###-slug] — [Activity name]
+2. [ACT###-slug] — [Activity name]
 ...
 ```
 
@@ -408,7 +410,7 @@ Yes / No
 [X] minutes
 ```
 
-### Context File (`[name]-context.md`)
+### Context File (`CTX###-slug.md`)
 
 ```markdown
 # [Title]

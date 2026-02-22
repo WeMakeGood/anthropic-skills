@@ -103,51 +103,39 @@ See [references/CURRICULUM-DESIGNER-TIPS.md](references/CURRICULUM-DESIGNER-TIPS
 
 2. **"What is the Lesson ID?"**
 
-   Lesson ID format: `LSN###-slug` (e.g., `LSN001-ai-foundations`)
+   Lesson ID format: `LSN###-slug` (e.g., `LSN001-skills-framework`)
 
-   If user provides full ID: validate format, extract topic, level, and slug.
+   If user provides full ID: validate format against `LSN###-slug` pattern.
 
-   If user provides partial info, ask for:
+   If user provides partial info, construct the ID:
+   - **Number:** Use `next_id` from `Curriculum/Registry/lesson-registry.yaml`
+   - **Slug:** Auto-generate from lesson name (kebab-case, 3-50 chars, starts with letter)
 
-   **Topic code:**
-   - `FUND` - Fundamentals (how AI works, capabilities, limitations)
-   - `PRMPT` - Prompting (interaction techniques, effective prompting)
-   - `CTX` - Context & Knowledge (context libraries, organizational knowledge)
-   - `ETH` - Ethics & Responsibility (bias, transparency, responsible use)
-   - `APP` - Applications (writing, research, analysis, communication)
+   If no registry is available, ask the user for the next available LSN number.
 
-   **Level code:**
-   - `101-199` - Foundations/Beginner
-   - `201-299` - Intermediate
-   - `301-399` - Advanced
-   - `401+` - Specialized/Expert
+3. **"Where is the Curriculum folder?"** (for registry and context file access)
 
-   **Slug:** Auto-generate from lesson name (kebab-case, 3-50 chars, starts with letter)
-
-3. **"Do you have an existing lesson-registry.yaml?"** (optional)
-
-   If provided: check for conflicts, find available IDs.
-   If not: skill will output new log entries.
+   Look for `Curriculum/Registry/lesson-registry.yaml` relative to the working directory.
+   If found: read it to get next available LSN### and ACT### IDs, check for conflicts.
+   If not found: ask the user, or plan to output registry entries for manual addition.
 
 4. **"Are there existing context files I should reference?"** (for reuse identification)
 
-5. **"Do you have an existing context-registry.yaml?"** (optional, for CTX### numbering)
+   Check `Curriculum/Contexts/` for existing CTX###-slug.md files (flat directory, no subfolders).
+   Check `Curriculum/Registry/context-registry.yaml` for the full inventory and next available IDs.
+   Note: context-registry.yaml has separate counters: `next_real_id` (CTX001-099) and `next_demo_id` (CTX101-199).
 
-6. **"Will this lesson need a Q&A chatbot?"** (optional helpful assistant)
+5. **"Will this lesson need a Q&A chatbot?"** (optional helpful assistant)
 
 **Output Location:**
 
-Output directly to the working folder. No wrapper folders.
+Output to the lesson folder: `Curriculum/Lessons/LSN###-slug/`
 
-- `[working-folder]/lesson-tracker.md`
-- `[working-folder]/lesson-metadata.md`
-- `[working-folder]/activities/ACT###-slug/`
+- `Curriculum/Lessons/LSN###-slug/lesson-tracker.md`
+- `Curriculum/Lessons/LSN###-slug/lesson-metadata.md`
+- `Curriculum/Lessons/LSN###-slug/activities/ACT###-slug/`
 
-Determine working folder based on environment:
-- If working directory is accessible → use it directly
-- If Claude AI artifacts available → use artifacts
-- If Cowork session → use assigned working folder
-- If unclear → ask the user
+If the Curriculum folder structure is not present, ask the user where to output files.
 
 ---
 
@@ -179,36 +167,15 @@ Phase 4: Validate and Finalize
 When creating a single activity without a lesson:
 - **Skip Phases 1-2** (no lesson-level content)
 - **Complete the Analysis step below** before creating any files
-- **Note:** Single activities lack lesson context—facilitator guide and learning objectives must be provided separately
+- Phase 4a (context file installation) still applies if the Curriculum/Contexts/ structure exists
 
 ### Analysis Step (REQUIRED for single activities)
 
-Before creating any files, answer these questions and document in your process log:
+Before creating any files, document in your process log:
 
-**Note:** If creating context files for a single activity, Phase 4a (context file installation) still applies if the Curriculum/Contexts/ structure exists.
-
-**1. What AI behavior does this activity demonstrate?**
-- Describe the specific behavior learners will experience
-- Is it a limitation (bare config), a capability (context-rich), or a flaw (sycophancy)?
-
-**2. What creates that behavior?**
-- **System prompt alone:** Behavioral instructions that configure how the AI responds
-- **Context files:** Background knowledge that shapes AI outputs
-- **Both:** System prompt sets the mode, context files provide the knowledge
-
-**3. What files do we create?**
-
-```
-[activity-name]/
-├── configuration/
-│   ├── system-prompt.md
-│   ├── api-settings.md
-│   └── context-files.md
-├── instructions.md
-└── process-log.md
-```
-
-Document your analysis before proceeding to create files.
+1. **What AI behavior does this activity demonstrate?** (limitation, capability, or flaw?)
+2. **What creates that behavior?** (system prompt alone, context files, or both?)
+3. **What files do we create?** (see [references/ACTIVITY-TEMPLATE.md](references/ACTIVITY-TEMPLATE.md) for folder structure)
 
 ---
 
@@ -259,16 +226,22 @@ Activity folder names use format: `ACT###-{slug}`
 
 **Update the tracker after EVERY completed step.** This is non-negotiable.
 
-**Log Lesson ID Assignment:**
+**Register Lesson and Activity IDs:**
 
-Output a lesson ID log entry (append to provided log or create new `lesson-id-log.md`):
+If `Curriculum/Registry/lesson-registry.yaml` is accessible:
+1. Read the registry to get `next_id`
+2. Add the new lesson entry with its activity list
+3. Increment `next_id`
 
-```markdown
-## [TOPIC] - [Topic Name]
+If the registry is not accessible, output the entries that need to be added:
 
-| ID | Slug | Title | Date Assigned | Status | Notes |
-|----|------|-------|---------------|--------|-------|
-| LSN### | slug | Lesson Title | [date] | Development | |
+```yaml
+LSN###:
+  slug: [slug]
+  name: [Lesson Title]
+  status: development
+  created: [date]
+  activities: [ACT###, ACT###, ...]
 ```
 
 **GATE:** Before proceeding, write:
@@ -286,47 +259,13 @@ Output a lesson ID log entry (append to provided log or create new `lesson-id-lo
 
 ### 2a: Lesson Metadata
 
-Create `lesson-metadata.md`:
-
-```markdown
-# Lesson: [Lesson Name]
-
-**Lesson ID:** [LSN###-slug]
-
-## Overview
-[Brief description of what learners will experience]
-
-## Difficulty
-[beginner / intermediate / advanced]
-
-## Total Duration
-[e.g., "90 minutes" or "2 hours"]
-
-## Prerequisites
-[List of prior lessons or knowledge]
-
-## Activities Included
-1. [ACT###-slug] — [Activity name]
-2. [ACT###-slug] — [Activity name]
-...
-```
+Create `lesson-metadata.md` following the template in [references/LEADERSPATH-SCHEMA.md](references/LEADERSPATH-SCHEMA.md) (Output File Formats section).
 
 **Update tracker:** Mark Lesson Metadata complete.
 
 ### 2b: Learning Objectives (LESSON Level)
 
-Create `learning-objectives.md`:
-
-```markdown
-# Learning Objectives: [Lesson Name]
-
-After completing this lesson, learners will be able to:
-
-1. [Objective 1 - action verb + measurable outcome]
-2. [Objective 2]
-3. [Objective 3]
-...
-```
+Create `learning-objectives.md` following the template in [references/LEADERSPATH-SCHEMA.md](references/LEADERSPATH-SCHEMA.md) (Output File Formats section).
 
 **Important:** Learning objectives are at LESSON level, not per-activity. Activities support these objectives through hands-on experimentation.
 
@@ -357,22 +296,7 @@ The facilitator guide should include:
 
 ### 2d: Learner Overview
 
-Create `learner-overview.md`:
-
-```markdown
-# [Lesson Name]
-
-## What You'll Experience
-[High-level description of the lesson journey]
-
-## What to Expect
-- [Number] hands-on activities with AI sandboxes
-- Discussion and reflection with your peers
-- [Duration] of facilitated learning
-
-## Before You Begin
-[Any preparation, mindset setting, or context]
-```
+Create `learner-overview.md` following the template in [references/LEADERSPATH-SCHEMA.md](references/LEADERSPATH-SCHEMA.md) (Output File Formats section).
 
 **Note:** This is context-setting, not teaching. Concepts are delivered by the facilitator.
 
@@ -382,43 +306,7 @@ Create `learner-overview.md`:
 
 ### 2e: Q&A Chatbot Config (OPTIONAL)
 
-If the lesson needs a Q&A chatbot, create `qa-chatbot-config.md`:
-
-```markdown
-# Lesson Q&A Chatbot Configuration
-
-## Enable Q&A Chatbot
-Yes
-
-## Purpose
-Helpful assistant for answering questions about lesson concepts.
-
-## System Prompt
-You are a helpful Q&A assistant for the lesson "[Lesson Name]".
-Your role is to answer questions about the lesson content, clarify
-concepts, and help learners understand the material. Be accurate,
-clear, and supportive.
-
-[Additional context about lesson topics if needed]
-
-## Context Files
-- [List context files the Q&A bot should reference]
-
-## Model Settings
-- Model: sonnet
-- Max Tokens: 4096
-- Temperature: 0.7
-```
-
-**When to include Q&A bot:**
-- Complex lessons where learners may have questions between activities
-- Lessons with dense conceptual content
-- When facilitator availability is limited
-
-**When to skip Q&A bot:**
-- Simple lessons with clear activities
-- When human facilitator is always available
-- When group discussion is the primary Q&A mechanism
+If the lesson needs a Q&A chatbot, create `qa-chatbot-config.md` following the template in [references/LEADERSPATH-SCHEMA.md](references/LEADERSPATH-SCHEMA.md) (Output File Formats section). See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for Q&A bot configuration guidance and when to include/skip.
 
 **Update tracker:** Mark Q&A Chatbot Config complete (or N/A).
 
@@ -440,13 +328,7 @@ Work through activities sequentially. For each activity:
 
 ### Activity Naming
 
-Generate the activity folder name using the Lesson ID:
-
-1. Take the activity name: "Starting from Zero"
-2. Convert to slug: `starting-from-zero`
-3. Prepend Lesson ID + ACT: `ACT001-starting-from-zero`
-
-Activity folder: `activities/ACT001-starting-from-zero/`
+Activity IDs are globally unique across all lessons (not per-lesson). See [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) for complete naming conventions. Get the next available ACT### from `lesson-registry.yaml`.
 
 ### 3a: Create Activity Configuration
 
@@ -457,39 +339,7 @@ Create the `activities/ACT###-[slug]/configuration/` folder with:
 - What configuration creates that behavior?
 - What should the AI do/not do?
 
-**api-settings.md** — Technical configuration
-```markdown
-# API Settings
-
-## Model Configuration
-- Model: [sonnet / haiku / opus-4.5]
-- Max Tokens: [number]
-- Temperature: [0-1]
-
-## Context Files
-- [path/filename.md] — [brief description]
-(or "None" if no context files)
-
-## Skills
-- [skill-name] — [brief description]
-(or "None" if no skills)
-```
-
-**context-files.md** — Reference to which context files to load
-```markdown
-# Context Files for Activity: [Name]
-
-## Shared Global Context
-- [CTX###-slug.md] — [why needed]
-
-## Lesson-Specific Context
-- [CTX###-slug.md] — [why needed]
-
-## Activity-Specific Context
-- None (or list files in this activity's folder)
-```
-
-Reference context files by filename only (`CTX###-slug.md`), not by path.
+**api-settings.md** and **context-files.md** — See [references/ACTIVITY-TEMPLATE.md](references/ACTIVITY-TEMPLATE.md) for templates. Reference context files by filename only (`CTX###-slug.md`), not by path.
 
 See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for system prompt patterns.
 
@@ -497,42 +347,13 @@ See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for system prom
 
 ### Context File Naming (if creating new context files)
 
-If the activity needs a new context file:
+See [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) for complete context file naming conventions (ID ranges, scope, registry format). Get the next available CTX### from `context-registry.yaml` (`next_real_id` for CTX001-099, `next_demo_id` for CTX101-199). If registry is not accessible, ask the user for the next available CTX number.
 
-1. Check if context-registry.yaml was provided
-2. If yes: find next available CTX number
-3. If no: start from CTX001 or next available in the lesson
-
-**Filename format:** `CTX###-slug.md`
-
-**Location:**
-- Shared global: User specifies (outside working folder)
-- Lesson-specific: `activities/shared-context/CTX###-slug.md`
-
-Output registry entries for any new context files created.
+Output registry entries for any new context files created, and update `context-registry.yaml` if accessible.
 
 ### 3b: Create Activity Instructions
 
-Create `activities/ACT###-[slug]/instructions.md`:
-
-```markdown
-# Activity: [Name]
-
-## What You'll Experience
-[One sentence describing the AI configuration - what behavior you'll see]
-
-## Try This
-1. [Specific prompt to try]
-2. [Specific prompt to try]
-3. [Variation or follow-up]
-
-## What to Notice
-- [Observable behavior 1]
-- [Observable behavior 2]
-
-## Duration
-[X] minutes
-```
+Create `activities/ACT###-[slug]/instructions.md` following the template in [references/ACTIVITY-TEMPLATE.md](references/ACTIVITY-TEMPLATE.md).
 
 **Important:** Activity instructions are ONLY for guiding sandbox experimentation. They do NOT:
 - Teach concepts (facilitator does that)
@@ -564,67 +385,34 @@ This step installs context files created during curriculum development into the 
 
 **Check Prerequisites:**
 
-1. Look for `Curriculum/Contexts/README.md` relative to the working directory root
-2. If it exists, read it to learn:
-   - The folder structure and subfolder purposes
-   - Context ID ranges for each subfolder
-   - Any naming conventions
-3. Also read `Curriculum/Registry/README.md` if it exists to learn registry conventions
-4. **If neither README exists:** Skip this entire step and note in the lesson tracker:
+1. Look for `Curriculum/Contexts/` directory relative to the working directory root
+2. Also check for `Curriculum/Registry/context-registry.yaml`
+3. **If neither exists:** Skip this entire step and note in the lesson tracker:
    - Add to Context Files Location column: "Manual — Contexts folder not found"
    - Log in Session Log: "Context installation skipped — Curriculum/Contexts/ not found. Install context files manually."
    - Proceed directly to step 4b (validation)
 
-**If Contexts README exists, preview and install context files:**
-
-**Preview installation plan:**
-
-For each file in the lesson tracker's "Context Files" table, determine:
-- Source path (activities/shared-context/ or external)
-- Destination subfolder (based on README's folder structure)
-- Whether file already exists at destination
+**If Contexts directory exists:**
 
 **GATE:** Before copying any files, write:
 - "Files to install: [count]"
-- "Destination folders: [list unique subfolders]"
+- "Destination: Curriculum/Contexts/ (flat directory)"
 - "Will skip (already exist): [count]"
 
-**Install each context file:**
-
 For each file in the lesson tracker's "Context Files" table:
+1. Copy from `activities/shared-context/CTX###-slug.md` to `Curriculum/Contexts/CTX###-slug.md` (flat — no subfolders). Use simple file copy (`cp`), NOT read-process-write. **Skip files that already exist** (don't overwrite).
+2. Update lesson tracker Location column accordingly.
 
-1. **Determine destination subfolder** based on:
-   - The file's type/purpose (demo org, standard, lesson-specific, etc.)
-   - The README's documented folder structure (do NOT hardcode subfolder names — read them from README each time)
+**Update registries:**
+- `context-registry.yaml` — Add new entries, increment `next_real_id` or `next_demo_id`
+- `lesson-registry.yaml` — Add lesson entry with activity list if not done in Phase 1
 
-2. **Copy the file:**
-   - Source: `activities/shared-context/CTX###-slug.md` (or external source path if referenced)
-   - Destination: `Curriculum/Contexts/[subfolder]/CTX###-slug.md`
-   - Use simple file copy (`cp`), NOT read-process-write — these are plain copies, not transformations
-   - **Skip files that already exist at destination** (don't overwrite)
-
-3. **Update lesson tracker Location column:**
-   - If installed: `Contexts/[subfolder]/`
-   - If skipped (already exists): "Skipped — already exists"
-
-**Update Context Registry:**
-
-After installing files, update `Curriculum/Registry/context-registry.yaml`:
-
-1. Read the registry first to understand current format and entries
-2. Add entries for any new context files that don't already exist in the registry
-3. Include the correct Location value matching the subfolder where the file was installed
-4. Update the "Next Available IDs" section if present
-
-**Update Lesson Tracker:**
-
-- Update the Location column for each context file showing where it was installed
-- Log installation results in the Session Log
+Update lesson tracker with installation results and log in Session Log.
 
 **GATE:** Before proceeding to validation, write:
 - "Context files installed: [count] of [total]"
 - "Skipped (already exist): [count]"
-- "Registry updated: Yes/No/N/A"
+- "Registries updated: Yes/No/N/A"
 
 ---
 
@@ -637,35 +425,7 @@ After all content is complete:
 3. **Verify flow** — Activities follow logical progression in facilitator guide
 4. **Calculate totals** — Confirm duration estimates add up
 
-**WordPress Import Mapping:**
-
-When importing to WordPress LeadersPath plugin:
-- Lesson post slug: `LSN###-slug` (e.g., `lsn001-ai-foundations`)
-- Activity post slug: `ACT###-slug` (e.g., `act001-starting-from-zero`)
-- Context file post slug: `CTX###-slug` (e.g., `ctx001-org-identity`)
-
-**Final deliverables:**
-```
-[working-folder]/
-├── lesson-tracker.md
-├── lesson-metadata.md
-├── learning-objectives.md
-├── facilitator-guide.md
-├── learner-overview.md
-├── qa-chatbot-config.md              # Optional
-├── lesson-id-log.md                      # New/updated entries
-└── activities/
-    ├── ACT001-first-activity/
-    │   ├── configuration/
-    │   │   ├── system-prompt.md
-    │   │   ├── api-settings.md
-    │   │   └── context-files.md
-    │   └── instructions.md
-    ├── ACT002-second-activity/
-    │   └── [same structure]
-    └── shared-context/
-        └── CTX###-slug.md
-```
+See [references/LEADERSPATH-SCHEMA.md](references/LEADERSPATH-SCHEMA.md) for the complete folder structure, WordPress import mapping, and field requirements.
 
 **GATE:** Before declaring complete, write:
 - "All activities complete: [count]"
@@ -711,46 +471,9 @@ See [references/CONTENT-GUIDES.md](references/CONTENT-GUIDES.md) for complete ex
 - Activity instructions (focused on experimentation)
 - System prompt patterns (bare, role-constrained, context-rich, deliberately flawed)
 - Lesson Q&A bot configuration
+- Complete lesson package with folder structure
 
-**Quick Example — Naming Structure:**
-
-```
-Lesson ID: LSN001-ai-foundations
-
-[working-folder]/
-├── lesson-tracker.md
-├── lesson-metadata.md
-├── learning-objectives.md
-├── facilitator-guide.md
-├── learner-overview.md
-├── lesson-id-log.md
-└── activities/
-    ├── ACT001-starting-from-zero/
-    │   ├── configuration/
-    │   │   ├── system-prompt.md
-    │   │   ├── api-settings.md
-    │   │   └── context-files.md
-    │   └── instructions.md
-    ├── ACT002-context-transforms/
-    │   └── [same structure]
-    └── shared-context/
-        └── CTX005-foundations-terminology.md
-
-Context files referenced:
-- CTX001-org-identity.md (shared global, provided by user)
-- CTX002-brand-voice.md (shared global, provided by user)
-- CTX005-foundations-terminology.md (lesson-specific, created by skill)
-```
-
-**Quick Example — Activity Concept to Sandbox Configuration:**
-
-| Activity Concept | System Prompt Strategy | What Learner Experiences |
-|------------------|------------------------|--------------------------|
-| "AI without context" | Minimal: "You are a helpful assistant" | Generic responses |
-| "Context transforms output" | Full context library loaded | Specific, aligned responses |
-| "Sycophancy risks" | "Always agree, be positive!" | Unreliable responses |
-
-**Key insight:** These are activities within a lesson. The facilitator presents the concept, learners experience it in the sandbox, then the group discusses. The teaching doesn't happen in the sandbox—it happens around it.
+See [references/NAMING-SYSTEM.md](references/NAMING-SYSTEM.md) for naming examples and folder structure conventions.
 
 ---
 

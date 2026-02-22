@@ -101,10 +101,10 @@ Assigned from `context-registry.yaml`.
 
 ### Scope
 
-- **Global:** Used across multiple lessons. Stored in `Curriculum/Contexts/`.
-- **Lesson-specific:** Used only within one lesson. Stored in `activities/shared-context/`.
+- **Global:** Used across multiple lessons. Stored in `Curriculum/Contexts/` (flat directory — no subfolders).
+- **Lesson-specific:** Used only within one lesson. Stored in `activities/shared-context/` within the lesson folder.
 
-Both use the same `CTX###-slug.md` format.
+Both use the same `CTX###-slug.md` format. Global context files are registered in `context-registry.yaml`.
 
 ---
 
@@ -173,10 +173,15 @@ Curriculum/Lessons/LSN###-slug/
 
 ```
 Curriculum/Courses/CRS###-slug/
+├── README.md
 ├── course-curriculum.md
 ├── course-tracker.md
+├── course-email-series.md
+├── course-meta-analysis-YYYY-MM-DD.md
 ├── lesson-reuse-report.md
+├── lesson-id-log.md
 ├── Source Materials/
+│   └── [transcripts, syntheses, articles, etc.]
 └── Lesson Prompts/
     ├── LSN###-slug-curriculum.md
     └── ...

@@ -6,13 +6,15 @@ This template defines the structure for Activity configuration and instructions.
 
 ## Activity Naming
 
-Activity folders use the naming convention: `TOPIC-LEVEL-ACT-slug`
+Activity folders use the naming convention: `ACT###-slug`
 
-- **TOPIC-LEVEL:** Matches the parent lesson (e.g., `FUND-101`)
-- **ACT:** Literal string indicating this is an activity
+- **ACT:** Literal prefix indicating this is an activity
+- **###:** Three-digit sequential number, globally unique across all lessons (assigned from `lesson-registry.yaml`)
 - **slug:** Kebab-case activity name (e.g., `starting-from-zero`)
 
-**Example:** Lesson `FUND-101-ai-basics` with activity "Starting from Zero" → `FUND-101-ACT-starting-from-zero`
+**Example:** Activity "Starting from Zero" assigned ID ACT005 → folder `ACT005-starting-from-zero`
+
+Activities are children of lessons. Their parent lesson is tracked in `lesson-registry.yaml`. Activity folders live inside `activities/` of their parent lesson.
 
 See [NAMING-SYSTEM.md](NAMING-SYSTEM.md) for complete naming conventions.
 
@@ -21,7 +23,7 @@ See [NAMING-SYSTEM.md](NAMING-SYSTEM.md) for complete naming conventions.
 ## Activity Folder Structure
 
 ```
-activities/TOPIC-LEVEL-ACT-slug/
+activities/ACT###-slug/
 ├── configuration/
 │   ├── system-prompt.md      # AI sandbox configuration
 │   ├── api-settings.md       # Model, tokens, temperature
@@ -144,11 +146,11 @@ See [CONTENT-GUIDES.md](CONTENT-GUIDES.md) for detailed patterns and examples.
 
 ## Example: Complete Activity
 
-**Activity: Starting from Zero** (in lesson FUND-101-ai-basics)
+**Activity: Starting from Zero** (in lesson LSN002-ai-foundations, assigned ACT005)
 
 **Folder structure:**
 ```
-activities/FUND-101-ACT-starting-from-zero/
+activities/ACT005-starting-from-zero/
 ├── configuration/
 │   ├── system-prompt.md
 │   ├── api-settings.md

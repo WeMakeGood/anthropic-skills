@@ -4,33 +4,24 @@ This document explains how to write effective curriculum prompts that work well 
 
 ## Lesson ID Assignment
 
-Every lesson curriculum prompt must include a Lesson ID in the format `TOPIC-LEVEL-slug`.
+Every lesson curriculum prompt must include a Lesson ID in the format `LSN###-slug`.
 
-**Topic codes:**
-- `FUND` - Fundamentals (how AI works, capabilities, limitations)
-- `PRMPT` - Prompting (interaction techniques, effective prompting)
-- `CTX` - Context & Knowledge (context libraries, organizational knowledge)
-- `ETH` - Ethics & Responsibility (bias, transparency, responsible use)
-- `APP` - Applications (writing, research, analysis, communication)
+- **LSN:** Literal prefix for all lessons
+- **###:** Three-digit sequential number from `Curriculum/Registry/lesson-registry.yaml`
+- **slug:** kebab-case, 3-50 characters, starts with letter
 
-**Level codes:**
-- `101-199` - Foundations/Beginner
-- `201-299` - Intermediate
-- `301-399` - Advanced
-- `401+` - Specialized/Expert
+**Example:** "Skills Framework" → `LSN001-skills-framework`
 
-**Slug rules:** kebab-case, 3-50 characters, starts with letter
+If a registry is available, use `next_id` to get the next number. If not, ask the user for the next available LSN number.
 
-**Example:** "AI Foundations" for beginners → `FUND-101-ai-foundations`
-
-If a lesson doesn't fit neatly into a topic, use the closest match or ask the user.
+**Topic and difficulty** are recorded in lesson metadata and the registry, not in the ID itself.
 
 ---
 
 ## The Purpose of Curriculum Prompts
 
 Curriculum prompts are **design documents** that tell the curriculum-building skill what to create. They specify:
-- Lesson ID (TOPIC-LEVEL-slug)
+- Lesson ID (LSN###-slug)
 - What learners should achieve (learning objectives)
 - What experiences they should have
 - What source materials to use
@@ -131,7 +122,7 @@ The "Required Experiences" section describes what learners should experience, no
 
 **Context files:**
 * Vanilla activity: None
-* Trained activity: `F4_agent_behavioral_standards.md`
+* Trained activity: `CTX004-agent-behavioral-standards.md`
 
 **Suggested test prompts:**
 * "I'm thinking of eliminating our annual report to save money."
@@ -163,8 +154,8 @@ Context files provide the AI sandbox with organizational knowledge or behavioral
 
 ```markdown
 **Context files for activities:**
-* `F4_agent_behavioral_standards.md` — Behavioral training for honest responses
-* `S6_natural_prose_standards.md` — Natural writing without AI markers
+* `CTX004-agent-behavioral-standards.md` — Behavioral training for honest responses
+* `CTX005-natural-prose-standards.md` — Natural writing without AI markers
 ```
 
 ### Comparison Activities
@@ -174,16 +165,16 @@ For comparison activities, specify what each configuration uses:
 ```markdown
 **Context files:**
 * Vanilla activity: None
-* Trained activity: `F4_agent_behavioral_standards.md`
+* Trained activity: `CTX004-agent-behavioral-standards.md`
 ```
 
 ### Demo Contexts
 
-If using a fictional organization for demonstrations:
+If using a fictional organization for demonstrations, reference the demo context files (CTX101-199 range):
 
 ```markdown
 **Demo context library:**
-* `Demo Contexts/Readers United/` — Complete fictional nonprofit context
+* `CTX101-readers-united-identity.md` through `CTX107-readers-united-partnerships.md` — Complete fictional nonprofit context (in Curriculum/Contexts/)
 ```
 
 ---
@@ -283,8 +274,8 @@ The good version grounds in source material. The poor version invents explanatio
 
 ## Complete Example
 
-See `FUND-101-ai-foundations-curriculum.md` for a complete example that demonstrates:
-- Lesson ID assignment (FUND-101-ai-foundations)
+See `LSN002-ai-foundations-curriculum.md` for a complete example that demonstrates:
+- Lesson ID assignment (LSN002-ai-foundations)
 - Clear learning objectives at lesson level
 - Source document references
 - Q&A bot specification

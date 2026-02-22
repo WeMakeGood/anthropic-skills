@@ -124,7 +124,7 @@ When providing source material, indicate what type it is:
 
 **Example prompt:**
 
-> "The attached F3_ethical_ai_framework.md is an organizational context file—extract relevant principles for the activity configurations."
+> "The attached CTX007-ethical-ai-framework.md is an organizational context file—extract relevant principles for the activity configurations."
 
 ---
 

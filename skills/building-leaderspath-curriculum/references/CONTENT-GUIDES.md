@@ -511,28 +511,27 @@ Context files provide background knowledge that shapes AI behavior. They're load
 
 ### Complete Lesson Package
 
-**Lesson: AI Foundations** (Lesson ID: FUND-101-ai-basics)
+**Lesson: AI Foundations** (Lesson ID: LSN002-ai-foundations)
 
 **Folder structure:**
 ```
-[working-folder]/
+Curriculum/Lessons/LSN002-ai-foundations/
 ├── lesson-tracker.md
 ├── lesson-metadata.md
 ├── learning-objectives.md
 ├── facilitator-guide.md
 ├── learner-overview.md
-├── lesson-id-log.md
 └── activities/
-    ├── FUND-101-ACT-starting-from-zero/
+    ├── ACT005-concept-explorer/
     │   ├── configuration/
     │   │   ├── system-prompt.md
     │   │   ├── api-settings.md
     │   │   └── context-files.md
     │   └── instructions.md
-    ├── FUND-101-ACT-context-transforms-output/
+    ├── ACT006-context-transforms-output/
     │   └── [same structure]
     └── shared-context/
-        └── CTX005-org-context.md
+        └── CTX006-ai-foundations-concepts.md
 ```
 
 **learning-objectives.md:**
@@ -562,7 +561,7 @@ A hands-on exploration of how AI configuration affects output quality—from gen
 Come ready to experiment! You'll be interacting with AI configured in different ways, and the differences will become clear through your own experience.
 ```
 
-**activities/FUND-101-ACT-starting-from-zero/instructions.md:**
+**activities/ACT005-starting-from-zero/instructions.md:**
 ```markdown
 # Activity: Starting from Zero
 
@@ -583,14 +582,14 @@ Claude with minimal configuration—no company context, no specialized instructi
 10 minutes
 ```
 
-**activities/FUND-101-ACT-starting-from-zero/configuration/system-prompt.md:**
+**activities/ACT005-starting-from-zero/configuration/system-prompt.md:**
 ```markdown
 You are a helpful AI assistant.
 
 Respond to user questions to the best of your ability. Be friendly and informative.
 ```
 
-**activities/FUND-101-ACT-starting-from-zero/configuration/api-settings.md:**
+**activities/ACT005-starting-from-zero/configuration/api-settings.md:**
 ```markdown
 # API Settings
 
@@ -606,7 +605,7 @@ None — this activity deliberately omits context to demonstrate baseline behavi
 None
 ```
 
-**activities/FUND-101-ACT-starting-from-zero/configuration/context-files.md:**
+**activities/ACT005-starting-from-zero/configuration/context-files.md:**
 ```markdown
 # Context Files for Activity: Starting from Zero
 
