@@ -300,7 +300,7 @@ Create `learner-overview.md` following the template in [references/LEADERSPATH-S
 
 **Note:** This is context-setting, not teaching. Concepts are delivered by the facilitator.
 
-**NATURAL PROSE:** This content is learner-facing. Write like a facilitator, not an AI assistant. Avoid: "delve," "explore," "it's important to note," formulaic structures like "Not only X but Y." Use simple verbs ("is" not "serves as"), be concrete, and match the voice of actual learning facilitators.
+**NATURAL PROSE:** This content is learner-facing. Write from the voice of a learning facilitator speaking to their cohort — warm, direct, practical. When you catch yourself sounding like AI describing a learning experience rather than a facilitator setting one up, return to the facilitator's perspective. Revision backstop — these signal the voice has drifted: "delve," "explore," "it's important to note," "Not only X but Y," "serves as."
 
 **Update tracker:** Mark Learner Overview complete.
 
@@ -360,7 +360,7 @@ Create `activities/ACT###-[slug]/instructions.md` following the template in [ref
 - Include learning objectives (those are at lesson level)
 - Explain "The Principle" (facilitator synthesizes after)
 
-**NATURAL PROSE:** Activity instructions are learner-facing. Write direct, conversational guidance. Avoid AI-like phrasing ("Let's explore...", "You'll discover..."). Use imperative voice: "Ask:", "Try:", "Notice:".
+**NATURAL PROSE:** Activity instructions are learner-facing. Write from a facilitator's voice — direct, imperative, practical. "Ask:", "Try:", "Notice:" — not "Let's explore..." or "You'll discover...". When the voice drifts toward AI narration, return to the facilitator's perspective.
 
 **Update tracker:** Mark Instructions complete, update activity status to "complete."
 

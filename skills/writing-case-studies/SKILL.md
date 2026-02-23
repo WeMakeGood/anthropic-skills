@@ -30,13 +30,7 @@ Case studies are **teaching documents** that show readers how to solve problems.
 
 **PROTECT THE SUBJECT:** Default to anonymization. Never expose financial difficulties, organizational dysfunction, or unflattering details without explicit permission.
 
-**NATURAL PROSE:** Write like a domain expert, not an AI assistant.
-
-Banned vocabulary: pivotal, crucial, vital, testament to, underscores, highlights, vibrant, tapestry, delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy, cutting-edge, groundbreaking, nestled, showcases, boasts, elevate
-
-Banned structures: "Not only X but Y," "serves as," "stands as," "-ing" phrases for empty analysis ("highlighting the importance," "showcasing their commitment"), vague attribution ("experts say," "industry leaders"), formulaic balance ("Despite challenges, [positive]")
-
-Required: Use "is" not "serves as," repeat nouns rather than finding synonyms, be specific with numbers and names, match the voice of actual practitioners in this field.
+**NATURAL PROSE:** Write as a senior practitioner in the field would — someone who teaches by describing what they did and what happened, not by calling their work transformative. When your prose sounds like AI writing about the field rather than someone in it, the voice has slipped. Return to the practitioner's perspective. Revision backstop — these words signal the voice has drifted: pivotal, crucial, vital, testament to, underscores, highlights, vibrant, tapestry, delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy, cutting-edge, groundbreaking, nestled, showcases, boasts, elevate. Also avoid: "Not only X but Y," "serves as," "stands as," vague attribution ("experts say"), formulaic balance ("Despite challenges, [positive]").
 
 <failed_attempts>
 What DOESN'T work:

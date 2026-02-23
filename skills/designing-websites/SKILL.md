@@ -29,13 +29,7 @@ Guides website content strategy from business goals to complete content files. F
 
 **PLACEHOLDERS:** When information is needed but not provided, use `{{needs-input: description}}`. Never fill gaps with plausible-sounding content.
 
-**NATURAL PROSE:** Write like a domain expert, not an AI assistant.
-
-Banned vocabulary: pivotal, crucial, vital, testament to, underscores, highlights, vibrant, tapestry, delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy, cutting-edge, groundbreaking, nestled, showcases, boasts, elevate
-
-Banned structures: "Not only X but Y," "serves as," "stands as," "-ing" phrases for empty analysis ("highlighting the importance," "showcasing their commitment"), vague attribution ("experts say," "industry leaders"), formulaic balance ("Despite challenges, [positive]")
-
-Required: Use "is" not "serves as," repeat nouns rather than finding synonyms, be specific with numbers and names, match the voice of actual practitioners in the user's industry.
+**NATURAL PROSE:** Write as the practitioner who would create this content if AI didn't exist — a marketing director, a nonprofit communications lead, a tech founder. Adopt their vocabulary and rhythm. When a sentence sounds like AI writing about the industry rather than a person in the industry, rewrite from the practitioner's perspective. Revision backstop — these words signal the voice has drifted: pivotal, crucial, vital, testament to, underscores, highlights, vibrant, tapestry, delve, foster, garner, leverage, landscape (figurative), holistic, robust, synergy, cutting-edge, groundbreaking, nestled, showcases, boasts, elevate. Also avoid: "Not only X but Y," "serves as," "stands as," vague attribution ("experts say"), formulaic balance ("Despite challenges, [positive]").
 
 ## Quick Start
 
@@ -161,22 +155,7 @@ See [references/FORMS-CPTS.md](references/FORMS-CPTS.md) for:
 - Custom post type definitions
 - ACF field configuration
 
-### Anti-Hallucination Rules
-
-**Never invent:**
-- Company details, history, statistics
-- Contact information
-- Pricing or financials
-- Testimonials or quotes
-- Partner/client names
-
-**Use placeholders:**
-```markdown
-{{needs-input: Company founding year}}
-{{placeholder: TEAM SIZE}} professionals
-```
-
-**REQUIRED:** Ask for missing information rather than proceeding with gaps. Do not generate content that requires facts you don't have.
+When generating content, use `{{needs-input: description}}` for missing information rather than inventing details. Ask for missing information rather than proceeding with gaps. See the PLACEHOLDERS rule above and [references/CONTENT-FORMAT.md](references/CONTENT-FORMAT.md) for placeholder syntax.
 </phase_content>
 
 <phase_validation>

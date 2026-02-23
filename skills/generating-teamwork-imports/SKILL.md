@@ -11,13 +11,7 @@ LLMs default to creating plausible-looking project structures with hallucinated 
 
 ## Critical Rules
 
-**GROUNDING:** Base ALL tasks, dates, times, and deliverables ONLY on provided source materials. If a date or time estimate is not explicitly stated in the source, do not include it. Leave date fields empty rather than inventing values.
-
-**NO HALLUCINATION:** Never invent:
-- Due dates or start dates
-- Time estimates
-- Deliverables not mentioned in source
-- Task names that aren't derived from source content
+**GROUNDING:** Base ALL tasks, dates, times, and deliverables ONLY on provided source materials. If a date, time estimate, deliverable, or task name is not explicitly stated in the source, leave it empty rather than inventing a value. This applies especially to due dates, start dates, and time estimates — an empty field is honest; a plausible-looking date is a hallucination that clutters calendars and erodes trust.
 
 **MINIMUM TIME THRESHOLD:** Subtasks must represent meaningful work chunks. Default minimum is 15 minutes unless the user specifies otherwise. Tasks like "send an email" are too granular—combine them into meaningful work units.
 

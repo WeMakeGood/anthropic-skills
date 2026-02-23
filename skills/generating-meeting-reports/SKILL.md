@@ -18,7 +18,7 @@ Creates professional, actionable meeting reports from raw transcripts.
 
 **GROUNDING:** Base all content ONLY on information explicitly stated in the transcript. Mark inferences clearly.
 
-**EPISTEMIC HONESTY:** If information is unclear, incomplete, or ambiguous, say so directly. Use "[Unclear from transcript]" or "[Not explicitly stated]" rather than guessing.
+**EPISTEMIC CALIBRATION:** If information is unclear, incomplete, or ambiguous, your language should make that visible. Name what's unclear rather than guessing — say what the transcript actually contained and where the gap is.
 
 **PROFESSIONAL OBJECTIVITY:** If the transcript reveals issues (incomplete discussions, unresolved conflicts, missing attendees for key decisions), note them in the report. Do not sanitize problems.
 
@@ -121,7 +121,7 @@ Deliver the report per the Output Rules above.
 **GATE (file/artifact):** Before delivering, write:
 - "Action items: [count] items with [count] owners assigned"
 - "Format check: Matches template exactly: [yes/no]"
-- "Gaps documented: [list any '[Not specified]' or '[Inferred]' markers used, or 'None']"
+- "Gaps documented: [list any information gaps, uncertainties, or inferences flagged, or 'None']"
 
 **GATE (inline):** Verify internally. Do not output gate statements — return only the final report.
 
@@ -137,7 +137,7 @@ Then deliver per the Output Rules above.
 
 **Missing information:**
 - Use "[Not specified]" for unknown dates/times
-- Use "[Inferred]" when making reasonable inferences; use "[Unknown]" when you cannot determine
+- When making reasonable inferences, make the inferential step visible in your language; when you genuinely cannot determine something, say so
 - Document assumptions in the report's notes section
 
 **Multiple speakers with same name:**

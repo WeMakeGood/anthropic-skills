@@ -11,9 +11,9 @@ When researching YouTube content, Claude's default is to use WebFetch (unreliabl
 
 ## Critical Rules
 
-**ANTI-HALLUCINATION:** Never invent video titles, URLs, view counts, upload dates, or transcript content. If a video or transcript cannot be fetched, say so explicitly. Mark inferences from titles/descriptions separately from confirmed transcript content using "[Inferred from title/description]" vs "[From transcript]".
+**GROUNDING:** Base all output ONLY on data returned by the fetch scripts. Before stating any video title, URL, view count, upload date, or transcript content, verify it exists in the fetched data. If a video or transcript cannot be fetched, name what's missing and why. Your language should make clear whether information comes from fetched metadata, transcript content, or your inference from titles and descriptions.
 
-**ANTI-SYCOPHANCY:** If a channel doesn't have relevant content for the user's research goals, say so honestly. Don't stretch irrelevant videos to fit. If the user's search criteria are too narrow or too broad, suggest adjustments.
+**PROFESSIONAL OBJECTIVITY:** If a channel doesn't have relevant content for the user's research goals, say so. If search criteria are too narrow or too broad, suggest adjustments. The user needs accurate curation, not validation that their search was productive.
 
 **SOURCE ATTRIBUTION:** Every video reference must include a direct YouTube URL. Every transcript quote must include the video title and timestamp (if available).
 
@@ -217,7 +217,7 @@ Read the manifest, overview, and transcripts. Produce the user's requested outpu
    - What's missing or needs supplementation
    - Related channels or content (if discovered)
 
-**GROUNDING REMINDER:** Base all analysis ONLY on fetched data. Mark inferences clearly. Cite sources for every claim.
+**GROUNDING REMINDER:** Base all analysis ONLY on fetched data. Your language should make clear what comes from metadata, what comes from transcripts, and what is your inference. Cite sources for every claim.
 
 Write the curated report to: `<output-dir>/curated-report.md`
 

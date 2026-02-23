@@ -18,12 +18,7 @@ Build comprehensive organizational profiles by systematically gathering and synt
 
 **SOURCE ATTRIBUTION:** Every factual claim MUST cite its source (website page, 990 filing, user-provided document). Never present inferences as facts.
 
-**EPISTEMIC MARKERS:** Use these consistently throughout the dossier:
-- `[Source: website/about]` — information from a specific source
-- `[Source: 990 FY2023]` — information from tax filings
-- `[Inferred]` — reasonable inference from available data
-- `[Unverified]` — claimed by organization, not independently verified
-- `[Outdated: YYYY]` — information that may no longer be current
+**EPISTEMIC CALIBRATION:** Your language should make clear whether each claim is drawn directly from a specific source, inferred from available data, or your analytical judgment. When information may be outdated or is self-reported by the organization, make that status visible in your language rather than relying on bracket markers. The reader should never have to guess the epistemic status of a claim.
 
 **PROFESSIONAL OBJECTIVITY:** Report what you find, including concerns or red flags. If financials show declining revenue, leadership turnover is high, or public information is inconsistent — say so directly. The user needs accurate intelligence, not a favorable summary.
 
@@ -35,7 +30,7 @@ Build comprehensive organizational profiles by systematically gathering and synt
 
 **PREMATURE COMMITMENT CHECK:** Before finalizing the strategic analysis, check whether you've considered more than one framing. If you defaulted to the first analytical lens without weighing alternatives, flag it.
 
-**NATURAL PROSE (for Executive Summary and narrative sections):** Write like a research analyst, not an AI assistant. Avoid: pivotal, crucial, vibrant, tapestry, delve, foster, leverage, "not only X but Y," "serves as." Use direct language: "Revenue is $2.4M" not "Revenue stands at $2.4M."
+**NATURAL PROSE (for Executive Summary and narrative sections):** Write as a research analyst briefing a colleague — direct, factual, citation-heavy. When you notice inflated verbs or promotional framing, the analyst's voice has slipped. Return to their perspective rather than just swapping the word. Revision backstop — these words signal the voice has drifted: pivotal, crucial, vibrant, tapestry, delve, foster, leverage, "not only X but Y," "serves as."
 
 ## Before Starting
 
@@ -224,7 +219,7 @@ If any section lacks a source, note it here and address in Information Gaps.
 - Key programs and how they work — cite specific source
 - Leadership structure and key decision-makers — cite specific source
 - Financial health and sustainability — cite 990 data with fiscal year
-- Strategic direction — cite source or mark as "[Inferred from available data]"
+- Strategic direction — cite source, or make clear in your language that you're inferring from available data
 
 **If requester context exists, analyze:**
 - Mission alignment
@@ -277,7 +272,7 @@ When delivering as a file or artifact, show the progress checklist and write gat
 - Cite sources for every factual claim
 - Distinguish organization's own claims from third-party verification
 - Flag discrepancies between sources — do not resolve them silently
-- Mark inferences explicitly with "[Inferred]"
+- When inferring from available data, make the inferential step visible in your language
 
 **Objective, not favorable:**
 - Report concerns and red flags directly
@@ -353,7 +348,7 @@ skill development, and community connection."
 - **Writing before collecting data:** Always complete Phase 2 and Phase 3 data collection before writing any dossier content.
 - **Retrying scripts in sandboxed containers:** If scrape_website.py or fetch_990.py fails due to no internet or missing packages, switch to web_search/web_fetch immediately. Do not retry, attempt to install packages, or debug the script environment.
 - **Synthesizing without source verification:** Before writing any section, identify the exact source for each claim. "I'll verify later" means never.
-- **Presenting inferences as facts:** If you deduce something from context (e.g., "likely a small team based on website"), mark it [Inferred]. Readers need to know what's verified vs reasoned.
+- **Presenting inferences as facts:** If you deduce something from context (e.g., "likely a small team based on website"), make the inferential step visible in your language. Readers need to know what's verified vs reasoned.
 - **Favorable framing of concerns:** If financials show declining revenue, say "Revenue declined 15% from $X to $Y." Don't soften it to "Revenue faced some headwinds."
 - **Skipping the gaps section:** Every dossier has information gaps. Identifying what you DON'T know is as valuable as what you do know.
 </failed_attempts>

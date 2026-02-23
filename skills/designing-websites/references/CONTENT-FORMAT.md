@@ -188,16 +188,9 @@ Answer about fund allocation.
 {{/accordion}}
 ```
 
-## Anti-Hallucination Patterns
+## Handling Missing Information
 
-### Never Invent
-
-- Company details (founding dates, history, statistics)
-- Contact information (addresses, phones, emails)
-- Pricing or financial figures
-- Testimonials or quotes
-- Partner/client names
-- Legal claims or certifications
+The following details must come from the user — do not generate them: company details (founding dates, history, statistics), contact information, pricing or financial figures, testimonials or quotes, partner/client names, legal claims or certifications.
 
 ### Placeholder Syntax
 
