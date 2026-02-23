@@ -164,21 +164,19 @@ Modules reference addenda (`See addenda/pricing.md for current rates`). Addenda 
 
 ### Content Stakes Classification
 
-Not all information carries equal weight. The skill teaches Claude to classify content by consequences of errors:
+Content is HIGH-STAKES when two conditions are both true: an error would cause significant harm that's difficult to undo, AND accuracy depends on organizational specifics requiring verified sourcing. The skill teaches Claude to apply exact-copy verification when both conditions are present, rather than classifying content into fixed tiers.
 
-| Stakes Level | Examples | Handling |
-|--------------|----------|----------|
-| **HIGH** | Legal claims, financials, certifications, third-party claims | Must have source citation, triggers verification behaviors |
-| **MEDIUM** | Service descriptions, methodologies, team roles | Should have source, `[PROPOSED]` acceptable if marked |
-| **LOW** | General overviews, internal terminology, process preferences | `[PROPOSED]` acceptable |
+During the build, markers like `[PROPOSED]` and `[HIGH-STAKES]` enforce discipline — but they're removed before delivery. The finished library's language signals epistemic status naturally.
 
-### Professional Objectivity
+### Process-Gate Architecture
 
-Agent definitions include guidance on serving user needs rather than just validating assumptions:
+Agent behavioral standards are structured as upstream process gates — steps that make failure modes architecturally difficult — rather than named failure modes to monitor for:
 
-- **Challenge when:** User request contradicts documented strategy
-- **Verify before:** Making claims about partners, clients, or figures
-- **Flag for review:** Output intended for external audiences
+- **Source Before Statement** — locate the source before making a claim
+- **Mark the Move** — language signals whether content is sourced, inferred, or analytical
+- **Reframe Before Committing** — consider alternative framings before locking in
+- **Second-Order Check** — surface unintended consequences of conclusions
+- **Professional Challenge** — accuracy over agreement, with cited specifics
 
 ### Module Hierarchy
 

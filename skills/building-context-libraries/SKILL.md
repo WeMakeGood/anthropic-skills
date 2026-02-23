@@ -7,6 +7,14 @@ description: Builds AI context libraries from organizational source documents. C
 
 Build structured context libraries that encode organizational knowledge for AI agents.
 
+<purpose>
+Claude defaults to copying content from sources — restating facts in cleaned-up form feels
+productive but produces modules useless as agent context. This skill exists because context
+libraries must contain metaprompting (instructions that change how agents behave), not content
+(facts agents can parrot back). The skill enforces transformation at every phase, with
+verification that output would actually change agent behavior if loaded into a system prompt.
+</purpose>
+
 ## Core Purpose
 
 **You are creating prompts for LLM agents, not documentation for humans.**
@@ -17,9 +25,9 @@ Source documents contain **content** — raw facts. Modules must deliver **conte
 
 | Level | What It Is | Example |
 |-------|-----------|---------|
-| **Content** (source) | Raw facts copied from documents | "We were founded in 2016, rebranded in 2023" |
-| **Context** (minimum) | Processed knowledge that shapes agent behavior | "When writing about the organization's history, emphasize the AI-native transformation starting June 2023, not the original founding. The rebranding reflects a strategic shift, not just a name change." |
-| **Metaprompting** (target) | Instructions that tell the agent how to think and act | "If a client asks about your AI experience, frame it as having been AI-native since inception — not as a recent adoption." |
+| **Content** (source) | Raw facts copied from documents | "We have three service tiers: Advisory, Implementation, and Managed" |
+| **Context** (minimum) | Processed knowledge that shapes agent behavior | "Service tiers map to client maturity — Advisory for exploration, Implementation for committed adopters, Managed for ongoing support. The tier determines conversation framing, not just pricing." |
+| **Metaprompting** (target) | Instructions that tell the agent how to think and act | "When recommending services, assess client AI maturity first. Never suggest Managed before the client has completed at least one Implementation engagement — it signals dependency, not partnership." |
 
 **Modules should be metaprompting and context, not content.** The agent building this library defaults to copying content because it's easier than transformation. Resist this. Every section should answer: "How should an agent *behave* given this information?" — not just "What is the information?"
 
@@ -40,7 +48,7 @@ Source documents contain **content** — raw facts. Modules must deliver **conte
 - **Convert time spans to dates** — "25 years of experience" becomes "Founded in 1999." Time spans become outdated; dates remain accurate.
 - **TRANSFORM, DON'T TRANSCRIBE** — Extract meaning and create actionable guidance. Never copy verbatim quotes or speech patterns into modules.
 
-**PROPOSED CONTENT:** If the user approves including inferences, mark them with `[PROPOSED]`. All other content is verified by default.
+**PROPOSED CONTENT:** During the build, mark inferences with `[PROPOSED]` for tracking. These markers are build-time artifacts — they are removed from finished modules before delivery, like verification logs. The finished module's language should make the epistemic status of each claim legible without markers.
 
 **CONFLICT RESOLUTION:** When source documents contradict, surface the conflict to the user. Do not silently pick one version.
 
@@ -54,7 +62,7 @@ Source documents contain **content** — raw facts. Modules must deliver **conte
 
 ## Reference Files
 
-Read these as needed during the build:
+Read these before each phase and re-read after any context compaction:
 
 1. [references/ARCHITECTURE.md](references/ARCHITECTURE.md) — Module design, content transformation, token management, stakes classification
 2. [references/TEMPLATES.md](references/TEMPLATES.md) — Templates for source index, synthesis, modules, agents, proposal, build state
@@ -124,6 +132,7 @@ If `build-state.md` does not exist but `source-index.md` does:
 
 ---
 
+<failed_attempts>
 ## What DOESN'T Work
 
 - **Transcribing instead of synthesizing:** Copying quotes with "they said X" produces content useless to LLM agents. Extract the *meaning*, state it directly.
@@ -134,7 +143,8 @@ If `build-state.md` does not exist but `source-index.md` does:
 - **Skipping source index updates:** Update the index after every file read, synthesis, and status change.
 - **Preserving time spans:** Convert to dates. "25 years of experience" becomes "since 1999."
 - **Batching syntheses:** Complete each synthesis and update the index before starting the next.
-- **Copying content instead of creating context:** Modules are metaprompts, not fact sheets. "Founded in 2016" is content. "Frame the founding story around the 2023 AI-native transformation" is context. Write the second kind.
+- **Copying content instead of creating context:** Modules are metaprompts, not fact sheets. "The organization has 50 employees" is content. "When clients ask about team size, frame capacity in terms of expertise areas, not headcount" is context. Write the second kind.
+</failed_attempts>
 
 ---
 

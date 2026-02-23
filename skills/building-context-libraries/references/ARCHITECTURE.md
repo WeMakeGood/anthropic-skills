@@ -10,9 +10,9 @@ Source documents contain **content** (raw facts). The agent building this librar
 
 | Level | What It Is | Example |
 |-------|-----------|---------|
-| **Content** (source material) | Raw facts from documents | "We were founded in 2016, rebranded in 2023" |
-| **Context** (minimum bar for modules) | Processed knowledge that shapes behavior | "When writing about history, emphasize the 2023 AI-native transformation, not the original founding. The rebrand reflects a strategic pivot, not cosmetic change." |
-| **Metaprompting** (target for modules) | Instructions that tell the agent how to think | "If a client asks about AI experience, frame it as AI-native since inception — not as recent adoption." |
+| **Content** (source material) | Raw facts from documents | "We offer workshops, coaching, and consulting services" |
+| **Context** (minimum bar for modules) | Processed knowledge that shapes behavior | "Each service format fits a different client need — workshops for shared vocabulary, coaching for personal development, consulting for structural change. Recommending the right one depends on the prospect's challenge, not on listing all three." |
+| **Metaprompting** (target for modules) | Instructions that tell the agent how to think | "When a prospect describes their challenge, match one format to their situation. Never present all three as a menu — that forces the prospect to self-diagnose." |
 
 **Every module section should be context or metaprompting.** The transformation test:
 
@@ -33,8 +33,8 @@ Source documents contain **content** (raw facts). The agent building this librar
 
 | Instead of... | Write... |
 |---------------|----------|
-| "The organization was founded in 2016" | "When discussing founding: emphasize the 2023 transformation as the defining origin story, not the 2016 incorporation" |
-| "Services include Advisory, Implementation, Managed" | "When recommending services, match to client AI maturity: Advisory for exploration-stage, Implementation for committed adopters, Managed for ongoing support" |
+| "The organization has 50 employees" | "When clients ask about capacity, lead with expertise areas, not headcount — headcount changes quarterly, expertise positioning doesn't" |
+| "Services include Advisory, Implementation, Managed" | "When recommending services, match to client readiness: Advisory for exploration-stage, Implementation for committed adopters, Managed for ongoing support" |
 | "It's important to understand that..." | State the behavioral instruction directly |
 | "See [external document] for details" | Encode the information in the module |
 | Varied synonyms for style | Consistent terminology throughout |
@@ -269,31 +269,43 @@ This creates many small modules that agents must combine, losing coherence.
 
 **The test:** For each proposed module, ask: "What decision does this help an agent make?" If the answer is unclear, the module may be too abstract or taxonomic.
 
+### Focused, Not Monolithic
+
+Use-based organization does not mean "put everything an agent might need into one large module." Each module should serve a **single, clear decision-making context.** When a module starts absorbing content from multiple unrelated source areas just because they're all "relevant," it is becoming monolithic.
+
+**Signals a module needs splitting:**
+- It covers multiple distinct decision-making contexts (e.g., both "how to qualify a prospect" and "how to structure an engagement")
+- It exceeds ~4,000 tokens and is still growing
+- Content from shared sources is being duplicated because it "fits" in multiple modules
+- The module's Purpose statement requires "and" to describe what it does
+
+**The principle:** More specific, non-duplicative modules with clear cross-references are better than fewer monolithic modules that attempt to be comprehensive. An agent loading three focused 2,000-token modules has better context than one loading a single 6,000-token module that covers too much ground. The cross-references between focused modules create structure that helps the agent navigate, while monolithic modules create a wall of text that degrades retrieval quality.
+
 ### Guiding, Not Cataloging
 
 Modules can drift into cataloging existing content — listing all courses, enumerating all services, inventorying all tools — instead of providing creation and decision guidance. This is especially dangerous when a skill or tool can discover existing content on its own.
 
 **Wrong (catalog — tells the agent what exists):**
 ```markdown
-## LeadersPath Courses
-Course 1: AI Foundations (6 lessons, conceptual)
-Course 2: Behavioral Training (7 lessons, vanilla vs. trained comparison)
-Course 3: Context Libraries (7 lessons, progressive context loading)
+## Training Programs
+Program 1: Fundamentals (6 sessions, conceptual)
+Program 2: Applied Skills (7 sessions, hands-on exercises)
+Program 3: Advanced Integration (7 sessions, progressive complexity)
 ...
 ```
 
 **Right (guide — tells the agent how to create):**
 ```markdown
-## Course Design Principles
-When designing a new course:
-- Structure around comparison pairs: show vanilla output first, then configured output
-- Progressive disclosure: each lesson adds one layer of context/configuration
-- Every lesson must include a hands-on sandbox activity, not just presentation
+## Program Design Principles
+When designing a new program:
+- Structure around progressive complexity: each session builds on the prior one
+- Include a practical exercise in every session, not just presentation
+- Start with conceptual framing, then move to applied practice, then integration
 
-The three-layer architecture (cohort → courses → demo contexts) allows course reuse across cohorts.
+Programs should be reusable across client cohorts with minimal customization.
 ```
 
-**The test:** If the organization added a new course tomorrow, would this module need updating? If yes, you've cataloged instead of guided. The agent can look things up — the module should teach it how to think.
+**The test:** If the organization added a new program tomorrow, would this module need updating? If yes, you've cataloged instead of guided. The agent can look things up — the module should teach it how to think.
 
 ### Response Patterns Are Not Catalogs
 
@@ -325,16 +337,16 @@ When you re-read sources (Step 2b in PHASE_5_BUILD.md), you encounter ALL inform
 **Wrong (scope leak):**
 ```markdown
 ## Leadership
-### Christopher Frazier
-Born 1974 in Southern California. Attended Azusa Pacific University (1992-1996).
-Married Amy on July 14, 2001. Served as pastor for 15 years...
+### Jane Smith
+Born 1978 in Denver. Attended State University (1996-2000).
+Worked in management consulting for 12 years before founding...
 ```
 
 **Right (scope boundary respected):**
 ```markdown
 ## Leadership
-Christopher Frazier (Founding Partner, Chief Advocacy Officer) leads LeadersPath.
-Amy Frazier (Founding Partner, Chief Collaboration Officer) leads Make Good.
+Jane Smith (CEO) leads strategy and client relationships.
+Alex Chen (CTO) leads product development and technical delivery.
 
 For detailed founder backgrounds, see addenda/founder-bios.md.
 ```
@@ -411,7 +423,7 @@ Addenda are the volatile counterpart to durable modules. They contain reference 
 - Pricing tables, billing rates, retainer packages → addendum
 - "When structuring proposals, present mixed pricing models" → module (behavioral guidance *about* pricing)
 - Founder biographical timelines, career histories → addendum
-- "When referencing Chris, emphasize the technology-to-AI through-line" → module (behavioral guidance *about* biography)
+- "When referencing the founder, emphasize the technology-to-consulting through-line" → module (behavioral guidance *about* biography)
 - Service catalogs, current offerings, team roster → addendum
 - "Match service tier to client AI maturity" → module (decision logic *about* services)
 
@@ -439,6 +451,10 @@ Right:
 > See [Module A] for [Fact X].
 ```
 
+**Operationalizing this rule:** The proposal's Shared Source Ownership table assigns each content area from shared sources to exactly one module. During the build, before writing any module, check this table and the completed modules that share sources. If content is already owned by another module, cross-reference it — do not restate it, even in different words.
+
+**The duplication test:** If two modules contain the same underlying fact — even with different phrasing or different behavioral instructions built on top — that is duplication. The fact belongs in one module. Other modules reference it and add their own behavioral layer on top of the reference.
+
 ## Cross-Reference Patterns
 
 Use explicit references:
@@ -459,11 +475,11 @@ Use explicit references:
 - Original source files marked `ready` in the source index
 - Synthesis files for sources that needed synthesis
 
-**The only marker:** `[PROPOSED]` — Use this for inferences or recommendations that the user has approved including. Everything else is verified fact from sources.
+**Build-time markers:** During construction, use `[PROPOSED]` for inferences and `[HIGH-STAKES]` for content requiring exact-copy verification. These markers are removed before delivery — they enforce discipline during the build but don't appear in the finished library. The finished module's language should make epistemic status legible naturally.
 
 If you cannot point to where a fact appears in working sources, either:
 1. Remove it, or
-2. Mark it `[PROPOSED]` (only if user has approved including inferences)
+2. Mark it `[PROPOSED]` during the build (only if user has approved including inferences) — then rewrite to make the inferential status clear in the language itself when removing the marker
 
 **Superseded information:** If newer documents override older ones, use the newer information. Do not include outdated content — it wastes tokens and confuses agents.
 
@@ -606,13 +622,13 @@ The first version helps agents evaluate *any* option using principles. The secon
 
 **Wrong (list becomes a restriction):**
 ```
-Client sectors: Faith-based, Environmental, Education, Healthcare, Social Justice
+Client sectors: Healthcare, Education, Environmental, Arts, Social Services
 ```
 
 **Right (list illustrates breadth, criteria are separate):**
 ```
-Make Good serves any purpose-driven organization meeting the qualification criteria in S1.
-Past work spans faith-based, environmental, education, healthcare, and social justice
+The organization serves any mission-driven organization meeting the qualification criteria in S1.
+Past work spans healthcare, education, environmental, arts, and social services
 sectors — these illustrate breadth, not boundaries.
 ```
 
@@ -669,18 +685,14 @@ Not all information carries equal weight. Classify content by the consequences o
 
 ### How Stakes Affect Module Content
 
-1. **Mark stakes explicitly** in modules containing high-stakes content:
-   ```markdown
-   [HIGH-STAKES] [Financial claim from source document]
-   [HIGH-STAKES] [Certification/credential from source document]
-   ```
+1. **During the build, mark high-stakes content with `[HIGH-STAKES]`** to enforce exact-copy discipline. This marker is removed before delivery — the finished module relies on the foundation guardrail's process gates for verification behavior rather than inline markers.
 
 2. **Source requirements by stakes level:**
-   - HIGH: Must be verifiable in working sources
-   - MEDIUM: Should be verifiable; `[PROPOSED]` acceptable if clearly marked
-   - LOW: `[PROPOSED]` acceptable based on pattern inference
+   - HIGH: Must be verifiable in working sources; copy exact text during build
+   - MEDIUM: Should be verifiable; `[PROPOSED]` acceptable during build if clearly marked
+   - LOW: `[PROPOSED]` acceptable during build based on pattern inference
 
-3. **Verification guidance:** High-stakes content should trigger verification behaviors in agents (see Agent Definition Template).
+3. **In finished modules:** High-stakes content is identified by the foundation guardrail's condition test (significant irreversible harm + accuracy depends on verified organizational specifics), not by inline markers. The agent's process gates handle verification behavior at runtime.
 
 ## Standard Guardrail Modules
 
@@ -688,12 +700,13 @@ Every context library includes two standard guardrail modules, copied from `temp
 
 ### F_agent_behavioral_standards (Foundation)
 
-**All agents load this module.** It defines:
-- Anti-hallucination requirements and source grounding
-- Epistemic honesty and confidence calibration
-- HIGH-STAKES content verification behaviors
-- Professional objectivity rules
-- Uncertainty handling
+**All agents load this module.** It defines behavioral standards as upstream process gates — steps that make certain failure modes architecturally difficult rather than naming them and monitoring for them:
+- Source-before-statement gate (grounds all claims in provided context)
+- Epistemic calibration gate (language signals the status of each claim without prescribed markers)
+- Reframe-before-committing gate (interrupts first-framing momentum)
+- Second-order check gate (surfaces unintended consequences)
+- HIGH-STAKES condition test (two conditions: irreversible harm + organizational-specific accuracy)
+- Professional challenge (accuracy over agreement)
 
 ### S_natural_prose_standards (Shared)
 

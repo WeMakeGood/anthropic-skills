@@ -66,12 +66,15 @@ Evaluate the skill against each criterion. Mark as:
 
 #### Behavioral Guardrails Checklist
 
-| Criterion | Status | Notes |
-|-----------|--------|-------|
-| **Critical Rules section** | | Near top of skill |
-| **Anti-hallucination rules** | | GROUNDING, sources specified |
-| **Anti-sycophancy rules** | | PROFESSIONAL OBJECTIVITY or similar |
-| **Instruction adherence markers** | | REQUIRED, CRITICAL, STOP, GATE |
+Test what the guardrails accomplish, not what they're named. A guardrail that requires an upstream step (process gate) is stronger than one that names a failure mode and monitors for it.
+
+| Test | Status | Notes |
+|------|--------|-------|
+| **Critical Rules section exists** | | Near top of skill |
+| **Claims require a prior step before they can be stated** | | e.g., "locate source before stating claim" — not "don't hallucinate" |
+| **Epistemic status is structurally visible** | | Reader can distinguish sourced/inferred/analytical from the language itself |
+| **Disagreement has a defined path** | | Skill tells Claude when and how to challenge, with specifics — not just "be honest" |
+| **Mandatory actions use strong language** | | REQUIRED, CRITICAL, STOP, GATE — not "consider" or "you might" |
 
 #### Structured Patterns Checklist
 
@@ -190,18 +193,20 @@ When multiple issues exist, prioritize:
 
 1. **Critical (blocks effectiveness):**
    - Missing Critical Rules section
-   - No anti-hallucination guardrails for content-generating skills
+   - No sourcing discipline for content-generating skills (no process gate or grounding rule)
    - No gates for destructive actions
 
 2. **High (significantly improves quality):**
    - Missing phase boundaries in multi-step workflows
    - No commitment gates at key decision points
    - Missing purpose statement for counter-intuitive skills
+   - Named failure modes where process gates would be more effective (e.g., "Don't hallucinate" vs. requiring source-before-statement)
 
 3. **Medium (improves adherence):**
    - Weak language (should → REQUIRED)
    - Missing anti-patterns documentation
    - Vague examples
+   - Prescribed marker labels where natural epistemic calibration would be more robust
 
 4. **Low (polish):**
    - Missing README.md for GitHub users

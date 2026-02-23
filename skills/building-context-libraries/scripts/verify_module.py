@@ -132,7 +132,7 @@ def main():
         print("Actions needed:")
         print("1. Search source files manually for these facts")
         print("2. If found: the pattern may need adjustment (contact maintainer)")
-        print("3. If NOT found: remove from module or mark as [PROPOSED]")
+        print("3. If NOT found: remove from module or flag for user review")
         sys.exit(1)
     else:
         print()

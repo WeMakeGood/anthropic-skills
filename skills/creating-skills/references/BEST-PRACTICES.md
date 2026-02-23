@@ -533,42 +533,55 @@ This improves discovery for users who are stuck, not just users who know what th
 
 ## Behavioral Guardrails (REQUIRED)
 
-Every skill must include behavioral guardrails to prevent common failure modes. These are not optional.
+Every skill must include behavioral guardrails. Structure them as **process gates** — upstream steps that make failure modes architecturally difficult — rather than naming failure modes and telling Claude to monitor for them.
 
-### Anti-Hallucination Patterns
+The difference: "Never hallucinate" names a failure and hopes it's avoided. "Before stating a claim, locate its source in your context" requires a step that prevents the failure from occurring. Write the second kind.
 
-Skills that generate content must ground Claude's responses in provided information.
+### Sourcing Discipline
+
+Skills that generate content must require source-before-statement — locating the source before making a claim.
 
 **Always include:**
 - What sources Claude can use: "Base content ONLY on [transcript/documents/user input]"
-- How to mark uncertainty: "Use [Inferred] for reasonable inferences"
-- When to stop: "If you don't have source material for X, ask the user"
+- A process requirement: "Before stating a claim, locate its source. Cite the source. Scope the claim to what the source supports."
+- What to do when source is missing: "If you cannot locate a source, say what information is missing and where to find it"
 
 **Example Critical Rules section:**
 ```markdown
 ## Critical Rules
 
-**GROUNDING:** Base all content ONLY on the provided transcript. Never invent quotes, statistics, or details.
-
-**EPISTEMIC HONESTY:** If information is unclear or missing, say so. Use "[Not specified]" rather than guessing.
+**SOURCING:** Before stating any claim about the organization, locate its source in the provided documents. Cite the source when stating the claim. If you cannot locate a source, state what's missing rather than approximating.
 ```
 
-### Anti-Sycophancy Patterns
+### Epistemic Calibration
 
-Skills that advise or analyze must encourage honest, objective responses.
+Skills must ensure the language itself signals the epistemic status of each claim — not through prescribed bracket markers, but through language that makes the distinction legible.
 
 **Always include:**
-- When to push back: "If the user's approach has problems, say so directly"
-- How to report issues: "Surface concerns in a dedicated section, not buried in prose"
-- Priority of accuracy: "Prioritize accurate information over agreeable responses"
+- A requirement that readers can distinguish sourced claims from inferences from analysis
+- Frame as a language discipline, not a formatting convention
 
 **Example Critical Rules section:**
 ```markdown
 ## Critical Rules
 
-**PROFESSIONAL OBJECTIVITY:** If you identify issues with the user's proposed [approach/content/plan], report them directly. Do not sanitize problems to be agreeable.
+**EPISTEMIC CALIBRATION:** The reader should always be able to tell whether they're receiving a sourced claim, a logical extension, or your analysis — because your language makes that distinction clear. When information is missing, name the gap rather than approximating around it.
+```
 
-**CHALLENGE ASSUMPTIONS:** If the user's [goals/requirements/inputs] are unclear or problematic, ask clarifying questions before proceeding.
+### Professional Challenge
+
+Skills that advise or analyze must prioritize accuracy over agreement.
+
+**Always include:**
+- When to challenge: contradicts documented strategy, known pitfalls, unsupported assumptions
+- How to challenge: cite the specific concern, offer an alternative
+- Frame as a process requirement, not a personality trait
+
+**Example Critical Rules section:**
+```markdown
+## Critical Rules
+
+**PROFESSIONAL CHALLENGE:** When a request contradicts documented strategy, when an approach has known pitfalls given the context, or when an assumption isn't supported by sources — cite the concern, offer an alternative. Accuracy over agreement.
 ```
 
 ### Lateral Thinking Patterns
@@ -854,7 +867,7 @@ Never include...
 
 ### Missing Behavioral Guardrails
 
-Every skill needs explicit rules about hallucination, objectivity, and adherence:
+Every skill needs explicit rules about sourcing, epistemic calibration, and adherence — structured as process gates, not named failure modes:
 
 ```markdown
 # Bad - no guardrails
@@ -863,10 +876,11 @@ Every skill needs explicit rules about hallucination, objectivity, and adherence
 2. Generate a summary
 3. Save to file
 
-# Good - includes guardrails
+# Good - includes process-gate guardrails
 ## Critical Rules
-**GROUNDING:** Base the summary ONLY on document content.
-**EPISTEMIC HONESTY:** Mark inferences as "[Inferred]".
+**SOURCING:** Before stating any claim, locate its source in the document. If a claim isn't in the document, say what's missing.
+
+**EPISTEMIC CALIBRATION:** Your language should make clear whether each statement is drawn from the document, inferred from patterns in it, or your analysis.
 
 ## Instructions
 1. Read the document completely before summarizing
@@ -886,15 +900,17 @@ Testing happens in two stages: **structural validation** (automated) and **funct
 4. **Test guardrails:** Does the skill have Critical Rules? Are they specific?
 5. **Dry run:** Simulate the full loading flow
 
-### Guardrail Checklist
+### Guardrail Verification
 
-Before shipping any skill, verify:
+Before shipping, test the guardrails structurally — not by checking names, but by checking what they make the agent *do*:
 
-- [ ] **Anti-hallucination:** Does the skill specify what sources Claude can use?
-- [ ] **Epistemic markers:** Does the skill require marking inferences vs facts?
-- [ ] **Professional objectivity:** Does the skill encourage surfacing problems?
-- [ ] **Instruction adherence:** Does the skill use REQUIRED/STOP/VERIFICATION markers?
-- [ ] **Checkpoints:** Does the skill require user approval at key decision points?
+1. **Pick a claim the skill would generate.** Can you trace backward through the skill's rules to a required step that forces the agent to locate a source before making that claim? If the only protection is "don't hallucinate" or "be accurate," the guardrail monitors for a failure mode rather than preventing it.
+
+2. **Read a paragraph the skill would produce.** Can you tell which parts are sourced, which are inferred, and which are the agent's analysis — from the language alone, without bracket markers? If not, the epistemic calibration instruction isn't working.
+
+3. **Imagine the user makes a bad request.** Does the skill give the agent a concrete path for pushing back (cite the concern, offer an alternative)? Or does it just say "be honest"?
+
+If any test fails, the guardrails need rework — not more items on a checklist, but structural changes to the rules that make the failure mode difficult.
 
 ### Stage 2: Functional Testing (Parallel Sessions)
 

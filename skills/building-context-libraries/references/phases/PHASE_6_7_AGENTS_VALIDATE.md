@@ -139,7 +139,7 @@ For each module, verify all facts against working sources:
 1. Read each factual statement in the module
 2. Consult source index to identify relevant working sources
 3. Search working sources for supporting text
-4. If not found: mark `[PROPOSED]` or remove
+4. If not found: remove the fact (or flag for user review if the claim seems important but unsourced)
 5. If found but details differ: use the SOURCE version
 
 **Common hallucination patterns to check for:**
@@ -168,8 +168,8 @@ For each module, verify:
 - [ ] No verbatim quotes from sources
 - [ ] No speech artifacts or conversational structure
 - [ ] Time spans converted to dates
-- [ ] HIGH-STAKES content marked and sourced
-- [ ] PROPOSED content marked where applicable
+- [ ] HIGH-STAKES content (irreversible harm + org-specific accuracy) verified via exact-copy protocol
+- [ ] Inferential content uses language that makes its epistemic status legible
 - [ ] Cross-references are specific, not vague
 - [ ] Agent instructions section tells agents how to use the knowledge
 
@@ -180,9 +180,10 @@ For each addendum, verify:
 - [ ] Contains data only — no behavioral instructions ("When X, do Y" belongs in modules)
 - [ ] Has correct YAML frontmatter (addendum_id, addendum_name, purpose, referenced_by, update_frequency, last_updated)
 - [ ] Every data point traces to a working source
-- [ ] HIGH-STAKES content marked and sourced
+- [ ] HIGH-STAKES content (irreversible harm + org-specific accuracy) verified via exact-copy protocol
 - [ ] At least one module references this addendum
 - [ ] Update frequency is specified and realistic
+- [ ] Prose addenda (bios, descriptions, about-us text) pass the practitioner voice test — would a human in this role write it this way?
 
 ### Step 5: Token Budget Check
 

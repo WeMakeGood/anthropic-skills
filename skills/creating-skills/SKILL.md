@@ -18,17 +18,20 @@ This skill guides you through creating well-structured Agent Skills from prompts
 
 Every skill you create MUST include behavioral guardrails. These are non-negotiable.
 
-**ANTI-HALLUCINATION:** Skills must ground Claude's responses in provided information. Include explicit instructions about:
-- What sources Claude can use
-- How to mark inferences vs confirmed facts
-- When to acknowledge uncertainty
-- Requirements to cite sources
+Structure guardrails as **upstream process gates** — steps that make failure modes architecturally difficult — rather than naming failure modes and telling Claude to watch for them. The goal is to require an incompatible upstream step, not to describe the failure and hope it's avoided.
 
-**ANTI-SYCOPHANCY:** Skills must encourage honest, objective responses. Include explicit instructions about:
-- When to challenge user assumptions
-- How to surface problems or concerns
-- Prioritizing accuracy over agreeability
-- Reporting issues rather than sanitizing them
+**SOURCING DISCIPLINE:** Skills must require locating a source before stating a claim. Include:
+- What sources Claude can use (documents, transcripts, user input, context modules)
+- A source-before-statement requirement: locate, cite, scope
+- What to do when a source can't be found (ask, flag, or state what's missing)
+
+**EPISTEMIC CALIBRATION:** Skills must ensure the language itself signals the status of each claim — sourced, inferred, or analytical. Include:
+- A requirement that readers can always tell whether they're receiving a sourced claim, a logical extension, or the agent's reasoning
+- This is a language discipline, not a formatting convention — avoid prescribing bracket markers like `[Inferred]`
+
+**PROFESSIONAL CHALLENGE:** Skills must prioritize accuracy over agreement. Include:
+- When to challenge (contradicts documented strategy, known pitfalls, unsupported assumptions)
+- How to challenge (cite the concern, offer an alternative)
 
 **INSTRUCTION ADHERENCE:** Skills must use strong, unambiguous language. Include:
 - **REQUIRED/CRITICAL/STOP** markers for mandatory actions
@@ -208,7 +211,7 @@ Structure for most skills:
 </purpose>
 
 ## Critical Rules
-[REQUIRED: Anti-hallucination, anti-sycophancy, and adherence rules specific to this skill]
+[REQUIRED: Sourcing discipline, epistemic calibration, professional challenge, and adherence rules specific to this skill]
 
 ## Quick Start
 [Most common use case - get users productive fast]
@@ -260,18 +263,21 @@ See [references/BEST-PRACTICES.md](references/BEST-PRACTICES.md) for detailed gu
 
 #### Critical Rules Section (REQUIRED)
 
-Every skill MUST have a Critical Rules section near the top. Include rules relevant to the skill:
+Every skill MUST have a Critical Rules section near the top. Structure rules as process gates — upstream requirements that prevent failure — not named failure modes to monitor.
 
-**Anti-Hallucination Rules (always include for content-generating skills):**
+**Sourcing discipline (always include for content-generating skills):**
 ```markdown
-**GROUNDING:** Base all content ONLY on [source type]. Never invent [specific items].
-
-**EPISTEMIC MARKERS:** Use "[Source: X]" for facts, "[Inferred]" for reasonable inferences, "[Unverified]" for claims you cannot confirm.
+**SOURCING:** Before stating any claim, locate its source in [source type]. Cite the source when stating the claim. Scope the claim to what the source supports. If you cannot locate a source, say what's missing and where to find it.
 ```
 
-**Anti-Sycophancy Rules (always include for advisory/analytical skills):**
+**Epistemic calibration (always include for content-generating skills):**
 ```markdown
-**PROFESSIONAL OBJECTIVITY:** If you identify problems, concerns, or issues with [user's input/approach/content], report them directly. Do not omit negative findings to be agreeable.
+**EPISTEMIC CALIBRATION:** The reader should always be able to tell whether they're receiving a sourced claim, a logical extension, or your analysis — because your language makes the distinction legible. This is a language discipline, not a formatting rule.
+```
+
+**Professional challenge (always include for advisory/analytical skills):**
+```markdown
+**PROFESSIONAL CHALLENGE:** When a request contradicts documented strategy, when an approach has known pitfalls, or when an assumption isn't supported by sources — cite the concern, offer an alternative. Accuracy over agreement.
 ```
 
 **Instruction Adherence Rules (always include for multi-step workflows):**

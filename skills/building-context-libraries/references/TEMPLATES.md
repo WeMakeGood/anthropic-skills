@@ -223,6 +223,11 @@ GOOD: "When recommending services, match to client AI maturity: Advisory for ear
        Implementation for committed adopters, Managed for ongoing support needs."
 
 If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
+
+COMPACTION DEFENSE:
+- Did you re-read ARCHITECTURE.md and the phase rules for this module? If not, stop and read them now.
+- Did you check completed modules that share sources with this one? If not, check now.
+- Do not restate content already in a completed module — cross-reference it instead.
 -->
 
 <!-- VERIFICATION LOG — REMOVE THIS BLOCK before finalizing. It is a build artifact, not part of the module.
@@ -304,6 +309,11 @@ GOOD: "When recommending services, match to client AI maturity: Advisory for ear
        Implementation for committed adopters, Managed for ongoing support needs."
 
 If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
+
+COMPACTION DEFENSE:
+- Did you re-read ARCHITECTURE.md and the phase rules for this module? If not, stop and read them now.
+- Did you check completed modules that share sources with this one? If not, check now.
+- Do not restate content already in a completed module — cross-reference it instead.
 -->
 
 <!-- VERIFICATION LOG — REMOVE THIS BLOCK before finalizing. It is a build artifact, not part of the module.
@@ -388,6 +398,11 @@ GOOD: "When recommending services, match to client AI maturity: Advisory for ear
        Implementation for committed adopters, Managed for ongoing support needs."
 
 If you catch yourself writing "The organization does X" without "When Y happens, do Z" — STOP and transform.
+
+COMPACTION DEFENSE:
+- Did you re-read ARCHITECTURE.md and the phase rules for this module? If not, stop and read them now.
+- Did you check completed modules that share sources with this one? If not, check now.
+- Do not restate content already in a completed module — cross-reference it instead.
 -->
 
 <!-- VERIFICATION LOG — REMOVE THIS BLOCK before finalizing. It is a build artifact, not part of the module.
@@ -592,6 +607,14 @@ HIGH-STAKES content (pricing, legal details) must be copied exactly from source.
 | ID | Name | Purpose | Referenced By | Key Sources | Update Frequency |
 |----|------|---------|---------------|-------------|------------------|
 | A1 | [Name] | [What data this provides] | [which modules] | [sources] | [quarterly/annually/on-demand] |
+
+## Shared Source Ownership
+
+<!-- When a source file feeds multiple modules, assign each content area to one module.
+     This prevents duplication during the Phase 5 build. -->
+
+| Source File | Content Area | Owned By | Other Modules Cross-Reference Via |
+|-------------|-------------|----------|-----------------------------------|
 
 ## Agent-Module Mapping
 

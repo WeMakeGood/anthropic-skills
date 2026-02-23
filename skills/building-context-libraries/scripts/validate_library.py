@@ -198,21 +198,28 @@ def main():
     if not duplicates_found:
         print("  OK: No obvious duplications detected")
 
-    # 4. Content markers check
-    print("\n4. Content Markers")
+    # 4. Build artifact check (markers should be removed before delivery)
+    print("\n4. Build Artifacts (should be 0 in finished library)")
     for m in modules:
         if m.get('error'):
             continue
         markers = m.get('markers', {})
         proposed = markers.get('PROPOSED', 0)
         high_stakes = markers.get('HIGH-STAKES', 0)
-        print(f"  {m['filename']}: {proposed} [PROPOSED], {high_stakes} [HIGH-STAKES]")
-        # Note: Having no markers is fine - it means all content is verified
+        if proposed > 0 or high_stakes > 0:
+            print(f"  WARN: {m['filename']}: {proposed} [PROPOSED], {high_stakes} [HIGH-STAKES] — remove before delivery")
+            issues.append(f"  {m['filename']}: Build-time markers not removed ({proposed} PROPOSED, {high_stakes} HIGH-STAKES)")
+        else:
+            print(f"  OK: {m['filename']}: no build-time markers")
 
-    # 5. Agent instructions
+    # 5. Agent instructions (standard guardrail modules are exempt)
     print("\n5. Agent Instructions Section")
+    guardrail_prefixes = ('F_agent_behavioral_standards', 'S_natural_prose_standards')
     for m in modules:
         if m.get('error'):
+            continue
+        if m['filename'].startswith(guardrail_prefixes):
+            print(f"  SKIP: {m['filename']} (standard guardrail module)")
             continue
         if not m.get('has_agent_instructions'):
             issues.append(f"  {m['filename']}: Missing Agent Instructions section")

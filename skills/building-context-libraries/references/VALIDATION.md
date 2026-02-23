@@ -82,8 +82,8 @@ For each module:
 - [ ] **Transformation test passes** — each section changes agent behavior, not just states information
 - [ ] No information duplicated from other modules
 - [ ] All cross-references use explicit format
-- [ ] `[PROPOSED]` used only for user-approved inferences (all other content is verified)
-- [ ] High-stakes content marked with `[HIGH-STAKES]` and has source citations
+- [ ] `[PROPOSED]` markers used during build for tracking inferences (removed before delivery)
+- [ ] High-stakes content verified via exact-copy protocol during build (`[HIGH-STAKES]` markers removed before delivery)
 - [ ] Agent instructions section included
 - [ ] Time spans converted to dates
 - [ ] No verbatim quotes from sources
@@ -107,7 +107,7 @@ For each addendum:
 - [ ] Contains data only — no behavioral instructions, no agent guidance
 - [ ] Every data point traces to a working source
 - [ ] At least one module references this addendum (no orphaned addenda)
-- [ ] HIGH-STAKES content marked with `[HIGH-STAKES]` and has source citations
+- [ ] High-stakes content verified via exact-copy protocol during build (markers removed before delivery)
 - [ ] Update frequency is specified and realistic
 
 **Data vs. Behavioral instruction red flags — STOP if you see:**
@@ -126,7 +126,7 @@ For each addendum:
 - [ ] Can you point to where in that working source (original or synthesis)?
 - [ ] Does the module use the EXACT names, dates, titles, and terms from the source?
 
-**If ANY answer is NO:** Mark as `[PROPOSED]` or remove the fact.
+**If ANY answer is NO:** Mark as `[PROPOSED]` during the build (for tracking) or remove the fact. All markers are removed before delivery.
 
 **Common hallucination patterns to check for:**
 - Executive names or titles not in working sources
@@ -141,7 +141,7 @@ For each addendum:
 1. Read each factual statement in the module
 2. Consult source index to identify relevant working sources
 3. Search working sources for supporting text
-4. If not found: change marker to [PROPOSED] or remove
+4. If not found: mark `[PROPOSED]` for tracking or remove
 5. If found but details differ: use the SOURCE version, not what you wrote
 
 ---
@@ -212,7 +212,7 @@ Client engagement adapts to maturity level:
 ### Unverified Content
 
 **Symptom**: Content that cannot be traced to a working source
-**Fix**: Remove it, or mark with `[PROPOSED]` if user has approved including inferences
+**Fix**: Remove it, or mark `[PROPOSED]` during build if user has approved including inferences (marker removed before delivery)
 
 ### Vague Cross-References
 
@@ -231,8 +231,8 @@ Client engagement adapts to maturity level:
 
 ### High-Stakes Content Without Source
 
-**Symptom**: Legal, financial, or third-party claims without `[HIGH-STAKES]` marker
-**Fix**: Add marker and ensure source citation exists
+**Symptom**: Legal, financial, or third-party claims without source verification
+**Fix**: Verify against working sources using exact-copy protocol; ensure the finished module's language makes verification requirements clear without inline markers
 
 ### Missing Verification Guidance
 
@@ -242,7 +242,7 @@ Client engagement adapts to maturity level:
 ### Facts Not in Working Sources
 
 **Symptom**: Module contains facts not found in source index working sources
-**Fix**: Either locate the working source and verify, or change to [PROPOSED]
+**Fix**: Either locate the working source and verify, or mark `[PROPOSED]` during build for tracking (remove before delivery), or remove the fact
 
 ### Content Instead of Metaprompting
 
@@ -337,16 +337,18 @@ For each module, confirm all facts are verifiable in working sources:
 - [ ] No duplicated content
 - Issues: [List any]
 
-## Proposed Content Audit
+## Build Artifact Removal
 
-- [ ] `[PROPOSED]` used only for user-approved inferences
-- [ ] No unverified content without `[PROPOSED]` marker
-- Issues: [List any unverified content]
+- [ ] All `[PROPOSED]` markers removed — inferential language rewritten to signal epistemic status naturally
+- [ ] All `[HIGH-STAKES]` markers removed — exact-copy discipline baked into final text
+- [ ] All verification logs removed
+- Issues: [List any remaining artifacts]
 
-## Stakes Classification Audit
+## Source Verification Audit
 
-- [ ] High-stakes content identified and marked
-- [ ] High-stakes items have source citations
+- [ ] All content traceable to working sources
+- [ ] High-stakes content (irreversible harm + org-specific accuracy) verified via exact-copy protocol
+- [ ] Inferential content uses language that makes its epistemic status legible
 - [ ] Agent definitions include stakes-based verification guidance
 - Issues: [List any high-stakes content without source]
 

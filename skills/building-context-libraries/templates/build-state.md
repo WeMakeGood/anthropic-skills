@@ -17,7 +17,12 @@ It tells you: what phase you're in, what's done, what's next, and what to read.
 
 **Phase:** [1 - Index | 2 - Synthesize | 3 - Analyze | 4 - Propose | 5 - Build | 6 - Agents | 7 - Validate]
 
-**Read this phase file next:** `references/phases/[PHASE_FILE].md`
+> **MANDATORY BOOTSTRAP — Complete these reads before any work:**
+> 1. Read the phase instruction file: `references/phases/[PHASE_FILE].md`
+> 2. Read `references/ARCHITECTURE.md` — module design rules, single source of truth, token management
+> 3. Read `<OUTPUT_PATH>/proposal.md` — module scopes, shared source ownership, build plan
+>
+> These reads are mandatory for every session start AND after any context compaction. If you believe you already know the rules, you are likely post-compaction. Re-read anyway — this has caused three build failures.
 
 ---
 
@@ -40,6 +45,14 @@ Status values: `pending`, `in-progress`, `complete (pending approval)`, `complet
 ## Module Build Checklist (Phase 5)
 
 <!-- Populated after proposal approval. Track each module individually. -->
+
+<!-- PER-MODULE PRE-FLIGHT (run for EVERY module, unconditionally):
+1. Re-read the phase instruction file and ARCHITECTURE.md
+2. Re-read this module's scope from proposal.md
+3. Re-read working sources for this module
+4. Check completed modules that share sources — cross-reference, don't duplicate
+5. Write the module, then remove its verification log before moving on
+If you believe you already know these rules, you are post-compaction. Re-read anyway. -->
 
 ### Foundation
 - [ ] F_agent_behavioral_standards — copied from templates
