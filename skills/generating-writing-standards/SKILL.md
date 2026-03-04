@@ -64,7 +64,7 @@ Writing Standards Generation:
 
 3. **Output location** — Where to save the writing standards file.
 
-4. **Name** — A short identifier for the standards (e.g., "atlantic-longform", "practitioner-essay", "investigative-feature").
+4. **Name** — A short identifier for the standards (e.g., "longform", "practitioner-essay", "investigative-feature").
 
 **Sample quality assessment:**
 

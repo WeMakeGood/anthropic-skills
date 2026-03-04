@@ -11,7 +11,7 @@ updated: YYYY-MM-DD
 | Component | Path |
 |-----------|------|
 | Voice profile | [path to voice-profile-*.md] |
-| Writing standards | [path to writing-standards-*.md, or "baseline:atlantic-longform"] |
+| Writing standards | [path to writing-standards-*.md, or "baseline:longform"] |
 
 ## Audience
 
