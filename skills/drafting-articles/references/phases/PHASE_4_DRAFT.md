@@ -41,13 +41,15 @@ Load in this exact order. The order is intentional — voice profile and writing
 
 ## Loading GATE
 
-**REQUIRED before Voice Calibration.** Write to the process log:
-- "Context modules loaded: [list, or 'none']."
-- "Writing standards loaded (after all informational documents): [filename]."
-- "Voice profile loaded (last document before calibration): [filename]."
-- "Article plan read: [filename]."
-- "ARCHITECTURE.md read: yes."
-- "Audience document read: [filename]."
+**REQUIRED before Voice Calibration.** List documents in the order you actually read them. The order matters — if voice profile or writing standards appear before the analytical documents, the loading sequence was wrong and must be redone.
+
+Write to the process log:
+- "1. Article plan read: [filename]."
+- "2. ARCHITECTURE.md read: yes."
+- "3. Audience document read: [filename]."
+- "4. Context modules loaded: [list, or 'none']."
+- "5. Writing standards loaded: [filename]."
+- "6. Voice profile loaded (LAST — immediately before calibration): [filename]."
 
 ---
 
