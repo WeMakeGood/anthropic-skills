@@ -56,6 +56,7 @@ This skill reads project-specific file locations from a **project manifest** (`p
 | **Series map** | Path to series map with per-article thesis and argument arc (series articles only) |
 | **Core thesis** | Path to thesis/framework document (optional) |
 | **Drafts directory** | Where drafts and process logs are saved |
+| **Context modules** | Organizational context (identity, ethical framework, content methodology) — loaded at Orient for accuracy (optional) |
 
 **If no manifest exists:** The skill asks the user for the minimum: research files, voice profile path (or "none"), writing standards preference (custom path, baseline, or default), audience description, and output directory. The skill writes these to the article plan instead of reading from a manifest.
 

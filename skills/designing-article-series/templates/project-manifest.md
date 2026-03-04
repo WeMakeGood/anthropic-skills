@@ -40,6 +40,16 @@ updated: YYYY-MM-DD
 |-----------|------|
 | Drafts directory | [path where drafts and process logs are saved] |
 
+## Context Modules (Optional)
+
+Organizational context modules in `Context/` that inform drafting. These are not research — they are organizational knowledge the drafting skill may load for accuracy and alignment. List only modules that exist; omit this section if no context modules are available.
+
+| Component | Path |
+|-----------|------|
+| [e.g., Organizational identity] | [path] |
+| [e.g., Ethical framework] | [path] |
+| [e.g., Content methodology] | [path] |
+
 ---
 
 ## Update Rules

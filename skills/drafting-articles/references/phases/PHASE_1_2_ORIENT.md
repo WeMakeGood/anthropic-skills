@@ -29,6 +29,7 @@ From the manifest, load in this order:
 - Article brief (if single article) — thesis, argument arc, research-to-load
 - Audience document — who the reader is
 - Core thesis/framework document (if provided) — the structural argument the article serves
+- Context modules (if listed in manifest) — organizational identity, ethical framework, content methodology, or other modules that inform how the article represents the organization. These are not research — they are organizational knowledge for accuracy and alignment. Load them here so Orient can account for organizational context when finding the story.
 
 **2. Research:**
 - Research index (if provided) — read the evidence map to identify which research documents serve this article
@@ -47,6 +48,7 @@ From the manifest, load in this order:
 - "Research documents loaded: [list by short name, noting primary vs. supporting]"
 - "Article outline section reviewed: [yes/no]"
 - "Keyword targets: [list primary and gap terms, or 'none provided']"
+- "Context modules loaded: [list by name, or 'none']"
 - "Voice profile scanned for mode selection: [leading mode]"
 
 **STOP.** Present to the user:
