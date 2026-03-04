@@ -44,9 +44,26 @@ Article Series Design:
 <phase_gather>
 ### Phase 1: Gather Research and Context
 
-**Ask the user for:**
+**First: establish the output location and scaffold the project directory.**
 
-1. **Research documents** — Where are they? A directory, a list of files, or documents to be provided. These are the inputs the series will be built from.
+Ask the user where the project should live. Then create the directory structure:
+
+```
+[output-location]/
+├── project-manifest.md    (empty — populated in Phase 4)
+├── Research/              (user places research documents here)
+├── Drafts/                (where the drafting skill writes output)
+```
+
+If the user already has a directory with research in it, use that as the output location and create only the missing pieces (Drafts/, manifest). Do not move or reorganize existing files.
+
+**STOP.** Tell the user: "I've scaffolded the project directory at `[path]`. Place your research documents in `[path]/Research/` (or tell me where they already are), then we'll continue."
+
+Do not proceed until the user confirms the research is accessible.
+
+**Then gather context:**
+
+1. **Research documents** — Where are they? Confirm the path. If the user placed them in the scaffolded `Research/` directory, read that directory. If they're elsewhere, note the path.
 
 2. **Author intent** — What does the user want this series (or article) to do? Who is the audience? What's the thesis or driving question? This can be rough — the comprehension phase will refine it.
 
@@ -54,16 +71,14 @@ Article Series Design:
 
 4. **Writing standards** — Does the user have custom writing standards? Want to select from available baselines (list what's in `drafting-articles/references/baselines/`)? Or use the default? Write the selection into the manifest.
 
-5. **Output location** — Where should the project artifacts (manifest, series map, research index, audience document, drafts) be saved?
-
-6. **Series or single?** — Is this a multi-article series or a single article? This determines whether the output includes a series map or an article brief.
+5. **Series or single?** — Is this a multi-article series or a single article? This determines whether the output includes a series map or an article brief.
 
 **GATE:** Before proceeding, write:
+- "Project directory: [path]"
 - "Research located: [count] documents in [location]"
 - "Author intent: [1-2 sentences]"
 - "Voice profile: [path or 'none']"
 - "Writing standards: [path, baseline selection, or 'default']"
-- "Output location: [path]"
 - "Project type: [series / single]"
 </phase_gather>
 
