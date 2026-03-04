@@ -1,12 +1,12 @@
 # Phase 5-6-7: Editorial Cycle + Quality Check + Present
 
 > **CRITICAL RULES — Read these first:**
-> - **Read the project CLAUDE.md FIRST.** Find the drafting bootstrap section. Load every Context file it specifies, in the order it specifies. These are your behavioral standards, prose standards, ethical framework, content methodology, and voice profile. **Do not proceed without them.** This session starts cold — these modules are not in your context unless you load them now.
+> - **Read the project manifest FIRST.** Load the writing standards module and voice profile from their manifest paths. **Do not proceed without loading both.** This session starts cold — these documents are not in your context unless you load them now.
 > - Re-read the draft file before starting editorial work. Do not work from memory of what you wrote.
 > - Re-read the voice profile before each editorial round. The voice profile is the standard — not your memory of what the draft should sound like.
 > - Re-read [references/ARCHITECTURE.md](../ARCHITECTURE.md) before starting.
 > - Re-read the skill's Critical Rules section (in SKILL.md) — sourcing, epistemic calibration, prose address, and genre rules apply throughout editorial.
-> - Apply your natural prose standards during every revision pass. This means re-reading the actual standards document (S0 or equivalent), not applying a general sense of "good prose."
+> - Apply the writing standards module during every revision pass. This means re-reading the actual standards document, not applying a general sense of "good prose."
 > - Apply the Source Before Statement gate — verify sourcing hasn't drifted during revision.
 > - Do not tell the user the draft is good. Name weaknesses. The user decides what works.
 
@@ -22,18 +22,19 @@ Three sub-phases in one session: multi-round editorial revision (Phase 5), quali
 
 ## Before You Start
 
-1. **Read the project CLAUDE.md** — find the drafting bootstrap section. It specifies Context files and their loading order. **Load every file it lists, in the order it lists them.** These include behavioral standards, prose standards, ethical framework, content methodology, and voice profile. The loading order is project-specific — follow it exactly.
-2. **Read `Drafts/article-[N]-plan.md`** — review orientation and comprehension findings.
-3. **Read the draft file** — `Drafts/[article-number]-[short-title]-draft-[date].md`.
-4. **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md)** — the full file.
-5. **Read the process log** — `Drafts/article-[N]-process-log.md`. Review self-corrections from the draft phase — these are the draft's known vulnerabilities. **If the log contains structural corrections from user input** (identified by phrases like "user input," "user direction," "structural revision"), these corrections override the original plan entries. Treat them as binding constraints for the editorial cycle, not suggestions.
+1. **Read the project manifest** — locate the voice profile and writing standards paths.
+2. **Load the writing standards module** — from the manifest's writing standards path. If `baseline:[name]`, resolve to `references/baselines/[name].md`. Read the full module.
+3. **Load the voice profile** — from the manifest's voice profile path. Read the full document.
+4. **Read `Drafts/article-[N]-plan.md`** — review orientation and comprehension findings.
+5. **Read the draft file** — `Drafts/[article-number]-[short-title]-draft-[date].md`.
+6. **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md)** — the full file.
+7. **Read the process log** — `Drafts/article-[N]-process-log.md`. Review self-corrections from the draft phase — these are the draft's known vulnerabilities. **If the log contains structural corrections from user input** (identified by phrases like "user input," "user direction," "structural revision"), these corrections override the original plan entries. Treat them as binding constraints for the editorial cycle, not suggestions.
 
 ### Activation GATE
 
 **REQUIRED before any editorial work begins.** Write to the process log:
-- "Context library loaded from project CLAUDE.md: [list each module loaded, in order]."
-- "Voice profile re-read: [filename]. Leading generative mode for this draft: [mode from Orient]."
-- "Quality standards loaded: [list each module by name — e.g., S0, F3, S3]."
+- "Writing standards loaded: [filename or baseline name]."
+- "Voice profile loaded: [filename]. Leading generative mode for this draft: [mode from Orient]."
 - "Process log reviewed. Key self-corrections from draft phase: [list the 2–3 most important]."
 - "Voice check: read draft opening paragraph. Assessment: [does this sound like the person described in the voice profile, or like a competent AI writing about their topics? Could any writer have written this, or could only this person?]"
 
@@ -102,17 +103,17 @@ Write to the process log:
 <phase_quality>
 ## Phase 6: Quality Check
 
-Run the draft against every quality standard loaded from the project. **This is not a confirmation pass.** The quality check's purpose is to find problems the editorial cycle missed because it was focused on argument and structure. If the quality check finds nothing, the check was not run rigorously enough.
+Run the draft against the loaded writing standards and voice profile. **This is not a confirmation pass.** The quality check's purpose is to find problems the editorial cycle missed because it was focused on argument and structure. If the quality check finds nothing, the check was not run rigorously enough.
 
-**For each quality standard module loaded in your context, run its specific checks:**
+**Run these checks in order:**
 
-- **Voice profile** — Read the draft's first paragraph, a middle paragraph, and the closing paragraph. For each, answer: does this sound like the person described in the voice profile, or like a competent AI? Then test against each gate (1–5) as a diagnostic. Write one sentence per gate to the log. This is the primary quality check — an article that doesn't sound like the person is not a draft of their article regardless of how well-argued it is.
+- **Voice profile** — Read the draft's first paragraph, a middle paragraph, and the closing paragraph. For each, answer: does this sound like the person described in the voice profile, or like a competent AI? Then test against each gate as a diagnostic. Write one sentence per gate to the log. This is the primary quality check — an article that doesn't sound like the person is not a draft of their article regardless of how well-argued it is.
 
-- **Natural prose standards (S0 or equivalent)** — Apply the actual standards document's checks. When flagged words or structures appear, the fix is not swapping the word — it is returning to the voice profile and rewriting from the practitioner's perspective. The word is a symptom; the lost voice is the problem.
+- **Writing standards module** — Apply the loaded writing standards document's process gates and revision backstop. When flagged words or structures appear, the fix is not swapping the word — it is returning to the voice profile and rewriting from the practitioner's perspective. The word is a symptom; the lost voice is the problem.
 
-- **Ethical / editorial standards (F3 or equivalent)** — Does the article help readers think critically, or just feel enthusiastic? Does it preserve the reader's need to think? Are limitations named? Is every empirical claim sourced? Is every analytical move marked as analysis?
+- **Epistemic integrity** — Does the article help readers think critically, or just feel enthusiastic? Does it preserve the reader's need to think? Are limitations named? Is every empirical claim sourced? Is every analytical move marked as analysis?
 
-- **Content methodology (S3 or equivalent)** — Would this article exist without the project's specific research? If any section could have been written by someone with the general topic but not the research base, that section hasn't been written well enough.
+- **Research grounding** — Would this article exist without the project's specific research? If any section could have been written by someone with the general topic but not the research base, that section hasn't been written well enough.
 
 **Closing question test:** Read the closing question. Does it genuinely require thought, or does it telegraph the "right" answer?
 
@@ -123,9 +124,9 @@ Run the draft against every quality standard loaded from the project. **This is 
 ### Quality GATE
 
 Write to the process log:
-- "Quality checks run: [list each standard module by name]"
-- "Voice profile check: [one finding per gate — Gate 1 through Gate 5]"
-- "Issues found and fixed: [list by standard module]"
+- "Quality checks run: voice profile, writing standards, epistemic integrity, research grounding"
+- "Voice profile check: [one finding per gate]"
+- "Issues found and fixed: [list by check type]"
 - "Issues found and flagged: [items needing author decision]"
 - "Known weaknesses in this draft: [list honestly]"
 </phase_quality>

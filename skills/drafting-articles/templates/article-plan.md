@@ -1,21 +1,21 @@
 # Article Plan: [Number] — [Title]
 
 **Created:** YYYY-MM-DD
-**Current phase:** Phase 1-2 (Bootstrap + Orient)
+**Current phase:** Phase 1-2 (Orient)
 **Next phase file:** `references/phases/PHASE_3_COMPREHEND.md`
+**Project manifest:** [filepath, or "none — setup gathered from user"]
 
 ---
 
 ## Bootstrap Summary
 
-**Article:** [number and title from series map]
-**Series position:** [where this article sits in the series build]
+**Article:** [number and title from series map or article brief]
+**Series position:** [where this article sits in the series build, or "standalone"]
 
 ### Loaded Documents
 
 | Document | Type | Short Name |
 |----------|------|------------|
-| | Voice profile | |
 | | Audience | |
 | | Thesis/framework | |
 | | Series map | |
@@ -36,7 +36,7 @@
 
 ### Loading Gaps
 
-[Documents the CLAUDE.md referenced that couldn't be found, or research the index suggests but that doesn't exist. "None" if clean.]
+[Documents the manifest or index referenced that couldn't be found. "None" if clean.]
 
 ---
 
@@ -179,7 +179,7 @@
 
 ## Phase Status
 
-- [ ] Phase 1-2: Bootstrap + Orient
+- [ ] Phase 1-2: Orient
 - [ ] Phase 3: Comprehend
 - [ ] Phase 4: Draft
 - [ ] Phase 5-6-7: Editorial + Quality + Present

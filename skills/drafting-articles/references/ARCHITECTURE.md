@@ -4,6 +4,12 @@ Re-read this file before each drafting and editorial phase. It contains the reas
 
 ---
 
+## Voice Profile and Writing Standards
+
+The voice profile and writing standards module are loaded together at the point of generation — Draft and Editorial phases — not at bootstrap. The voice profile determines *whose* voice leads the article. The writing standards module determines what publication-level craft rules govern the writing. They are complementary and non-overlapping.
+
+---
+
 ## Writing From a Voice Profile
 
 The voice profile is a role adoption document. It describes a person — not a style. The agent's job is to inhabit the role, then write. The gates are diagnostic tests that confirm the role is active, not checklists of features to reproduce.

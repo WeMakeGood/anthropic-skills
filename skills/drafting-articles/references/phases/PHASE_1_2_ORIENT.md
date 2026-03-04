@@ -1,51 +1,53 @@
-# Phase 1-2: Bootstrap + Orient
+# Phase 1-2: Orient
 
 > **CRITICAL RULES — Read these first:**
-> - Read the project CLAUDE.md before anything else. It contains loading order and file references.
+> - Read the project manifest (`project-manifest.md`) before anything else. It contains file paths for all project components. If no manifest exists, ask the user for: research files, voice profile path, writing standards preference, audience description, and output directory.
 > - Do not load any file from an `Archive/` directory. Archived files are deprecated.
-> - Apply the Source Before Statement gate from your behavioral standards to every empirical claim.
+> - Apply the Source Before Statement gate to every empirical claim.
 > - This phase produces a durable planning document. The next session reads it cold.
+> - **Voice profile and writing standards are NOT loaded in this phase** (except a brief scan for generative mode). They load at Draft time to stay fresh in context.
 
 ---
 
 ## What This Phase Does
 
-Load all project context (Phase 1) and establish the article's narrative positioning (Phase 2). The output is an article plan document that enables the next session to begin comprehension without re-loading everything.
+Read the project manifest, load research context (Phase 1), and establish the article's narrative positioning (Phase 2). The output is an article plan document that enables the next session to begin comprehension without re-loading everything.
 
 ---
 
 <phase_bootstrap>
-## Phase 1: Bootstrap
+## Phase 1: Read Manifest and Load Research
 
-**REQUIRED:** Read the project CLAUDE.md first.
+**REQUIRED:** Read the project manifest first. If no manifest exists, gather the minimum from the user and note it in the article plan.
 
 **Start the process log** — create `Drafts/article-[N]-process-log.md` with the article number, title, and date.
 
-From the CLAUDE.md's drafting section, load in this order:
+From the manifest, load in this order:
 
-**1. Series architecture:**
-- Series outline/map — locate the specific article section for thesis, argument arc, misconception to reframe, keyword targets, and series build position
+**1. Article context:**
+- Series map (if series article) — locate the specific article section for thesis, argument arc, misconception to reframe, keyword targets, and series build position
+- Article brief (if single article) — thesis, argument arc, research-to-load
 - Audience document — who the reader is
-- Thesis/framework document — the structural argument the series serves
-- Research index — read the evidence map to identify which research documents serve this article
+- Core thesis/framework document (if provided) — the structural argument the article serves
 
-**2. Voice and standards:**
-- Voice profile — the primary generative document
-- Any additional context documents the CLAUDE.md lists
-
-**3. Article-specific research:**
-- Using the research index, load documents marked as **primary evidence** for this article's thesis elements
+**2. Research:**
+- Research index (if provided) — read the evidence map to identify which research documents serve this article
+- Load documents marked as **primary evidence** for this article's thesis elements
 - Load **supporting evidence** documents relevant to the argument arc
 - **Background context** documents: load only if comprehension identifies a specific need
 
-**LOG:** Record what was loaded in compressed form — file names, primary/supporting designation, and any gaps. Do not describe document contents in the log; the article plan's Bootstrap Summary already captures that. One line per document, or a grouped list. Target: under 15 lines for the entire loading record.
+**3. Voice profile — mode scan only:**
+- Read the voice profile briefly to identify which generative modes are available and which might lead for this article. **Do not adopt the role.** Full role adoption happens in the Draft phase. Note the leading mode for Orient's section structure work.
+
+**LOG:** Record what was loaded in compressed form — file names, primary/supporting designation, and any gaps. One line per document, or a grouped list. Target: under 15 lines for the entire loading record.
 
 **GATE:** Write to the process log:
 - "Article: [number and title]"
-- "Voice profile loaded: [yes/no]"
+- "Manifest: [filepath, or 'none — setup gathered from user']"
 - "Research documents loaded: [list by short name, noting primary vs. supporting]"
 - "Article outline section reviewed: [yes/no]"
-- "Keyword targets: [list primary and gap terms]"
+- "Keyword targets: [list primary and gap terms, or 'none provided']"
+- "Voice profile scanned for mode selection: [leading mode]"
 
 **STOP.** Present to the user:
 - Which article is being drafted
@@ -75,11 +77,11 @@ Work through these in order. Each builds on the previous.
 
 **The single thread:** What is the one narrative thread connecting the evidence? One sentence. If the evidence doesn't connect along a single thread, the article will read as a data arrangement.
 
-**From the audience document:** Re-read for this specific article. Where is the reader in the series build? What register applies? What does search behavior tell you about what they need?
+**From the audience document:** Re-read for this specific article. Where is the reader in the series build (if series)? What register applies? What does search behavior tell you about what they need?
 
 **From keyword research (if available):** What did the reader search for? The opening must connect to search intent within the first two paragraphs.
 
-**From the voice profile:** Which generative mode leads? Where does the article shift between modes?
+**From the voice profile mode scan:** Which generative mode leads? Where does the article shift between modes? (This informs section structure but does not require full role adoption.)
 
 ### Section Structure
 
@@ -103,7 +105,7 @@ For each section, identify:
 - "Emotional arc: reader starts [X], ends [Y]"
 - "The single thread: [one sentence]"
 - "Search entry point: [what they searched for]"
-- "Generative mode: [from voice profile]"
+- "Generative mode: [from voice profile mode scan]"
 - "Section structure: [list sections with brief description]"
 - "Alternative structure considered: [what, why rejected]"
 - "Additional research needed: [list, or 'none']"
