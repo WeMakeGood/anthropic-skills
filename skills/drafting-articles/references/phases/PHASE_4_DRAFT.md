@@ -26,21 +26,25 @@ Write the article using the structural plan from Comprehend — structural quest
 
 ## Before You Start
 
-1. **Read the project manifest** — locate the voice profile and writing standards paths.
+Load in this exact order. The order is intentional — voice profile and writing standards must be the **last documents loaded before calibration** so they are fresh in context when generation begins. Everything else loads first.
+
+1. **Read the project manifest** — locate all file paths.
 2. **Read `Drafts/article-[N]-plan.md`** — review orientation (story, arc, thread, section structure), comprehension findings (what the evidence earns, connections, narrative), and the **structural plan** (structural question, article movement, per-section argument structures). The per-section argument structures are the primary input for drafting — each section has a reader entry point, an argument statement, a numbered argument sequence showing how the section builds its claim move by move, and a closing handoff. Draft from these sequences.
 3. **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md)** — the full file.
-4. **Load the writing standards module** — from the manifest's writing standards path. Read the full module.
-5. **Load the voice profile** — from the manifest's voice profile path. Read the full document. This is where role adoption begins.
-6. **Re-read the audience document** — for this specific article's position in the series build (if series) or its reader context (if standalone).
-7. **Complete the Voice Calibration** below before writing any article prose.
+4. **Re-read the audience document** — for this specific article's position in the series build (if series) or its reader context (if standalone).
+5. **Load context modules** (if listed in the manifest and relevant to drafting) — organizational identity, ethical framework, content methodology. These are informational context. Load them here, before voice and standards.
+6. **Load the writing standards module** — from the manifest's writing standards path. Read the full module. **This must be loaded after all informational documents.**
+7. **Load the voice profile** — from the manifest's voice profile path. Read the full document. **This must be the last document loaded before calibration.** This is where role adoption begins.
+8. **Complete the Voice Calibration** below before writing any article prose.
 
 ---
 
 ## Loading GATE
 
 **REQUIRED before Voice Calibration.** Write to the process log:
-- "Writing standards loaded: [filename or baseline name]."
-- "Voice profile loaded: [filename]."
+- "Context modules loaded: [list, or 'none']."
+- "Writing standards loaded (after all informational documents): [filename]."
+- "Voice profile loaded (last document before calibration): [filename]."
 - "Article plan read: [filename]."
 - "ARCHITECTURE.md read: yes."
 - "Audience document read: [filename]."
