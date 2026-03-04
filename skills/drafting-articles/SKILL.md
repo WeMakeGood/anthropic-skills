@@ -17,9 +17,11 @@ window. Loading research, reasoning through evidence, drafting, and revising all
 context. The session architecture ensures the critical instructions for each phase are fresh
 when they matter — especially the voice profile and writing standards during drafting.
 
-Voice profile and writing standards load at the point of generation (Draft and Editorial
-phases), not at bootstrap. Orient and Comprehend are analytical — they need research and
-reasoning space, not voice instructions consuming context.
+Voice profile and writing standards load in every phase — they inform structural decisions
+in Orient, connection-finding in Comprehend, and prose generation in Draft. The mandatory
+session break before Draft ensures they reload fresh for generation, where context-window
+position matters most. The voice profile's thinking patterns (how the author reasons) are
+active from Orient onward; full first-person role adoption happens at Draft calibration.
 </purpose>
 
 ## Critical Rules
@@ -48,8 +50,8 @@ This skill reads project-specific file locations from a **project manifest** (`p
 
 | Component | What it provides |
 |-----------|-----------------|
-| **Voice profile** | Path to the voice profile — how the author writes (loaded at Draft phase) |
-| **Writing standards** | Path to writing standards module, or `baseline:[name]` (loaded at Draft phase) |
+| **Voice profile** | Path to the voice profile — thinking patterns (Orient), role adoption (Draft) |
+| **Writing standards** | Path to writing standards module — structural conventions (Orient), craft rules (Draft) |
 | **Audience document** | Path to audience document — who the reader is, register/genre conventions |
 | **Research directory** | Path to research documents with source URLs |
 | **Research index** | Path to evidence map organized by relevance (optional) |
@@ -156,7 +158,7 @@ A running document the agent writes throughout every phase, saved to `Drafts/art
 <failed_attempts>
 ## What DOESN'T Work
 
-- **Loading voice profile and writing standards at bootstrap instead of at draft time.** Orient and Comprehend are analytical phases — they need context space for research and reasoning. Loading voice and writing standards early means they're compacted or buried by the time drafting begins. The result: the agent writes in its default voice and checks features afterward. Voice and standards load at the point of generation (Phase 4), not at Phase 1.
+- **Not reloading voice profile and writing standards fresh at Draft time.** Voice and standards load in every phase — they inform structural decisions in Orient and connection-finding in Comprehend. But by Draft time they've been in context for two phases and may be compacted. The mandatory session break before Draft exists so they reload fresh, as the LAST documents loaded before calibration. The Draft phase's loading gate enforces this order. If voice and standards loaded early in the Draft session and other documents followed, generation quality degrades.
 
 - **Running all phases in one context window.** Context compaction silently degrades voice profile instructions, writing standards, and evidence curation rules. The draft reverts to default LLM prose. The session architecture exists to prevent this.
 

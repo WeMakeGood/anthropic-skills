@@ -37,8 +37,11 @@ From the manifest, load in this order:
 - Load **supporting evidence** documents relevant to the argument arc
 - **Background context** documents: load only if comprehension identifies a specific need
 
-**3. Voice profile — mode scan only:**
-- Read the voice profile briefly to identify which generative modes are available and which might lead for this article. **Do not adopt the role.** Full role adoption happens in the Draft phase. Note the leading mode for Orient's section structure work.
+**3. Writing standards:**
+- Load the writing standards module from the manifest. The writing standards inform structural decisions during Orient — how sections open (Gate 1), how evidence enters prose (Gate 2), how passages land (Gate 3). Without these loaded, Orient makes structural decisions that get revised when standards are finally read. Load them now so Orient plans with them, not against them.
+
+**4. Voice profile — thinking patterns and mode selection:**
+- Read the voice profile. The voice profile describes how the author *thinks*, not just how they write — entry point patterns, reasoning sequences, cross-domain movement, how disagreement arrives. These thinking patterns inform Orient's story questions and section structure. Note which generative mode leads. **Full role adoption and first-person commitment happen in the Draft phase** — but the thinking patterns are active here.
 
 **LOG:** Record what was loaded in compressed form — file names, primary/supporting designation, and any gaps. One line per document, or a grouped list. Target: under 15 lines for the entire loading record.
 
@@ -49,7 +52,8 @@ From the manifest, load in this order:
 - "Article outline section reviewed: [yes/no]"
 - "Keyword targets: [list primary and gap terms, or 'none provided']"
 - "Context modules loaded: [list by name, or 'none']"
-- "Voice profile scanned for mode selection: [leading mode]"
+- "Writing standards loaded: [filename]"
+- "Voice profile loaded — thinking patterns noted: [leading mode, key thinking patterns relevant to this article]"
 
 **STOP.** Present to the user:
 - Which article is being drafted
@@ -83,11 +87,13 @@ Work through these in order. Each builds on the previous.
 
 **From keyword research (if available):** What did the reader search for? The opening must connect to search intent within the first two paragraphs.
 
-**From the voice profile mode scan:** Which generative mode leads? Where does the article shift between modes? (This informs section structure but does not require full role adoption.)
+**From the voice profile:** Which generative mode leads? Where does the article shift between modes? How does this person think through problems — what's their entry point pattern, their reasoning sequence? How do they move between domains? These thinking patterns shape how Orient finds the story and structures the sections.
+
+**From the writing standards:** What structural conventions govern this genre? How do sections open? How does evidence enter? How do passages land? Apply these conventions when determining section structure below — not as constraints to check afterward, but as the craft principles that shape the planning.
 
 ### Section Structure
 
-After the story is clear, determine section structure based on the story, the emotional arc, and the single thread — not based on the evidence loading order or the outline's sequence.
+After the story is clear, determine section structure based on the story, the emotional arc, the single thread, the voice profile's thinking patterns, and the writing standards' structural conventions — not based on the evidence loading order or the outline's sequence.
 
 For each section, identify:
 - Purpose (what it does for the argument)

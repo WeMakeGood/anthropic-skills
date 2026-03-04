@@ -18,8 +18,9 @@ The agent reads what it loaded and thinks about it — not to extract content pa
 ## Before You Start
 
 1. **Read `Drafts/article-[N]-plan.md`** — confirm orientation decisions. Review the story, emotional arc, single thread, and section structure.
-2. **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md)** — specifically the Evidence Reasoning and **Article Structure** sections. (ARCHITECTURE.md also contains a "Voice Profile and Writing Standards" section — those documents load in the Draft phase, not here.)
+2. **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md)** — specifically the Evidence Reasoning and **Article Structure** sections.
 3. **Re-read the research index** (if provided in the manifest) — identify primary and supporting evidence documents for this article. If no index exists, use the article plan's loaded documents list.
+4. **If continuing from Orient in the same session,** writing standards and voice profile are already in context — their structural conventions and thinking patterns inform comprehension (how connections are found, how the structural plan is built). **If starting a new session,** re-read the writing standards and voice profile from the manifest paths. The voice profile's thinking patterns (how the author reasons, moves between domains, finds connections) shape comprehension work. The writing standards' structural conventions shape the structural plan.
 
 ---
 
