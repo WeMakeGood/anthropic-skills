@@ -79,7 +79,7 @@ Do not proceed until the user confirms the research is accessible.
 
 3. **Voice profile** — Does one exist? Where is it? If not, note that the drafting skill can work without one (using its default prose), or the user can generate one with the extracting-voice-profiles skill.
 
-4. **Writing standards** — Does the user have custom writing standards? Want to select from available baselines (list what's in `drafting-articles/references/baselines/`)? Or use the default? Write the selection into the manifest.
+4. **Writing standards** — Does the user have custom writing standards? Want to select from available baselines? Or use the default? Available baselines (read from `drafting-articles/references/baselines/`): list the `.md` files by name. The selected baseline will be copied into the project's `Context/` directory during Phase 4 so the drafting skill can find it locally.
 
 5. **Series or single?** — Is this a multi-article series or a single article? This determines whether the output includes a series map or an article brief.
 
@@ -193,7 +193,9 @@ Write all artifacts to the user's specified output location:
 
 4. **Audience document** — populated from Phase 3.
 
-5. **Create the drafts directory** if it doesn't exist.
+5. **Writing standards baseline** — if the user selected a baseline (e.g., `longform`, `structured-analysis`, `web-explainer`), copy it from the drafting-articles skill's `references/baselines/` directory into the project's `Context/` directory. The manifest's writing standards path should point to this local copy (e.g., `Context/writing-standards-longform.md`), not back to the skill directory. This ensures the drafting skill can find the file regardless of working directory, and the user can customize it for their project.
+
+6. **Create the drafts directory** if it doesn't exist.
 
 **Verify the manifest:** Every path in the manifest must point to a real file. Read the manifest back and confirm each path resolves.
 
@@ -202,6 +204,7 @@ Write all artifacts to the user's specified output location:
 - "Series map written to: [filepath]"
 - "Research index written to: [filepath]"
 - "Audience document written to: [filepath]"
+- "Writing standards copied to: [filepath, or 'custom — already at user-specified path']"
 - "All manifest paths verified: [yes/no — list any broken paths]"
 </phase_produce>
 

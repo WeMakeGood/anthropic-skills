@@ -23,7 +23,7 @@ Three sub-phases in one session: multi-round editorial revision (Phase 5), quali
 ## Before You Start
 
 1. **Read the project manifest** — locate the voice profile and writing standards paths.
-2. **Load the writing standards module** — from the manifest's writing standards path. If `baseline:[name]`, resolve to `references/baselines/[name].md`. Read the full module.
+2. **Load the writing standards module** — from the manifest's writing standards path. Read the full module.
 3. **Load the voice profile** — from the manifest's voice profile path. Read the full document.
 4. **Read `Drafts/article-[N]-plan.md`** — review orientation and comprehension findings.
 5. **Read the draft file** — `Drafts/[article-number]-[short-title]-draft-[date].md`.

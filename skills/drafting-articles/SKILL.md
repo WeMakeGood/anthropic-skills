@@ -58,9 +58,9 @@ This skill reads project-specific file locations from a **project manifest** (`p
 | **Drafts directory** | Where drafts and process logs are saved |
 | **Context modules** | Organizational context (identity, ethical framework, content methodology) — loaded at Orient for accuracy (optional) |
 
-**If no manifest exists:** The skill asks the user for the minimum: research files, voice profile path (or "none"), writing standards preference (custom path, baseline, or default), audience description, and output directory. The skill writes these to the article plan instead of reading from a manifest.
+**If no manifest exists:** The skill asks the user for the minimum: research files, voice profile path (or "none"), writing standards path (or "use default"), audience description, and output directory. The skill writes these to the article plan instead of reading from a manifest.
 
-**Baselines:** Writing standards baselines are available in `references/baselines/`. When the manifest specifies `baseline:[name]`, the skill resolves it to `references/baselines/[name].md`.
+**Writing standards:** The manifest points to a local writing standards file (typically in `Context/`). The designing-article-series skill copies the selected baseline into the project during setup. If no manifest exists and the user wants a baseline, copy it from `references/baselines/` into the project directory.
 
 ---
 

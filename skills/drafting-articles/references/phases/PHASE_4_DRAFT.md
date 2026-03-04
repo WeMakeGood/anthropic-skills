@@ -1,7 +1,7 @@
 # Phase 4: Draft
 
 > **CRITICAL RULES — Read these first:**
-> - **Read the project manifest FIRST.** Load the writing standards module and voice profile from their manifest paths. If the manifest specifies `baseline:[name]`, resolve it to `references/baselines/[name].md`. **Do not proceed without loading both.**
+> - **Read the project manifest FIRST.** Load the writing standards module and voice profile from their manifest paths. **Do not proceed without loading both.**
 > - Read the article plan (`Drafts/article-[N]-plan.md`) before starting. It contains orientation, comprehension findings, and the structural plan from previous sessions. The structural plan is the primary input for drafting — it tells you what each section DOES, not just what it's about.
 > - Re-read the voice profile NOW. You are adopting a role — writing as this person, not about them.
 > - Re-read [references/ARCHITECTURE.md](../ARCHITECTURE.md) NOW — Evidence Reasoning, Writing From a Voice Profile, and Narrative Construction sections.
@@ -29,7 +29,7 @@ Write the article using the structural plan from Comprehend — structural quest
 1. **Read the project manifest** — locate the voice profile and writing standards paths.
 2. **Read `Drafts/article-[N]-plan.md`** — review orientation (story, arc, thread, section structure), comprehension findings (what the evidence earns, connections, narrative), and the **structural plan** (structural question, article movement, per-section argument structures). The per-section argument structures are the primary input for drafting — each section has a reader entry point, an argument statement, a numbered argument sequence showing how the section builds its claim move by move, and a closing handoff. Draft from these sequences.
 3. **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md)** — the full file.
-4. **Load the writing standards module** — from the manifest's writing standards path. If `baseline:[name]`, resolve to `references/baselines/[name].md`. If no standards specified, use the default baseline. Read the full module.
+4. **Load the writing standards module** — from the manifest's writing standards path. Read the full module.
 5. **Load the voice profile** — from the manifest's voice profile path. Read the full document. This is where role adoption begins.
 6. **Re-read the audience document** — for this specific article's position in the series build (if series) or its reader context (if standalone).
 7. **Complete the Voice Calibration** below before writing any article prose.
