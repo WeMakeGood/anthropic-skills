@@ -51,13 +51,23 @@ Ask the user where the project should live. Then create the directory structure:
 ```
 [output-location]/
 ├── project-manifest.md    (empty — populated in Phase 4)
-├── Research/              (user places research documents here)
+├── Context/               (voice profile, org identity, writing standards, other context modules)
+├── Research/              (research documents, organized by domain or topic)
+├── Sources/               (primary source materials — PDFs, transcripts, audio, reference data)
 ├── Drafts/                (where the drafting skill writes output)
+├── Archive/               (deprecated documents — never loaded for bootstrapping)
 ```
 
-If the user already has a directory with research in it, use that as the output location and create only the missing pieces (Drafts/, manifest). Do not move or reorganize existing files.
+If the user already has a directory with files in it, use that as the output location and create only the missing pieces. Do not move or reorganize existing files. If research documents are already present (in any directory), note their location rather than asking the user to move them.
 
-**STOP.** Tell the user: "I've scaffolded the project directory at `[path]`. Place your research documents in `[path]/Research/` (or tell me where they already are), then we'll continue."
+If the user provides a voice profile path, copy or note it in `Context/`. If they have organizational context modules (identity, brand, ethical framework, content methodology), those go in `Context/` as well.
+
+**STOP.** Tell the user: "I've scaffolded the project directory at `[path]`. The structure is ready for:
+- Research documents in `Research/` (or tell me where they already are)
+- Voice profile and any context modules in `Context/`
+- Primary sources (PDFs, transcripts, audio) in `Sources/`
+
+Let me know when files are in place, or point me to where they already live."
 
 Do not proceed until the user confirms the research is accessible.
 
