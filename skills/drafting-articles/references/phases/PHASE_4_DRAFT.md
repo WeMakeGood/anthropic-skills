@@ -63,13 +63,16 @@ Re-read the voice profile. Do not look for key features — look for a role. Ans
 
 ### Step 2: Confirm the role is active
 
-Read the Orient section of the article plan — specifically the story question and the emotional arc. Then state, in 1–2 sentences, how this person would approach telling this story to this audience. Not what they'd say — how they'd approach it. What mode would they lead with? What would they care about getting right?
+**Your role is now this author.** Read the Orient section of the article plan — specifically the story question and the emotional arc. Then, in this role, answer the question: "How would you approach telling this story to this audience?" Write 1–2 sentences in first person — not about the author, as the author. What mode would you lead with? What would you care about getting right?
 
-This is a comprehension check, not a writing exercise. Do not draft article content here.
+**Point of view check:** If the voice profile describes the article's author — the person whose name will appear on the article — you write in first person throughout the draft. You do not quote the author. You do not reference the author in third person. You ARE the author. Personal experiences from the research are YOUR experiences. If the voice profile describes someone other than the article's author (e.g., a ghostwriting scenario), note the point of view in the gate and adjust accordingly.
+
+This is a role commitment, not a comprehension check. If the gate output reads like analysis of the author rather than a statement by the author, the role is not active.
 
 **GATE:** Write to the process log:
-- "Role: [1–2 sentences — who this person is and where their authority comes from]"
-- "Approach: [1–2 sentences — how this person would tell this story to this audience]"
+- "Role: [1–2 sentences IN FIRST PERSON — who I am and where my authority comes from]"
+- "Approach: [1–2 sentences IN FIRST PERSON — how I would tell this story to this audience]"
+- "Point of view: [first person (I am the author) / third person (ghostwriting for someone else) / other — specify]"
 - "Contextual adaptation: [which adaptation from the voice profile applies]"
 - "Leading mode: [conclusion-first / working-through]"
 </phase_calibration>
@@ -95,7 +98,7 @@ For EACH section in the structure:
 
 **5. Identify available narrative material.** Before writing, locate in the research documents any first-person accounts, specific experiences, described moments, or personal details that belong in this section. List them. These are the only narrative details available. If a sentence would require inventing a detail not in the research — a day of the week, a setting, a feeling, a sequence of events — that detail does not exist and cannot be written. This is Source Before Statement applied to narrative: locate the source before stating the claim. If you cannot locate it, you cannot state it.
 
-**6. Write from the role.** Write as the person described in the voice profile — from inside their perspective, not about their topics. The narrative material from step 5 is your inventory. Do not add to it during generation. After writing each section, test: read the first and last paragraphs. Does this sound like the person, or like an AI writing about that person's field? Use the voice profile's gates as diagnostic tests — if any gate fails, the role has slipped. Do not insert missing features. Return to the role and regenerate the section.
+**6. Write from the role.** You are the person described in the voice profile. Write from inside their perspective, not about their topics. If the point of view is first person (you are the author), personal experiences from the research are YOUR experiences — do not quote yourself, do not refer to yourself in third person, do not attribute your own knowledge to "Frazier" or "[Author Name]." The narrative material from step 5 is your inventory. Do not add to it during generation. After writing each section, test: read the first and last paragraphs. Am I writing as this person, or about this person? Does this sound like a specific person, or like an AI writing about that person's field? Use the voice profile's gates as diagnostic tests — if any gate fails, the role has slipped. Do not insert missing features. Return to the role and regenerate the section.
 
 **7. Layer, don't linearize.** Recognition → evidence → understanding. The reader sees something familiar, encounters data that reframes it, then sees the familiar thing differently.
 
@@ -108,7 +111,8 @@ For EACH section in the structure:
 ### Opening — the role test
 
 The opening section is where role adoption succeeds or fails. After writing the opening, test it before continuing:
-- Read the opening paragraphs. Could any competent writer on this topic have written them? If yes, the role isn't active. Return to the voice profile, re-read the role (not the features), and regenerate.
+- **Point of view:** Am I writing as this person, or about this person? If the opening quotes or references the author in third person, the role is not active — regardless of how well the content reads. Regenerate from inside the role.
+- **Specificity:** Could any competent writer on this topic have written these paragraphs? If yes, the role isn't active. Return to the voice profile, re-read the role (not the features), and regenerate.
 - Use the voice profile's gates as diagnostics — but the primary question is "does this sound like a specific person?" not "does this match a list?"
 
 Connect to the reader's search intent within the first two paragraphs. Start with the interesting part.
