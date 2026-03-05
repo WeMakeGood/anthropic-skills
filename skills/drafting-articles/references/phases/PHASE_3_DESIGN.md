@@ -10,7 +10,7 @@
 
 ## What This Phase Does
 
-Find the story the evidence tells, build an emotional arc, determine section structure, and write the structural plan as metaprompts. The output is a compact article plan (under 100 lines for the structural plan section) that the Draft session reads cold.
+Find the story the evidence tells, build an emotional arc, determine section structure, and write the structural plan as metaprompts. The output is a compact article plan that the Draft session reads cold — keep it tight, because it competes with voice profile and writing standards for context attention.
 
 **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md) now** — specifically Narrative Construction and Article Structure.
 

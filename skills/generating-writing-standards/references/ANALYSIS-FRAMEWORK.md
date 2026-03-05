@@ -6,7 +6,7 @@ This document defines the analytical dimensions used to extract writing standard
 
 - Why Dimensions, Not Checklists
 - The Publication Test
-- Dimension 1: Structural Discipline
+- Dimension 1: Structural Discipline (including section opening conventions, voice stance under subject shift, LLM-default traps)
 - Dimension 2: Evidence Handling
 - Dimension 3: Prose Mechanics
 - Analysis Process (5 steps)

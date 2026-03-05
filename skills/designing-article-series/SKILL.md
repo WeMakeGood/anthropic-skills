@@ -24,9 +24,9 @@ formalizes what that exploration produced into architectural documents the draft
 
 **PROFESSIONAL CHALLENGE:** If the research doesn't support the number of articles the user wants, or if the evidence suggests a different series structure than the user envisions — name the discrepancy and propose an alternative. The user's intent shapes the series; the evidence constrains what the series can credibly argue.
 
-**SERIES-LEVEL ONLY:** The series map provides broad strokes per article — thesis, structural role, misconception, research-to-load. It does NOT provide per-section argument sequences, section structures, evidence selections for specific sections, or narrative inventories. Article-level comprehension belongs in the drafting-articles skill's Orient and Comprehend phases. Pre-comprehending at the series level anchors the drafting agent on compressed conclusions.
+**SERIES-LEVEL ONLY:** The series map provides broad strokes per article — thesis, structural role, misconception, research-to-load. It does NOT provide per-section argument sequences, section structures, evidence selections for specific sections, or narrative inventories. Article-level comprehension belongs in the drafting-articles skill's Comprehend and Design phases. Pre-comprehending at the series level anchors the drafting agent on compressed conclusions.
 
-**SCAFFOLD FOR DRAFTING:** The project manifest is a contract with the drafting-articles skill. Every path in the manifest must be accurate. Every field in the series map must match what the drafting skill's Orient phase expects.
+**SCAFFOLD FOR DRAFTING:** The project manifest is a contract with the drafting-articles skill. Every path in the manifest must be accurate. Every field in the series map must match what the drafting skill's Setup phase expects.
 
 ---
 

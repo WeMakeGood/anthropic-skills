@@ -52,15 +52,15 @@ This skill reads project-specific file locations from a **project manifest** (`p
 
 | Component | What it provides |
 |-----------|-----------------|
-| **Voice profile** | Path to the voice profile — thinking patterns (Orient), role adoption (Draft) |
-| **Writing standards** | Path to writing standards module — structural conventions (Orient), craft rules (Draft) |
+| **Voice profile** | Path to the voice profile — thinking patterns (Setup onward), role adoption (Draft) |
+| **Writing standards** | Path to writing standards module — structural conventions (Design), craft rules (Draft) |
 | **Audience document** | Path to audience document — who the reader is, register/genre conventions |
 | **Research directory** | Path to research documents with source URLs |
 | **Research index** | Path to evidence map organized by relevance (optional) |
 | **Series map** | Path to series map with per-article thesis and argument arc (series articles only) |
 | **Core thesis** | Path to thesis/framework document (optional) |
 | **Drafts directory** | Where drafts and process logs are saved |
-| **Context modules** | Organizational context (identity, ethical framework, content methodology) — loaded at Orient for accuracy (optional) |
+| **Context modules** | Organizational context (identity, ethical framework, content methodology) — loaded at Setup for accuracy (optional) |
 
 **If no manifest exists:** The skill asks the user for the minimum: research files, voice profile path (or "none"), writing standards path (or "use default"), audience description, and output directory. The skill writes these to the article plan instead of reading from a manifest.
 
@@ -185,7 +185,7 @@ A running document the agent writes throughout every phase, saved to `Drafts/art
 
 - **Skipping comprehension.** Loading documents and immediately planning sections produces an article organized by what was loaded, not by what it means.
 
-- **Orient before Comprehend (premature structural commitment).** Finding the story before understanding the evidence locks in a structure that resists reframing when comprehension reveals something different. The story should emerge from understanding the evidence, not precede it. When Orient's detailed section structures were built before Comprehend, they created inertia — the agent treated them as commitments even when the evidence suggested a different story. The fix: Comprehend first (understand the evidence), then Design (find the story and build the plan).
+- **Structure before Comprehend (premature structural commitment).** Finding the story before understanding the evidence locks in a structure that resists reframing when comprehension reveals something different. The story should emerge from understanding the evidence, not precede it. When detailed section structures were built before Comprehend, they created inertia — the agent treated them as commitments even when the evidence suggested a different story. The fix: Comprehend first (understand the evidence), then Design (find the story and build the plan).
 
 - **Structural plans that become pre-drafts.** When the structural plan describes what the prose should contain — with paragraph-level detail about scenes, evidence deployment, and transitions — the drafting agent paraphrases the plan instead of writing from research. The fix: structural plans as metaprompts (thinking orientations that tell the agent what stance to take and what to look for, not what the prose contains). The agent still re-reads research, finds material, writes from it. The plan tells it how to think, not what to write.
 

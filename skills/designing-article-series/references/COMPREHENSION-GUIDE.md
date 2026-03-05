@@ -10,7 +10,7 @@ This document describes the comprehension work that happens during series design
 
 **Article-level comprehension (drafting-articles skill):** What does the evidence for *this specific article* actually say? How do the pieces connect? What argument does the evidence earn? What's the structural plan for building that argument?
 
-The series design skill does the first. The drafting skill does the second. The boundary matters because over-comprehending at the series level — building per-article argument sequences, pre-determining section structures, pre-selecting evidence for specific sections — produces a series map that anchors the drafting agent on compressed conclusions rather than on fresh reasoning from the research.
+The series design skill does the first. The drafting skill does the second (Comprehend understands the evidence; Design finds the story and builds the structural plan). The boundary matters because over-comprehending at the series level — building per-article argument sequences, pre-determining section structures, pre-selecting evidence for specific sections — produces a series map that anchors the drafting agent on compressed conclusions rather than on fresh reasoning from the research.
 
 ---
 
@@ -36,7 +36,7 @@ For each article in the series:
 
 - **Per-section argument sequences.** The drafting skill's Comprehend phase builds these. Pre-building them at series design time means the drafting agent inherits compressed argument logic instead of reasoning through the evidence fresh.
 
-- **Section structures.** How the article is organized internally is determined by the story, the emotional arc, and the single thread — all discovered during Orient and Comprehend in the drafting skill.
+- **Section structures.** How the article is organized internally is determined by the story, the emotional arc, and the single thread — all discovered during Comprehend and Design in the drafting skill.
 
 - **Evidence selections for specific sections.** "Use the UCSF study in Section 2" over-specifies. "The UCSF study is primary evidence for this article's thesis" is the right level.
 
