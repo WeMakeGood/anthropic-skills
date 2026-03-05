@@ -154,7 +154,7 @@ Transform confirmed patterns into process gates:
 **Revision backstop construction:** Identify words and phrases that:
 - No writer in this genre uses (banned) — LLM defaults that would immediately mark the prose as AI-generated in this publication's context
 - Writers in this genre use occasionally but LLMs overuse (flagged) — the symptom of a slipped gate
-- Structural patterns that signal genre drift (structural flags) — e.g., "a paragraph that summarizes what the article just said signals report mode, not feature journalism"
+- Structural patterns that signal genre drift (structural flags) — e.g., "a paragraph that summarizes what the article just said signals report mode, not feature journalism." Two structural flags should always be evaluated: preview/thesis section openings (LLMs open with the conclusion before evidence earns it) and voice stance drift under subject shift (LLMs default toward journalistic distance whenever the subject changes). Include these as flags only if the analysis confirms the publication follows the non-default convention — see the MODULE-TEMPLATE for details.
 
 **GATE:** Before proceeding, confirm:
 - "Module drafted with [N] process gates"

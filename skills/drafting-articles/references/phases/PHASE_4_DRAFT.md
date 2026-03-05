@@ -2,10 +2,10 @@
 
 > **CRITICAL RULES — Read these first:**
 > - **Read the project manifest FIRST.** Load the writing standards module and voice profile from their manifest paths. **Do not proceed without loading both.**
-> - Read the article plan (`Drafts/article-[N]-plan.md`) before starting. It contains orientation, comprehension findings, and the structural plan from previous sessions. The structural plan is the primary input for drafting — it tells you what each section DOES, not just what it's about.
+> - Read the article plan (`Drafts/article-[N]-plan.md`) before starting. It contains comprehension findings and the structural plan (metaprompts) from Session A.
 > - Re-read the voice profile NOW. You are adopting a role — writing as this person, not about them.
 > - Re-read [references/ARCHITECTURE.md](../ARCHITECTURE.md) NOW — Evidence Reasoning, Writing From a Voice Profile, and Narrative Construction sections.
-> - Re-read research documents for each section before writing that section. Do not write from memory.
+> - Re-read research documents for each section before writing that section. Do not write from memory. The metaprompt tells you what to look for; the research provides what to write from.
 > - Do not load any file from an `Archive/` directory.
 >
 > **GUARDRAILS THAT SURVIVE ROLE ADOPTION — these apply to every sentence, including calibration:**
@@ -18,7 +18,7 @@
 
 ## What This Phase Does
 
-Write the article using the structural plan from Comprehend — structural question, article movement, per-section necessity and structural roles. The voice profile determines how sentences are built, how evidence lands, and how the reader is addressed. The structural plan determines what each section DOES — what it changes in the reader's understanding and why it's necessary.
+Write the article using the structural plan from Design — metaprompts that tell you how to think about each section, not what the prose should contain. Re-read research for each section: the metaprompt tells you what to look for, not what to write. The voice profile determines how sentences are built, how evidence lands, and how the reader is addressed.
 
 **This is the highest-risk phase.** Voice profile fidelity and evidence curation degrade with context consumption. The mandatory session break before this phase exists to ensure these instructions are fresh.
 
@@ -29,7 +29,7 @@ Write the article using the structural plan from Comprehend — structural quest
 Load in this exact order. The order is intentional — voice profile and writing standards must be the **last documents loaded before calibration** so they are fresh in context when generation begins. Everything else loads first.
 
 1. **Read the project manifest** — locate all file paths.
-2. **Read `Drafts/article-[N]-plan.md`** — review orientation (story, arc, thread, section structure), comprehension findings (what the evidence earns, connections, narrative), and the **structural plan** (structural question, article movement, per-section argument structures). The per-section argument structures are the primary input for drafting — each section has a reader entry point, an argument statement, a numbered argument sequence showing how the section builds its claim move by move, and a closing handoff. Draft from these sequences.
+2. **Read `Drafts/article-[N]-plan.md`** — review comprehension findings (what the evidence earns, connections, narrative), the **`<role>` block** (your identity assignment for this article), and the **structural plan** (metaprompts for each section, structural question, article movement). The metaprompts are your thinking orientations — they tell you what stance to take and what to look for, not what to write.
 3. **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md)** — the full file.
 4. **Re-read the audience document** — for this specific article's position in the series build (if series) or its reader context (if standalone).
 5. **Load context modules** (if listed in the manifest and relevant to drafting) — organizational identity, ethical framework, content methodology. These are informational context. Load them here, before voice and standards.
@@ -56,31 +56,31 @@ Write to the process log:
 <phase_calibration>
 ## Voice Calibration
 
-**REQUIRED before drafting begins.** The voice profile is a role adoption document. It describes a person — not a style. Do not scan it for features to reproduce. Read it for the person.
+**REQUIRED before drafting begins.** The article plan contains a `<role>` block written during Design. That block is your identity assignment — not a description to analyze, but an identity to inhabit.
 
-### Step 1: Adopt the role
+### Step 1: Read the role block
 
-Re-read the voice profile. Do not look for key features — look for a role. Answer these questions in the process log:
+Read the `<role>` block in the article plan. This was written during Design when the voice profile was fresh. It establishes who you are for this article, how you think, and how you approach this specific piece.
 
-- **Who is this person?** What is their relationship to the subject matter? Where does their authority come from — what have they built, managed, lived through?
-- **How do they think?** When they encounter a new problem, what do they do first? When they disagree, how does the disagreement arrive?
-- **What do they care about?** Not the topic of this article — what matters to them as a person working in this space?
-- **What context applies?** Given the audience document, which of the voice profile's contextual adaptations fits this article's reader?
+### Step 2: Re-read the voice profile
 
-### Step 2: Confirm the role is active
+Re-read the full voice profile from the path in the role block. The role block is the assignment; the voice profile is the depth. Do not scan for features to reproduce — read for the person. The role block tells you who you are; the voice profile tells you how that person thinks, reasons, enters problems, handles disagreement.
 
-**Your role is now this author.** Read the Orient section of the article plan — specifically the story question and the emotional arc. Then, in this role, answer the question: "How would you approach telling this story to this audience?" Write 1–2 sentences in first person — not about the author, as the author. What mode would you lead with? What would you care about getting right?
+### Step 3: Verify the role is active
 
-**Point of view check:** If the voice profile describes the article's author — the person whose name will appear on the article — you write in first person throughout the draft. You do not quote the author. You do not reference the author in third person. You ARE the author. Personal experiences from the research are YOUR experiences. If the voice profile describes someone other than the article's author (e.g., a ghostwriting scenario), note the point of view in the gate and adjust accordingly.
+In the role established by the role block, answer this question: "How would you approach telling this story to this audience?" Write 1–2 sentences — not about the author, as the author.
 
-This is a role commitment, not a comprehension check. If the gate output reads like analysis of the author rather than a statement by the author, the role is not active.
+This is a verification, not a construction. The role block already established the identity. If your answer contradicts the role block or reads like analysis of a person rather than a statement by that person, the role is not active — re-read the role block and voice profile before continuing.
+
+**Point of view:** The role block and voice profile together determine POV. If you are the article's author, personal experiences from the research are your experiences — do not quote yourself or refer to yourself in third person. If the voice profile describes someone other than the article's author (e.g., ghostwriting), the role block will specify the POV. Follow it.
 
 **GATE:** Write to the process log:
-- "Role: [1–2 sentences IN FIRST PERSON — who I am and where my authority comes from]"
-- "Approach: [1–2 sentences IN FIRST PERSON — how I would tell this story to this audience]"
-- "Point of view: [first person (I am the author) / third person (ghostwriting for someone else) / other — specify]"
+- "Role block read: [yes]"
+- "Voice profile re-read: [filename]"
+- "Role verification: [1–2 sentences as the author — how I would approach this story]"
+- "Point of view: [from role block]"
 - "Contextual adaptation: [which adaptation from the voice profile applies]"
-- "Leading mode: [conclusion-first / working-through]"
+- "Leading mode: [from role block / voice profile]"
 </phase_calibration>
 
 ---
@@ -88,19 +88,19 @@ This is a role commitment, not a comprehension check. If the gate output reads l
 <phase_drafting>
 ## Drafting Process
 
-The draft follows the story, not the outline. The structural plan from Comprehend determines what each section does and why it's necessary. The article has a movement — a direction the reader travels — and each section advances that movement.
+The draft follows the story, not the outline. The metaprompts from Design determine the thinking orientation for each section — what stance to take, what to look for. The article has a movement — a direction the reader travels — and each section advances that movement.
 
 ### Per-Section Protocol
 
 For EACH section in the structure:
 
-**1. Re-read the relevant research.** Identify which research documents inform this section (from the plan's evidence map). Read them now, even if read before.
+**1. Re-read the relevant research.** The metaprompt names which research elements to re-read. Read them now, even if read before. The metaprompt tells you what to look for — read with that orientation.
 
-**2. Review this section's argument structure.** Read the structural plan entry for this section: the argument it makes, the argument sequence (numbered steps with structural annotations), and the closing handoff. The argument sequence is the blueprint — it shows how the section builds its claim, move by move. Draft from the sequence, not from the topic.
+**2. Re-read this section's metaprompt.** The metaprompt tells you the thinking stance, what the reader should arrive at, and how this section relates to the ones around it. It does NOT tell you what the prose should say. Write from research + voice + metaprompt orientation.
 
-**3. Use the reader entry point from the structural plan.** The plan specifies where the reader enters each section — what they know, believe, or have just experienced. Draft the section from that entry point.
+**3. Use the reader entry point.** The plan specifies where the reader enters each section — what they know, believe, or have just experienced. Draft the section from that entry point.
 
-**4. Select evidence.** The structural plan's argument sequence identifies which evidence carries each move. Those findings get prose treatment. Everything else: hyperlink only.
+**4. Select evidence.** From the research you just re-read, select the 2–3 findings that carry this section's structural claim. Those get prose treatment. Everything else: hyperlink only.
 
 **5. Identify available narrative material.** Before writing, locate in the research documents any first-person accounts, specific experiences, described moments, or personal details that belong in this section. List them. These are the only narrative details available. If a sentence would require inventing a detail not in the research — a day of the week, a setting, a feeling, a sequence of events — that detail does not exist and cannot be written. This is Source Before Statement applied to narrative: locate the source before stating the claim. If you cannot locate it, you cannot state it.
 
@@ -177,7 +177,7 @@ Present to the user:
 
 Ask the user to read the draft. The user may want to:
 - **Confirm** — proceed to editorial cycle
-- **Redirect** — change approach, restructure (returns to Orient or Comprehend)
+- **Redirect** — change approach, restructure (returns to Design or Comprehend)
 - **Provide specific feedback** — incorporated into editorial cycle
 
 Do not proceed until the user responds.
@@ -189,9 +189,9 @@ Do not proceed until the user responds.
 
 Update the article plan:
 - Mark Phase 4 checkbox complete
-- **Current phase:** Phase 5-6-7 (Editorial + Quality + Present)
-- **Next phase file:** `references/phases/PHASE_5_6_7_EDITORIAL.md`
+- **Current phase:** Phase 5 (Editorial + Quality + Present)
+- **Next phase file:** `references/phases/PHASE_5_EDITORIAL.md`
 
 **Tell the user:** "The draft is saved. To continue with editorial revision, you can continue in this session or start a new one. Say 'Resume drafting Article [N]' to continue."
 
-Sessions C and D may combine if context permits and the draft was not exceptionally long.
+Sessions B and C may combine if context permits and the draft was not exceptionally long.

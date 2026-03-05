@@ -52,11 +52,17 @@ How the publication structures argument, narrative, and information at the artic
 
 - **Frame persistence:** Does the opening frame (person, event, question) remain present throughout the article, or does it set up the article and then disappear? How does the publication maintain narrative continuity through analytical passages?
 
+- **Section opening conventions:** How do individual sections begin — with the concrete (a scene, a detail, a moment) or with a thesis that previews what the section will prove? This is a high-value extraction point because LLMs default to opening sections with preview/thesis sentences ("This section explores..." or delivering the conclusion before the evidence earns it). If the publication consistently opens sections through the concrete, this divergence from LLM defaults should become a structural flag in the module.
+
+- **Voice stance under subject shift:** When the article's subject changes — describing someone else's experience, reporting on an organization, presenting a case study — does the author's established voice stance hold, or does it drift? LLMs default toward journalistic distance whenever the subject shifts away from the author's direct experience, regardless of the article's POV. If the publication maintains a consistent stance (practitioner involvement, essayist reflection, editorial authority) across subject shifts, this is a high-value divergence. If it deliberately shifts register for different subjects, note the convention.
+
 **What this becomes in the module:**
 
 A process gate that requires the writing LLM to make structural decisions before drafting — where to open, how to connect sections, how to pace evidence and narrative. The gate establishes the publication's structural logic as an upstream requirement.
 
 **Cross-validation:** Structural patterns should be consistent across samples from different authors. If a structural pattern appears only in one author's work, it's a voice pattern, not a publication standard.
+
+**LLM-default traps in this dimension:** Two structural patterns are especially resistant to correction even with well-written gates: (1) opening sections with a thesis/preview sentence before evidence earns it, and (2) drifting toward journalistic distance whenever the subject shifts away from the author's direct experience. Both are deeply embedded in LLM training distributions. If the publication's samples show different conventions, these should produce structural flags in the revision backstop — they are the patterns most likely to slip through.
 
 ---
 

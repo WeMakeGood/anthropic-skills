@@ -34,28 +34,32 @@ Say things like:
 ## What You'll Get
 
 Across multiple sessions, the skill produces:
-- **Article plan** (`Drafts/article-[N]-plan.md`) — orientation, comprehension findings, structural plan, phase tracking
+- **Article plan** (`Drafts/article-[N]-plan.md`) — comprehension findings, metaprompt structural plan, phase tracking
 - **Draft** (`Drafts/[number]-[title]-draft-[date].md`) — the article with YAML metadata
 - **Process log** (`Drafts/article-[N]-process-log.md`) — reasoning trace, editorial notes, self-corrections
 
 ## How It Works
 
-The skill runs in four sessions:
+The skill runs in three sessions with five phases:
 
-| Session | What Happens |
-|---------|-------------|
-| A: Orient | Read manifest, load research, find the story, determine structure |
-| B: Comprehend | Think through evidence, find connections, build structural plan |
-| C: Draft | Load voice + writing standards, write the article section by section |
-| D: Editorial + Quality | Multi-round revision, quality checks, presentation |
+| Session | Phases | What Happens |
+|---------|--------|-------------|
+| A | Setup + Comprehend + Design | Load materials, understand the evidence (STOP 1), find the story and build metaprompt plan (STOP 2) |
+| B | Draft | Load voice + writing standards LAST, write the article section by section |
+| C | Editorial + Quality + Present | Multi-round revision, quality checks, presentation |
 
-Each session produces durable artifacts that the next session reads cold. The boundary between Comprehend and Draft is mandatory — drafting needs voice profile and writing standards fresh in context.
+Each session produces durable artifacts that the next session reads cold. The boundary between Session A and Session B is mandatory — drafting needs voice profile and writing standards fresh in context.
 
-**Key design decision:** Voice profile and writing standards load at Draft time (Session C), not at bootstrap. Orient and Comprehend are analytical phases that need context space for research, not for voice instructions.
+**Key design decisions:**
+- **Comprehend before Design:** Understand the evidence before finding the story. Premature structural commitment creates inertia that resists reframing.
+- **Two user STOPs in Session A:** After Comprehend (validate the reading) and after Design (validate the plan). The user confirms understanding before structure, and structure before drafting.
+- **Metaprompt structural plans:** Section plans tell the drafting agent how to *think about* each section — what stance to take, what to look for — not what the prose should contain. The agent writes from research + voice + metaprompt orientation, not by paraphrasing the plan.
+- **Voice and standards load LAST at Draft time:** Everything analytical loads first; voice profile is the last document loaded before calibration, so it's fresh when generation begins.
 
 ## Tips
 
 - The skill stops for user input after every phase — confirm or redirect before it proceeds
-- Sessions A and B can combine if context permits; the break before C is mandatory
+- The break before Session B is mandatory; Sessions B and C can combine if context permits
 - The process log is a first-class deliverable, not a debugging artifact — review it alongside the draft
-- Writing standards baselines are available in `references/baselines/` — specify `baseline:[name]` in the manifest
+- Plans and logs compete with voice profile and writing standards for Draft session context — keep them tight (metaprompts, not pre-drafts; reasoning, not restated sources)
+- Writing standards baselines are available in `references/baselines/`

@@ -1,13 +1,13 @@
 # Article Plan: [Number] — [Title]
 
 **Created:** YYYY-MM-DD
-**Current phase:** Phase 1-2 (Orient)
-**Next phase file:** `references/phases/PHASE_3_COMPREHEND.md`
+**Current phase:** Phase 1 (Setup)
+**Next phase file:** `references/phases/PHASE_2_COMPREHEND.md`
 **Project manifest:** [filepath, or "none — setup gathered from user"]
 
 ---
 
-## Bootstrap Summary
+## Setup Summary
 
 **Article:** [number and title from series map or article brief]
 **Series position:** [where this article sits in the series build, or "standalone"]
@@ -40,53 +40,13 @@
 
 ---
 
-## Orientation
-
-### The Story
-
-[One paragraph — what happened or is happening that this article makes visible]
-
-### Emotional Arc
-
-- **Reader starts:** [feeling/believing what]
-- **Reader ends:** [feeling/believing what]
-- **What shifted:** [the change]
-
-### The Single Thread
-
-[One sentence]
-
-### Search Entry Point
-
-[What the reader searched for to find this article]
-
-### Generative Mode
-
-[From voice profile — which mode leads, with notes on where each mode applies across sections]
-
-### Section Structure
-
-| Section | Purpose | Key Evidence | Reader Entry Point |
-|---------|---------|-------------|-------------------|
-| | | | |
-
-### Alternative Structure Considered
-
-[What it was, what it gains, what it loses, why it was rejected]
-
-### Additional Research Needed
-
-[List, or "None"]
-
----
-
 ## Comprehension Findings
 
-*Populated during Phase 3*
+*Populated during Phase 2*
 
 ### What the Evidence Earns
 
-[Claims the research actually supports]
+[Claims the research actually supports — bullet list, one line per claim]
 
 ### What the Evidence Doesn't Earn
 
@@ -94,7 +54,7 @@
 
 ### Connections Found
 
-[Cross-document, cross-domain connections — minimum three]
+[Cross-document, cross-domain connections — minimum three, two sentences each]
 
 ### Surprises
 
@@ -102,7 +62,7 @@
 
 ### The Narrative in the Evidence
 
-[Where the story lives — specific people, events, decisions]
+[Where the story lives — specific people, events, decisions, one line each]
 
 ### Gaps to Flag
 
@@ -112,7 +72,20 @@
 
 ## Structural Plan
 
-*Populated during Phase 3, Step 5*
+*Populated during Phase 3 (Design). Keep tight — this competes with voice profile and writing standards for Draft session context. Metaprompts, not pre-drafts.*
+
+### The Story
+
+[One paragraph — what happened or is happening that this article makes visible]
+
+### Emotional Arc
+
+- **Reader starts:** [feeling/believing what]
+- **Reader ends:** [feeling/believing what]
+
+### The Single Thread
+
+[One sentence]
 
 ### Structural Question
 
@@ -120,33 +93,34 @@
 
 ### Article Movement
 
-[One phrase — the direction the reader travels, e.g., "from conventional wisdom to new reality"]
+[One phrase — the direction the reader travels]
 
-### Per-Section Argument Structure
+### Generative Mode
+
+[From voice profile — which mode leads, where modes shift]
+
+### Role
+
+<role>
+[Identity assignment — written from the voice profile and this article's requirements. The role block must establish identity, not describe it. The voice profile and audience document determine POV and register.]
+
+[2-3 sentences establishing identity and authority. From the voice profile.]
+
+[1-2 sentences on approach for this specific article. From voice profile + story + audience.]
+
+[Paths to voice profile and writing standards from the manifest, so the Draft session knows where to re-read the full documents.]
+</role>
+
+### Section Metaprompts
 
 ---
 
 #### Section 1: [Title]
 
-**Reader entry point:** [One sentence — what the reader knows/believes/has experienced entering this section]
+[Metaprompt: 3-6 sentences. What stance to take, what to look for in the research, what the reader should arrive at, how this section connects to the ones around it. Reference specific research elements to re-read — by topic, not by quoting them.]
 
-**The argument this section makes:** [One paragraph — what the section argues, not what it covers]
-
-**Argument sequence:**
-
-1. **[Move name].** [Paragraph — what evidence or reasoning carries this move, what the reader encounters, what shifts]
-
-   *[Annotation — why this move works structurally, why it's in this position, what it sets up]*
-
-2. **[Move name].** [Paragraph]
-
-   *[Annotation]*
-
-3. **[Move name].** [Paragraph]
-
-   *[Annotation]*
-
-**Closing handoff:** [The implicit question this section creates that makes the next section necessary]
+**Key evidence:** [2-3 research elements by short name/topic]
+**Closing handoff:** [One sentence — the question that makes the next section necessary]
 
 ---
 
@@ -154,7 +128,11 @@
 
 ### Frame Persistence
 
-[How the opening frame — person, event, question — remains present in each section. One bullet per section.]
+[How the opening frame remains present in each section — one bullet per section]
+
+### Alternative Structure Considered
+
+[What it was, what it gains, what it loses, why it was rejected]
 
 ---
 
@@ -168,10 +146,10 @@
 
 ### Assessment
 
-- **Structural question answered:** [yes/no — does every section advance the structural question?]
-- **Article movement achieved:** [yes/no — does the draft move the reader in the planned direction?]
-- **Frame persistence:** [yes/no — does the opening frame remain present throughout?]
-- **Necessity test:** [yes/no — could any section be removed without breaking comprehension?]
+- **Structural question answered:** [yes/no]
+- **Article movement achieved:** [yes/no]
+- **Frame persistence:** [yes/no]
+- **Necessity test:** [yes/no]
 - **Voice profile fidelity:** [assessment]
 - **Word count:** [approximate]
 
@@ -179,7 +157,6 @@
 
 ## Phase Status
 
-- [ ] Phase 1-2: Orient
-- [ ] Phase 3: Comprehend
+- [ ] Phase 1-2-3: Setup + Comprehend + Design
 - [ ] Phase 4: Draft
-- [ ] Phase 5-6-7: Editorial + Quality + Present
+- [ ] Phase 5: Editorial + Quality + Present

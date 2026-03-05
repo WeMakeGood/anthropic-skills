@@ -6,7 +6,7 @@ Re-read this file before each drafting and editorial phase. It contains the reas
 
 ## Voice Profile and Writing Standards
 
-The voice profile and writing standards module are loaded together at the point of generation — Draft and Editorial phases — not at bootstrap. The voice profile determines *whose* voice leads the article. The writing standards module determines what publication-level craft rules govern the writing. They are complementary and non-overlapping.
+The voice profile and writing standards module load in every phase — they inform connection-finding in Comprehend and structural decisions in Design. They reload fresh at the point of generation (Draft and Editorial phases), where context-window position matters most. The voice profile determines *whose* voice leads the article. The writing standards module determines what publication-level craft rules govern the writing. They are complementary and non-overlapping.
 
 ---
 
@@ -34,7 +34,7 @@ Modes 1 and 2 fail because the agent treats the profile as a *description to app
 
 **When the voice slips:** The symptom is prose that sounds correct and competent but could have been written by anyone. Do not swap individual words or insert signature features — that produces prose that is technically compliant but generatively dead. Return to the role and rewrite as the person.
 
-**Generative modes:** Most voice profiles define multiple modes (analytical, narrative, direct). The Orient phase determines which mode leads each section. Transitions between modes should follow the article's emotional arc, not alternate mechanically.
+**Generative modes:** Most voice profiles define multiple modes (analytical, narrative, direct). The Design phase determines which mode leads each section. Transitions between modes should follow the article's emotional arc, not alternate mechanically.
 
 **Contextual adaptation:** Voice profiles define how the person adapts to different contexts (peer exchange, teaching, professional). The audience document determines which adaptation applies. An article for leaders encountering an argument for the first time is closer to "group decision-making" or "teaching" mode than to "philosophical exchange" — even when the content is philosophical.
 
@@ -156,7 +156,7 @@ The series outline provides per-article argument guidance: thesis, argument arc,
 
 The outline is an evidence plan organized by logical completeness. The draft is organized by the story. If the outline's sequence serves the story, follow it. If the most compelling content would be buried after extensive setup, restructure.
 
-Orient includes an alternative-structure requirement specifically because the outline's order may not serve the reader's experience.
+Design includes an alternative-structure requirement specifically because the outline's order may not serve the reader's experience.
 
 ---
 

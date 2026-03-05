@@ -1,4 +1,4 @@
-# Phase 5-6-7: Editorial Cycle + Quality Check + Present
+# Phase 5: Editorial Cycle + Quality Check + Present
 
 > **CRITICAL RULES — Read these first:**
 > - **Read the project manifest FIRST.** Load the writing standards module and voice profile from their manifest paths. **Do not proceed without loading both.** This session starts cold — these documents are not in your context unless you load them now.
@@ -14,7 +14,7 @@
 
 ## What This Phase Does
 
-Three sub-phases in one session: multi-round editorial revision (Phase 5), quality standards check (Phase 6), and final presentation (Phase 7). All are revision-focused, operating on the draft artifact.
+Three sub-phases in one session: multi-round editorial revision, quality standards check, and final presentation. All are revision-focused, operating on the draft artifact.
 
 **This session starts cold.** You did not write the draft — a previous session did. You inherit the draft and the process log but not the context that produced them. The activation gate below ensures you have loaded what you need before editing begins.
 
@@ -25,7 +25,7 @@ Three sub-phases in one session: multi-round editorial revision (Phase 5), quali
 1. **Read the project manifest** — locate the voice profile and writing standards paths.
 2. **Load the writing standards module** — from the manifest's writing standards path. Read the full module.
 3. **Load the voice profile** — from the manifest's voice profile path. Read the full document.
-4. **Read `Drafts/article-[N]-plan.md`** — review orientation and comprehension findings.
+4. **Read `Drafts/article-[N]-plan.md`** — review the `<role>` block (your identity assignment), comprehension findings, and the structural plan (metaprompts).
 5. **Read the draft file** — `Drafts/[article-number]-[short-title]-draft-[date].md`.
 6. **Read [references/ARCHITECTURE.md](../ARCHITECTURE.md)** — the full file.
 7. **Read the process log** — `Drafts/article-[N]-process-log.md`. Review self-corrections from the draft phase — these are the draft's known vulnerabilities. **If the log contains structural corrections from user input** (identified by phrases like "user input," "user direction," "structural revision"), these corrections override the original plan entries. Treat them as binding constraints for the editorial cycle, not suggestions.
@@ -33,17 +33,18 @@ Three sub-phases in one session: multi-round editorial revision (Phase 5), quali
 ### Activation GATE
 
 **REQUIRED before any editorial work begins.** Write to the process log:
-- "Writing standards loaded: [filename or baseline name]."
-- "Voice profile loaded: [filename]. Leading generative mode for this draft: [mode from Orient]."
+- "Role block read: [yes]."
+- "Writing standards loaded: [filename]."
+- "Voice profile loaded: [filename]. Leading generative mode for this draft: [mode from role block]."
 - "Process log reviewed. Key self-corrections from draft phase: [list the 2–3 most important]."
-- "Voice check: read draft opening paragraph. Assessment: [does this sound like the person described in the voice profile, or like a competent AI writing about their topics? Could any writer have written this, or could only this person?]"
+- "Voice check: read draft opening paragraph against the role block. Assessment: [does this sound like the person established in the role block, or like a competent AI writing about their topics? Could any writer have written this, or could only this person?]"
 
 If the voice check finds the draft doesn't sound like the person, note this as a CRITICAL finding for Round 1.
 
 ---
 
 <phase_editorial>
-## Phase 5: Editorial Cycle
+## Editorial Cycle
 
 The editorial cycle produces the actual quality. The initial draft is a starting point.
 
@@ -65,7 +66,7 @@ If the role has slipped, this is a CRITICAL or structural finding — not a line
 2. Is every reference intelligible to someone reading only this article?
 3. Are structural claims grounded in the specific situation the article has developed, or are they compressed formulas from research documents?
 4. Does every section advance *this article's* argument?
-5. Does the single thread from Orient connect section to section?
+5. Does the single thread from the story connect section to section?
 6. Where did the agent follow the outline instead of the argument?
 
 **Step 2 — Check framework consistency.** Read the draft's claims against each other. Does the article contradict its own framework anywhere? These contradictions are highest-priority fixes.
@@ -101,7 +102,7 @@ Write to the process log:
 ---
 
 <phase_quality>
-## Phase 6: Quality Check
+## Quality Check
 
 Run the draft against the loaded writing standards and voice profile. **This is not a confirmation pass.** The quality check's purpose is to find problems the editorial cycle missed because it was focused on argument and structure. If the quality check finds nothing, the check was not run rigorously enough.
 
@@ -134,17 +135,17 @@ Write to the process log:
 ---
 
 <phase_present>
-## Phase 7: Present
+## Present
 
 Present the draft to the user with:
 
 1. The draft filepath
 2. The process log filepath
 3. Quality gate outputs — including known weaknesses
-4. The story, emotional arc, and single thread from Orient — so the author can evaluate whether the draft achieved them
+4. The story, emotional arc, and single thread — so the author can evaluate whether the draft achieved them
 5. Connections from Comprehend that didn't make it into the draft — the author may want them
 6. Narrative elements from Comprehend that didn't make it into the draft — the author may want them in revision
-7. Specific questions about editorial decisions where the outline left room
+7. Specific questions about editorial decisions where the plan left room
 8. Places where evidence didn't support what the outline proposed
 9. Patterns from the editorial cycle — recurring error types to watch for
 
@@ -155,7 +156,7 @@ Present the draft to the user with:
 After presenting, wait for the author's response. The author may:
 
 - **Accept** — the skill's work is complete for this session
-- **Provide editorial feedback** — treat as a new editorial round. Re-enter Phase 5 (the editorial cycle continues; it doesn't restart). The log accumulates.
+- **Provide editorial feedback** — treat as a new editorial round. Re-enter the editorial cycle (it continues; it doesn't restart). The log accumulates.
 - **Reject and redirect** — if a fundamental problem (wrong story, wrong evidence emphasis, wrong structure), return to the appropriate earlier phase rather than fixing a draft built on the wrong foundation
 
 Do not proceed or take further action until the author responds.
@@ -166,7 +167,7 @@ Do not proceed or take further action until the author responds.
 ## After This Phase
 
 Update the article plan:
-- Mark Phase 5-6-7 checkbox complete
+- Mark Phase 5 checkbox complete
 - **Current phase:** Complete
 
 The process log and the draft are the deliverables. The log's editorial round tables are the primary record of how the draft evolved.

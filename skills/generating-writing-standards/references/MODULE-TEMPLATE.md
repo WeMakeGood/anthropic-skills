@@ -91,7 +91,15 @@ The three process gates handle the architecture. This backstop catches the LLM's
 
 ### Structural Flags
 
-[Sentence-level or paragraph-level structures that signal genre drift. These are patterns, not individual words. E.g., "A paragraph that opens by summarizing what the article just covered signals report mode, not feature journalism." Include 2-4 structural flags.]
+[Sentence-level or paragraph-level structures that signal genre drift. These are patterns, not individual words. Include 2-4 structural flags.
+
+Two structural flags should always be evaluated during analysis because LLMs produce them even when gates are well-written:
+
+1. **Preview/thesis openings:** A section that opens by stating what it will prove or summarizing what comes next — before the evidence has earned the conclusion. If the publication opens sections through the concrete (a scene, a detail, an event), flag thesis-first openings as genre drift.
+
+2. **Voice stance drift under subject shift:** A passage where the author's established voice stance drops out when the subject changes — describing someone else's experience, reporting on an organization, presenting a case. LLMs default toward journalistic distance whenever the subject shifts. If the publication maintains its voice stance across subject shifts, flag passages where the author becomes an invisible reporter.
+
+Include these only if the analysis confirms the publication follows the non-default convention. If the publication uses thesis-first openings or deliberately shifts register for different subjects, these are not flags — they're the standard.]
 
 ---
 
